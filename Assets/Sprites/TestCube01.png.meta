@@ -6,6 +6,10 @@ TextureImporter:
     21300002: TestCube01_1
     21300004: TestCube01_2
     21300006: TestCube01_3
+    21300008: TestCube01_4
+    21300010: TestCube01_5
+    21300012: TestCube01_6
+    21300014: TestCube01_7
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -103,6 +107,86 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
+        y: 36
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 864cc84c5d77b7b468092c8b71d356d6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TestCube01_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 36
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93b3212fdff00054dbb1b1a0a5bd8178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TestCube01_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 36
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c1840feb4d955a4aa95fb4d97bf76ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TestCube01_3
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 36
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8fbaae14b9b9e0428545a7a35768fcb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TestCube01_4
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 36
         height: 36
@@ -113,13 +197,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00903168df6c8f0499be7eab0326379f
+      spriteID: 7eb79174b50cd234ab2626b55f1a9d17
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TestCube01_1
+      name: TestCube01_5
       rect:
         serializedVersion: 2
         x: 36
@@ -133,13 +217,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4bba922926466e4c87efb4bca1b74a0
+      spriteID: 0ba4db6a2a685ae4c9b0bf72bbc96d97
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TestCube01_2
+      name: TestCube01_6
       rect:
         serializedVersion: 2
         x: 72
@@ -153,13 +237,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 363dbaf4025753b489688cc495e569dc
+      spriteID: 00454b1236393cd43bd2e4f15c936478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TestCube01_3
+      name: TestCube01_7
       rect:
         serializedVersion: 2
         x: 108
@@ -173,7 +257,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82bfac89033e8e0489da11abbb51a99b
+      spriteID: 841a83df56b4c4e4bb1326ec6692fd05
       vertices: []
       indices: 
       edges: []
