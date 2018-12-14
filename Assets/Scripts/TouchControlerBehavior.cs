@@ -34,10 +34,17 @@ public class TouchControlerBehavior : MonoBehaviour
 	                //Debug.Log("Touched " + touchedObject.transform.name);
 	                if (touchedObject.tag == "Button")
 	                {
-	                    touchedObject.GetComponent<TouchControlBehavior>().DoAction();
+	                    if (Input.GetTouch(i).phase == TouchPhase.Ended)
+	                        touchedObject.GetComponent<TouchControlBehavior>().EndAction();
+	                    else if (Input.GetTouch(i).phase == TouchPhase.Began)
+	                        touchedObject.GetComponent<TouchControlBehavior>().BeganAction();
+                        else
+                            touchedObject.GetComponent<TouchControlBehavior>().DoAction();
+                        
 	                }
 	            }
 	        }
 	    }
+
     }
 }
