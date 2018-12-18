@@ -99,11 +99,16 @@ public class TouchControlBehavior : MonoBehaviour
             _ball = GetBall();
         if (_player.GetComponent<PlayerBehavior>().HasTheDisc)
         {
-            _ball.GetComponent<BallBehavior>().Throw(_player.GetComponent<PlayerBehavior>().DirectionalVector + 
-                                                     new Vector2(_player.GetComponent<PlayerBehavior>().ThrowAngle, 0.0f), Player);
+            Invoke("ThrowBallAfterDelay", 0.15f);
 			_player.GetComponent<PlayerBehavior> ().Throw ();
 
         }
+    }
+
+    private void ThrowBallAfterDelay()
+    {
+        _ball.GetComponent<BallBehavior>().Throw(_player.GetComponent<PlayerBehavior>().DirectionalVector +
+                                                 new Vector2(_player.GetComponent<PlayerBehavior>().ThrowAngle, 0.0f), Player);
     }
 
     private void Dash()

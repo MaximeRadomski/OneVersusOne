@@ -121,15 +121,16 @@ public class PlayerBehavior : MonoBehaviour
 		Animator.enabled = true;
 		_hasTheDisc = false;
 		//Animator.SetBool ("IsThrowing", true);
-		Invoke ("ResetThrow", 0.1f);
+        Animator.Play("Player01Throw");
+		Invoke ("ResetThrow", 0.4f);
 	}
 
 	private void ResetThrow()
 	{
 		//Animator.SetBool ("IsThrowing", false);
 		HasTheDisc = false;
-
-	}
+	    Animator.Play("Player01Idle");
+    }
 
 	public void ResetInitialPosition()
 	{

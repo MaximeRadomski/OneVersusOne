@@ -38,14 +38,13 @@ public class AI : MonoBehaviour
 				Move (-0.05f, true);
 			else if (_ball.transform.position.x - 0.2f > transform.position.x)
 				Move (0.05f, false);
-			else
-				StopMoving ();
 		}
 		if (_playerTwo == null)
 			GetPlayers();
 		if (_playerTwo.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
 		{
-			_isThrowing = true;
+		    StopMoving();
+            _isThrowing = true;
 			Invoke ("Throw", 0.5f);
 		}
 	}
@@ -86,9 +85,14 @@ public class AI : MonoBehaviour
 				_playerTwo.GetComponent<PlayerBehavior> ().IncrementAngle ();
 			}
 		}
-		_ball.GetComponent<BallBehavior>().Throw(_playerTwo.GetComponent<PlayerBehavior>().DirectionalVector + 
-			new Vector2(_playerTwo.GetComponent<PlayerBehavior>().ThrowAngle, 0.0f), CurrentPlayer.PlayerTwo);
-		_playerTwo.GetComponent<PlayerBehavior> ().Throw ();
+	    Invoke("ThrowBallAfterDelay", 0.15f);
+        _playerTwo.GetComponent<PlayerBehavior> ().Throw ();
 		_isThrowing = false;
 	}
+
+    private void ThrowBallAfterDelay()
+    {
+        _ball.GetComponent<BallBehavior>().Throw(_playerTwo.GetComponent<PlayerBehavior>().DirectionalVector +
+                                                 new Vector2(_playerTwo.GetComponent<PlayerBehavior>().ThrowAngle, 0.0f), CurrentPlayer.PlayerTwo);
+    }
 }
