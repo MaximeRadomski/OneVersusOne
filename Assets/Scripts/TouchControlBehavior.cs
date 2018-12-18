@@ -17,7 +17,7 @@ public class TouchControlBehavior : MonoBehaviour
         _player = GameObject.Find(GetFocusedPayerName());
         _ball = GameObject.Find("Ball");
         _distanceWall = 1.5f;
-        _distanceDash = 0.5f;
+        _distanceDash = 0.75f;
     }
 
     public void DoAction()
@@ -25,14 +25,18 @@ public class TouchControlBehavior : MonoBehaviour
         switch (Action)
         {
 		case GenericTapAction.Left:
-				if (_player.GetComponent<PlayerBehavior> ().HasTheDisc == false)
-					Move (-0.05f, true);
+				if (_player.GetComponent<PlayerBehavior>().HasTheDisc == false &&
+					_player.GetComponent<BoxCollider2D>().enabled == true &&
+					_player.GetComponent<PlayerBehavior>().CanDash == true)
+					Move (-0.04f, true);
 				else
 					StopMoving ();
                 break;
             case GenericTapAction.Right:
-                if (_player.GetComponent<PlayerBehavior>().HasTheDisc == false)
-                    Move(0.05f, false);
+				if (_player.GetComponent<PlayerBehavior>().HasTheDisc == false &&
+					_player.GetComponent<BoxCollider2D>().enabled == true &&
+					_player.GetComponent<PlayerBehavior>().CanDash == true)
+                    Move(0.04f, false);
 				else
 					StopMoving ();
                 break;
@@ -89,6 +93,8 @@ public class TouchControlBehavior : MonoBehaviour
 
 	private void StopMoving ()
 	{
+		if (_player.GetComponent<PlayerBehavior> ().CanDash == false)
+			return;
 		_player.GetComponent<PlayerBehavior>().IsGoingLeft = false;
 		_player.GetComponent<PlayerBehavior>().IsGoingRight = false;
 	}
@@ -118,12 +124,13 @@ public class TouchControlBehavior : MonoBehaviour
         if (_player.GetComponent<PlayerBehavior>().IsGoingLeft)
         {
             Move(-1.0f * _distanceDash, true);
+			_player.GetComponent<PlayerBehavior>().Dash();
         }
         else if (_player.GetComponent<PlayerBehavior>().IsGoingRight)
         {
             Move(_distanceDash, false);
+			_player.GetComponent<PlayerBehavior>().Dash();
         }
-        _player.GetComponent<PlayerBehavior>().Dash();
     }
 
     private GameObject GetBall()

@@ -13,6 +13,7 @@ public class PlayerBehavior : MonoBehaviour
 	public BoxCollider2D BoxCollider;
 	public SpriteRenderer CurrentSprite;
 	public Sprite[] AngleSprites;
+	public Sprite DashSprite;
 
 	private Quaternion _initialRotation;
 	private Vector3 _initialPosition;
@@ -108,19 +109,27 @@ public class PlayerBehavior : MonoBehaviour
     public void Dash()
     {
         CanDash = false;
+		Animator.enabled = false;
+		CurrentSprite.sprite = DashSprite;
         Invoke("ResetDash", DashCooldown);
     }
 
     private void ResetDash()
     {
         CanDash = true;
+		if (HasTheDisc == false) {
+			IsGoingLeft = false;
+			IsGoingRight = false;
+			Animator.enabled = true;
+			Animator.Play("Player01Idle");
+		}
     }
 
 	public void Throw()
 	{
-		Animator.enabled = true;
 		_hasTheDisc = false;
 		//Animator.SetBool ("IsThrowing", true);
+		Animator.enabled = true;
         Animator.Play("Player01Throw");
 		Invoke ("ResetThrow", 0.4f);
 	}

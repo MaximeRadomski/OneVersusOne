@@ -35,9 +35,9 @@ public class AI : MonoBehaviour
 			return;
 		if (_ball.GetComponent<BallBehavior> ().IsThrownBy == CurrentPlayer.PlayerOne) {
 			if (_ball.transform.position.x + 0.2f < transform.position.x)
-				Move (-0.05f, true);
+				Move (-0.04f, true);
 			else if (_ball.transform.position.x - 0.2f > transform.position.x)
-				Move (0.05f, false);
+				Move (0.04f, false);
 		}
 		if (_playerTwo == null)
 			GetPlayers();
