@@ -6,10 +6,26 @@ public class TouchControlerBehavior : MonoBehaviour
 {
 
     private Vector3 _touchPosWorld;
+
+	private GameObject _leftP1;
+	private GameObject _rightP1;
+	private GameObject _specialP1;
+	private GameObject _throwP1;
+	/*private GameObject _leftP2;
+	private GameObject _rightP2;
+	private GameObject _specialP2;
+	private GameObject _throwP2;*/
     
     void Start ()
 	{
-		
+		_leftP1 = GameObject.Find ("LeftP1");
+		_rightP1 = GameObject.Find ("RightP1");
+		_specialP1 = GameObject.Find ("SpecialP1");
+		_throwP1 = GameObject.Find ("ThrowP1");
+		/*_leftP2 = GameObject.Find ("LeftP2");
+		_rightP2 = GameObject.Find ("RightP2");
+		_specialP2 = GameObject.Find ("SpecialP2");
+		_throwP2 = GameObject.Find ("ThrowP2");*/
 	}
 	
 	void Update ()
@@ -46,5 +62,24 @@ public class TouchControlerBehavior : MonoBehaviour
 	        }
 	    }
 
+
+		if (Input.GetButtonDown("LeftP1"))
+			_leftP1.GetComponent<TouchControlBehavior> ().BeganAction ();
+		else if (Input.GetButtonDown("RightP1"))
+			_rightP1.GetComponent<TouchControlBehavior> ().BeganAction ();
+		else if (Input.GetButton("LeftP1"))
+			_leftP1.GetComponent<TouchControlBehavior> ().DoAction ();
+		else if (Input.GetButton("RightP1"))
+			_rightP1.GetComponent<TouchControlBehavior> ().DoAction ();
+		else if (Input.GetButtonUp("LeftP1"))
+			_leftP1.GetComponent<TouchControlBehavior> ().EndAction ();
+		else if (Input.GetButtonUp("RightP1"))
+			_rightP1.GetComponent<TouchControlBehavior> ().EndAction ();
+
+		if (Input.GetButtonDown("ThrowP1"))
+			_throwP1.GetComponent<TouchControlBehavior> ().BeganAction ();
+
+		if (Input.GetButtonDown("SpecialP1"))
+			_specialP1.GetComponent<TouchControlBehavior> ().EndAction ();
     }
 }

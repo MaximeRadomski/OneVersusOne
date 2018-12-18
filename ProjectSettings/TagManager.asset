@@ -41,6 +41,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 699502769
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Disc
+    uniqueID: 4183748005
+    locked: 0
+  - name: TopLayer
+    uniqueID: 2317755919
     locked: 0

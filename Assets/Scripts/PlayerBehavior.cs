@@ -5,19 +5,74 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour
 {
     public CurrentPlayer Player;
-    public bool IsGoingLeft, IsGoingRight;
-    public bool HasTheDisc;
     public Vector2 DirectionalVector;
     public bool CanDash = true;
     public float DashCooldown;
     public float ThrowAngle;
+	public Animator Animator;
+	public BoxCollider2D BoxCollider;
+	public SpriteRenderer CurrentSprite;
+	public Sprite[] AngleSprites;
+
+	private Quaternion _initialRotation;
+	private Vector3 _initialPosition;
+	private bool _isGoingLeft, _isGoingRight, _hasTheDisc;
+
+	public bool IsGoingLeft	{
+		get	{
+			return _isGoingLeft;
+		}
+		set {
+			_isGoingLeft = value;
+			SetOrientation ();
+		}
+	}
+
+	public bool IsGoingRight {
+		get	{
+			return _isGoingRight;
+		}
+		set {
+			_isGoingRight = value;
+			SetOrientation ();
+		}
+	}
+
+	public bool HasTheDisc {
+		get {
+			return _hasTheDisc;
+		}
+		set {
+			_hasTheDisc = value;
+			if (_hasTheDisc == true) {
+				Animator.enabled = false;
+				BoxCollider.enabled = false;
+				CurrentSprite.sprite = AngleSprites [2];
+			} else {
+				Animator.enabled = true;
+				BoxCollider.enabled = true;
+			}
+		}
+	}
 
 	void Start ()
 	{
-		if (Player == CurrentPlayer.PlayerOne)
-            DirectionalVector = Vector2.up;
-        else
-            DirectionalVector = Vector2.down;
+		_initialPosition = transform.position;
+		_initialRotation = transform.rotation;
+	}
+
+	private void SetOrientation ()
+	{
+		if (_isGoingLeft) {
+			transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f); 
+			Animator.SetBool ("IsMoving", true);
+		} else if (_isGoingRight) {
+			transform.rotation = Quaternion.Euler(0.0f, 0.0f, -90.0f); 
+			Animator.SetBool ("IsMoving", true);
+		} else {
+			transform.rotation = _initialRotation;
+			Animator.SetBool ("IsMoving", false);
+		}
 	}
 
     public void IncrementAngle()
@@ -25,6 +80,7 @@ public class PlayerBehavior : MonoBehaviour
         var tmpThrowAngle = ThrowAngle + 0.5f;
         if (tmpThrowAngle >= -1.5f && tmpThrowAngle <= 1.5f)
             ThrowAngle = tmpThrowAngle;
+		SetSpriteFromAngle ();
     }
 
     public void DecrementAngle()
@@ -32,7 +88,22 @@ public class PlayerBehavior : MonoBehaviour
         var tmpThrowAngle = ThrowAngle - 0.5f;
         if (tmpThrowAngle >= -1.5f && tmpThrowAngle <= 1.5f)
             ThrowAngle = tmpThrowAngle;
+		SetSpriteFromAngle ();
     }
+
+	private void SetSpriteFromAngle ()
+	{
+		if (ThrowAngle <= -1.0f)
+			CurrentSprite.sprite = AngleSprites [0];
+		else if (ThrowAngle == -0.5f)
+			CurrentSprite.sprite = AngleSprites [1];
+		else if (ThrowAngle == 0.0f)
+			CurrentSprite.sprite = AngleSprites [2];
+		else if (ThrowAngle == 0.5f)
+			CurrentSprite.sprite = AngleSprites [3];
+		else if (ThrowAngle >= 1.5f)
+			CurrentSprite.sprite = AngleSprites [4];
+	}
 
     public void Dash()
     {
@@ -44,5 +115,25 @@ public class PlayerBehavior : MonoBehaviour
     {
         CanDash = true;
     }
+
+	public void Throw()
+	{
+		Animator.enabled = true;
+		_hasTheDisc = false;
+		//Animator.SetBool ("IsThrowing", true);
+		Invoke ("ResetThrow", 0.1f);
+	}
+
+	private void ResetThrow()
+	{
+		//Animator.SetBool ("IsThrowing", false);
+		HasTheDisc = false;
+
+	}
+
+	public void ResetInitialPosition()
+	{
+		transform.position = _initialPosition;
+	}
 
 }

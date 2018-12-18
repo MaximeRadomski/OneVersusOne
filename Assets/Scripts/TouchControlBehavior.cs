@@ -16,7 +16,7 @@ public class TouchControlBehavior : MonoBehaviour
     {
         _player = GameObject.Find(GetFocusedPayerName());
         _ball = GameObject.Find("Ball");
-        _distanceWall = 1.68f;
+        _distanceWall = 1.5f;
         _distanceDash = 0.5f;
     }
 
@@ -24,17 +24,17 @@ public class TouchControlBehavior : MonoBehaviour
     {
         switch (Action)
         {
-            case GenericTapAction.Left:
-                if (_player.GetComponent<PlayerBehavior>().HasTheDisc == false)
-                    Move(-0.05f, true);
-                else
-                    Move(-0.01f, true);
+		case GenericTapAction.Left:
+				if (_player.GetComponent<PlayerBehavior> ().HasTheDisc == false)
+					Move (-0.05f, true);
+				else
+					StopMoving ();
                 break;
             case GenericTapAction.Right:
                 if (_player.GetComponent<PlayerBehavior>().HasTheDisc == false)
-                    Move(0.05f, true);
-                else
-                    Move(0.01f, true);
+                    Move(0.05f, false);
+				else
+					StopMoving ();
                 break;
         }
     }
@@ -64,14 +64,15 @@ public class TouchControlBehavior : MonoBehaviour
     {
         switch (Action)
         {
-            case GenericTapAction.Left:
-                _player.GetComponent<PlayerBehavior>().IsGoingLeft = false;
-                _player.GetComponent<PlayerBehavior>().IsGoingRight = false;
+			case GenericTapAction.Left:
+				StopMoving ();
                 break;
             case GenericTapAction.Right:
-                _player.GetComponent<PlayerBehavior>().IsGoingLeft = false;
-                _player.GetComponent<PlayerBehavior>().IsGoingRight = false;
+				StopMoving ();
                 break;
+			case GenericTapAction.Special:
+				ActivateAI ();
+				break;
         }
     }
 
@@ -86,6 +87,12 @@ public class TouchControlBehavior : MonoBehaviour
             _player.transform.position = new Vector3(_distanceWall, _player.transform.position.y, 0.0f);
     }
 
+	private void StopMoving ()
+	{
+		_player.GetComponent<PlayerBehavior>().IsGoingLeft = false;
+		_player.GetComponent<PlayerBehavior>().IsGoingRight = false;
+	}
+
     private void Throw()
     {
         if (_ball == null)
@@ -93,8 +100,9 @@ public class TouchControlBehavior : MonoBehaviour
         if (_player.GetComponent<PlayerBehavior>().HasTheDisc)
         {
             _ball.GetComponent<BallBehavior>().Throw(_player.GetComponent<PlayerBehavior>().DirectionalVector + 
-                                                     new Vector2(_player.GetComponent<PlayerBehavior>().ThrowAngle, 0.0f));
-            _player.GetComponent<PlayerBehavior>().HasTheDisc = false;
+                                                     new Vector2(_player.GetComponent<PlayerBehavior>().ThrowAngle, 0.0f), Player);
+			_player.GetComponent<PlayerBehavior> ().Throw ();
+
         }
     }
 
@@ -124,6 +132,14 @@ public class TouchControlBehavior : MonoBehaviour
             return "PlayerOne";
         return "PlayerTwo";
     }
+
+	private void ActivateAI()
+	{
+		if (GameObject.Find ("PlayerTwo").GetComponent<AI> ().enabled == false)
+			GameObject.Find ("PlayerTwo").GetComponent<AI> ().enabled = true;
+		else
+			GameObject.Find ("PlayerTwo").GetComponent<AI> ().enabled = false;
+	}
 
     public enum GenericTapAction
     {

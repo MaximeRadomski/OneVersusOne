@@ -6,14 +6,23 @@ public class GameManagerBehavior : MonoBehaviour
 {
     public GameObject Ball;
 
+	private string _playerName;
+
+	//private GameObject _playerOne, _playerTwo;
+
 	void Start ()
 	{
-		PlaceBall(CurrentPlayer.PlayerOne.ToString());
+		//_playerOne = GameObject.Find ("PlayerOne");
+		//_playerTwo = GameObject.Find ("PlayerTwo");
+		_playerName = CurrentPlayer.PlayerOne.ToString();
+		PlaceBall();
 	}
 
-    private void PlaceBall(string playerName)
+    private void PlaceBall()
     {
-        var currentPlayer = GameObject.Find(playerName);
+		if (BallAlreadyExists())
+			return;
+        var currentPlayer = GameObject.Find(_playerName);
         float positionXMultiplier = 1.0f;
         if (currentPlayer.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerOne)
             positionXMultiplier = -1.0f;
@@ -24,10 +33,20 @@ public class GameManagerBehavior : MonoBehaviour
         else
             currentBall.GetComponent<BallBehavior>().IsLinkedToPlayerTwo = true;
         currentPlayer.GetComponent<PlayerBehavior>().HasTheDisc = true;
+		//_playerOne.GetComponent<PlayerBehavior> ().ResetInitialPosition ();
+		//_playerTwo.GetComponent<PlayerBehavior> ().ResetInitialPosition ();
     }
+
+	public bool BallAlreadyExists()
+	{
+		if (GameObject.Find ("Ball") != null)
+			return true;
+		return false;
+	}
 
     public void NewSet(CurrentPlayer Looser)
     {
-        PlaceBall(Looser.ToString());
+		_playerName = Looser.ToString ();
+		Invoke("PlaceBall", 1.0f);
     }
 }
