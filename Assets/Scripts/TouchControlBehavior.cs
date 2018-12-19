@@ -22,7 +22,7 @@ public class TouchControlBehavior : MonoBehaviour
 		        _player.GetComponent<PlayerBehavior>().Move(Direction.Left);
                 break;
             case GenericTapAction.Right:
-                _player.GetComponent<PlayerBehavior>().Move(Direction.Left);
+                _player.GetComponent<PlayerBehavior>().Move(Direction.Right);
                 break;
         }
     }

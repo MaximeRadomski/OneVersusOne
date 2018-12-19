@@ -41,11 +41,6 @@ public class PlayerBehavior : MonoBehaviour
 	    _ball = GetBall();
 	}
 
-    void Update()
-    {
-        SetOrientation();
-    }
-
     private GameObject GetBall()
     {
         return GameObject.Find("Ball");
@@ -61,6 +56,7 @@ public class PlayerBehavior : MonoBehaviour
             distance = -WalkDistance;
 
         Direction = direction;
+		SetOrientation ();
         transform.position += new Vector3(distance, 0.0f, 0.0f);
         if (transform.position.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
@@ -73,6 +69,7 @@ public class PlayerBehavior : MonoBehaviour
         if (IsDashing == true)
             return;
         Direction = Direction.Standby;
+		SetOrientation ();
     }
 
     private void SetOrientation ()
@@ -133,6 +130,7 @@ public class PlayerBehavior : MonoBehaviour
         if (Direction == Direction.Left)
             distance = -DashDistance;
 
+		SetOrientation ();
         transform.position += new Vector3(distance, 0.0f, 0.0f);
         if (transform.position.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
@@ -148,6 +146,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         IsDashing = false;
         Direction = Direction.Standby;
+		SetOrientation ();
         /*if (HasTheDisc == false)
 		{
 		    Direction = Direction.Standby;
@@ -155,6 +154,16 @@ public class PlayerBehavior : MonoBehaviour
 			Animator.Play("Player01Idle");
 		}*/
     }
+
+	public void GetTheDisc()
+	{
+		HasTheDisc = true;
+		_throwAngle = 0.0f;
+		Animator.enabled = false;
+		CurrentSprite.sprite = AngleSprites [2];
+		Direction = Direction.Standby;
+		SetOrientation ();
+	}
 
 	public void Throw()
 	{
@@ -164,7 +173,6 @@ public class PlayerBehavior : MonoBehaviour
 	        return;
 	    }
 	    Invoke("ThrowBallAfterDelay", 0.15f);
-        HasTheDisc = false;
 		Animator.enabled = true;
         Animator.Play("Player01Throw");
 		Invoke ("ResetThrow", 0.4f);

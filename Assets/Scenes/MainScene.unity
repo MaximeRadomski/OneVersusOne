@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ball: {fileID: 1676620111479768, guid: bb7829b91632d9e4a803a55fdf671c19, type: 2}
+  DistanceWall: 1.5
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0
@@ -2235,10 +2236,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: 0
-  DirectionalVector: {x: 0, y: 1}
-  CanDash: 1
+  Direction: 2
+  IsDashing: 0
+  HasTheDisc: 0
   DashCooldown: 0.5
-  ThrowAngle: 0
+  WalkDistance: 0.03
+  DashDistance: 1
+  Power: 2
   Animator: {fileID: 1149819875}
   BoxCollider: {fileID: 1149819872}
   CurrentSprite: {fileID: 1149819871}
@@ -2947,10 +2951,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: 1
-  DirectionalVector: {x: 0, y: -1}
-  CanDash: 1
+  Direction: 2
+  IsDashing: 0
+  HasTheDisc: 0
   DashCooldown: 0.5
-  ThrowAngle: 0
+  WalkDistance: 0.03
+  DashDistance: 1
+  Power: 2
   Animator: {fileID: 1827363928}
   BoxCollider: {fileID: 1827363931}
   CurrentSprite: {fileID: 1827363932}

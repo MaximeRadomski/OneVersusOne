@@ -5,5 +5,6 @@ using UnityEngine;
 public enum CurrentPlayer
 {
     PlayerOne,
-    PlayerTwo
+    PlayerTwo,
+	None
 }

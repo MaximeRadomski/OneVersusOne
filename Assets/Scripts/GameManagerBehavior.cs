@@ -20,16 +20,10 @@ public class GameManagerBehavior : MonoBehaviour
 		if (BallAlreadyExists())
 			return;
         var currentPlayer = GameObject.Find(_playerName);
-        float positionXMultiplier = 1.0f;
-        if (currentPlayer.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerOne)
-            positionXMultiplier = -1.0f;
-        var currentBall = Instantiate(Ball, new Vector3(currentPlayer.transform.position.x, 2.0f * positionXMultiplier, 0.0f), Ball.transform.rotation);
+        var currentBall = Instantiate(Ball, new Vector3(0.0f, 0.0f, 0.0f), Ball.transform.rotation);
         currentBall.transform.name = "Ball";
-        if (currentPlayer.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerOne)
-            currentBall.GetComponent<BallBehavior>().IsLinkedToPlayerOne = true;
-        else
-            currentBall.GetComponent<BallBehavior>().IsLinkedToPlayerTwo = true;
-        currentPlayer.GetComponent<PlayerBehavior>().HasTheDisc = true;
+		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;
+		currentPlayer.GetComponent<PlayerBehavior>().GetTheDisc();
     }
 
 	public bool BallAlreadyExists()
