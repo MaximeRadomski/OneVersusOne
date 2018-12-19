@@ -5,11 +5,17 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour
 {
     public CurrentPlayer Player;
-    public Vector2 DirectionalVector;
-    public bool CanDash = true;
+    public Direction Direction;
+
+    public bool IsDashing;
+    public bool HasTheDisc;
+
     public float DashCooldown;
-    public float ThrowAngle;
-	public Animator Animator;
+    public float WalkDistance;
+    public float DashDistance;
+    public float Power;
+
+    public Animator Animator;
 	public BoxCollider2D BoxCollider;
 	public SpriteRenderer CurrentSprite;
 	public Sprite[] AngleSprites;
@@ -17,57 +23,64 @@ public class PlayerBehavior : MonoBehaviour
 
 	private Quaternion _initialRotation;
 	private Vector3 _initialPosition;
-	private bool _isGoingLeft, _isGoingRight, _hasTheDisc;
-
-	public bool IsGoingLeft	{
-		get	{
-			return _isGoingLeft;
-		}
-		set {
-			_isGoingLeft = value;
-			SetOrientation ();
-		}
-	}
-
-	public bool IsGoingRight {
-		get	{
-			return _isGoingRight;
-		}
-		set {
-			_isGoingRight = value;
-			SetOrientation ();
-		}
-	}
-
-	public bool HasTheDisc {
-		get {
-			return _hasTheDisc;
-		}
-		set {
-			_hasTheDisc = value;
-			if (_hasTheDisc == true) {
-				Animator.enabled = false;
-				BoxCollider.enabled = false;
-				CurrentSprite.sprite = AngleSprites [2];
-			} else {
-				Animator.enabled = true;
-				BoxCollider.enabled = true;
-			}
-		}
-	}
+    private Vector2 _directionalVector;
+    private float _throwAngle;
+    private GameObject _gameManager;
+    private GameObject _ball;
 
 	void Start ()
 	{
 		_initialPosition = transform.position;
 		_initialRotation = transform.rotation;
+        if (Player == CurrentPlayer.PlayerOne)
+            _directionalVector = Vector2.up;
+        else
+            _directionalVector = Vector2.down;
+	    _throwAngle = 0;
+        _gameManager = GameObject.Find("$GameManager");
+	    _ball = GetBall();
 	}
 
-	private void SetOrientation ()
+    void Update()
+    {
+        SetOrientation();
+    }
+
+    private GameObject GetBall()
+    {
+        return GameObject.Find("Ball");
+    }
+
+    public void Move(Direction direction)
+    {
+        if (HasTheDisc || IsDashing)
+            return;
+
+        float distance = WalkDistance;
+        if (direction == Direction.Left)
+            distance = -WalkDistance;
+
+        Direction = direction;
+        transform.position += new Vector3(distance, 0.0f, 0.0f);
+        if (transform.position.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
+            transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
+        if (transform.position.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
+            transform.position = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
+    }
+
+    public void Standby()
+    {
+        if (IsDashing == true)
+            return;
+        Direction = Direction.Standby;
+    }
+
+    private void SetOrientation ()
 	{
-		if (_isGoingLeft) {
+		if (Direction == Direction.Left) {
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f); 
 			Animator.SetBool ("IsMoving", true);
-		} else if (_isGoingRight) {
+		} else if (Direction == Direction.Right) {
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, -90.0f); 
 			Animator.SetBool ("IsMoving", true);
 		} else {
@@ -78,57 +91,80 @@ public class PlayerBehavior : MonoBehaviour
 
     public void IncrementAngle()
     {
-        var tmpThrowAngle = ThrowAngle + 0.5f;
+        if (!HasTheDisc)
+            return;
+        var tmpThrowAngle = _throwAngle + 0.5f;
         if (tmpThrowAngle >= -1.5f && tmpThrowAngle <= 1.5f)
-            ThrowAngle = tmpThrowAngle;
+            _throwAngle = tmpThrowAngle;
 		SetSpriteFromAngle ();
     }
 
     public void DecrementAngle()
     {
-        var tmpThrowAngle = ThrowAngle - 0.5f;
+        if (!HasTheDisc)
+            return;
+        var tmpThrowAngle = _throwAngle - 0.5f;
         if (tmpThrowAngle >= -1.5f && tmpThrowAngle <= 1.5f)
-            ThrowAngle = tmpThrowAngle;
+            _throwAngle = tmpThrowAngle;
 		SetSpriteFromAngle ();
     }
 
 	private void SetSpriteFromAngle ()
 	{
-		if (ThrowAngle <= -1.0f)
+		if (_throwAngle <= -1.0f)
 			CurrentSprite.sprite = AngleSprites [0];
-		else if (ThrowAngle == -0.5f)
+		else if (_throwAngle == -0.5f)
 			CurrentSprite.sprite = AngleSprites [1];
-		else if (ThrowAngle == 0.0f)
+		else if (_throwAngle == 0.0f)
 			CurrentSprite.sprite = AngleSprites [2];
-		else if (ThrowAngle == 0.5f)
+		else if (_throwAngle == 0.5f)
 			CurrentSprite.sprite = AngleSprites [3];
-		else if (ThrowAngle >= 1.5f)
+		else if (_throwAngle >= 1.5f)
 			CurrentSprite.sprite = AngleSprites [4];
 	}
 
     public void Dash()
     {
-        CanDash = false;
-		Animator.enabled = false;
-		CurrentSprite.sprite = DashSprite;
+        if (IsDashing)
+            return;
+
+        IsDashing = true;
+        float distance = DashDistance;
+        if (Direction == Direction.Left)
+            distance = -DashDistance;
+
+        transform.position += new Vector3(distance, 0.0f, 0.0f);
+        if (transform.position.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
+            transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
+        if (transform.position.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
+            transform.position = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
+
+		/*Animator.enabled = false;
+		CurrentSprite.sprite = DashSprite;*/
         Invoke("ResetDash", DashCooldown);
     }
 
     private void ResetDash()
     {
-        CanDash = true;
-		if (HasTheDisc == false) {
-			IsGoingLeft = false;
-			IsGoingRight = false;
+        IsDashing = false;
+        Direction = Direction.Standby;
+        /*if (HasTheDisc == false)
+		{
+		    Direction = Direction.Standby;
 			Animator.enabled = true;
 			Animator.Play("Player01Idle");
-		}
+		}*/
     }
 
 	public void Throw()
 	{
-		_hasTheDisc = false;
-		//Animator.SetBool ("IsThrowing", true);
+	    if (!HasTheDisc)
+	    {
+	        Dash();
+	        return;
+	    }
+	    Invoke("ThrowBallAfterDelay", 0.15f);
+        HasTheDisc = false;
 		Animator.enabled = true;
         Animator.Play("Player01Throw");
 		Invoke ("ResetThrow", 0.4f);
@@ -136,12 +172,19 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void ResetThrow()
 	{
-		//Animator.SetBool ("IsThrowing", false);
 		HasTheDisc = false;
 	    Animator.Play("Player01Idle");
     }
 
-	public void ResetInitialPosition()
+    private void ThrowBallAfterDelay()
+    {
+        if (_ball == null)
+            _ball = GetBall();
+        _ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power);
+        _throwAngle = 0;
+    }
+
+    public void ResetInitialPosition()
 	{
 		transform.position = _initialPosition;
 	}

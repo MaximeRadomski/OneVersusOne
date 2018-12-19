@@ -79,13 +79,13 @@ public class BallBehavior : MonoBehaviour
         return null;
     }
 
-	public void Throw(Vector2 direction, CurrentPlayer throwingPlayer)
+	public void Throw(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower)
     {
 		IsThrownBy = throwingPlayer;
         IsLinkedToPlayerOne = false;
         IsLinkedToPlayerTwo = false;
 		float speedQuarter = Speed / 4;
 		float customSpeed = Speed - (Mathf.Abs(direction.x) * speedQuarter);
-        GetComponent<Rigidbody2D>().velocity = direction * customSpeed;
+        GetComponent<Rigidbody2D>().velocity = direction * (customSpeed + addedPower);
     }
 }

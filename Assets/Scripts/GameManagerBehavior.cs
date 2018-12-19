@@ -5,15 +5,12 @@ using UnityEngine;
 public class GameManagerBehavior : MonoBehaviour
 {
     public GameObject Ball;
+    public float DistanceWall;
 
-	private string _playerName;
-
-	//private GameObject _playerOne, _playerTwo;
+    private string _playerName;
 
 	void Start ()
 	{
-		//_playerOne = GameObject.Find ("PlayerOne");
-		//_playerTwo = GameObject.Find ("PlayerTwo");
 		_playerName = CurrentPlayer.PlayerOne.ToString();
 		PlaceBall();
 	}
@@ -33,8 +30,6 @@ public class GameManagerBehavior : MonoBehaviour
         else
             currentBall.GetComponent<BallBehavior>().IsLinkedToPlayerTwo = true;
         currentPlayer.GetComponent<PlayerBehavior>().HasTheDisc = true;
-		//_playerOne.GetComponent<PlayerBehavior> ().ResetInitialPosition ();
-		//_playerTwo.GetComponent<PlayerBehavior> ().ResetInitialPosition ();
     }
 
 	public bool BallAlreadyExists()
