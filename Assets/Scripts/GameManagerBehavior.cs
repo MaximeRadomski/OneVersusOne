@@ -6,6 +6,7 @@ public class GameManagerBehavior : MonoBehaviour
 {
     public GameObject Ball;
     public float DistanceWall;
+    public bool IsGoal;
 
     private string _playerName;
 

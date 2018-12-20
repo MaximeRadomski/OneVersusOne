@@ -27,6 +27,7 @@ public class PlayerBehavior : MonoBehaviour
     private float _throwAngle;
     private GameObject _gameManager;
     private GameObject _ball;
+    private Vector3 _dashingEnd;
 
 	void Start ()
 	{
@@ -41,6 +42,35 @@ public class PlayerBehavior : MonoBehaviour
 	    _ball = GetBall();
 	}
 
+    void Update()
+    {
+        if (IsDashing)
+        {
+            if (HasTheDisc)
+                ResetDash();
+
+            float distance = WalkDistance;
+            if (Direction == Direction.Left)
+                distance = -distance;
+
+            SetOrientation();
+            if (Vector3.Distance(transform.position, _dashingEnd) > 0.1f)
+            {
+                transform.position += new Vector3(distance * 3.0f, 0.0f, 0.0f);
+            }
+            else
+            {
+                IsDashing = false;
+            }
+
+            /*_dashingEnd = transform.position + new Vector3(distance, 0.0f, 0.0f);
+            if (_dashingEnd.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
+                _dashingEnd = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);
+            if (_dashingEnd.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
+                _dashingEnd = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);*/
+        }
+    }
+
     private GameObject GetBall()
     {
         return GameObject.Find("Ball");
@@ -53,7 +83,7 @@ public class PlayerBehavior : MonoBehaviour
 
         float distance = WalkDistance;
         if (direction == Direction.Left)
-            distance = -WalkDistance;
+            distance = -distance;
 
         Direction = direction;
 		SetOrientation ();
@@ -122,23 +152,23 @@ public class PlayerBehavior : MonoBehaviour
 
     public void Dash()
     {
-        if (IsDashing)
+        if (IsDashing || Direction == Direction.Standby)
             return;
 
         IsDashing = true;
         float distance = DashDistance;
         if (Direction == Direction.Left)
-            distance = -DashDistance;
+            distance = -distance;
 
 		SetOrientation ();
-        transform.position += new Vector3(distance, 0.0f, 0.0f);
-        if (transform.position.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
-            transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
-        if (transform.position.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
-            transform.position = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
+        _dashingEnd = transform.position + new Vector3(distance, 0.0f, 0.0f);
+        if (_dashingEnd.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
+            _dashingEnd = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);
+        if (_dashingEnd.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
+            _dashingEnd = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);
 
-		/*Animator.enabled = false;
-		CurrentSprite.sprite = DashSprite;*/
+		Animator.enabled = false;
+		CurrentSprite.sprite = DashSprite;
         Invoke("ResetDash", DashCooldown);
     }
 
@@ -147,12 +177,11 @@ public class PlayerBehavior : MonoBehaviour
         IsDashing = false;
         Direction = Direction.Standby;
 		SetOrientation ();
-        /*if (HasTheDisc == false)
+        if (HasTheDisc == false)
 		{
-		    Direction = Direction.Standby;
 			Animator.enabled = true;
 			Animator.Play("Player01Idle");
-		}*/
+		}
     }
 
 	public void GetTheDisc()
@@ -180,8 +209,8 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void ResetThrow()
 	{
-		HasTheDisc = false;
-	    Animator.Play("Player01Idle");
+	    HasTheDisc = false;
+        Animator.Play("Player01Idle");
     }
 
     private void ThrowBallAfterDelay()

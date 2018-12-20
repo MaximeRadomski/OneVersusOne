@@ -2954,7 +2954,7 @@ MonoBehaviour:
   Direction: 2
   IsDashing: 0
   HasTheDisc: 0
-  DashCooldown: 0.5
+  DashCooldown: 0.2
   WalkDistance: 0.03
   DashDistance: 1
   Power: 2

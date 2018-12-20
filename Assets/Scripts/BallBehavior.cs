@@ -21,7 +21,8 @@ public class BallBehavior : MonoBehaviour
 	    //GetComponent<Rigidbody2D>().velocity = Vector2.up * Speed;
         _gameManager = GameObject.Find("$GameManager");
 		_catchCount = -1; //-1 because the first collision counts when serving
-    }
+	    IsThrownBy = CurrentPlayer.None;
+	}
 
     void Update()
     {
@@ -51,6 +52,7 @@ public class BallBehavior : MonoBehaviour
 			_linkedPlayer.GetComponent<PlayerBehavior>().GetTheDisc();
 			if (++_catchCount % 2 == 0 && _catchCount != 0) // "_catchcount != 0" because it starts at -1
 				Speed += 0.5f;
+            IsThrownBy = CurrentPlayer.None;
         }
         else if (col.gameObject.tag == "Goal")
         {
