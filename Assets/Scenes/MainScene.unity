@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ball: {fileID: 1676620111479768, guid: bb7829b91632d9e4a803a55fdf671c19, type: 2}
   DistanceWall: 1.5
+  IsGoal: 0
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0
@@ -683,8 +684,9 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -697,6 +699,18 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f45d8c0c8ed86846a617a0b5c04806c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 519420031}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -2239,7 +2253,6 @@ MonoBehaviour:
   Direction: 2
   IsDashing: 0
   HasTheDisc: 0
-  DashCooldown: 0.5
   WalkDistance: 0.03
   DashDistance: 1
   Power: 2
@@ -2954,7 +2967,6 @@ MonoBehaviour:
   Direction: 2
   IsDashing: 0
   HasTheDisc: 0
-  DashCooldown: 0.2
   WalkDistance: 0.03
   DashDistance: 1
   Power: 2
@@ -2962,11 +2974,11 @@ MonoBehaviour:
   BoxCollider: {fileID: 1827363931}
   CurrentSprite: {fileID: 1827363932}
   AngleSprites:
-  - {fileID: 21300008, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300006, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300004, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300002, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
   - {fileID: 21300000, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
+  - {fileID: 21300002, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
+  - {fileID: 21300004, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
+  - {fileID: 21300006, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
+  - {fileID: 21300008, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
   DashSprite: {fileID: 21300000, guid: 3c93a6a2f534c77499c4869dbcc41e35, type: 3}
 --- !u!50 &1827363930
 Rigidbody2D:

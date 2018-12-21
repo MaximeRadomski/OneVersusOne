@@ -11,6 +11,7 @@ public class BallBehavior : MonoBehaviour
 
     private GameObject _linkedPlayer;
     private GameObject _gameManager;
+    private GameObject _camera;
     private float _spaceYFromPlayer = 1.55f;
 	private float _spaceXFromPlayer = 0.125f;
 	private int _catchCount;
@@ -20,6 +21,7 @@ public class BallBehavior : MonoBehaviour
 	    // Initial Velocity
 	    //GetComponent<Rigidbody2D>().velocity = Vector2.up * Speed;
         _gameManager = GameObject.Find("$GameManager");
+        _camera = GameObject.Find("Camera");
 		_catchCount = -1; //-1 because the first collision counts when serving
 	    IsThrownBy = CurrentPlayer.None;
 	}
@@ -56,6 +58,7 @@ public class BallBehavior : MonoBehaviour
         }
         else if (col.gameObject.tag == "Goal")
         {
+            _camera.GetComponent<CameraBehavior>().GoalHit();
 			col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
             _gameManager.GetComponent<GameManagerBehavior>().NewSet(
                 col.gameObject.GetComponent<GoalBehavior>().Player);
@@ -63,6 +66,7 @@ public class BallBehavior : MonoBehaviour
         }
 		else if (col.gameObject.tag == "Wall")
 		{
+            _camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<WallBehavior>().WallHit();
 		}
     }

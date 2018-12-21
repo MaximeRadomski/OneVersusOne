@@ -10,7 +10,6 @@ public class PlayerBehavior : MonoBehaviour
     public bool IsDashing;
     public bool HasTheDisc;
 
-    public float DashCooldown;
     public float WalkDistance;
     public float DashDistance;
     public float Power;
@@ -27,47 +26,69 @@ public class PlayerBehavior : MonoBehaviour
     private float _throwAngle;
     private GameObject _gameManager;
     private GameObject _ball;
+    private Vector3 _dashingStart;
     private Vector3 _dashingEnd;
+    private Direction _dashingDirection;
+    private float _dashCooldown;
+    private bool _canDash;
 
-	void Start ()
+    void Start ()
 	{
 		_initialPosition = transform.position;
 		_initialRotation = transform.rotation;
         if (Player == CurrentPlayer.PlayerOne)
             _directionalVector = Vector2.up;
-        else
+	    else
+        {
+            SetPlayerTwoAngleSprites();
             _directionalVector = Vector2.down;
+        }
 	    _throwAngle = 0;
         _gameManager = GameObject.Find("$GameManager");
 	    _ball = GetBall();
+        _dashingDirection = Direction.Standby;
+	    _dashCooldown = 0.75f;
+	    _canDash = true;
 	}
+
+    private void SetPlayerTwoAngleSprites()
+    {
+        var tmpSprite = AngleSprites[0];
+        AngleSprites[0] = AngleSprites[4];
+        AngleSprites[4] = tmpSprite;
+        tmpSprite = AngleSprites[1];
+        AngleSprites[1] = AngleSprites[3];
+        AngleSprites[3] = tmpSprite;
+    }
 
     void Update()
     {
         if (IsDashing)
         {
             if (HasTheDisc)
-                ResetDash();
+                EndDash();
 
             float distance = WalkDistance;
-            if (Direction == Direction.Left)
+            if (_dashingDirection == Direction.Left)
                 distance = -distance;
 
-            SetOrientation();
-            if (Vector3.Distance(transform.position, _dashingEnd) > 0.1f)
+            if ((_dashingStart.x < _dashingEnd.x && transform.position.x < _dashingEnd.x - DashDistance / 3) ||
+                (_dashingStart.x > _dashingEnd.x && transform.position.x > _dashingEnd.x + DashDistance / 3))
             {
-                transform.position += new Vector3(distance * 3.0f, 0.0f, 0.0f);
+                transform.position += new Vector3(distance * 3, 0.0f, 0.0f); //Dash Speed
+            }
+            else if ((_dashingStart.x < _dashingEnd.x && transform.position.x < _dashingEnd.x) ||
+                     (_dashingStart.x > _dashingEnd.x && transform.position.x > _dashingEnd.x))
+            {
+                if (Vector3.Distance(_dashingStart, _dashingEnd) <= DashDistance / 2)
+                    transform.position += new Vector3(distance * 3, 0.0f, 0.0f); //Dash Speed
+                else
+                    transform.position += new Vector3(distance / 2, 0.0f, 0.0f); //End Dash Speed
             }
             else
             {
-                IsDashing = false;
+                EndDash();
             }
-
-            /*_dashingEnd = transform.position + new Vector3(distance, 0.0f, 0.0f);
-            if (_dashingEnd.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
-                _dashingEnd = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);
-            if (_dashingEnd.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
-                _dashingEnd = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);*/
         }
     }
 
@@ -152,15 +173,18 @@ public class PlayerBehavior : MonoBehaviour
 
     public void Dash()
     {
-        if (IsDashing || Direction == Direction.Standby)
+        if (!_canDash || Direction == Direction.Standby)
             return;
 
+        _canDash = false;
         IsDashing = true;
         float distance = DashDistance;
         if (Direction == Direction.Left)
             distance = -distance;
 
 		SetOrientation ();
+        _dashingDirection = Direction;
+        _dashingStart = transform.position;
         _dashingEnd = transform.position + new Vector3(distance, 0.0f, 0.0f);
         if (_dashingEnd.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             _dashingEnd = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);
@@ -169,15 +193,21 @@ public class PlayerBehavior : MonoBehaviour
 
 		Animator.enabled = false;
 		CurrentSprite.sprite = DashSprite;
-        Invoke("ResetDash", DashCooldown);
+        Invoke("ResetDash", _dashCooldown);
     }
 
     private void ResetDash()
     {
+        _canDash = true;
+    }
+
+    private void EndDash()
+    {
         IsDashing = false;
         Direction = Direction.Standby;
+        _dashingDirection = Direction.Standby;
 		SetOrientation ();
-        if (HasTheDisc == false)
+        if (!HasTheDisc)
 		{
 			Animator.enabled = true;
 			Animator.Play("Player01Idle");
