@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4e24b4ea1736c7c4e9be25f378ff1f62
-timeCreated: 1544973016
+timeCreated: 1545579173
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -112,9 +112,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
-        width: 12
-        height: 12
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,10 +125,10 @@ TextureImporter:
       name: Disc01_1
       rect:
         serializedVersion: 2
-        x: 12
-        y: 12
-        width: 12
-        height: 12
+        x: 13
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,10 +139,10 @@ TextureImporter:
       name: Disc01_2
       rect:
         serializedVersion: 2
-        x: 24
-        y: 12
-        width: 12
-        height: 12
+        x: 26
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: Disc01_3
       rect:
         serializedVersion: 2
-        x: 36
-        y: 12
-        width: 12
-        height: 12
+        x: 39
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,8 +169,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 12
-        height: 12
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Disc01_5
       rect:
         serializedVersion: 2
-        x: 12
+        x: 13
         y: 0
-        width: 12
-        height: 12
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,10 +195,10 @@ TextureImporter:
       name: Disc01_6
       rect:
         serializedVersion: 2
-        x: 24
+        x: 26
         y: 0
-        width: 12
-        height: 12
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: Disc01_7
       rect:
         serializedVersion: 2
-        x: 36
+        x: 39
         y: 0
-        width: 12
-        height: 12
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

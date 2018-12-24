@@ -107,7 +107,18 @@ public class AI : MonoBehaviour
 				_playerTwo.GetComponent<PlayerBehavior> ().IncrementAngle ();
 			}
 		}
-        _playerTwo.GetComponent<PlayerBehavior> ().Throw ();
+		int nextThrow = Random.Range (0, 2);
+		if (nextThrow == 0)
+        	_playerTwo.GetComponent<PlayerBehavior> ().Throw ();
+		else
+		{
+			_playerTwo.GetComponent<PlayerBehavior> ().Lift ();
+			int liftDirection = Random.Range (0, 2);
+			if (liftDirection == 0)
+				_playerTwo.GetComponent<PlayerBehavior>().Move(Direction.Left);
+			else
+				_playerTwo.GetComponent<PlayerBehavior>().Move(Direction.Right);
+		}
         Invoke("ResetThrowPossibility", 0.5f);
     }
 

@@ -9,23 +9,25 @@ public class TouchControlerBehavior : MonoBehaviour
 
 	private GameObject _leftP1;
 	private GameObject _rightP1;
-	private GameObject _specialP1;
+	private GameObject _liftP1;
 	private GameObject _throwP1;
 	/*private GameObject _leftP2;
 	private GameObject _rightP2;
-	private GameObject _specialP2;
+	private GameObject _liftP2;
 	private GameObject _throwP2;*/
+	private GameObject _aiP2;
     
     void Start ()
 	{
 		_leftP1 = GameObject.Find ("LeftP1");
 		_rightP1 = GameObject.Find ("RightP1");
-		_specialP1 = GameObject.Find ("SpecialP1");
+		_liftP1 = GameObject.Find ("LiftP1");
 		_throwP1 = GameObject.Find ("ThrowP1");
 		/*_leftP2 = GameObject.Find ("LeftP2");
 		_rightP2 = GameObject.Find ("RightP2");
-		_specialP2 = GameObject.Find ("SpecialP2");
+		_liftP2 = GameObject.Find ("LiftP2");
 		_throwP2 = GameObject.Find ("ThrowP2");*/
+		_aiP2 = GameObject.Find ("AiP2");
 	}
 	
 	void Update ()
@@ -56,12 +58,14 @@ public class TouchControlerBehavior : MonoBehaviour
 	                        touchedObject.GetComponent<TouchControlBehavior>().BeganAction();
                         else
                             touchedObject.GetComponent<TouchControlBehavior>().DoAction();
-                        
 	                }
+					else if (touchedObject.tag == "Player" && touchedObject.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerTwo)
+					{
+						touchedObject.GetComponent<TouchControlBehavior>().EndAction();
+					}
 	            }
 	        }
 	    }
-
 
 		if (Input.GetButtonDown("LeftP1"))
 			_leftP1.GetComponent<TouchControlBehavior> ().BeganAction ();
@@ -79,7 +83,10 @@ public class TouchControlerBehavior : MonoBehaviour
 		if (Input.GetButtonDown("ThrowP1"))
 			_throwP1.GetComponent<TouchControlBehavior> ().BeganAction ();
 
-		if (Input.GetButtonDown("SpecialP1"))
-			_specialP1.GetComponent<TouchControlBehavior> ().EndAction ();
+		if (Input.GetButtonDown("LiftP1"))
+			_liftP1.GetComponent<TouchControlBehavior> ().BeganAction ();
+
+		if (Input.GetButtonUp("AiP2"))
+			_aiP2.GetComponent<TouchControlBehavior> ().EndAction ();
     }
 }

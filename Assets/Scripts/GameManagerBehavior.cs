@@ -24,7 +24,7 @@ public class GameManagerBehavior : MonoBehaviour
         var currentBall = Instantiate(Ball, new Vector3(0.0f, 0.0f, 0.0f), Ball.transform.rotation);
         currentBall.transform.name = "Ball";
 		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;
-		currentPlayer.GetComponent<PlayerBehavior>().GetTheDisc();
+		currentPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
     }
 
 	public bool BallAlreadyExists()

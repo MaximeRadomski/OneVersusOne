@@ -47,6 +47,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Net
+    uniqueID: 963568887
+    locked: 0
+  - name: Effects
+    uniqueID: 427581553
+    locked: 0
   - name: Disc
     uniqueID: 4183748005
     locked: 0

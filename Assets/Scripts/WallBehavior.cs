@@ -11,8 +11,10 @@ public class WallBehavior : MonoBehaviour
 	{
 		if (WallSide == Side.Left)
 			Animator.Play ("WallLeft");
-		else
+		else if (WallSide == Side.Right)
 			Animator.Play ("WallRight");
+		else
+			Animator.Play ("Net");
 		Invoke ("StopAnimation", 0.5f);
 	}
 
@@ -24,6 +26,7 @@ public class WallBehavior : MonoBehaviour
 	public enum Side
 	{
 		Left,
-		Right
+		Right,
+		Net
 	}
 }

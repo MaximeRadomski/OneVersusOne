@@ -40,6 +40,9 @@ public class TouchControlBehavior : MonoBehaviour
             case GenericTapAction.Throw:
                 _player.GetComponent<PlayerBehavior>().Throw();
                 break;
+			case GenericTapAction.Lift:
+				_player.GetComponent<PlayerBehavior> ().Lift ();
+				break;
         }
     }
 
@@ -53,7 +56,7 @@ public class TouchControlBehavior : MonoBehaviour
             case GenericTapAction.Right:
                 _player.GetComponent<PlayerBehavior>().Standby();
                 break;
-			case GenericTapAction.Special:
+		case GenericTapAction.PlayerAI:
 				ActivateAI ();
 				break;
         }
@@ -79,6 +82,7 @@ public class TouchControlBehavior : MonoBehaviour
         Left,
         Right,
         Throw,
-        Special
+        Lift,
+		PlayerAI
     }
 }

@@ -6,6 +6,7 @@ public class PlayerBehavior : MonoBehaviour
 {
     public CurrentPlayer Player;
     public Direction Direction;
+	public Direction LiftDirection;
 
     public bool IsDashing;
     public bool HasTheDisc;
@@ -43,6 +44,7 @@ public class PlayerBehavior : MonoBehaviour
             SetPlayerTwoAngleSprites();
             _directionalVector = Vector2.down;
         }
+		LiftDirection = Direction.Standby;
 	    _throwAngle = 0;
         _gameManager = GameObject.Find("$GameManager");
 	    _ball = GetBall();
@@ -99,8 +101,11 @@ public class PlayerBehavior : MonoBehaviour
 
     public void Move(Direction direction)
     {
-        if (HasTheDisc || IsDashing)
-            return;
+		if (HasTheDisc || IsDashing)
+		{
+			LiftDirection = direction;
+			return;
+		}
 
         float distance = WalkDistance;
         if (direction == Direction.Left)
@@ -142,7 +147,7 @@ public class PlayerBehavior : MonoBehaviour
         if (!HasTheDisc)
             return;
         var tmpThrowAngle = _throwAngle + 0.5f;
-        if (tmpThrowAngle >= -1.5f && tmpThrowAngle <= 1.5f)
+        if (tmpThrowAngle >= -1f && tmpThrowAngle <= 1f)
             _throwAngle = tmpThrowAngle;
 		SetSpriteFromAngle ();
     }
@@ -152,7 +157,7 @@ public class PlayerBehavior : MonoBehaviour
         if (!HasTheDisc)
             return;
         var tmpThrowAngle = _throwAngle - 0.5f;
-        if (tmpThrowAngle >= -1.5f && tmpThrowAngle <= 1.5f)
+        if (tmpThrowAngle >= -1f && tmpThrowAngle <= 1f)
             _throwAngle = tmpThrowAngle;
 		SetSpriteFromAngle ();
     }
@@ -167,7 +172,7 @@ public class PlayerBehavior : MonoBehaviour
 			CurrentSprite.sprite = AngleSprites [2];
 		else if (_throwAngle == 0.5f)
 			CurrentSprite.sprite = AngleSprites [3];
-		else if (_throwAngle >= 1.5f)
+		else if (_throwAngle >= 1.0f)
 			CurrentSprite.sprite = AngleSprites [4];
 	}
 
@@ -214,19 +219,24 @@ public class PlayerBehavior : MonoBehaviour
 		}
     }
 
-	public void GetTheDisc()
+	public void CatchTheDisc()
 	{
 		HasTheDisc = true;
 		_throwAngle = 0.0f;
+		LiftDirection = Direction.Standby;
 		Animator.enabled = false;
 		CurrentSprite.sprite = AngleSprites [2];
 		Direction = Direction.Standby;
+		float resetYPos = 1.805f; //Player Y Position
+		if (Player == CurrentPlayer.PlayerOne)
+			resetYPos = -resetYPos;
+		transform.position = new Vector3 (transform.position.x, resetYPos, 0.0f);
 		SetOrientation ();
 	}
 
 	public void Throw()
 	{
-	    if (!HasTheDisc)
+		if (!HasTheDisc)
 	    {
 	        Dash();
 	        return;
@@ -234,6 +244,16 @@ public class PlayerBehavior : MonoBehaviour
 	    Invoke("ThrowBallAfterDelay", 0.15f);
 		Animator.enabled = true;
         Animator.Play("Player01Throw");
+		Invoke ("ResetThrow", 0.4f);
+	}
+
+	public void Lift()
+	{
+		if (!HasTheDisc)
+			return;
+		Invoke("LiftBallAfterDelay", 0.15f);
+		Animator.enabled = true;
+		Animator.Play("Player01Throw");
 		Invoke ("ResetThrow", 0.4f);
 	}
 
@@ -247,9 +267,21 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (_ball == null)
             _ball = GetBall();
-        _ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power);
+		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
+			return;
+        _ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, false);
         _throwAngle = 0;
     }
+
+	private void LiftBallAfterDelay()
+	{
+		if (_ball == null)
+			_ball = GetBall();
+		if (_ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
+			return;
+		_ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, true);
+		_throwAngle = 0;
+	}
 
     public void ResetInitialPosition()
 	{
