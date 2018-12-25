@@ -220,7 +220,7 @@ public class PlayerBehavior : MonoBehaviour
         if (!HasTheDisc)
 		{
 			Animator.enabled = true;
-			Animator.Play("Player01Idle");
+			Animator.Play("Idle");
 		}
     }
 
@@ -248,7 +248,7 @@ public class PlayerBehavior : MonoBehaviour
 	    }
 	    Invoke("ThrowBallAfterDelay", 0.15f);
 		Animator.enabled = true;
-        Animator.Play("Player01Throw");
+        Animator.Play("Throw");
 		Invoke ("ResetThrow", 0.4f);
 	}
 
@@ -258,14 +258,14 @@ public class PlayerBehavior : MonoBehaviour
 			return;
 		Invoke("LiftBallAfterDelay", 0.15f);
 		Animator.enabled = true;
-		Animator.Play("Player01Throw");
+		Animator.Play("Throw");
 		Invoke ("ResetThrow", 0.4f);
 	}
 
 	private void ResetThrow()
 	{
 	    HasTheDisc = false;
-        Animator.Play("Player01Idle");
+        Animator.Play("Idle");
     }
 
     private void ThrowBallAfterDelay()
