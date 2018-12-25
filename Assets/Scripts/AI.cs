@@ -51,7 +51,7 @@ public class AI : MonoBehaviour
 
     private void ActFromBallPosition()
     {
-        if (_ball.transform.position.y < 1)
+        if (_ball.transform.position.y < 0.5f)
             return;
         if (_ball.transform.position.x + _playerTwo.GetComponent<PlayerBehavior>().DashDistance < transform.position.x && _canDash)
         {

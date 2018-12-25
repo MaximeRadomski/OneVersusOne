@@ -20,8 +20,10 @@ public class PlayerBehavior : MonoBehaviour
 	public SpriteRenderer CurrentSprite;
 	public Sprite[] AngleSprites;
 	public Sprite DashSprite;
+    public GameObject DashEffect;
+    public GameObject DashEffectParticles;
 
-	private Quaternion _initialRotation;
+    private Quaternion _initialRotation;
 	private Vector3 _initialPosition;
     private Vector2 _directionalVector;
     private float _throwAngle;
@@ -199,6 +201,9 @@ public class PlayerBehavior : MonoBehaviour
 		Animator.enabled = false;
 		CurrentSprite.sprite = DashSprite;
         Invoke("ResetDash", _dashCooldown);
+        Instantiate(DashEffect, transform.position, DashEffect.transform.rotation);
+        var tmpDashParticles = Instantiate(DashEffectParticles, transform.position, gameObject.transform.rotation);
+        tmpDashParticles.GetComponent<EffectBehavior>().ObjectToFollow = gameObject;
     }
 
     private void ResetDash()
