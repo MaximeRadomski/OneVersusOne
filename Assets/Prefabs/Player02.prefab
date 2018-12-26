@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d881f472fe2ea149976d89162a52888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 1
 --- !u!114 &114831716821119534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,19 +135,19 @@ MonoBehaviour:
   LiftDirection: 0
   IsDashing: 0
   HasTheDisc: 0
-  WalkDistance: 0.03
+  WalkDistance: 0.05
   DashDistance: 0.8
-  Power: 2
+  Power: 0.5
   Animator: {fileID: 95854237063709232}
   BoxCollider: {fileID: 61804633430177132}
   CurrentSprite: {fileID: 212903665873115856}
   AngleSprites:
-  - {fileID: 21300000, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300002, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300004, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300006, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300008, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  DashSprite: {fileID: 21300000, guid: 3c93a6a2f534c77499c4869dbcc41e35, type: 3}
+  - {fileID: 21300000, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
+  - {fileID: 21300002, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
+  - {fileID: 21300004, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
+  - {fileID: 21300006, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
+  - {fileID: 21300008, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
+  DashSprite: {fileID: 21300000, guid: e99713362f833be49966e6d93dfb3111, type: 3}
   DashEffect: {fileID: 1407422219576364, guid: f3a3f62725cd9064595ad28f68f9dcc3, type: 2}
   DashEffectParticles: {fileID: 1416681924767024, guid: ebecf29f912169a47b350090a84771b4,
     type: 2}

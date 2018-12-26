@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class AI : MonoBehaviour
 {
+	public CurrentPlayer Player;
+
 	private GameObject _ball;
-	private GameObject _playerTwo;
+	private GameObject _linkedPlayer;
 	private bool _isThrowing;
     private float _repeatDashCooldown;
     private bool _canDash;
+	private CurrentPlayer _rival;
 
 	void Start ()
 	{
@@ -17,6 +20,17 @@ public class AI : MonoBehaviour
 		_isThrowing = false;
 	    _repeatDashCooldown = 1.0f;
 	    _canDash = true;
+		if (Player == CurrentPlayer.PlayerOne)
+			_rival = CurrentPlayer.PlayerTwo;
+		else if (Player == CurrentPlayer.PlayerTwo)
+			_rival = CurrentPlayer.PlayerOne;
+	}
+
+	private string GetFocusedPayerName()
+	{
+		if (Player == CurrentPlayer.PlayerOne)
+			return "PlayerOne";
+		return "PlayerTwo";
 	}
 
 	private GameObject GetBall()
@@ -26,7 +40,7 @@ public class AI : MonoBehaviour
 
 	private void GetPlayers()
 	{
-		_playerTwo = GameObject.Find ("PlayerTwo");
+		_linkedPlayer = GameObject.Find (GetFocusedPayerName());
 	}
 
 	void Update ()
@@ -35,14 +49,14 @@ public class AI : MonoBehaviour
 			_ball = GetBall ();
 		if (_ball == null)
 			return;
-		if (_playerTwo == null)
+		if (_linkedPlayer == null)
 			GetPlayers();
-		if (_ball.GetComponent<BallBehavior> ().IsThrownBy == CurrentPlayer.PlayerOne)
+		if (_ball.GetComponent<BallBehavior> ().IsThrownBy == _rival)
 		    ActFromBallPosition();
-		else if (_ball.GetComponent<BallBehavior>().IsThrownBy == CurrentPlayer.PlayerTwo ||
+		else if (_ball.GetComponent<BallBehavior>().IsThrownBy == Player ||
 		         _ball.GetComponent<BallBehavior>().IsThrownBy == CurrentPlayer.None)
             Recenter();
-        if (_playerTwo.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
+		if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
 		{
             _isThrowing = true;
 			Invoke ("Throw", 0.5f);
@@ -51,36 +65,38 @@ public class AI : MonoBehaviour
 
     private void ActFromBallPosition()
     {
-        if (_ball.transform.position.y < 0.5f)
+		if (_ball.transform.position.y < 0.5f && Player == CurrentPlayer.PlayerTwo)
             return;
-        if (_ball.transform.position.x + _playerTwo.GetComponent<PlayerBehavior>().DashDistance < transform.position.x && _canDash)
+		if (_ball.transform.position.y > -0.5f && Player == CurrentPlayer.PlayerOne)
+			return;
+		if (_ball.transform.position.x + _linkedPlayer.GetComponent<PlayerBehavior>().DashDistance < transform.position.x && _canDash)
         {
-            _playerTwo.GetComponent<PlayerBehavior>().Direction = Direction.Left;
-            _playerTwo.GetComponent<PlayerBehavior>().Dash();
+			_linkedPlayer.GetComponent<PlayerBehavior>().Direction = Direction.Left;
+			_linkedPlayer.GetComponent<PlayerBehavior>().Dash();
             _canDash = false;
             Invoke("ResetDashPossibility", _repeatDashCooldown);
         }
-        else if (_ball.transform.position.x - _playerTwo.GetComponent<PlayerBehavior>().DashDistance  > transform.position.x && _canDash)
+		else if (_ball.transform.position.x - _linkedPlayer.GetComponent<PlayerBehavior>().DashDistance  > transform.position.x && _canDash)
         {
-            _playerTwo.GetComponent<PlayerBehavior>().Direction = Direction.Right;
-            _playerTwo.GetComponent<PlayerBehavior>().Dash();
+			_linkedPlayer.GetComponent<PlayerBehavior>().Direction = Direction.Right;
+			_linkedPlayer.GetComponent<PlayerBehavior>().Dash();
             _canDash = false;
             Invoke("ResetDashPossibility", _repeatDashCooldown);
         }
         else if (_ball.transform.position.x + 0.2f < transform.position.x)
-            _playerTwo.GetComponent<PlayerBehavior>().Move(Direction.Left);
+			_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
         else if (_ball.transform.position.x - 0.2f > transform.position.x)
-            _playerTwo.GetComponent<PlayerBehavior>().Move(Direction.Right);
+			_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
     }
 
     private void Recenter()
     {
         if (transform.position.x + 0.1f < 0)
-            _playerTwo.GetComponent<PlayerBehavior>().Move(Direction.Right);
+			_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
         else if (transform.position.x - 0.1f > 0)
-            _playerTwo.GetComponent<PlayerBehavior>().Move(Direction.Left);
+			_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
         else
-            _playerTwo.GetComponent<PlayerBehavior>().Standby();
+			_linkedPlayer.GetComponent<PlayerBehavior>().Standby();
     }
 
     private void ResetDashPossibility()
@@ -96,7 +112,7 @@ public class AI : MonoBehaviour
 			int angle = Random.Range (0, 3);
 			for (int i = 0; i < angle; ++i)
 			{
-				_playerTwo.GetComponent<PlayerBehavior> ().DecrementAngle ();
+				_linkedPlayer.GetComponent<PlayerBehavior> ().DecrementAngle ();
 			}
 		}
 		else
@@ -104,20 +120,20 @@ public class AI : MonoBehaviour
 			int angle = Random.Range (0, 3);
 			for (int i = 0; i < angle; ++i)
 			{
-				_playerTwo.GetComponent<PlayerBehavior> ().IncrementAngle ();
+				_linkedPlayer.GetComponent<PlayerBehavior> ().IncrementAngle ();
 			}
 		}
 		int nextThrow = Random.Range (0, 2);
 		if (nextThrow == 0)
-        	_playerTwo.GetComponent<PlayerBehavior> ().Throw ();
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Throw ();
 		else
 		{
-			_playerTwo.GetComponent<PlayerBehavior> ().Lift ();
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Lift ();
 			int liftDirection = Random.Range (0, 2);
 			if (liftDirection == 0)
-				_playerTwo.GetComponent<PlayerBehavior>().Move(Direction.Left);
+				_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
 			else
-				_playerTwo.GetComponent<PlayerBehavior>().Move(Direction.Right);
+				_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
 		}
         Invoke("ResetThrowPossibility", 0.5f);
     }

@@ -84,7 +84,7 @@ public class BallBehavior : MonoBehaviour
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
 			_linkedPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
 			if (++_catchCount % 2 == 0 && _catchCount != 0) // "_catchcount != 0" because it starts at -1
-				Speed += 0.1f;
+				Speed += 0.25f;
             IsThrownBy = CurrentPlayer.None;
 			_liftDirection = Direction.Standby;
 			Physics2D.gravity = new Vector2 (0.0f,0.0f);

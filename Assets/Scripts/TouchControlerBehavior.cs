@@ -15,6 +15,7 @@ public class TouchControlerBehavior : MonoBehaviour
 	private GameObject _rightP2;
 	private GameObject _liftP2;
 	private GameObject _throwP2;*/
+	private GameObject _aiP1;
 	private GameObject _aiP2;
     
     void Start ()
@@ -27,6 +28,7 @@ public class TouchControlerBehavior : MonoBehaviour
 		_rightP2 = GameObject.Find ("RightP2");
 		_liftP2 = GameObject.Find ("LiftP2");
 		_throwP2 = GameObject.Find ("ThrowP2");*/
+		_aiP1 = GameObject.Find ("AiP1");
 		_aiP2 = GameObject.Find ("AiP2");
 	}
 	
@@ -86,6 +88,8 @@ public class TouchControlerBehavior : MonoBehaviour
 		if (Input.GetButtonDown("LiftP1"))
 			_liftP1.GetComponent<TouchControlBehavior> ().BeganAction ();
 
+		if (Input.GetButtonUp("AiP1"))
+			_aiP1.GetComponent<TouchControlBehavior> ().EndAction ();
 		if (Input.GetButtonUp("AiP2"))
 			_aiP2.GetComponent<TouchControlBehavior> ().EndAction ();
     }
