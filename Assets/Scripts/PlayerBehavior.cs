@@ -274,7 +274,8 @@ public class PlayerBehavior : MonoBehaviour
             _ball = GetBall();
 		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
-        _ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, false);
+        if (_ball != null)
+            _ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, false);
         _throwAngle = 0;
     }
 

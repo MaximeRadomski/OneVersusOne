@@ -10,6 +10,7 @@ public class BallBehavior : MonoBehaviour
 	public Animator Animator;
 	public GameObject LiftEffect;
 	public GameObject QuickEffect;
+    public GameObject WallHitEffect;
 
     private GameObject _linkedPlayer;
     private GameObject _gameManager;
@@ -107,6 +108,13 @@ public class BallBehavior : MonoBehaviour
 				AddGravity (1.5f);
             _camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<WallBehavior>().WallHit();
+
+		    var xWallEffect = 1.8f;
+		    if (transform.position.x < 0)
+		        xWallEffect = -xWallEffect;
+            var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(xWallEffect, transform.position.y, 0.0f), transform.rotation);
+		    if (transform.position.x < 0)
+		        tmpWallHitEffect.GetComponent<SpriteRenderer>().flipX = true;
 		}
 
 		if (_nbCol >= 10)

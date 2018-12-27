@@ -114,6 +114,8 @@ MonoBehaviour:
   LiftEffect: {fileID: 1335373723603710, guid: 5d1ef0836b665ce428673d7f255567b8, type: 2}
   QuickEffect: {fileID: 1763771165781810, guid: 2bb3cc40c35cc2e4aa6bc4d89bdb1b94,
     type: 2}
+  WallHitEffect: {fileID: 1502989000109048, guid: 15134915670879e47867e64ad461ef17,
+    type: 2}
 --- !u!212 &212670130298457442
 SpriteRenderer:
   m_ObjectHideFlags: 1

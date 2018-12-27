@@ -125,7 +125,7 @@ MonoBehaviour:
   HasTheDisc: 0
   WalkDistance: 0.03
   DashDistance: 0.8
-  Power: 2
+  Power: 1.5
   Animator: {fileID: 95074457835201762}
   BoxCollider: {fileID: 61144894470998226}
   CurrentSprite: {fileID: 212469492383567574}
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d881f472fe2ea149976d89162a52888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: 0
 --- !u!212 &212469492383567574
 SpriteRenderer:
   m_ObjectHideFlags: 1
