@@ -71,10 +71,16 @@ public class TouchControlBehavior : MonoBehaviour
 
 	private void ActivateAI()
 	{
-		if (GameObject.Find (GetFocusedPayerName()).GetComponent<AI> ().enabled == false)
-			GameObject.Find (GetFocusedPayerName()).GetComponent<AI> ().enabled = true;
-		else
-			GameObject.Find (GetFocusedPayerName()).GetComponent<AI> ().enabled = false;
+	    if (GameObject.Find(GetFocusedPayerName()).GetComponent<AI>().enabled == false)
+	    {
+	        GameObject.Find(GetFocusedPayerName()).GetComponent<AI>().enabled = true;
+	        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+	    }
+	    else
+	    {
+	        GameObject.Find(GetFocusedPayerName()).GetComponent<AI>().enabled = false;
+	        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
 	}
 
     public enum GenericTapAction

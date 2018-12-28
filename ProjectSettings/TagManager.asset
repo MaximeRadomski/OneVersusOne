@@ -56,6 +56,9 @@ TagManager:
   - name: Disc
     uniqueID: 4183748005
     locked: 0
+  - name: Goals
+    uniqueID: 410905905
+    locked: 0
   - name: TopLayer
     uniqueID: 2317755919
     locked: 0

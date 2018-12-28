@@ -116,6 +116,8 @@ MonoBehaviour:
     type: 2}
   WallHitEffect: {fileID: 1502989000109048, guid: 15134915670879e47867e64ad461ef17,
     type: 2}
+  GoalExplosionEffect: {fileID: 1222281241005094, guid: fd55a594e53f7f04293305cfa50c7e92,
+    type: 2}
 --- !u!212 &212670130298457442
 SpriteRenderer:
   m_ObjectHideFlags: 1

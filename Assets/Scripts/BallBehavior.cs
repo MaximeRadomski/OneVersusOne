@@ -8,9 +8,11 @@ public class BallBehavior : MonoBehaviour
 	public CurrentPlayer CurrentPlayer;
 	public CurrentPlayer IsThrownBy;
 	public Animator Animator;
+
 	public GameObject LiftEffect;
 	public GameObject QuickEffect;
     public GameObject WallHitEffect;
+    public GameObject GoalExplosionEffect;
 
     private GameObject _linkedPlayer;
     private GameObject _gameManager;
@@ -95,6 +97,13 @@ public class BallBehavior : MonoBehaviour
         }
         else if (col.gameObject.tag == "Goal")
         {
+            var yGoalEffect = 1.833f;
+            if (transform.position.y < 0)
+                yGoalEffect = -yGoalEffect;
+            var tmpGoalEffect = Instantiate(GoalExplosionEffect, new Vector3(transform.position.x, yGoalEffect, 0.0f), transform.rotation);
+            if (transform.position.y > 0)
+                tmpGoalEffect.GetComponent<SpriteRenderer>().flipY = true;
+
             _camera.GetComponent<CameraBehavior>().GoalHit();
 			col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
             _gameManager.GetComponent<GameManagerBehavior>().NewSet(
@@ -109,13 +118,15 @@ public class BallBehavior : MonoBehaviour
             _camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<WallBehavior>().WallHit();
 
-		    var xWallEffect = 1.8f;
+		    var xWallEffect = 1.472f;
 		    if (transform.position.x < 0)
 		        xWallEffect = -xWallEffect;
             var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(xWallEffect, transform.position.y, 0.0f), transform.rotation);
 		    if (transform.position.x < 0)
 		        tmpWallHitEffect.GetComponent<SpriteRenderer>().flipX = true;
-		}
+		    if (GetComponent<Rigidbody2D>().velocity.y > 0)
+		        tmpWallHitEffect.GetComponent<SpriteRenderer>().flipY = true;
+        }
 
 		if (_nbCol >= 10)
 		{
