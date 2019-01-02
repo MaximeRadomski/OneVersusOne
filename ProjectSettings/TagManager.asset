@@ -44,8 +44,8 @@ TagManager:
   - name: Background
     uniqueID: 699502769
     locked: 0
-  - name: Default
-    uniqueID: 0
+  - name: Mid
+    uniqueID: 931546517
     locked: 0
   - name: Net
     uniqueID: 963568887
@@ -61,4 +61,10 @@ TagManager:
     locked: 0
   - name: TopLayer
     uniqueID: 2317755919
+    locked: 0
+  - name: UI
+    uniqueID: 3313553485
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0

@@ -6,6 +6,7 @@ public class GoalBehavior : MonoBehaviour
 {
     public CurrentPlayer Player;
 	public Animator Animator;
+	public int Points;
 
 	public void GoalHit()
 	{

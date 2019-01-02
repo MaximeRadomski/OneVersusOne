@@ -105,9 +105,12 @@ public class BallBehavior : MonoBehaviour
                 tmpGoalEffect.GetComponent<SpriteRenderer>().flipY = true;
 
             _camera.GetComponent<CameraBehavior>().GoalHit();
-			col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
-            _gameManager.GetComponent<GameManagerBehavior>().NewSet(
-                col.gameObject.GetComponent<GoalBehavior>().Player);
+			if (transform.position.x >= col.gameObject.transform.position.x - (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2) &&
+			    transform.position.x <= col.gameObject.transform.position.x + (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2))
+			{
+				col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
+			}
+			_gameManager.GetComponent<GameManagerBehavior>().NewSet(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points);
             Destroy(gameObject);
         }
 		else if (col.gameObject.tag == "Wall")
@@ -130,7 +133,7 @@ public class BallBehavior : MonoBehaviour
 
 		if (_nbCol >= 10)
 		{
-			_gameManager.GetComponent<GameManagerBehavior>().NewSet(IsThrownBy);
+			_gameManager.GetComponent<GameManagerBehavior>().NewSet(IsThrownBy, 2);
 			Destroy(gameObject);
 		}
     }
