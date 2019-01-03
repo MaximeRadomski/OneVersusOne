@@ -104,13 +104,13 @@ public class BallBehavior : MonoBehaviour
             if (transform.position.y > 0)
                 tmpGoalEffect.GetComponent<SpriteRenderer>().flipY = true;
 
-            _camera.GetComponent<CameraBehavior>().GoalHit();
+			_camera.GetComponent<CameraBehavior>().GoalHit(transform.position.y);
 			if (transform.position.x >= col.gameObject.transform.position.x - (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2) &&
 			    transform.position.x <= col.gameObject.transform.position.x + (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2))
 			{
 				col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
 			}
-			_gameManager.GetComponent<GameManagerBehavior>().NewSet(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points);
+			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points);
             Destroy(gameObject);
         }
 		else if (col.gameObject.tag == "Wall")
@@ -133,7 +133,7 @@ public class BallBehavior : MonoBehaviour
 
 		if (_nbCol >= 10)
 		{
-			_gameManager.GetComponent<GameManagerBehavior>().NewSet(IsThrownBy, 2);
+			_gameManager.GetComponent<GameManagerBehavior>().NewBall(IsThrownBy, 2);
 			Destroy(gameObject);
 		}
     }
@@ -154,6 +154,7 @@ public class BallBehavior : MonoBehaviour
 
 	public void Throw(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, bool isLifted)
     {
+		SetGravityScaleFromPower (addedPower);
 		IsThrownBy = throwingPlayer;
 		CurrentPlayer = CurrentPlayer.None;
 		float speedQuarter = (Speed + addedPower) / 4;
@@ -174,6 +175,16 @@ public class BallBehavior : MonoBehaviour
 		}
         GetComponent<Rigidbody2D>().velocity = direction * customSpeed;
     }
+
+	private void SetGravityScaleFromPower(float power)
+	{
+		if (power <= 0.5f)
+			GetComponent<Rigidbody2D> ().gravityScale = 0.7f;
+		else if (power <= 1.0f)
+			GetComponent<Rigidbody2D> ().gravityScale = 0.85f;
+		else
+			GetComponent<Rigidbody2D> ().gravityScale = 1f;
+	}
 
 	private void CanSetGravity()
 	{

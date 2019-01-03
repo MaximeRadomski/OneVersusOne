@@ -16,6 +16,8 @@ public class TouchControlBehavior : MonoBehaviour
 
     public void DoAction()
     {
+		if (_player.GetComponent<PlayerBehavior> ().IsControlledByAI)
+			return;
         switch (Action)
         {
 		case GenericTapAction.Left:
@@ -29,6 +31,8 @@ public class TouchControlBehavior : MonoBehaviour
 
     public void BeganAction()
     {
+		if (_player.GetComponent<PlayerBehavior> ().IsControlledByAI)
+			return;
         switch (Action)
         {
             case GenericTapAction.Left:
@@ -48,6 +52,8 @@ public class TouchControlBehavior : MonoBehaviour
 
     public void EndAction()
     {
+		if (_player.GetComponent<PlayerBehavior> ().IsControlledByAI && Action != GenericTapAction.PlayerAI)
+			return;
         switch (Action)
         {
 			case GenericTapAction.Left:

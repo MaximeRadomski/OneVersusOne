@@ -10,6 +10,8 @@ public class PlayerBehavior : MonoBehaviour
 
     public bool IsDashing;
     public bool HasTheDisc;
+	public bool IsControlledByAI;
+	public ControlledAction ControlledAction;
 
     public float WalkDistance;
     public float DashDistance;
@@ -94,6 +96,11 @@ public class PlayerBehavior : MonoBehaviour
                 EndDash();
             }
         }
+
+		if (IsControlledByAI && ControlledAction == ControlledAction.Recenter)
+		{
+			Recenter ();
+		}
     }
 
     private GameObject GetBall()
@@ -292,6 +299,26 @@ public class PlayerBehavior : MonoBehaviour
     public void ResetInitialPosition()
 	{
 		transform.position = _initialPosition;
+	}
+
+	public void Recenter()
+	{
+		IsControlledByAI = true;
+		if (HasTheDisc)
+		{
+			HasTheDisc = false;
+			Animator.enabled = true;
+			Animator.Play("Idle");
+		}
+		ControlledAction = ControlledAction.Recenter;
+		if (transform.position.x + 0.1f < 0)
+			Move (Direction.Right);
+		else if (transform.position.x - 0.1f > 0)
+			Move (Direction.Left);
+		else
+		{
+			Standby();
+		}
 	}
 
 }

@@ -7,21 +7,29 @@ public class GameManagerBehavior : MonoBehaviour
     public GameObject Ball;
     public float DistanceWall;
     public bool IsGoal;
-	public int ScorePlayerOne;
-	public int ScorePlayerTwo;
+	public int ScorePlayerOne, ScorePlayerTwo;
+	public int SetPlayerOne, SetPlayerTwo;
 
     private string _playerName;
+	private GameObject _scoreP1, _scoreP2;
 	private GameObject _scoreP1_1, _scoreP1_2, _scoreP2_1, _scoreP2_2;
+	private GameObject _playerOne, _playerTwo;
 
 	void Start ()
 	{
 		ScorePlayerOne = 0;
 		ScorePlayerTwo = 0;
+		SetPlayerOne = 0;
+		SetPlayerTwo = 0;
 		_playerName = CurrentPlayer.PlayerOne.ToString();
+		_scoreP1 = GameObject.Find ("ScoreP1");
+		_scoreP2 = GameObject.Find ("ScoreP2");
 		_scoreP1_1 = GameObject.Find ("ScoreP1-1");
 		_scoreP1_2 = GameObject.Find ("ScoreP1-2");
 		_scoreP2_1 = GameObject.Find ("ScoreP2-1");
 		_scoreP2_2 = GameObject.Find ("ScoreP2-2");
+		_playerOne = GameObject.Find ("PlayerOne");
+		_playerTwo = GameObject.Find ("PlayerTwo");
 		PlaceBall();
 	}
 
@@ -34,6 +42,10 @@ public class GameManagerBehavior : MonoBehaviour
         currentBall.transform.name = "Ball";
 		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;
 		currentPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
+		_scoreP1.GetComponent<Animator> ().Play ("StartingState");
+		_scoreP2.GetComponent<Animator> ().Play ("StartingState");
+		_playerOne.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
+		_playerTwo.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
     }
 
 	public bool BallAlreadyExists()
@@ -43,18 +55,52 @@ public class GameManagerBehavior : MonoBehaviour
 		return false;
 	}
 
-	public void NewSet(CurrentPlayer looser, int points)
+	private void CheckIfSet()
+	{
+		if (ScorePlayerOne >= 12) {
+			++SetPlayerOne;
+		} else if (ScorePlayerTwo >= 12) {
+			++SetPlayerTwo;
+		}
+
+		if (ScorePlayerOne >= 12 || ScorePlayerTwo >= 12) {
+			ScorePlayerOne = 0;
+			ScorePlayerTwo = 0;
+			ChangeScoresInvoked ();
+		}
+
+		PlaceBall ();
+	}
+
+	public void NewBall(CurrentPlayer looser, int points)
     {
 		_playerName = looser.ToString ();
 		if (looser == CurrentPlayer.PlayerOne)
+		{
 			ScorePlayerTwo += points;
+			_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose();
+			_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win();
+		}
 		else
+		{
 			ScorePlayerOne += points;
-		DisplayScores();
-		Invoke("PlaceBall", 1.0f);
+			_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose();
+			_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win();
+		}
+		Invoke("DisplayScores", 0.5f);
+		Invoke("CheckIfSet", 3.0f);
     }
 
 	private void DisplayScores()
+	{
+		_playerOne.GetComponent<PlayerBehavior> ().Recenter ();
+		_playerTwo.GetComponent<PlayerBehavior> ().Recenter ();
+		_scoreP1.GetComponent<Animator> ().Play ("DisplayScore01");
+		_scoreP2.GetComponent<Animator> ().Play ("DisplayScore02");
+		Invoke ("ChangeScoresInvoked", 0.75f);
+	}
+
+	private void ChangeScoresInvoked()
 	{
 		ChangeScores (ScorePlayerOne, _scoreP1_1);
 		ChangeScores (ScorePlayerTwo, _scoreP1_2);
@@ -64,27 +110,26 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void ChangeScores(int score, GameObject scoreGameobject)
 	{
-		if (score != 0)
-		{
-			scoreGameobject.transform.GetChild (0).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, '0');
-			scoreGameobject.transform.GetChild (1).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'A');
-			scoreGameobject.transform.GetChild (2).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'K');
-			scoreGameobject.transform.GetChild (3).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'a');
-			scoreGameobject.transform.GetChild (4).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'k');
-		}
+		scoreGameobject.transform.GetChild (0).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, '0');
+		scoreGameobject.transform.GetChild (1).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'A');
+		scoreGameobject.transform.GetChild (2).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'K');
+		scoreGameobject.transform.GetChild (3).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'a');
+		scoreGameobject.transform.GetChild (4).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'k');
 	}
 
 	private string GetFormatedString(int score, char baseCharacter)
 	{
 		string tmpStr = "";
 		int tmpScore = score;
-		while (tmpScore != 0)
+		bool firstZero = score == 0 ? true : false;
+		while (tmpScore != 0 || firstZero)
 		{
 			int digit = tmpScore % 10;
 			int tmpIntChar = (int)baseCharacter + digit;
 			char c = (char)tmpIntChar;
 			tmpStr = c.ToString () + tmpStr;
 			tmpScore = tmpScore / 10;
+			firstZero = false;
 		}
 		return tmpStr;
 	}
