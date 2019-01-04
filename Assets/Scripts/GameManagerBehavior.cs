@@ -57,16 +57,19 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void CheckIfSet()
 	{
+		bool reset = false;
 		if (ScorePlayerOne >= 12) {
 			++SetPlayerOne;
+			reset = true;
 		} else if (ScorePlayerTwo >= 12) {
 			++SetPlayerTwo;
+			reset = true;
 		}
 
-		if (ScorePlayerOne >= 12 || ScorePlayerTwo >= 12) {
+		if (reset) {
 			ScorePlayerOne = 0;
 			ScorePlayerTwo = 0;
-			ChangeScoresInvoked ();
+			ChangeAllScores ();
 		}
 
 		PlaceBall ();
@@ -97,18 +100,18 @@ public class GameManagerBehavior : MonoBehaviour
 		_playerTwo.GetComponent<PlayerBehavior> ().Recenter ();
 		_scoreP1.GetComponent<Animator> ().Play ("DisplayScore01");
 		_scoreP2.GetComponent<Animator> ().Play ("DisplayScore02");
-		Invoke ("ChangeScoresInvoked", 0.75f);
+		Invoke ("ChangeAllScores", 0.75f);
 	}
 
-	private void ChangeScoresInvoked()
+	private void ChangeAllScores()
 	{
-		ChangeScores (ScorePlayerOne, _scoreP1_1);
-		ChangeScores (ScorePlayerTwo, _scoreP1_2);
-		ChangeScores (ScorePlayerOne, _scoreP2_1);
-		ChangeScores (ScorePlayerTwo, _scoreP2_2);
+		ChangeScore (ScorePlayerOne, _scoreP1_1);
+		ChangeScore (ScorePlayerTwo, _scoreP1_2);
+		ChangeScore (ScorePlayerOne, _scoreP2_1);
+		ChangeScore (ScorePlayerTwo, _scoreP2_2);
 	}
 
-	private void ChangeScores(int score, GameObject scoreGameobject)
+	private void ChangeScore(int score, GameObject scoreGameobject)
 	{
 		scoreGameobject.transform.GetChild (0).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, '0');
 		scoreGameobject.transform.GetChild (1).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'A');
