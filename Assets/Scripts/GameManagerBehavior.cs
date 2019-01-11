@@ -13,6 +13,9 @@ public class GameManagerBehavior : MonoBehaviour
     private string _playerName;
 	private GameObject _scoreP1, _scoreP2;
 	private GameObject _scoreP1_1, _scoreP1_2, _scoreP2_1, _scoreP2_2;
+	private GameObject _setP1, _setP2;
+	private GameObject _setP1_1, _setP1_2, _setP2_1, _setP2_2;
+	private GameObject _winner, _loser;
 	private GameObject _playerOne, _playerTwo;
 
 	void Start ()
@@ -22,12 +25,24 @@ public class GameManagerBehavior : MonoBehaviour
 		SetPlayerOne = 0;
 		SetPlayerTwo = 0;
 		_playerName = CurrentPlayer.PlayerOne.ToString();
+
 		_scoreP1 = GameObject.Find ("ScoreP1");
 		_scoreP2 = GameObject.Find ("ScoreP2");
 		_scoreP1_1 = GameObject.Find ("ScoreP1-1");
 		_scoreP1_2 = GameObject.Find ("ScoreP1-2");
 		_scoreP2_1 = GameObject.Find ("ScoreP2-1");
 		_scoreP2_2 = GameObject.Find ("ScoreP2-2");
+
+		_setP1 = GameObject.Find ("SetP1");
+		_setP2 = GameObject.Find ("SetP2");
+		_setP1_1 = GameObject.Find ("SetP1-1");
+		_setP1_2 = GameObject.Find ("SetP1-2");
+		_setP2_1 = GameObject.Find ("SetP2-1");
+		_setP2_2 = GameObject.Find ("SetP2-2");
+
+		_winner = GameObject.Find ("Winner");
+		_loser = GameObject.Find ("Loser");
+
 		_playerOne = GameObject.Find ("PlayerOne");
 		_playerTwo = GameObject.Find ("PlayerTwo");
 		PlaceBall();
@@ -41,9 +56,13 @@ public class GameManagerBehavior : MonoBehaviour
         var currentBall = Instantiate(Ball, new Vector3(0.0f, 0.0f, 0.0f), Ball.transform.rotation);
         currentBall.transform.name = "Ball";
 		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;
-		currentPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
+		//currentPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
 		_scoreP1.GetComponent<Animator> ().Play ("StartingState");
 		_scoreP2.GetComponent<Animator> ().Play ("StartingState");
+		_setP1.GetComponent<Animator> ().Play ("StartingState");
+		_setP2.GetComponent<Animator> ().Play ("StartingState");
+		_winner.GetComponent<Animator> ().Play ("StartingState");
+		_loser.GetComponent<Animator> ().Play ("StartingState");
 		_playerOne.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
 		_playerTwo.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
     }
@@ -55,14 +74,48 @@ public class GameManagerBehavior : MonoBehaviour
 		return false;
 	}
 
+	private void CheckIfGame()
+	{
+		bool gameEnd = false;
+
+		if (SetPlayerOne >= 2) {
+			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 180.0f);
+			_winner.GetComponent<Animator> ().Play ("DisplayFromBottom");
+			_loser.GetComponent<Animator> ().Play ("DisplayFromTop");
+			gameEnd = true;
+		} else if (SetPlayerTwo >= 2) {
+			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
+			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
+			_winner.GetComponent<Animator> ().Play ("DisplayFromTop");
+			_loser.GetComponent<Animator> ().Play ("DisplayFromBottom");
+			gameEnd = true;
+		}
+
+		if (gameEnd == true)
+		{
+			SetPlayerOne = 0;
+			SetPlayerTwo = 0;
+			ChangeAllSets ();
+			Invoke("PlaceBall", 8.0f);
+		}
+		else
+			PlaceBall ();
+	}
+
 	private void CheckIfSet()
 	{
 		bool reset = false;
+
 		if (ScorePlayerOne >= 12) {
 			++SetPlayerOne;
+			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win();
+			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose();
 			reset = true;
 		} else if (ScorePlayerTwo >= 12) {
 			++SetPlayerTwo;
+			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose();
+			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win();
 			reset = true;
 		}
 
@@ -70,9 +123,11 @@ public class GameManagerBehavior : MonoBehaviour
 			ScorePlayerOne = 0;
 			ScorePlayerTwo = 0;
 			ChangeAllScores ();
+			DisplaySets();
+			Invoke("CheckIfGame", 3.0f);
 		}
-
-		PlaceBall ();
+		else
+			PlaceBall ();
 	}
 
 	public void NewBall(CurrentPlayer looser, int points)
@@ -103,6 +158,13 @@ public class GameManagerBehavior : MonoBehaviour
 		Invoke ("ChangeAllScores", 0.75f);
 	}
 
+	private void DisplaySets()
+	{
+		_setP1.GetComponent<Animator> ().Play ("DisplayScore01");
+		_setP2.GetComponent<Animator> ().Play ("DisplayScore02");
+		Invoke ("ChangeAllSets", 0.75f);
+	}
+
 	private void ChangeAllScores()
 	{
 		ChangeScore (ScorePlayerOne, _scoreP1_1);
@@ -111,13 +173,21 @@ public class GameManagerBehavior : MonoBehaviour
 		ChangeScore (ScorePlayerTwo, _scoreP2_2);
 	}
 
-	private void ChangeScore(int score, GameObject scoreGameobject)
+	private void ChangeAllSets()
 	{
-		scoreGameobject.transform.GetChild (0).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, '0');
-		scoreGameobject.transform.GetChild (1).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'A');
-		scoreGameobject.transform.GetChild (2).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'K');
-		scoreGameobject.transform.GetChild (3).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'a');
-		scoreGameobject.transform.GetChild (4).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, 'k');
+		ChangeScore (SetPlayerOne, _setP1_1);
+		ChangeScore (SetPlayerTwo, _setP1_2);
+		ChangeScore (SetPlayerOne, _setP2_1);
+		ChangeScore (SetPlayerTwo, _setP2_2);
+	}
+
+	private void ChangeScore(int score, GameObject scoreGameobject, bool isScore = true)
+	{
+		scoreGameobject.transform.GetChild (0).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, isScore ? '0' : 'A');
+		scoreGameobject.transform.GetChild (1).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, isScore ? 'A' : 'a');
+		scoreGameobject.transform.GetChild (2).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, isScore ? 'K' : 'A');
+		scoreGameobject.transform.GetChild (3).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, isScore ? 'a' : 'a');
+		scoreGameobject.transform.GetChild (4).GetComponent<UnityEngine.UI.Text> ().text = GetFormatedString(score, isScore ? 'k' : 'A');
 	}
 
 	private string GetFormatedString(int score, char baseCharacter)
@@ -137,3 +207,9 @@ public class GameManagerBehavior : MonoBehaviour
 		return tmpStr;
 	}
 }
+
+/*
+ * Idées musiques :
+ * - Zadok - Myrone
+ * - Tires on Fire - Coda
+ */

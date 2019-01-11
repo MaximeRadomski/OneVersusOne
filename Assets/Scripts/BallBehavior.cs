@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallBehavior : MonoBehaviour
 {
     public float Speed;
+	public int CatchCount;
 	public CurrentPlayer CurrentPlayer;
 	public CurrentPlayer IsThrownBy;
 	public Animator Animator;
@@ -19,7 +20,6 @@ public class BallBehavior : MonoBehaviour
     private GameObject _camera;
     private float _spaceYFromPlayer;
 	private float _spaceXFromPlayer;
-	private int _catchCount;
 	private Direction _liftDirection;
 	private float _gravity;
 	private bool _gravityIsSet;
@@ -27,6 +27,7 @@ public class BallBehavior : MonoBehaviour
 	private float _liftEffectDelay;
 	private float _quickEffectDelay;
 	private bool _isQuickThrow;
+	private bool _hasHitGoal;
 
 	void Start ()
 	{
@@ -34,7 +35,7 @@ public class BallBehavior : MonoBehaviour
 	    //GetComponent<Rigidbody2D>().velocity = Vector2.up * Speed;
         _gameManager = GameObject.Find("$GameManager");
         _camera = GameObject.Find("Camera");
-		_catchCount = -1; //-1 because the first collision counts when serving
+		CatchCount = -1; //-1 because the first collision counts when serving
 	    IsThrownBy = CurrentPlayer.None;
 		_liftDirection = Direction.Standby;
 		_gravity = 10.0f;
@@ -43,6 +44,7 @@ public class BallBehavior : MonoBehaviour
 		_liftEffectDelay = 0.1f;
 		_quickEffectDelay = 0.05f;
 		_isQuickThrow = false;
+		_hasHitGoal = false;
 	}
 
     void Update()
@@ -86,7 +88,7 @@ public class BallBehavior : MonoBehaviour
             _linkedPlayer = col.gameObject;
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
 			_linkedPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
-			if (++_catchCount % 2 == 0 && _catchCount != 0) // "_catchcount != 0" because it starts at -1
+			if (++CatchCount % 2 == 0 && CatchCount != 0) // "CatchCount != 0" because it starts at -1
 				Speed += 0.25f;
             IsThrownBy = CurrentPlayer.None;
 			_liftDirection = Direction.Standby;
@@ -97,6 +99,9 @@ public class BallBehavior : MonoBehaviour
         }
         else if (col.gameObject.tag == "Goal")
         {
+			if (_hasHitGoal)
+				return;
+			_hasHitGoal = true;
             var yGoalEffect = 1.833f;
             if (transform.position.y < 0)
                 yGoalEffect = -yGoalEffect;
@@ -105,11 +110,11 @@ public class BallBehavior : MonoBehaviour
                 tmpGoalEffect.GetComponent<SpriteRenderer>().flipY = true;
 
 			_camera.GetComponent<CameraBehavior>().GoalHit(transform.position.y);
-			if (transform.position.x >= col.gameObject.transform.position.x - (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2) &&
+			/*if (transform.position.x >= col.gameObject.transform.position.x - (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2) &&
 			    transform.position.x <= col.gameObject.transform.position.x + (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2))
-			{
+			{*/
 				col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
-			}
+			//}
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points);
             Destroy(gameObject);
         }

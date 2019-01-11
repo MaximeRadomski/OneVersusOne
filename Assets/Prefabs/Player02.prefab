@@ -135,6 +135,8 @@ MonoBehaviour:
   LiftDirection: 0
   IsDashing: 0
   HasTheDisc: 0
+  IsControlledByAI: 0
+  ControlledAction: 0
   WalkDistance: 0.05
   DashDistance: 0.8
   Power: 0.5
@@ -150,6 +152,8 @@ MonoBehaviour:
   DashSprite: {fileID: 21300000, guid: e99713362f833be49966e6d93dfb3111, type: 3}
   DashEffect: {fileID: 1407422219576364, guid: f3a3f62725cd9064595ad28f68f9dcc3, type: 2}
   DashEffectParticles: {fileID: 1416681924767024, guid: ebecf29f912169a47b350090a84771b4,
+    type: 2}
+  CatchEffect: {fileID: 1725314493544336, guid: 6c03e7bf478e54d4c959fb77e5262629,
     type: 2}
 --- !u!212 &212903665873115856
 SpriteRenderer:
@@ -183,7 +187,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1977211377
-  m_SortingLayer: 4
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 89e9d53c090d1784292157ab2a04fd77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

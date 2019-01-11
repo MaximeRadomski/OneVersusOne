@@ -13,17 +13,36 @@ public class AI : MonoBehaviour
     private bool _canDash;
 	private CurrentPlayer _rival;
 
+	private float _throwDelay;
+	private float _startReactDistance;
+
+	private bool _checkSelfGoal;
+
+	/// <summary>
+	/// Easy Difficulty:	Current Setting minus Recentering
+	/// Medium Difficulty:	Current Settings
+	/// Hard Difficulty:	_throwDelay = 0.05f and _startReactDistance = 0.5f
+	/// </summary>
+
 	void Start ()
 	{
 		GetBall ();
 		GetPlayers ();
+		ResetRandomFactors ();
 		_isThrowing = false;
 	    _repeatDashCooldown = 1.0f;
 	    _canDash = true;
+		_checkSelfGoal = false;
 		if (Player == CurrentPlayer.PlayerOne)
 			_rival = CurrentPlayer.PlayerTwo;
 		else if (Player == CurrentPlayer.PlayerTwo)
 			_rival = CurrentPlayer.PlayerOne;
+	}
+
+	private void ResetRandomFactors()
+	{
+		_throwDelay = Random.Range (0.05f, 0.5f);
+		_startReactDistance = Random.Range (-0.5f, 0.5f);
 	}
 
 	private string GetFocusedPayerName()
@@ -51,7 +70,8 @@ public class AI : MonoBehaviour
 			return;
 		if (_linkedPlayer == null)
 			GetPlayers();
-		if (_ball.GetComponent<BallBehavior> ().IsThrownBy == _rival)
+		if (_ball.GetComponent<BallBehavior> ().IsThrownBy == _rival ||
+			(_ball.GetComponent<BallBehavior> ().IsThrownBy == Player && _checkSelfGoal &&  Vector3.Distance(new Vector3(0.0f, _linkedPlayer.transform.position.y, 0.0f), new Vector3(0.0f, _ball.transform.position.y, 0.0f)) < 1.0f))
 		    ActFromBallPosition();
 		else if (_ball.GetComponent<BallBehavior>().IsThrownBy == Player ||
 		         _ball.GetComponent<BallBehavior>().IsThrownBy == CurrentPlayer.None)
@@ -59,15 +79,15 @@ public class AI : MonoBehaviour
 		if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
 		{
             _isThrowing = true;
-			Invoke ("Throw", 0.5f);
+			Invoke ("Throw", _throwDelay);
 		}
 	}
 
     private void ActFromBallPosition()
     {
-		if (_ball.transform.position.y < 0.5f && Player == CurrentPlayer.PlayerTwo)
+		if (_ball.transform.position.y < _startReactDistance && Player == CurrentPlayer.PlayerTwo)
             return;
-		if (_ball.transform.position.y > -0.5f && Player == CurrentPlayer.PlayerOne)
+		if (_ball.transform.position.y > -_startReactDistance && Player == CurrentPlayer.PlayerOne)
 			return;
 		if (_ball.transform.position.x + _linkedPlayer.GetComponent<PlayerBehavior>().DashDistance < transform.position.x && _canDash)
         {
@@ -106,6 +126,7 @@ public class AI : MonoBehaviour
 
     private void Throw()
 	{
+		_checkSelfGoal = false;
 		int leftRight = Random.Range (0,2);
 		if (leftRight == 0)
 		{
@@ -135,11 +156,13 @@ public class AI : MonoBehaviour
 			else
 				_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
 		}
-        Invoke("ResetThrowPossibility", 0.5f);
+        Invoke("ResetThrowPossibility", 1.0f);
     }
 
     private void ResetThrowPossibility()
     {
         _isThrowing = false;
+		_checkSelfGoal = true;
+		ResetRandomFactors ();
     }
 }

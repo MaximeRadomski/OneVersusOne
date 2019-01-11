@@ -24,6 +24,7 @@ public class PlayerBehavior : MonoBehaviour
 	public Sprite DashSprite;
     public GameObject DashEffect;
     public GameObject DashEffectParticles;
+	public GameObject CatchEffect;
 
     private Quaternion _initialRotation;
 	private Vector3 _initialPosition;
@@ -208,7 +209,8 @@ public class PlayerBehavior : MonoBehaviour
 		Animator.enabled = false;
 		CurrentSprite.sprite = DashSprite;
         Invoke("ResetDash", _dashCooldown);
-        Instantiate(DashEffect, transform.position, DashEffect.transform.rotation);
+		var tmpDashEffect = Instantiate(DashEffect, transform.position, transform.rotation);
+		tmpDashEffect.transform.eulerAngles += new Vector3 (0.0f, 0.0f, 180.0f);
         var tmpDashParticles = Instantiate(DashEffectParticles, transform.position, gameObject.transform.rotation);
         tmpDashParticles.GetComponent<EffectBehavior>().ObjectToFollow = gameObject;
     }
@@ -233,6 +235,13 @@ public class PlayerBehavior : MonoBehaviour
 
 	public void CatchTheDisc()
 	{
+		if (_ball == null)
+			_ball = GetBall ();
+		if (_ball.GetComponent<BallBehavior>().CatchCount >= 0) {
+			var tmpCatchEffect = Instantiate(CatchEffect, transform.position, CatchEffect.transform.rotation);
+			if (Player == CurrentPlayer.PlayerTwo)
+				tmpCatchEffect.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
+		}
 		HasTheDisc = true;
 		_throwAngle = 0.0f;
 		LiftDirection = Direction.Standby;
