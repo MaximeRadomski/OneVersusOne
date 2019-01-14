@@ -17,6 +17,8 @@ public class PlayerBehavior : MonoBehaviour
     public float DashDistance;
     public float Power;
 
+	public AudioSource ThrowAudio;
+
     public Animator Animator;
 	public BoxCollider2D BoxCollider;
 	public SpriteRenderer CurrentSprite;
@@ -286,6 +288,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void ThrowBallAfterDelay()
     {
+		ThrowAudio.Play ();
         if (_ball == null)
             _ball = GetBall();
 		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
@@ -297,6 +300,7 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void LiftBallAfterDelay()
 	{
+		ThrowAudio.Play ();
 		if (_ball == null)
 			_ball = GetBall();
 		if (_ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)

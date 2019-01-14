@@ -6,10 +6,12 @@ public class EffectBehavior : MonoBehaviour
 {
 	public SpriteRenderer SpriteRenderer;
     public GameObject ObjectToFollow;
+	public float DelayBeforeHide;
 	public float DelayBeforeDestroy;
 
 	void Start ()
 	{
+		Invoke ("HideAfterDelay", DelayBeforeHide);
 		Invoke ("DestroyAfterDelay", DelayBeforeDestroy);
 	}
 
@@ -24,10 +26,14 @@ public class EffectBehavior : MonoBehaviour
         }
     }
 
+	private void HideAfterDelay()
+	{
+		if (SpriteRenderer != null)
+			SpriteRenderer.enabled = false;	
+	}
+
     private void DestroyAfterDelay()
 	{
-        if (SpriteRenderer != null)
-		    SpriteRenderer.enabled = false;
 		Destroy (gameObject);
 	}
 }

@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 3
+  CatchCount: 0
   CurrentPlayer: 0
   IsThrownBy: 0
   Animator: {fileID: 95806610634825652}
