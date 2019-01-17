@@ -10,6 +10,11 @@ public class GameManagerBehavior : MonoBehaviour
 	public int ScorePlayerOne, ScorePlayerTwo;
 	public int SetPlayerOne, SetPlayerTwo;
 
+	public AudioSource StageMusic;
+	public AudioSource PointAudio;
+	public AudioSource SetAudio;
+	public AudioSource SlideAudio;
+
     private string _playerName;
 	private GameObject _scoreP1, _scoreP2;
 	private GameObject _scoreP1_1, _scoreP1_2, _scoreP2_1, _scoreP2_2;
@@ -20,6 +25,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
+		StageMusic.Play ();
 		ScorePlayerOne = 0;
 		ScorePlayerTwo = 0;
 		SetPlayerOne = 0;
@@ -151,6 +157,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void DisplayScores()
 	{
+		SlideAudio.Play ();
 		_playerOne.GetComponent<PlayerBehavior> ().Recenter ();
 		_playerTwo.GetComponent<PlayerBehavior> ().Recenter ();
 		_scoreP1.GetComponent<Animator> ().Play ("DisplayScore01");
@@ -160,6 +167,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void DisplaySets()
 	{
+		SlideAudio.Play ();
 		_setP1.GetComponent<Animator> ().Play ("DisplayScore01");
 		_setP2.GetComponent<Animator> ().Play ("DisplayScore02");
 		Invoke ("ChangeAllSets", 0.75f);
@@ -167,6 +175,8 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void ChangeAllScores()
 	{
+		if (ScorePlayerOne > 0 || ScorePlayerTwo > 0)
+			PointAudio.Play ();
 		ChangeScore (ScorePlayerOne, _scoreP1_1);
 		ChangeScore (ScorePlayerTwo, _scoreP1_2);
 		ChangeScore (ScorePlayerOne, _scoreP2_1);
@@ -175,6 +185,8 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void ChangeAllSets()
 	{
+		if (SetPlayerOne > 0 || SetPlayerTwo > 0)
+			SetAudio.Play ();
 		ChangeScore (SetPlayerOne, _setP1_1);
 		ChangeScore (SetPlayerTwo, _setP1_2);
 		ChangeScore (SetPlayerOne, _setP2_1);
