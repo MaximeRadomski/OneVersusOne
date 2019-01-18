@@ -87,7 +87,8 @@ public class BallBehavior : MonoBehaviour
 			_nbCol = 0;
             _linkedPlayer = col.gameObject;
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
-			_linkedPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
+			if (_linkedPlayer.GetComponent<PlayerBehavior>().HasTheDisc == false)
+				_linkedPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
 			if (++CatchCount % 2 == 0 && CatchCount != 0) // "CatchCount != 0" because it starts at -1
 				Speed += 0.25f;
             IsThrownBy = CurrentPlayer.None;

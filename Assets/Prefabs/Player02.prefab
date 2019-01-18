@@ -221,8 +221,7 @@ MonoBehaviour:
   WalkDistance: 0.05
   DashDistance: 0.8
   Power: 0.5
-  ThrowAudio: {fileID: 82917317990811256, guid: c47d0c5156b31e740a82a7afc5323e20,
-    type: 2}
+  ThrowAudio: {fileID: 82435347686971060}
   Animator: {fileID: 95854237063709232}
   BoxCollider: {fileID: 61804633430177132}
   CurrentSprite: {fileID: 212903665873115856}
