@@ -21,11 +21,11 @@ public class TouchControlBehavior : MonoBehaviour
         switch (Action)
         {
 		case GenericTapAction.Left:
-		        _player.GetComponent<PlayerBehavior>().Move(Direction.Left);
-                break;
-            case GenericTapAction.Right:
-                _player.GetComponent<PlayerBehavior>().Move(Direction.Right);
-                break;
+	        _player.GetComponent<PlayerBehavior>().Move(Direction.Left);
+            break;
+        case GenericTapAction.Right:
+            _player.GetComponent<PlayerBehavior>().Move(Direction.Right);
+            break;
         }
     }
 

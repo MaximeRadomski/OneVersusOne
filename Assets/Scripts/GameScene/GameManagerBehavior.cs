@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerBehavior : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManagerBehavior : MonoBehaviour
     public bool IsGoal;
 	public int ScorePlayerOne, ScorePlayerTwo;
 	public int SetPlayerOne, SetPlayerTwo;
+
+	public GameObject[] Characters;
 
 	public AudioSource StageMusic;
 	public AudioSource PointAudio;
@@ -49,9 +52,28 @@ public class GameManagerBehavior : MonoBehaviour
 		_winner = GameObject.Find ("Winner");
 		_loser = GameObject.Find ("Loser");
 
-		_playerOne = GameObject.Find ("PlayerOne");
-		_playerTwo = GameObject.Find ("PlayerTwo");
+		//_playerOne = GameObject.Find ("PlayerOne");
+		//_playerTwo = GameObject.Find ("PlayerTwo");
+
+		_playerOne = CreateCharacter(CurrentPlayer.PlayerOne, 1);
+		_playerTwo = CreateCharacter(CurrentPlayer.PlayerTwo, 2);
+
 		PlaceBall();
+	}
+
+	private GameObject CreateCharacter(CurrentPlayer player, int playerNb)
+	{
+		int characterNb = PlayerPrefs.GetInt ("P" + playerNb + "Character");
+		int multiplier = player == CurrentPlayer.PlayerOne ? -1 : 1;
+		bool rotation = player == CurrentPlayer.PlayerOne ? false : true;
+
+		var tmpPlayer = Instantiate (Characters[characterNb - 1], new Vector3(0.0f, 1.805f * multiplier, 0.0f), Characters[characterNb - 1].transform.rotation);
+		if (rotation)
+			tmpPlayer.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
+		tmpPlayer.transform.name = player.ToString ();
+		tmpPlayer.GetComponent<PlayerBehavior> ().Player = player;
+		tmpPlayer.GetComponent<AI> ().Player = player;
+		return tmpPlayer;
 	}
 
     private void PlaceBall()
@@ -80,6 +102,11 @@ public class GameManagerBehavior : MonoBehaviour
 		return false;
 	}
 
+	private void EndGame()
+	{
+		SceneManager.LoadScene("CharSelScene");
+	}
+
 	private void CheckIfGame()
 	{
 		bool gameEnd = false;
@@ -103,7 +130,7 @@ public class GameManagerBehavior : MonoBehaviour
 			SetPlayerOne = 0;
 			SetPlayerTwo = 0;
 			ChangeAllSets ();
-			Invoke("PlaceBall", 8.0f);
+			Invoke("EndGame", 8.0f);
 		}
 		else
 			PlaceBall ();
