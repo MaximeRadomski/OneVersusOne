@@ -63,16 +63,9 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	private IEnumerator InitiateRight(GameObject A, GameObject B, GameObject C, GameObject D)
 	{
-		//A.transform.position += new Vector3 (3.0f, 0.0f, 0.0f);
-		//B.transform.position += new Vector3 (3.0f, 0.0f, 0.0f);
-		//C.transform.position += new Vector3 (3.0f, 0.0f, 0.0f);
-		//D.transform.position += new Vector3 (3.0f, 0.0f, 0.0f);
 		A.GetComponent<Animator> ().Play ("Empty");
-		//yield return new WaitForSeconds(0.1f);
 		B.GetComponent<Animator> ().Play ("Empty");
-		//yield return new WaitForSeconds(0.1f);
 		C.GetComponent<Animator> ().Play ("Empty");
-		//yield return new WaitForSeconds(0.1f);
 		D.GetComponent<Animator> ().Play ("Empty");
 		yield return new WaitForSeconds(0.1f);
 	}
@@ -114,6 +107,18 @@ public class CharSelManagerBehavior : MonoBehaviour
 		GameObject.Find ("P" + player + "-Confirm").GetComponent<CharSelButtonBehavior>().SwitchSprite();
 
 		if (_p1Confirm && _p2Confirm)
-			SceneManager.LoadScene("GameScene");
+		{
+			var tmpButtons = GameObject.FindGameObjectsWithTag("Button");
+			foreach (var button in tmpButtons)
+			{
+				button.GetComponent<BoxCollider2D> ().enabled = false;
+			}
+			Invoke ("LoadGameScene", 0.25f);
+		}
+	}
+
+	private void LoadGameScene()
+	{
+		SceneManager.LoadScene("GameScene");
 	}
 }

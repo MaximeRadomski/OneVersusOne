@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114457032284315534}
   - component: {fileID: 82435347686971060}
   m_Layer: 0
-  m_Name: Player01
+  m_Name: Player02
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ Animator:
   m_GameObject: {fileID: 1727615348242512}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 48c3da6f6a9b4d84388df62a2011dfba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8e212e204833a3647b2d9048d7b2c21b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -226,12 +226,12 @@ MonoBehaviour:
   BoxCollider: {fileID: 61804633430177132}
   CurrentSprite: {fileID: 212903665873115856}
   AngleSprites:
-  - {fileID: 21300010, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
-  - {fileID: 21300012, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
-  - {fileID: 21300014, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
-  - {fileID: 21300016, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
-  - {fileID: 21300018, guid: cda3dbca0e7eb3b448e404ef166c69ad, type: 3}
-  DashSprite: {fileID: 21300000, guid: e99713362f833be49966e6d93dfb3111, type: 3}
+  - {fileID: 21300000, guid: 8f1eb500403d54f498cf9608f8ef1ca6, type: 3}
+  - {fileID: 21300002, guid: 8f1eb500403d54f498cf9608f8ef1ca6, type: 3}
+  - {fileID: 21300004, guid: 8f1eb500403d54f498cf9608f8ef1ca6, type: 3}
+  - {fileID: 21300006, guid: 8f1eb500403d54f498cf9608f8ef1ca6, type: 3}
+  - {fileID: 21300008, guid: 8f1eb500403d54f498cf9608f8ef1ca6, type: 3}
+  DashSprite: {fileID: 21300000, guid: 960e40975d542244cb5d3f7314a5f22e, type: 3}
   DashEffect: {fileID: 1407422219576364, guid: f3a3f62725cd9064595ad28f68f9dcc3, type: 2}
   DashEffectParticles: {fileID: 1416681924767024, guid: ebecf29f912169a47b350090a84771b4,
     type: 2}
@@ -271,7 +271,7 @@ SpriteRenderer:
   m_SortingLayerID: -1977211377
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300012, guid: 89e9d53c090d1784292157ab2a04fd77, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3abfecadd1a90dc4c84c631e959b2365, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

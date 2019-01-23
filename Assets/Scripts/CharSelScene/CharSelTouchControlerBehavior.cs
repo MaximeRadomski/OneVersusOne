@@ -8,6 +8,7 @@ public class CharSelTouchControlerBehavior : MonoBehaviour
 
 	void Update ()
 	{
+		#if UNITY_ANDROID
 		if (Input.touchCount > 0)
 		{
 			for (int i = 0; i < Input.touchCount; i++)
@@ -28,12 +29,13 @@ public class CharSelTouchControlerBehavior : MonoBehaviour
 					//Debug.Log("Touched " + touchedObject.transform.name);
 					if (touchedObject.tag == "Button")
 					{
-						touchedObject.GetComponent<CharSelButtonBehavior>().DoAction();
+						if (Input.GetTouch(i).phase == TouchPhase.Ended)
+							touchedObject.GetComponent<CharSelButtonBehavior>().DoAction();
 					}
 				}
 			}
 		}
-
+		#else
 		if (Input.GetMouseButtonDown (0))
 		{
 			//We transform the touch position into word space from screen space and store it.
@@ -56,5 +58,6 @@ public class CharSelTouchControlerBehavior : MonoBehaviour
 				}
 			}
 		}
+		#endif
 	}
 }

@@ -1,15 +1,21 @@
 fileFormatVersion: 2
-guid: 3abfecadd1a90dc4c84c631e959b2365
-timeCreated: 1548246053
+guid: a991514dff8d6be43ae2387f4ebf702d
+timeCreated: 1548249607
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player02Idle_0
-    21300002: Player02Idle_1
-    21300004: Player02Idle_2
-    21300006: Player02Idle_3
-    21300008: Player02Idle_4
-    21300010: Player02Idle_5
+    21300000: Player01Run_0
+    21300002: Player01Run_1
+    21300004: Player01Run_2
+    21300006: Player01Run_3
+    21300008: Player01Run_4
+    21300010: Player01Run_5
+    21300012: Player05Run_0
+    21300014: Player05Run_1
+    21300016: Player05Run_2
+    21300018: Player05Run_3
+    21300020: Player05Run_4
+    21300022: Player05Run_5
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,7 +69,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -73,7 +79,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -83,6 +89,16 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
     maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
@@ -96,7 +112,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player02Idle_0
+      name: Player05Run_0
       rect:
         serializedVersion: 2
         x: 0
@@ -110,7 +126,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player02Idle_1
+      name: Player05Run_1
       rect:
         serializedVersion: 2
         x: 37
@@ -124,7 +140,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player02Idle_2
+      name: Player05Run_2
       rect:
         serializedVersion: 2
         x: 74
@@ -138,7 +154,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player02Idle_3
+      name: Player05Run_3
       rect:
         serializedVersion: 2
         x: 0
@@ -152,7 +168,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player02Idle_4
+      name: Player05Run_4
       rect:
         serializedVersion: 2
         x: 37
@@ -166,7 +182,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player02Idle_5
+      name: Player05Run_5
       rect:
         serializedVersion: 2
         x: 74

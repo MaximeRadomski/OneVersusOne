@@ -1,14 +1,19 @@
 fileFormatVersion: 2
-guid: 2eff5794a79d8424c953eb4b2d698802
-timeCreated: 1545078826
+guid: cda3dbca0e7eb3b448e404ef166c69ad
+timeCreated: 1548248861
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player01Aim_0
-    21300002: Player01Aim_1
-    21300004: Player01Aim_2
-    21300006: Player01Aim_3
-    21300008: Player01Aim_4
+    21300000: Player02Aim_0
+    21300002: Player02Aim_1
+    21300004: Player02Aim_2
+    21300006: Player02Aim_3
+    21300008: Player02Aim_4
+    21300010: Player01Aim_0
+    21300012: Player01Aim_1
+    21300014: Player01Aim_2
+    21300016: Player01Aim_3
+    21300018: Player01Aim_4
   externalObjects: {}
   serializedVersion: 4
   mipmaps:

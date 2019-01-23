@@ -1,15 +1,21 @@
 fileFormatVersion: 2
-guid: a991514dff8d6be43ae2387f4ebf702d
-timeCreated: 1545078820
+guid: 6e1bcce086945e84f998c1263e69e17e
+timeCreated: 1548248887
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player01Run_0
-    21300002: Player01Run_1
-    21300004: Player01Run_2
-    21300006: Player01Run_3
-    21300008: Player01Run_4
-    21300010: Player01Run_5
+    21300000: Player02Run_0
+    21300002: Player02Run_1
+    21300004: Player02Run_2
+    21300006: Player02Run_3
+    21300008: Player02Run_4
+    21300010: Player02Run_5
+    21300012: Player01Run_0
+    21300014: Player01Run_1
+    21300016: Player01Run_2
+    21300018: Player01Run_3
+    21300020: Player01Run_4
+    21300022: Player01Run_5
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,7 +69,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -73,7 +79,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -83,7 +89,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0

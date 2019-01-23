@@ -1,12 +1,15 @@
 fileFormatVersion: 2
-guid: b2156bce32c4c57499907a7c176fd9b8
-timeCreated: 1545078835
+guid: 2e32846439de66d46ac5e3aa15004d64
+timeCreated: 1548248896
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player01Throw_0
-    21300002: Player01Throw_1
-    21300004: Player01Throw_2
+    21300000: Player02Throw_0
+    21300002: Player02Throw_1
+    21300004: Player02Throw_2
+    21300006: Player01Throw_0
+    21300008: Player01Throw_1
+    21300010: Player01Throw_2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:

@@ -1,15 +1,21 @@
 fileFormatVersion: 2
-guid: 959e91cd70371ac4abeb50fbeed63159
-timeCreated: 1545078804
+guid: 89e9d53c090d1784292157ab2a04fd77
+timeCreated: 1548248849
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player01Idle_0
-    21300002: Player01Idle_1
-    21300004: Player01Idle_2
-    21300006: Player01Idle_3
-    21300008: Player01Idle_4
-    21300010: Player01Idle_5
+    21300000: Player02Idle_0
+    21300002: Player02Idle_1
+    21300004: Player02Idle_2
+    21300006: Player02Idle_3
+    21300008: Player02Idle_4
+    21300010: Player02Idle_5
+    21300012: Player01Idle_0
+    21300014: Player01Idle_1
+    21300016: Player01Idle_2
+    21300018: Player01Idle_3
+    21300020: Player01Idle_4
+    21300022: Player01Idle_5
   externalObjects: {}
   serializedVersion: 4
   mipmaps:

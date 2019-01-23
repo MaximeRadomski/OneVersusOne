@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 3abfecadd1a90dc4c84c631e959b2365
-timeCreated: 1548246053
+guid: b2156bce32c4c57499907a7c176fd9b8
+timeCreated: 1548249616
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player02Idle_0
-    21300002: Player02Idle_1
-    21300004: Player02Idle_2
-    21300006: Player02Idle_3
-    21300008: Player02Idle_4
-    21300010: Player02Idle_5
+    21300000: Player01Throw_0
+    21300002: Player01Throw_1
+    21300004: Player01Throw_2
+    21300006: Player05Throw_0
+    21300008: Player05Throw_1
+    21300010: Player05Throw_2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -92,53 +92,21 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player02Idle_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 36
-        width: 37
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player02Idle_1
-      rect:
-        serializedVersion: 2
-        x: 37
-        y: 36
-        width: 37
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player02Idle_2
-      rect:
-        serializedVersion: 2
-        x: 74
-        y: 36
-        width: 37
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player02Idle_3
+      name: Player05Throw_0
       rect:
         serializedVersion: 2
         x: 0
@@ -152,7 +120,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player02Idle_4
+      name: Player05Throw_1
       rect:
         serializedVersion: 2
         x: 37
@@ -166,7 +134,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Player02Idle_5
+      name: Player05Throw_2
       rect:
         serializedVersion: 2
         x: 74
