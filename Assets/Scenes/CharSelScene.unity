@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ac771f06cada647a4b5d9fa09457c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: 0.5
+  ScrollSpeed: 0.25
   Renderer: {fileID: 63159439}
 --- !u!23 &63159439
 MeshRenderer:
