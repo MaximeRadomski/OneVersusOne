@@ -1,15 +1,11 @@
 fileFormatVersion: 2
-guid: 2e32846439de66d46ac5e3aa15004d64
-timeCreated: 1548503657
+guid: 2495044b9bf869b42b44a3d5ab3df6ae
+timeCreated: 1548616990
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player02Throw_0
-    21300002: Player02Throw_1
-    21300004: Player02Throw_2
-    21300006: Player01Throw_0
-    21300008: Player01Throw_1
-    21300010: Player01Throw_2
+    21300000: ButtonDirection01_0
+    21300002: ButtonDirection01_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,7 +59,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -73,7 +69,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -83,7 +79,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -93,7 +89,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: WebGL
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -106,41 +102,27 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player01Throw_0
+      name: ButtonDirection01_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 18
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ButtonDirection01_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 37
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player01Throw_1
-      rect:
-        serializedVersion: 2
-        x: 37
-        y: 0
-        width: 37
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Player01Throw_2
-      rect:
-        serializedVersion: 2
-        x: 74
-        y: 0
-        width: 37
-        height: 36
+        width: 29
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
