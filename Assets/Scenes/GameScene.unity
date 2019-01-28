@@ -152,11 +152,11 @@ MonoBehaviour:
   SetPlayerOne: 0
   SetPlayerTwo: 0
   Characters:
-  - {fileID: 1727615348242512, guid: 400755eac34b262409a60d597db4fa0a, type: 2}
+  - {fileID: 1727615348242512, guid: c47d0c5156b31e740a82a7afc5323e20, type: 2}
   - {fileID: 1727615348242512, guid: 9d02e48ff67d9c2419c9079ef94eed29, type: 2}
   - {fileID: 1002098021237478, guid: 060678e94bc85af4f9d84ea067e5c996, type: 2}
   - {fileID: 1002098021237478, guid: b11e1297a518a3047bd4949417c32dce, type: 2}
-  - {fileID: 1982217508213234, guid: c47d0c5156b31e740a82a7afc5323e20, type: 2}
+  - {fileID: 1982217508213234, guid: 11f601dba4cf72945b05f9fad824ab51, type: 2}
   - {fileID: 1982217508213234, guid: f48188ec207430c4785174f2dde2673d, type: 2}
   StageMusic: {fileID: 26052753}
   PointAudio: {fileID: 26052755}

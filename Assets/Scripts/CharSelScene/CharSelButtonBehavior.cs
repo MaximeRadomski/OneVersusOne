@@ -10,6 +10,8 @@ public class CharSelButtonBehavior : MonoBehaviour
 	public Sprite SpriteOn;
 	public Sprite SpriteOff;
 
+	public AudioSource ButtonSound;
+
 	private CharSelManagerBehavior _charSelManager;
 	private int _player;
 
@@ -55,8 +57,8 @@ public class CharSelButtonBehavior : MonoBehaviour
 		case GenericTapAction.Confirm:
 			_charSelManager.Confirm(_player);
 			break;
-
 		}
+		ButtonSound.Play ();
 	}
 
 	public enum GenericTapAction

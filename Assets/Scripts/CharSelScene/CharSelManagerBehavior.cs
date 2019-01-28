@@ -113,7 +113,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 			{
 				button.GetComponent<BoxCollider2D> ().enabled = false;
 			}
-			Invoke ("LoadGameScene", 0.25f);
+			Invoke ("LoadGameScene", 0.1f);
 		}
 	}
 
