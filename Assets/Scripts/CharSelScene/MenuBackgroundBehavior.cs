@@ -7,6 +7,11 @@ public class MenuBackgroundBehavior : MonoBehaviour
 	public float ScrollSpeed;
 	public MeshRenderer Renderer;
 
+	private void Awake()
+	{
+		DontDestroyOnLoad(transform.gameObject);
+	}
+
 	void Start()
 	{
 		Renderer.sortingLayerName = "Background";

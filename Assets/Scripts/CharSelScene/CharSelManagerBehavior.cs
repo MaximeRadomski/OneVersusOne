@@ -119,6 +119,6 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	private void LoadGameScene()
 	{
-		SceneManager.LoadScene("GameScene");
+		SceneManager.LoadScene("MapSelScene");
 	}
 }

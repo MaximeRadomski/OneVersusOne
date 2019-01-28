@@ -28,6 +28,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
+		Destroy(GameObject.FindGameObjectWithTag ("MenuBackground"));
 		StageMusic.Play ();
 		ScorePlayerOne = 0;
 		ScorePlayerTwo = 0;
