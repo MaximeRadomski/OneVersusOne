@@ -152,7 +152,7 @@ MonoBehaviour:
   SetPlayerOne: 0
   SetPlayerTwo: 0
   Characters:
-  - {fileID: 1727615348242512, guid: 400755eac34b262409a60d597db4fa0a, type: 2}
+  - {fileID: 1727615348242512, guid: c47d0c5156b31e740a82a7afc5323e20, type: 2}
   - {fileID: 1727615348242512, guid: 9d02e48ff67d9c2419c9079ef94eed29, type: 2}
   - {fileID: 1002098021237478, guid: 060678e94bc85af4f9d84ea067e5c996, type: 2}
   - {fileID: 1002098021237478, guid: b11e1297a518a3047bd4949417c32dce, type: 2}
