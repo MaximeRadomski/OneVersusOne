@@ -8,9 +8,16 @@ public class EffectBehavior : MonoBehaviour
     public GameObject ObjectToFollow;
 	public float DelayBeforeHide;
 	public float DelayBeforeDestroy;
+	public EffectType Effect;
+
+	private GameManagerBehavior _gameManagerBehavior;
 
 	void Start ()
 	{
+		_gameManagerBehavior = GameObject.Find ("$GameManager").GetComponent<GameManagerBehavior>();
+
+		if (Effect != EffectType.None)
+			PlayEffectSound ();
 		Invoke ("HideAfterDelay", DelayBeforeHide);
 		Invoke ("DestroyAfterDelay", DelayBeforeDestroy);
 	}
@@ -26,6 +33,31 @@ public class EffectBehavior : MonoBehaviour
         }
     }
 
+	private void PlayEffectSound()
+	{
+		switch (Effect)
+		{
+		case EffectType.Catch:
+			AndroidNativeAudio.play(_gameManagerBehavior.CatchAudioFileID);
+			break;
+		case EffectType.Dash:
+			AndroidNativeAudio.play(_gameManagerBehavior.DashAudioFileID);
+			break;
+		case EffectType.Goal:
+			AndroidNativeAudio.play(_gameManagerBehavior.GoalAudioFileID);
+			break;
+		case EffectType.Lift:
+			AndroidNativeAudio.play(_gameManagerBehavior.LiftAudioFileID);
+			break;
+		case EffectType.QuickEffect:
+			AndroidNativeAudio.play(_gameManagerBehavior.QuickEffectAudioFileID);
+			break;
+		case EffectType.WallHit:
+			AndroidNativeAudio.play(_gameManagerBehavior.WallHitAudioFileID);
+			break;
+		}
+	}
+
 	private void HideAfterDelay()
 	{
 		if (SpriteRenderer != null)
@@ -35,5 +67,16 @@ public class EffectBehavior : MonoBehaviour
     private void DestroyAfterDelay()
 	{
 		Destroy (gameObject);
+	}
+
+	public enum EffectType
+	{
+		Catch,
+		Dash,
+		Goal,
+		Lift,
+		QuickEffect,
+		WallHit,
+		None
 	}
 }

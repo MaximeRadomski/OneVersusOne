@@ -35,7 +35,7 @@ public class MapSelTouchControlerBehavior : MonoBehaviour
 				}
 			}
 		}
-		//#elif UNITY_EDITOR
+		#else
 		if (Input.GetMouseButtonDown (0))
 		{
 			//We transform the touch position into word space from screen space and store it.

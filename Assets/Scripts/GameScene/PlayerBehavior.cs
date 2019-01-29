@@ -17,8 +17,6 @@ public class PlayerBehavior : MonoBehaviour
     public float DashDistance;
     public float Power;
 
-	public AudioSource ThrowAudio;
-
     public Animator Animator;
 	public BoxCollider2D BoxCollider;
 	public SpriteRenderer CurrentSprite;
@@ -40,6 +38,8 @@ public class PlayerBehavior : MonoBehaviour
     private float _dashCooldown;
     private bool _canDash;
 
+	private int _throwAudioFileID;
+
     void Start ()
 	{
 		_initialPosition = transform.position;
@@ -58,6 +58,7 @@ public class PlayerBehavior : MonoBehaviour
         _dashingDirection = Direction.Standby;
 	    _dashCooldown = 0.75f;
 	    _canDash = true;
+		_throwAudioFileID = AndroidNativeAudio.load("Throw.mp3");
 	}
 
     private void SetPlayerTwoAngleSprites()
@@ -288,7 +289,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void ThrowBallAfterDelay()
     {
-		ThrowAudio.Play ();
+		AndroidNativeAudio.play(_throwAudioFileID);
         if (_ball == null)
             _ball = GetBall();
 		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
@@ -300,7 +301,7 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void LiftBallAfterDelay()
 	{
-		ThrowAudio.Play ();
+		AndroidNativeAudio.play(_throwAudioFileID);
 		if (_ball == null)
 			_ball = GetBall();
 		if (_ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
@@ -334,4 +335,9 @@ public class PlayerBehavior : MonoBehaviour
 		}
 	}
 
+
+	void OnDestroy()
+	{
+		AndroidNativeAudio.unload(_throwAudioFileID);
+	}
 }

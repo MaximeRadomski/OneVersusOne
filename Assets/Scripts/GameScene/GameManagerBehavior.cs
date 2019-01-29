@@ -14,9 +14,6 @@ public class GameManagerBehavior : MonoBehaviour
 	public GameObject[] Characters;
 
 	public AudioSource StageMusic;
-	public AudioSource PointAudio;
-	public AudioSource SetAudio;
-	public AudioSource SlideAudio;
 
     private string _playerName;
 	private GameObject _scoreP1, _scoreP2;
@@ -26,8 +23,22 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject _winner, _loser;
 	private GameObject _playerOne, _playerTwo;
 
+	// ---- AUDIOS ---- //
+	public int CatchAudioFileID;
+	public int DashAudioFileID;
+	public int GoalAudioFileID;
+	public int LiftAudioFileID;
+	public int QuickEffectAudioFileID;
+	public int WallHitAudioFileID;
+
+	private int _pointAudioFileID;
+	private int _setAudioFileID;
+	private int _slideAudioFileID;
+	// ---- AUDIOS ---- //
+
 	void Start ()
 	{
+		AndroidNativeAudio.makePool();
 		Destroy(GameObject.FindGameObjectWithTag ("MenuBackground"));
 		StageMusic.Play ();
 		ScorePlayerOne = 0;
@@ -52,6 +63,19 @@ public class GameManagerBehavior : MonoBehaviour
 
 		_winner = GameObject.Find ("Winner");
 		_loser = GameObject.Find ("Loser");
+
+		// ---- AUDIOS ---- //
+		CatchAudioFileID = AndroidNativeAudio.load("Catch.mp3");
+		DashAudioFileID = AndroidNativeAudio.load("Dash.mp3");
+		GoalAudioFileID = AndroidNativeAudio.load("Goal.mp3");
+		LiftAudioFileID = AndroidNativeAudio.load("Lift.mp3");
+		QuickEffectAudioFileID = AndroidNativeAudio.load("QuickEffect.mp3");
+		WallHitAudioFileID = AndroidNativeAudio.load("WallHit.mp3");
+
+		_pointAudioFileID = AndroidNativeAudio.load("Point.mp3");
+		_setAudioFileID = AndroidNativeAudio.load("Set.mp3");
+		_slideAudioFileID = AndroidNativeAudio.load("Slide.mp3");
+		// ---- AUDIOS ---- //
 
 		//_playerOne = GameObject.Find ("PlayerOne");
 		//_playerTwo = GameObject.Find ("PlayerTwo");
@@ -185,7 +209,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void DisplayScores()
 	{
-		SlideAudio.Play ();
+		AndroidNativeAudio.play(_slideAudioFileID);
 		_playerOne.GetComponent<PlayerBehavior> ().Recenter ();
 		_playerTwo.GetComponent<PlayerBehavior> ().Recenter ();
 		_scoreP1.GetComponent<Animator> ().Play ("DisplayScore01");
@@ -195,7 +219,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void DisplaySets()
 	{
-		SlideAudio.Play ();
+		AndroidNativeAudio.play(_slideAudioFileID);
 		_setP1.GetComponent<Animator> ().Play ("DisplayScore01");
 		_setP2.GetComponent<Animator> ().Play ("DisplayScore02");
 		Invoke ("ChangeAllSets", 0.75f);
@@ -204,7 +228,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private void ChangeAllScores()
 	{
 		if (ScorePlayerOne > 0 || ScorePlayerTwo > 0)
-			PointAudio.Play ();
+			AndroidNativeAudio.play(_pointAudioFileID);
 		ChangeScore (ScorePlayerOne, _scoreP1_1);
 		ChangeScore (ScorePlayerTwo, _scoreP1_2);
 		ChangeScore (ScorePlayerOne, _scoreP2_1);
@@ -214,7 +238,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private void ChangeAllSets()
 	{
 		if (SetPlayerOne > 0 || SetPlayerTwo > 0)
-			SetAudio.Play ();
+			AndroidNativeAudio.play(_setAudioFileID);
 		ChangeScore (SetPlayerOne, _setP1_1);
 		ChangeScore (SetPlayerTwo, _setP1_2);
 		ChangeScore (SetPlayerOne, _setP2_1);
@@ -245,6 +269,21 @@ public class GameManagerBehavior : MonoBehaviour
 			firstZero = false;
 		}
 		return tmpStr;
+	}
+
+	void OnDestroy()
+	{
+		AndroidNativeAudio.unload(CatchAudioFileID);
+		AndroidNativeAudio.unload(DashAudioFileID);
+		AndroidNativeAudio.unload(GoalAudioFileID);
+		AndroidNativeAudio.unload(LiftAudioFileID);
+		AndroidNativeAudio.unload(QuickEffectAudioFileID);
+		AndroidNativeAudio.unload(WallHitAudioFileID);
+
+		AndroidNativeAudio.unload(_pointAudioFileID);
+		AndroidNativeAudio.unload(_setAudioFileID);
+		AndroidNativeAudio.unload(_slideAudioFileID);
+		AndroidNativeAudio.releasePool();
 	}
 }
 

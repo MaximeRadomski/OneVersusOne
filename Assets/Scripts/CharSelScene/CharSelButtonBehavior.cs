@@ -10,7 +10,7 @@ public class CharSelButtonBehavior : MonoBehaviour
 	public Sprite SpriteOn;
 	public Sprite SpriteOff;
 
-	public AudioSource ButtonSound;
+	public ButtonSoundType ButtonSound;
 
 	private CharSelManagerBehavior _charSelManager;
 	private int _player;
@@ -58,8 +58,22 @@ public class CharSelButtonBehavior : MonoBehaviour
 			_charSelManager.Confirm(_player);
 			break;
 		}
-		ButtonSound.Play ();
+		PlayButtonSound ();
 	}
+
+	private void PlayButtonSound ()
+	{
+		switch (ButtonSound)
+		{
+		case ButtonSoundType.MenuBip01:
+			AndroidNativeAudio.play (_charSelManager.MenuBip01AudioFileID);
+			break;
+		case ButtonSoundType.MenuBip02:
+			AndroidNativeAudio.play (_charSelManager.MenuBip02AudioFileID);
+			break;
+		}
+	}
+
 
 	public enum GenericTapAction
 	{
@@ -70,5 +84,11 @@ public class CharSelButtonBehavior : MonoBehaviour
 		C5,
 		C6,
 		Confirm
+	}
+
+	public enum ButtonSoundType
+	{
+		MenuBip01,
+		MenuBip02
 	}
 }

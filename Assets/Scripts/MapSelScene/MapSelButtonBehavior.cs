@@ -10,7 +10,7 @@ public class MapSelButtonBehavior : MonoBehaviour
 	public Sprite SpriteOn;
 	public Sprite SpriteOff;
 
-	public AudioSource ButtonSound;
+	public ButtonSoundType ButtonSound;
 
 	private MapSelManagerBehavior _mapSelManager;
 	private int _player;
@@ -46,7 +46,20 @@ public class MapSelButtonBehavior : MonoBehaviour
 			_mapSelManager.Confirm(_player);
 			break;
 		}
-		ButtonSound.Play ();
+		PlayButtonSound ();
+	}
+
+	private void PlayButtonSound ()
+	{
+		switch (ButtonSound)
+		{
+		case ButtonSoundType.MenuBip01:
+			AndroidNativeAudio.play (_mapSelManager.MenuBip01AudioFileID);
+			break;
+		case ButtonSoundType.MenuBip02:
+			AndroidNativeAudio.play (_mapSelManager.MenuBip02AudioFileID);
+			break;
+		}
 	}
 
 	public enum GenericTapAction
@@ -54,5 +67,11 @@ public class MapSelButtonBehavior : MonoBehaviour
 		Left,
 		Right,
 		Confirm
+	}
+
+	public enum ButtonSoundType
+	{
+		MenuBip01,
+		MenuBip02
 	}
 }

@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class CharSelManagerBehavior : MonoBehaviour
 {
+	// ---- AUDIOS ---- //
+	public int MenuBip01AudioFileID;
+	public int MenuBip02AudioFileID;
+	// ---- AUDIOS ---- //
+
 	private GameObject _p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters;
 	private GameObject _p1CharacterImage, _p1BannerCharacterName, _p1Skill, _p1ConfirmButton;
 
@@ -17,6 +22,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
+		AndroidNativeAudio.makePool();
 		_p1BannerPlayerName = GameObject.Find ("P1BannerPlayerName");
 		_p1LightCharacters = GameObject.Find ("P1LightCharacters");
 		_p1MediumCharacters = GameObject.Find ("P1MediumCharacters");
@@ -40,6 +46,11 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 		StartCoroutine(InitiateLeft(_p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters));
 		StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
+
+		// ---- AUDIOS ---- //
+		MenuBip01AudioFileID = AndroidNativeAudio.load("MenuBip01.mp3");
+		MenuBip02AudioFileID = AndroidNativeAudio.load("MenuBip02.mp3");
+		// ---- AUDIOS ---- //
 
 		_p1Confirm = false;
 		_p2Confirm = false;
@@ -120,5 +131,12 @@ public class CharSelManagerBehavior : MonoBehaviour
 	private void LoadGameScene()
 	{
 		SceneManager.LoadScene("MapSelScene");
+	}
+
+	void OnDestroy()
+	{
+		AndroidNativeAudio.unload(MenuBip01AudioFileID);
+		AndroidNativeAudio.unload(MenuBip02AudioFileID);
+		AndroidNativeAudio.releasePool();
 	}
 }
