@@ -8,8 +8,9 @@ public class MapSelManagerBehavior : MonoBehaviour
 	public Sprite[] MapTemplates;
 
 	// ---- AUDIOS ---- //
-	public int MenuBip01AudioFileID;
-	public int MenuBip02AudioFileID;
+	public int MenuBipSelectAudioFileID;
+	public int MenuBipConfirmAudioFileID;
+	public int MenuBipReturnAudioFileID;
 	// ---- AUDIOS ---- //
 
 	private GameObject _p1BannerMapName, _p1MapDescription, _p1SelectAndConfirmButton;
@@ -34,8 +35,9 @@ public class MapSelManagerBehavior : MonoBehaviour
 		_mapTemplateContainer = GameObject.Find ("MapTemplateContainer");
 
 		// ---- AUDIOS ---- //
-		MenuBip01AudioFileID = AndroidNativeAudio.load("MenuBip01.mp3");
-		MenuBip02AudioFileID = AndroidNativeAudio.load("MenuBip02.mp3");
+		MenuBipSelectAudioFileID = AndroidNativeAudio.load("MenuBipSelect.mp3");
+		MenuBipConfirmAudioFileID = AndroidNativeAudio.load("MenuBipConfirm.mp3");
+		MenuBipReturnAudioFileID = AndroidNativeAudio.load("MenuBipReturn.mp3");
 		// ---- AUDIOS ---- //
 
 		PlayerPrefs.SetInt ("SelectedMap", 0);
@@ -139,6 +141,20 @@ public class MapSelManagerBehavior : MonoBehaviour
 		}
 	}
 
+	void Update()
+	{
+		if (Input.GetKeyUp(KeyCode.Escape))
+		{
+			AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+			Invoke ("LoadPreviousScene", 0.5f);
+		}
+	}
+
+	private void LoadPreviousScene()
+	{
+		SceneManager.LoadScene("CharSelScene");
+	}
+
 	private void LoadGameScene()
 	{
 		SceneManager.LoadScene("GameLoadingScene");
@@ -146,8 +162,9 @@ public class MapSelManagerBehavior : MonoBehaviour
 
 	void OnDestroy()
 	{
-		AndroidNativeAudio.unload(MenuBip01AudioFileID);
-		AndroidNativeAudio.unload(MenuBip02AudioFileID);
+		AndroidNativeAudio.unload(MenuBipSelectAudioFileID);
+		AndroidNativeAudio.unload(MenuBipConfirmAudioFileID);
+		AndroidNativeAudio.unload(MenuBipReturnAudioFileID);
 		AndroidNativeAudio.releasePool();
 	}
 }

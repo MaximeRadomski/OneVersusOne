@@ -29,7 +29,11 @@ public class GameManagerBehavior : MonoBehaviour
 	public int GoalAudioFileID;
 	public int LiftAudioFileID;
 	public int QuickEffectAudioFileID;
+	public int ThrowAudioFileID;
 	public int WallHitAudioFileID;
+	public int MenuBipSelectAudioFileID;
+	public int MenuBipConfirmAudioFileID;
+	public int MenuBipReturnAudioFileID;
 
 	private int _pointAudioFileID;
 	private int _setAudioFileID;
@@ -70,7 +74,11 @@ public class GameManagerBehavior : MonoBehaviour
 		GoalAudioFileID = AndroidNativeAudio.load("Goal.mp3");
 		LiftAudioFileID = AndroidNativeAudio.load("Lift.mp3");
 		QuickEffectAudioFileID = AndroidNativeAudio.load("QuickEffect.mp3");
+		ThrowAudioFileID = AndroidNativeAudio.load("Throw.mp3");
 		WallHitAudioFileID = AndroidNativeAudio.load("WallHit.mp3");
+		MenuBipSelectAudioFileID = AndroidNativeAudio.load("MenuBipSelect.mp3");
+		MenuBipConfirmAudioFileID = AndroidNativeAudio.load("MenuBipConfirm.mp3");
+		MenuBipReturnAudioFileID = AndroidNativeAudio.load("MenuBipReturn.mp3");
 
 		_pointAudioFileID = AndroidNativeAudio.load("Point.mp3");
 		_setAudioFileID = AndroidNativeAudio.load("Set.mp3");
@@ -271,6 +279,20 @@ public class GameManagerBehavior : MonoBehaviour
 		return tmpStr;
 	}
 
+	void Update()
+	{
+		if (Input.GetKeyUp(KeyCode.Escape))
+		{
+			AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+			Invoke ("LoadPreviousScene", 0.5f);
+		}
+	}
+
+	private void LoadPreviousScene()
+	{
+		SceneManager.LoadScene("CharSelScene");
+	}
+
 	void OnDestroy()
 	{
 		AndroidNativeAudio.unload(CatchAudioFileID);
@@ -278,7 +300,11 @@ public class GameManagerBehavior : MonoBehaviour
 		AndroidNativeAudio.unload(GoalAudioFileID);
 		AndroidNativeAudio.unload(LiftAudioFileID);
 		AndroidNativeAudio.unload(QuickEffectAudioFileID);
+		AndroidNativeAudio.unload(ThrowAudioFileID);
 		AndroidNativeAudio.unload(WallHitAudioFileID);
+		AndroidNativeAudio.unload(MenuBipSelectAudioFileID);
+		AndroidNativeAudio.unload(MenuBipConfirmAudioFileID);
+		AndroidNativeAudio.unload(MenuBipReturnAudioFileID);
 
 		AndroidNativeAudio.unload(_pointAudioFileID);
 		AndroidNativeAudio.unload(_setAudioFileID);

@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 public class CharSelManagerBehavior : MonoBehaviour
 {
 	// ---- AUDIOS ---- //
-	public int MenuBip01AudioFileID;
-	public int MenuBip02AudioFileID;
+	public int MenuBipSelectAudioFileID;
+	public int MenuBipConfirmAudioFileID;
+	public int MenuBipReturnAudioFileID;
 	// ---- AUDIOS ---- //
 
 	private GameObject _p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters;
@@ -48,8 +49,9 @@ public class CharSelManagerBehavior : MonoBehaviour
 		StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
 
 		// ---- AUDIOS ---- //
-		MenuBip01AudioFileID = AndroidNativeAudio.load("MenuBip01.mp3");
-		MenuBip02AudioFileID = AndroidNativeAudio.load("MenuBip02.mp3");
+		MenuBipSelectAudioFileID = AndroidNativeAudio.load("MenuBipSelect.mp3");
+		MenuBipConfirmAudioFileID = AndroidNativeAudio.load("MenuBipConfirm.mp3");
+		MenuBipReturnAudioFileID = AndroidNativeAudio.load("MenuBipReturn.mp3");
 		// ---- AUDIOS ---- //
 
 		_p1Confirm = false;
@@ -135,8 +137,9 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	void OnDestroy()
 	{
-		AndroidNativeAudio.unload(MenuBip01AudioFileID);
-		AndroidNativeAudio.unload(MenuBip02AudioFileID);
+		AndroidNativeAudio.unload(MenuBipSelectAudioFileID);
+		AndroidNativeAudio.unload(MenuBipConfirmAudioFileID);
+		AndroidNativeAudio.unload(MenuBipReturnAudioFileID);
 		AndroidNativeAudio.releasePool();
 	}
 }

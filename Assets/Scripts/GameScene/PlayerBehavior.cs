@@ -38,8 +38,6 @@ public class PlayerBehavior : MonoBehaviour
     private float _dashCooldown;
     private bool _canDash;
 
-	private int _throwAudioFileID;
-
     void Start ()
 	{
 		_initialPosition = transform.position;
@@ -58,7 +56,6 @@ public class PlayerBehavior : MonoBehaviour
         _dashingDirection = Direction.Standby;
 	    _dashCooldown = 0.75f;
 	    _canDash = true;
-		_throwAudioFileID = AndroidNativeAudio.load("Throw.mp3");
 	}
 
     private void SetPlayerTwoAngleSprites()
@@ -289,7 +286,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void ThrowBallAfterDelay()
     {
-		AndroidNativeAudio.play(_throwAudioFileID);
+		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
         if (_ball == null)
             _ball = GetBall();
 		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
@@ -301,7 +298,7 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void LiftBallAfterDelay()
 	{
-		AndroidNativeAudio.play(_throwAudioFileID);
+		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
 		if (_ball == null)
 			_ball = GetBall();
 		if (_ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
@@ -338,6 +335,5 @@ public class PlayerBehavior : MonoBehaviour
 
 	void OnDestroy()
 	{
-		AndroidNativeAudio.unload(_throwAudioFileID);
 	}
 }

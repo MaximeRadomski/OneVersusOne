@@ -53,11 +53,11 @@ public class MapSelButtonBehavior : MonoBehaviour
 	{
 		switch (ButtonSound)
 		{
-		case ButtonSoundType.MenuBip01:
-			AndroidNativeAudio.play (_mapSelManager.MenuBip01AudioFileID);
+		case ButtonSoundType.MenuBipSelect:
+			AndroidNativeAudio.play (_mapSelManager.MenuBipSelectAudioFileID);
 			break;
-		case ButtonSoundType.MenuBip02:
-			AndroidNativeAudio.play (_mapSelManager.MenuBip02AudioFileID);
+		case ButtonSoundType.MenuBipConfirm:
+			AndroidNativeAudio.play (_mapSelManager.MenuBipConfirmAudioFileID);
 			break;
 		}
 	}
@@ -71,7 +71,7 @@ public class MapSelButtonBehavior : MonoBehaviour
 
 	public enum ButtonSoundType
 	{
-		MenuBip01,
-		MenuBip02
+		MenuBipSelect,
+		MenuBipConfirm
 	}
 }

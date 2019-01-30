@@ -35,7 +35,7 @@ public class GameLoadingManager : MonoBehaviour
 		_p1PlayerInfo.GetComponent<Animator> ().Play ("MapSelDescLeftToRight");
 		_p2PlayerInfo.GetComponent<Animator> ().Play ("MapSelDescLeftToRight");
 
-		Invoke ("LoadGameScene", 1.0f);
+		Invoke ("LoadGameScene", 2.0f);
 	}
 
 	private void LoadGameScene()

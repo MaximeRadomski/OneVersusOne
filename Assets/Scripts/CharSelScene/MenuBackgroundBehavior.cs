@@ -14,6 +14,9 @@ public class MenuBackgroundBehavior : MonoBehaviour
 
 	void Start()
 	{
+		var menuBackgroundList = GameObject.FindGameObjectsWithTag ("MenuBackground");
+		if (menuBackgroundList.Length > 1)
+			Destroy(gameObject);
 		Renderer.sortingLayerName = "Background";
 	}
 
