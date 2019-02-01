@@ -156,9 +156,16 @@ MonoBehaviour:
   - {fileID: 1982217508213234, guid: 11f601dba4cf72945b05f9fad824ab51, type: 2}
   - {fileID: 1982217508213234, guid: f48188ec207430c4785174f2dde2673d, type: 2}
   StageMusic: {fileID: 26052753}
-  PointAudio: {fileID: 0}
-  SetAudio: {fileID: 0}
-  SlideAudio: {fileID: 0}
+  CatchAudioFileID: 0
+  DashAudioFileID: 0
+  GoalAudioFileID: 0
+  LiftAudioFileID: 0
+  QuickEffectAudioFileID: 0
+  ThrowAudioFileID: 0
+  WallHitAudioFileID: 0
+  MenuBipSelectAudioFileID: 0
+  MenuBipConfirmAudioFileID: 0
+  MenuBipReturnAudioFileID: 0
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0
@@ -598,6 +605,7 @@ GameObject:
   - component: {fileID: 101016653}
   - component: {fileID: 101016656}
   - component: {fileID: 101016655}
+  - component: {fileID: 101016657}
   m_Layer: 5
   m_Name: LiftP1
   m_TagString: Button
@@ -700,6 +708,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.53}
   m_EdgeRadius: 0
+--- !u!114 &101016657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101016652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de6dd2b60b489542b2308048afd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 101016653}
+  HasTheDisc: {fileID: 21300004, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  DoesntHaveTheDisc: {fileID: 21300008, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  Player: 0
 --- !u!1 &123097483
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +734,7 @@ GameObject:
   - component: {fileID: 123097484}
   - component: {fileID: 123097487}
   - component: {fileID: 123097486}
+  - component: {fileID: 123097488}
   m_Layer: 5
   m_Name: ThrowP1
   m_TagString: Button
@@ -813,6 +837,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.53}
   m_EdgeRadius: 0
+--- !u!114 &123097488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 123097483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de6dd2b60b489542b2308048afd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 123097484}
+  HasTheDisc: {fileID: 21300006, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  DoesntHaveTheDisc: {fileID: 21300010, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  Player: 0
 --- !u!1 &136151098
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +1004,7 @@ GameObject:
   - component: {fileID: 181168606}
   - component: {fileID: 181168605}
   - component: {fileID: 181168604}
+  - component: {fileID: 181168607}
   m_Layer: 5
   m_Name: LiftP2
   m_TagString: Button
@@ -1067,6 +1107,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &181168607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 181168602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de6dd2b60b489542b2308048afd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 181168606}
+  HasTheDisc: {fileID: 21300004, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  DoesntHaveTheDisc: {fileID: 21300008, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  Player: 1
 --- !u!1 &194133096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,6 +2061,7 @@ GameObject:
   - component: {fileID: 457511646}
   - component: {fileID: 457511645}
   - component: {fileID: 457511644}
+  - component: {fileID: 457511647}
   m_Layer: 5
   m_Name: ThrowP2
   m_TagString: Button
@@ -2108,6 +2164,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &457511647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 457511642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de6dd2b60b489542b2308048afd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 457511646}
+  HasTheDisc: {fileID: 21300006, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  DoesntHaveTheDisc: {fileID: 21300010, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  Player: 1
 --- !u!1 &479147667
 GameObject:
   m_ObjectHideFlags: 0

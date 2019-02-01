@@ -40,6 +40,7 @@ public class PlayerBehavior : MonoBehaviour
 
     void Start ()
 	{
+		HasTheDisc = false;
 		_initialPosition = transform.position;
 		_initialRotation = transform.rotation;
         if (Player == CurrentPlayer.PlayerOne)

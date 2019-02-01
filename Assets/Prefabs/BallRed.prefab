@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114479350380164772}
   - component: {fileID: 95806610634825652}
   m_Layer: 0
-  m_Name: BallBlue
+  m_Name: BallRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ Animator:
   m_GameObject: {fileID: 1296604735268884}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aba68acbf2b151042b8fee0691092192, type: 2}
+  m_Controller: {fileID: 9100000, guid: 32a8f1004f907f54bb5cd04eb8cec8b6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -153,12 +153,12 @@ SpriteRenderer:
   m_SortingLayerID: -111219291
   m_SortingLayer: -4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4e24b4ea1736c7c4e9be25f378ff1f62, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dff9f7426bfa6dd4091ce91be2a53007, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.33333334, y: 0.33333334}
+  m_Size: {x: 0.3611111, y: 0.44444445}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

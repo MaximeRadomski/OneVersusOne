@@ -1,15 +1,17 @@
 fileFormatVersion: 2
-guid: f6780a43a016c6246b43104e7001453f
-timeCreated: 1549023556
+guid: dff9f7426bfa6dd4091ce91be2a53007
+timeCreated: 1549037181
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Buttons01_0
-    21300002: Buttons01_1
-    21300004: Buttons01_2
-    21300006: Buttons01_3
-    21300008: Buttons01_4
-    21300010: Buttons01_5
+    21300000: Disc02_0
+    21300002: Disc02_1
+    21300004: Disc02_2
+    21300006: Disc02_3
+    21300008: Disc02_4
+    21300010: Disc02_5
+    21300012: Disc02_6
+    21300014: Disc02_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,7 +65,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -73,7 +75,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -83,17 +85,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 128
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -106,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Buttons01_0
+      name: Disc02_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 19
-        width: 29
-        height: 19
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,13 +112,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons01_1
+      name: Disc02_1
       rect:
         serializedVersion: 2
-        x: 29
-        y: 19
-        width: 29
-        height: 19
+        x: 13
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,13 +126,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons01_2
+      name: Disc02_2
       rect:
         serializedVersion: 2
-        x: 58
-        y: 19
-        width: 29
-        height: 19
+        x: 26
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,13 +140,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons01_3
+      name: Disc02_3
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 16
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Disc02_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 29
-        height: 19
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,13 +168,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons01_4
+      name: Disc02_5
       rect:
         serializedVersion: 2
-        x: 29
+        x: 13
         y: 0
-        width: 29
-        height: 19
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,13 +182,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Buttons01_5
+      name: Disc02_6
       rect:
         serializedVersion: 2
-        x: 58
+        x: 26
         y: 0
-        width: 29
-        height: 19
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Disc02_7
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 0
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

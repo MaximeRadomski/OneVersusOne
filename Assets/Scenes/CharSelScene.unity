@@ -140,8 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad73f31ee42366f42929c523291df9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuBip01AudioFileID: 0
-  MenuBip02AudioFileID: 0
+  MenuBipSelectAudioFileID: 0
+  MenuBipConfirmAudioFileID: 0
+  MenuBipReturnAudioFileID: 0
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0
