@@ -24,7 +24,7 @@ public class GameLoadingManager : MonoBehaviour
 		_mapTemplateContainer = GameObject.Find ("MapTemplateContainer");
 
 		var map = PlayerPrefs.GetInt ("SelectedMap");
-		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map];
+		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map - 1];
 
 		_p1LoadingContainer.GetComponent<Animator> ().Play ("MapSelButtons");
 		_p2LoadingContainer.GetComponent<Animator> ().Play ("MapSelButtons");
@@ -40,6 +40,7 @@ public class GameLoadingManager : MonoBehaviour
 
 	private void LoadGameScene()
 	{
-		SceneManager.LoadScene("GameScene");
+		var map = PlayerPrefs.GetInt ("SelectedMap");
+		SceneManager.LoadScene("Map"+map.ToString("D2"));
 	}
 }

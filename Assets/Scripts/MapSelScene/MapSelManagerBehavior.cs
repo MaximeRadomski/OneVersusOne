@@ -40,7 +40,7 @@ public class MapSelManagerBehavior : MonoBehaviour
 		MenuBipReturnAudioFileID = AndroidNativeAudio.load("MenuBipReturn.mp3");
 		// ---- AUDIOS ---- //
 
-		PlayerPrefs.SetInt ("SelectedMap", 0);
+		PlayerPrefs.SetInt ("SelectedMap", 1);
 
 		_p1SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
 		_p2SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
@@ -89,19 +89,21 @@ public class MapSelManagerBehavior : MonoBehaviour
 			--map;
 		else
 			++map;
-		if (map == -1)
-			map = MapTemplates.Length - 1;
-		else if (map >= MapTemplates.Length)
-			map = 0;
+		if (map == 0)
+			map = MapTemplates.Length;
+		else if (map > MapTemplates.Length)
+			map = 1;
 
-		PlayerPrefs.SetInt ("SelectedMap", map);
-		_p1Confirm = false;
-		_p2Confirm = false;
-		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map];
 		if (direction == Direction.Left)
 			StartCoroutine(InitiateLeft());
 		else
 			StartCoroutine(InitiateRight());
+
+		PlayerPrefs.SetInt ("SelectedMap", map);
+		_p1Confirm = false;
+		_p2Confirm = false;
+		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map - 1];
+
 		var tmpConfirm = GameObject.Find ("P1-Confirm");
 		tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteRenderer.sprite = tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteOff;
 		tmpConfirm = GameObject.Find ("P2-Confirm");

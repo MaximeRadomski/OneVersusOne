@@ -142,8 +142,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapTemplates:
   - {fileID: 21300000, guid: 91ac3a3f136cd9346892c9dc7819159d, type: 3}
-  MenuBip01AudioFileID: 0
-  MenuBip02AudioFileID: 0
+  - {fileID: 21300002, guid: 91ac3a3f136cd9346892c9dc7819159d, type: 3}
+  MenuBipSelectAudioFileID: 0
+  MenuBipConfirmAudioFileID: 0
+  MenuBipReturnAudioFileID: 0
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0
