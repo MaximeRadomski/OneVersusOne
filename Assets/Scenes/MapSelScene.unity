@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 490555017}
   - component: {fileID: 490555016}
   m_Layer: 5
-  m_Name: MapName
+  m_Name: P2MapName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,8 +462,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: -1.372}
-  m_SizeDelta: {x: 420, y: 100}
+  m_AnchoredPosition: {x: -0.184, y: -1.372}
+  m_SizeDelta: {x: 610, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490555016
 MonoBehaviour:
@@ -511,7 +511,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TEST MAP NAME
+  m_Text: OPEN AIR BEACH
 --- !u!222 &490555018
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -530,7 +530,7 @@ GameObject:
   - component: {fileID: 514191891}
   - component: {fileID: 514191890}
   m_Layer: 5
-  m_Name: P2Info02
+  m_Name: P2Info2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,7 +600,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'CITY: BISCARROSSE'
+  m_Text: BISCARROSSE
 --- !u!222 &514191892
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -705,7 +705,7 @@ GameObject:
   - component: {fileID: 592444396}
   - component: {fileID: 592444395}
   m_Layer: 5
-  m_Name: P1Info02
+  m_Name: P1Info2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +775,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'CITY: BISCARROSSE'
+  m_Text: BISCARROSSE
 --- !u!222 &592444397
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 622198335}
   - component: {fileID: 622198334}
   m_Layer: 5
-  m_Name: P2Info04
+  m_Name: P2Info4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -982,7 +982,7 @@ GameObject:
   - component: {fileID: 908945648}
   - component: {fileID: 908945647}
   m_Layer: 5
-  m_Name: P1Info03
+  m_Name: P1Info3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1071,7 +1071,7 @@ GameObject:
   - component: {fileID: 936546901}
   - component: {fileID: 936546900}
   m_Layer: 5
-  m_Name: P2Info01
+  m_Name: P2Info1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1141,7 +1141,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'COUNTRY: FRANCE'
+  m_Text: FRANCE
 --- !u!222 &936546902
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1864,7 +1864,7 @@ GameObject:
   - component: {fileID: 1452629030}
   - component: {fileID: 1452629029}
   m_Layer: 5
-  m_Name: P1Info04
+  m_Name: P1Info4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1953,7 +1953,7 @@ GameObject:
   - component: {fileID: 1491439395}
   - component: {fileID: 1491439397}
   m_Layer: 5
-  m_Name: MapName
+  m_Name: P1MapName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1974,8 +1974,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: -1.372}
-  m_SizeDelta: {x: 420, y: 100}
+  m_AnchoredPosition: {x: -0.184, y: -1.372}
+  m_SizeDelta: {x: 610, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1491439395
 MonoBehaviour:
@@ -2009,7 +2009,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TEST MAP NAME
+  m_Text: OPEN AIR BEACH
 --- !u!222 &1491439396
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2042,7 +2042,7 @@ GameObject:
   - component: {fileID: 1525459152}
   - component: {fileID: 1525459151}
   m_Layer: 5
-  m_Name: P1Info01
+  m_Name: P1Info1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2112,7 +2112,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'COUNTRY: FRANCE'
+  m_Text: FRANCE
 --- !u!222 &1525459153
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2875,7 +2875,7 @@ GameObject:
   - component: {fileID: 2141049146}
   - component: {fileID: 2141049145}
   m_Layer: 5
-  m_Name: P2Info03
+  m_Name: P2Info3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,6 +15,10 @@ public class MapSelManagerBehavior : MonoBehaviour
 
 	private GameObject _p1BannerMapName, _p1MapDescription, _p1SelectAndConfirmButton;
 	private GameObject _p2BannerMapName, _p2MapDescription, _p2SelectAndConfirmButton;
+
+	private GameObject _p1MapName, _p1Info1, _p1Info2, _p1Info4;
+	private GameObject _p2MapName, _p2Info1, _p2Info2, _p2Info4;
+
 	private GameObject _mapTemplate, _mapTemplateContainer;
 
 	private bool _p1Confirm;
@@ -27,9 +31,19 @@ public class MapSelManagerBehavior : MonoBehaviour
 		_p1MapDescription = GameObject.Find ("P1MapDescription");
 		_p1SelectAndConfirmButton = GameObject.Find ("P1SelectAndConfirmButton");
 
+		_p1MapName = GameObject.Find ("P1MapName");
+		_p1Info1 = GameObject.Find ("P1Info1");
+		_p1Info2 = GameObject.Find ("P1Info2");
+		_p1Info4 = GameObject.Find ("P1Info4");
+
 		_p2BannerMapName = GameObject.Find ("P2BannerMapName");
 		_p2MapDescription = GameObject.Find ("P2MapDescription");
 		_p2SelectAndConfirmButton = GameObject.Find ("P2SelectAndConfirmButton");
+
+		_p2MapName = GameObject.Find ("P2MapName");
+		_p2Info1 = GameObject.Find ("P2Info1");
+		_p2Info2 = GameObject.Find ("P2Info2");
+		_p2Info4 = GameObject.Find ("P2Info4");
 
 		_mapTemplate = GameObject.Find ("MapTemplate");
 		_mapTemplateContainer = GameObject.Find ("MapTemplateContainer");
@@ -82,6 +96,23 @@ public class MapSelManagerBehavior : MonoBehaviour
 		EnableButtons ();
 	}
 
+	private IEnumerator ChangeMapInfo(int map)
+	{
+		yield return new WaitForSeconds(0.1f);
+
+		_p1MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Name;
+		_p1Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Country;
+		_p1Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].City;
+		_p1Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT:" + MapsData.Maps[map - 1].Effect;
+
+		_p2MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Name;
+		_p2Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Country;
+		_p2Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].City;
+		_p2Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT:" + MapsData.Maps[map - 1].Effect;
+
+		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map - 1];
+	}
+
 	public void ChangeSelectedMap(Direction direction)
 	{
 		var map = PlayerPrefs.GetInt ("SelectedMap");
@@ -94,15 +125,16 @@ public class MapSelManagerBehavior : MonoBehaviour
 		else if (map > MapTemplates.Length)
 			map = 1;
 
-		if (direction == Direction.Left)
-			StartCoroutine(InitiateLeft());
-		else
+		if (direction == Direction.Left) {
+			StartCoroutine (InitiateLeft ());
+		} else {
 			StartCoroutine(InitiateRight());
+		}
+		StartCoroutine (ChangeMapInfo (map));
 
 		PlayerPrefs.SetInt ("SelectedMap", map);
 		_p1Confirm = false;
 		_p2Confirm = false;
-		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map - 1];
 
 		var tmpConfirm = GameObject.Find ("P1-Confirm");
 		tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteRenderer.sprite = tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteOff;

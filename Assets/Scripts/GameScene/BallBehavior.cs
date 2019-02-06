@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BallBehavior : MonoBehaviour
 {
+	public int MapId;
+
     public float Speed;
 	public int CatchCount;
 	public CurrentPlayer CurrentPlayer;
@@ -103,7 +105,7 @@ public class BallBehavior : MonoBehaviour
 			if (_hasHitGoal)
 				return;
 			_hasHitGoal = true;
-            var yGoalEffect = 1.833f;
+			var yGoalEffect = MapsData.Maps[MapId - 1].GoalCollisionY;
             if (transform.position.y < 0)
                 yGoalEffect = -yGoalEffect;
             var tmpGoalEffect = Instantiate(GoalExplosionEffect, new Vector3(transform.position.x, yGoalEffect, 0.0f), transform.rotation);
@@ -127,7 +129,7 @@ public class BallBehavior : MonoBehaviour
             _camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<WallBehavior>().WallHit();
 
-		    var xWallEffect = 1.472f;
+			var xWallEffect = MapsData.Maps[MapId - 1].WallCollisionX;
 		    if (transform.position.x < 0)
 		        xWallEffect = -xWallEffect;
             var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(xWallEffect, transform.position.y, 0.0f), transform.rotation);

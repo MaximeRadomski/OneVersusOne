@@ -18,6 +18,9 @@ public class CharSelManagerBehavior : MonoBehaviour
 	private GameObject _p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters;
 	private GameObject _p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton;
 
+	private GameObject _p1CharacterName, _p1CharacterSkill;
+	private GameObject _p2CharacterName, _p2CharacterSkill;
+
 	private bool _p1Confirm;
 	private bool _p2Confirm;
 
@@ -33,6 +36,9 @@ public class CharSelManagerBehavior : MonoBehaviour
 		_p1Skill = GameObject.Find ("P1Skill");
 		_p1ConfirmButton = GameObject.Find ("P1ConfirmButton");
 
+		_p1CharacterName = GameObject.Find ("P1CharacterName");
+		_p1CharacterSkill = GameObject.Find ("P1CharacterSkill");
+
 		StartCoroutine(InitiateLeft(_p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters));
 		StartCoroutine(InitiateRight(_p1CharacterImage, _p1BannerCharacterName, _p1Skill, _p1ConfirmButton));
 
@@ -44,6 +50,9 @@ public class CharSelManagerBehavior : MonoBehaviour
 		_p2BannerCharacterName = GameObject.Find ("P2BannerCharacterName");
 		_p2Skill = GameObject.Find ("P2Skill");
 		_p2ConfirmButton = GameObject.Find ("P2ConfirmButton");
+
+		_p2CharacterName = GameObject.Find ("P2CharacterName");
+		_p2CharacterSkill = GameObject.Find ("P2CharacterSkill");
 
 		StartCoroutine(InitiateLeft(_p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters));
 		StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
@@ -83,6 +92,21 @@ public class CharSelManagerBehavior : MonoBehaviour
 		yield return new WaitForSeconds(0.1f);
 	}
 
+	private IEnumerator ChangeCharacterInfo(CurrentPlayer player, int character)
+	{
+		yield return new WaitForSeconds(0.1f);
+		if (player == CurrentPlayer.PlayerOne)
+		{
+			_p1CharacterName.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Name;
+			_p1CharacterSkill.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Skill;
+		}
+		else
+		{
+			_p2CharacterName.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Name;
+			_p2CharacterSkill.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Skill;	
+		}
+	}
+
 	public void ChangeSelectedCharacter(int player, int character)
 	{
 		int lastCharacter = PlayerPrefs.GetInt ("P" + player.ToString () + "Character");
@@ -93,11 +117,13 @@ public class CharSelManagerBehavior : MonoBehaviour
 			{
 				_p1Confirm = false;
 				StartCoroutine(InitiateRight(_p1CharacterImage, _p1BannerCharacterName, _p1Skill, _p1ConfirmButton));
+				StartCoroutine(ChangeCharacterInfo(CurrentPlayer.PlayerOne, character));
 			}
 			else
 			{
 				_p2Confirm = false;
 				StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
+				StartCoroutine(ChangeCharacterInfo(CurrentPlayer.PlayerTwo, character));
 			}
 			var tmpConfirm = GameObject.Find ("P" + player + "-Confirm");
 			tmpConfirm.GetComponent<CharSelButtonBehavior> ().SpriteRenderer.sprite = tmpConfirm.GetComponent<CharSelButtonBehavior> ().SpriteOff;

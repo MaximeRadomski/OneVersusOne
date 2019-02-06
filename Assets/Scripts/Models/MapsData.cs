@@ -2,9 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapsData
+public static class MapsData
 {
-	public List<Map> Maps;
+	public static List<Map> Maps = new List<Map>
+	{
+		new Map {
+			Name = "OPEN AIR BEACH",
+			Country = "FRANCE",
+			City = "BISCARROSSE",
+			Effect = "NONE",
+			WallCollisionX = 1.472f,
+			GoalCollisionY = 1.833f},
+		new Map {
+			Name = "X-WIND",
+			Country = "UNITED KINGDOM",
+			City = "BIRMINGHAM",
+			Effect = "FASTER DISC",
+			WallCollisionX = 1.278f,
+			GoalCollisionY = 1.917f}
+	};
 
 	public class Map
 	{
@@ -12,22 +28,7 @@ public class MapsData
 		public string Country;
 		public string City;
 		public string Effect;
-	}
-
-	public MapsData()
-	{
-		Maps = new List<Map>
-		{
-			new Map {
-				Name = "RENÉ COTY STADIUM",
-				Country = "FRANCE",
-				City = "BISCARROSSE",
-				Effect = "NONE"},
-			new Map {
-				Name = "X-WIND",
-				Country = "UNITED KINGDOM",
-				City = "BIRMINGHAM",
-				Effect = "FASTER DISC"}
-		};
+		public float WallCollisionX;
+		public float GoalCollisionY;
 	}
 }
