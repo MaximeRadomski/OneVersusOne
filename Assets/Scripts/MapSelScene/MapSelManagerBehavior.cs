@@ -103,12 +103,12 @@ public class MapSelManagerBehavior : MonoBehaviour
 		_p1MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Name;
 		_p1Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Country;
 		_p1Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].City;
-		_p1Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT:" + MapsData.Maps[map - 1].Effect;
+		_p1Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map - 1].Effect;
 
 		_p2MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Name;
 		_p2Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Country;
 		_p2Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].City;
-		_p2Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT:" + MapsData.Maps[map - 1].Effect;
+		_p2Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map - 1].Effect;
 
 		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map - 1];
 	}
