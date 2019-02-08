@@ -16,7 +16,7 @@ public static class MapsData
 		new Map {
 			Name = "X-WIND",
 			Country = "UNITED KINGDOM",
-			City = "BIRMINGHAM",
+			City = "MANCHESTER",
 			Effect = "FASTER DISC",
 			WallCollisionX = 1.278f,
 			GoalCollisionY = 1.917f}
