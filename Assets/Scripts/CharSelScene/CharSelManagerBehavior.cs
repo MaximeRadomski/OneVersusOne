@@ -12,14 +12,16 @@ public class CharSelManagerBehavior : MonoBehaviour
 	public int MenuBipReturnAudioFileID;
 	// ---- AUDIOS ---- //
 
+	public Sprite[] CharactersSprites;
+
 	private GameObject _p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters;
 	private GameObject _p1CharacterImage, _p1BannerCharacterName, _p1Skill, _p1ConfirmButton;
 
 	private GameObject _p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters;
 	private GameObject _p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton;
 
-	private GameObject _p1CharacterName, _p1CharacterSkill;
-	private GameObject _p2CharacterName, _p2CharacterSkill;
+	private GameObject _p1CharacterName, _p1CharacterSkill, _p1CharacterSprite;
+	private GameObject _p2CharacterName, _p2CharacterSkill, _p2CharacterSprite;
 
 	private bool _p1Confirm;
 	private bool _p2Confirm;
@@ -38,6 +40,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 		_p1CharacterName = GameObject.Find ("P1CharacterName");
 		_p1CharacterSkill = GameObject.Find ("P1CharacterSkill");
+		_p1CharacterSprite = GameObject.Find ("P1CharacterSprite");
 
 		StartCoroutine(InitiateLeft(_p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters));
 		StartCoroutine(InitiateRight(_p1CharacterImage, _p1BannerCharacterName, _p1Skill, _p1ConfirmButton));
@@ -53,6 +56,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 		_p2CharacterName = GameObject.Find ("P2CharacterName");
 		_p2CharacterSkill = GameObject.Find ("P2CharacterSkill");
+		_p2CharacterSprite = GameObject.Find ("P2CharacterSprite");
 
 		StartCoroutine(InitiateLeft(_p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters));
 		StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
@@ -99,11 +103,13 @@ public class CharSelManagerBehavior : MonoBehaviour
 		{
 			_p1CharacterName.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Name;
 			_p1CharacterSkill.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Skill;
+			_p1CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[character - 1];
 		}
 		else
 		{
 			_p2CharacterName.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Name;
 			_p2CharacterSkill.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Skill;	
+			_p2CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[character - 1];
 		}
 	}
 
