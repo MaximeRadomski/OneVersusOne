@@ -57,7 +57,7 @@ MonoBehaviour:
   ObjectToFollow: {fileID: 0}
   DelayBeforeHide: 0
   DelayBeforeDestroy: 0.4
-  Effect: 6
+  Effect: 7
 --- !u!198 &198169300663095832
 ParticleSystem:
   m_ObjectHideFlags: 1

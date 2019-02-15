@@ -37,6 +37,9 @@ public class EffectBehavior : MonoBehaviour
 	{
 		switch (Effect)
 		{
+		case EffectType.CastSP:
+			AndroidNativeAudio.play(_gameManagerBehavior.CastSPAudioFileID);
+			break;
 		case EffectType.Catch:
 			AndroidNativeAudio.play(_gameManagerBehavior.CatchAudioFileID);
 			break;
@@ -76,6 +79,7 @@ public class EffectBehavior : MonoBehaviour
 		Goal,
 		Lift,
 		QuickEffect,
+		CastSP,
 		WallHit,
 		None
 	}

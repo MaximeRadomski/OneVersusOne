@@ -217,11 +217,11 @@ MonoBehaviour:
   IsDashing: 0
   HasTheDisc: 0
   IsControlledByAI: 0
+  IsCastingSP: 0
   ControlledAction: 0
   WalkDistance: 0.04
   DashDistance: 0.8
   Power: 1
-  ThrowAudio: {fileID: 82181118967808436}
   Animator: {fileID: 95003398407556574}
   BoxCollider: {fileID: 61309072804660436}
   CurrentSprite: {fileID: 212127136465412040}
@@ -231,12 +231,14 @@ MonoBehaviour:
   - {fileID: 21300004, guid: bffb625141ac12e49a97a05c822c9f7d, type: 3}
   - {fileID: 21300006, guid: bffb625141ac12e49a97a05c822c9f7d, type: 3}
   - {fileID: 21300008, guid: bffb625141ac12e49a97a05c822c9f7d, type: 3}
-  DashSprite: {fileID: 21300000, guid: f8eef783b4a649c4d824c2d359060d8a, type: 3}
+  DashSprite: {fileID: 21300000, guid: 473faee2a83e64c40a8cb752c9464276, type: 3}
+  SPSprite: {fileID: 21300002, guid: 473faee2a83e64c40a8cb752c9464276, type: 3}
   DashEffect: {fileID: 1407422219576364, guid: f3a3f62725cd9064595ad28f68f9dcc3, type: 2}
   DashEffectParticles: {fileID: 1416681924767024, guid: ebecf29f912169a47b350090a84771b4,
     type: 2}
   CatchEffect: {fileID: 1725314493544336, guid: 6c03e7bf478e54d4c959fb77e5262629,
     type: 2}
+  SPEffect: {fileID: 1610780419782048, guid: 8734e1973b8bb6b43aa8ec082d800565, type: 2}
 --- !u!212 &212127136465412040
 SpriteRenderer:
   m_ObjectHideFlags: 1

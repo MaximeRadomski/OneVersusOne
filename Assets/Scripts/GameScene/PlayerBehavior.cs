@@ -11,6 +11,7 @@ public class PlayerBehavior : MonoBehaviour
     public bool IsDashing;
     public bool HasTheDisc;
 	public bool IsControlledByAI;
+	public bool IsCastingSP;
 	public ControlledAction ControlledAction;
 
     public float WalkDistance;
@@ -22,9 +23,11 @@ public class PlayerBehavior : MonoBehaviour
 	public SpriteRenderer CurrentSprite;
 	public Sprite[] AngleSprites;
 	public Sprite DashSprite;
+	public Sprite SPSprite;
     public GameObject DashEffect;
     public GameObject DashEffectParticles;
 	public GameObject CatchEffect;
+	public GameObject SPEffect;
 
     private Quaternion _initialRotation;
 	private Vector3 _initialPosition;
@@ -36,6 +39,7 @@ public class PlayerBehavior : MonoBehaviour
     private Vector3 _dashingEnd;
     private Direction _dashingDirection;
     private float _dashCooldown;
+	private float _castSPCooldown;
     private bool _canDash;
 
     void Start ()
@@ -56,6 +60,7 @@ public class PlayerBehavior : MonoBehaviour
 	    _ball = GetBall();
         _dashingDirection = Direction.Standby;
 	    _dashCooldown = 0.75f;
+		_castSPCooldown = 1.0f;
 	    _canDash = true;
 	}
 
@@ -117,6 +122,9 @@ public class PlayerBehavior : MonoBehaviour
 			LiftDirection = direction;
 			return;
 		}
+
+		if (IsCastingSP)
+			return;
 
         float distance = WalkDistance;
         if (direction == Direction.Left)
@@ -189,7 +197,7 @@ public class PlayerBehavior : MonoBehaviour
 
     public void Dash()
     {
-        if (!_canDash || Direction == Direction.Standby)
+		if (!_canDash || Direction == Direction.Standby || IsCastingSP)
             return;
 
         _canDash = false;
@@ -272,7 +280,11 @@ public class PlayerBehavior : MonoBehaviour
 	public void Lift()
 	{
 		if (!HasTheDisc)
+		{
+			if (!IsCastingSP && !IsDashing)
+				CastSP();
 			return;
+		}
 		Invoke("LiftBallAfterDelay", 0.15f);
 		Animator.enabled = true;
 		Animator.Play("Throw");
@@ -333,6 +345,27 @@ public class PlayerBehavior : MonoBehaviour
 		}
 	}
 
+	private void CastSP()
+	{
+		IsCastingSP = true;
+		Invoke ("ResetCastSP", _castSPCooldown);
+
+		Direction = Direction.Standby;
+		SetOrientation ();
+		Animator.enabled = false;
+		CurrentSprite.sprite = SPSprite;
+		Instantiate(SPEffect, transform.position, transform.rotation);
+	}
+
+	private void ResetCastSP()
+	{
+		IsCastingSP = false;
+		if (!HasTheDisc)
+		{
+			Animator.enabled = true;
+			Animator.Play("Idle");
+		}
+	}
 
 	void OnDestroy()
 	{

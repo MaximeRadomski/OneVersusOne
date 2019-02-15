@@ -24,6 +24,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject _playerOne, _playerTwo;
 
 	// ---- AUDIOS ---- //
+	public int CastSPAudioFileID;
 	public int CatchAudioFileID;
 	public int DashAudioFileID;
 	public int GoalAudioFileID;
@@ -69,6 +70,7 @@ public class GameManagerBehavior : MonoBehaviour
 		_loser = GameObject.Find ("Loser");
 
 		// ---- AUDIOS ---- //
+		CastSPAudioFileID = AndroidNativeAudio.load("CastSP.mp3");
 		CatchAudioFileID = AndroidNativeAudio.load("Catch.mp3");
 		DashAudioFileID = AndroidNativeAudio.load("Dash.mp3");
 		GoalAudioFileID = AndroidNativeAudio.load("Goal.mp3");
@@ -295,6 +297,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	void OnDestroy()
 	{
+		AndroidNativeAudio.unload(CastSPAudioFileID);
 		AndroidNativeAudio.unload(CatchAudioFileID);
 		AndroidNativeAudio.unload(DashAudioFileID);
 		AndroidNativeAudio.unload(GoalAudioFileID);
