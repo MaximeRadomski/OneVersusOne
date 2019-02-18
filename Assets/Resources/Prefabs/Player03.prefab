@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114759156320009516}
   - component: {fileID: 95003398407556574}
   - component: {fileID: 114529781865923954}
-  - component: {fileID: 82181118967808436}
+  - component: {fileID: 114004205732692884}
   m_Layer: 0
   m_Name: Player03
   m_TagString: Player
@@ -91,86 +91,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.2}
   m_EdgeRadius: 0
---- !u!82 &82181118967808436
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1002098021237478}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e6046aa3bfe6d534194716ef729ceb42, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &95003398407556574
 Animator:
   serializedVersion: 3
@@ -188,6 +108,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114004205732692884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002098021237478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a98c742f115f74e8958ecfe51d47d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Super: 1
+  Effect: {fileID: 1546701277516640, guid: 394670ffe89b03b42a067d632cc5d810, type: 2}
 --- !u!114 &114529781865923954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -214,14 +147,19 @@ MonoBehaviour:
   Player: 0
   Direction: 2
   LiftDirection: 0
+  SuperColor: {r: 0.8235294, g: 0.8235294, b: 0.8235294, a: 0.8235294}
   IsDashing: 0
   HasTheDisc: 0
   IsControlledByAI: 0
   IsCastingSP: 0
+  IsDoingSP: 0
+  IsEngaging: 0
   ControlledAction: 0
   WalkDistance: 0.04
   DashDistance: 0.8
   Power: 1
+  SPMaxCooldown: 1
+  SPCooldown: 1
   Animator: {fileID: 95003398407556574}
   BoxCollider: {fileID: 61309072804660436}
   CurrentSprite: {fileID: 212127136465412040}
@@ -238,7 +176,8 @@ MonoBehaviour:
     type: 2}
   CatchEffect: {fileID: 1725314493544336, guid: 6c03e7bf478e54d4c959fb77e5262629,
     type: 2}
-  SPEffect: {fileID: 1610780419782048, guid: 8734e1973b8bb6b43aa8ec082d800565, type: 2}
+  CastSPEffect: {fileID: 1610780419782048, guid: 8734e1973b8bb6b43aa8ec082d800565,
+    type: 2}
 --- !u!212 &212127136465412040
 SpriteRenderer:
   m_ObjectHideFlags: 1

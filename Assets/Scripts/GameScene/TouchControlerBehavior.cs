@@ -11,6 +11,7 @@ public class TouchControlerBehavior : MonoBehaviour
 	private GameObject _rightP1;
 	private GameObject _liftP1;
 	private GameObject _throwP1;
+	private GameObject _superP1;
 	/*private GameObject _leftP2;
 	private GameObject _rightP2;
 	private GameObject _liftP2;
@@ -24,6 +25,7 @@ public class TouchControlerBehavior : MonoBehaviour
 		_rightP1 = GameObject.Find ("RightP1");
 		_liftP1 = GameObject.Find ("LiftP1");
 		_throwP1 = GameObject.Find ("ThrowP1");
+		_superP1 = GameObject.Find ("SuperP1");
 		/*_leftP2 = GameObject.Find ("LeftP2");
 		_rightP2 = GameObject.Find ("RightP2");
 		_liftP2 = GameObject.Find ("LiftP2");
@@ -82,11 +84,15 @@ public class TouchControlerBehavior : MonoBehaviour
 		else if (Input.GetButtonUp("RightP1"))
 			_rightP1.GetComponent<TouchControlBehavior> ().EndAction ();
 
-		if (Input.GetButtonDown("ThrowP1"))
+		if (Input.GetButtonDown("ThrowP1") && _throwP1.GetComponent<SpriteRenderer>().enabled == true)
 			_throwP1.GetComponent<TouchControlBehavior> ().BeganAction ();
+		else if (Input.GetButtonDown("ThrowP1") && _throwP1.GetComponent<SpriteRenderer>().enabled == false)
+			_superP1.GetComponent<TouchControlBehavior> ().BeganAction ();
 
-		if (Input.GetButtonDown("LiftP1"))
+		if (Input.GetButtonDown("LiftP1") && _throwP1.GetComponent<SpriteRenderer>().enabled == true)
 			_liftP1.GetComponent<TouchControlBehavior> ().BeganAction ();
+		else if (Input.GetButtonDown("LiftP1") && _throwP1.GetComponent<SpriteRenderer>().enabled == false)
+			_superP1.GetComponent<TouchControlBehavior> ().BeganAction ();
 
 		if (Input.GetButtonUp("AiP1"))
 			_aiP1.GetComponent<TouchControlBehavior> ().EndAction ();

@@ -5,8 +5,10 @@ using UnityEngine;
 public class ChangingButtonBehavior : MonoBehaviour
 {
 	public SpriteRenderer SpriteRenderer;
-	public Sprite HasTheDisc, DoesntHaveTheDisc;
+	public Sprite HasTheDisc, DoesntHaveTheDisc, EmptyButton;
 	public CurrentPlayer Player;
+
+	public bool IsThrowLift;
 
 	private PlayerBehavior _playerbehavior;
 	private bool _hasTheDisc;
@@ -23,10 +25,24 @@ public class ChangingButtonBehavior : MonoBehaviour
 
 	void Update ()
 	{
+		if (IsThrowLift)
+			ThrowLiftButton ();
+		else
+			SuperButton ();
+	}
+
+	private void ThrowLiftButton()
+	{
 		if (_playerbehavior == null)
 			GetPlayer ();
 		if (_playerbehavior == null)
 			return;
+		
+		if (_playerbehavior.IsDoingSP)
+			DisableCurrentButton ();
+		else
+			EnableCurrentButton ();
+
 		if (_playerbehavior.HasTheDisc && !_hasTheDisc)
 		{
 			_hasTheDisc = true;
@@ -35,7 +51,34 @@ public class ChangingButtonBehavior : MonoBehaviour
 		else if (!_playerbehavior.HasTheDisc && _hasTheDisc)
 		{
 			_hasTheDisc = false;
-			SpriteRenderer.sprite = DoesntHaveTheDisc;
+			if (EmptyButton == null || _playerbehavior.SPCooldown == 0)
+				SpriteRenderer.sprite = DoesntHaveTheDisc;
+			else
+				SpriteRenderer.sprite = EmptyButton;
 		}
+	}
+
+	private void SuperButton()
+	{
+		if (_playerbehavior == null)
+			GetPlayer ();
+		if (_playerbehavior == null)
+			return;
+		if (_playerbehavior.IsDoingSP)
+			EnableCurrentButton ();
+		else
+			DisableCurrentButton ();
+	}
+
+	public void EnableCurrentButton()
+	{
+		this.GetComponent<SpriteRenderer> ().enabled = true;
+		this.GetComponent<BoxCollider2D> ().enabled = true;
+	}
+
+	public void DisableCurrentButton()
+	{
+		this.GetComponent<SpriteRenderer> ().enabled = false;
+		this.GetComponent<BoxCollider2D> ().enabled = false;
 	}
 }

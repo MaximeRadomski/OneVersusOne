@@ -11,8 +11,6 @@ public class GameManagerBehavior : MonoBehaviour
 	public int ScorePlayerOne, ScorePlayerTwo;
 	public int SetPlayerOne, SetPlayerTwo;
 
-	public GameObject[] Characters;
-
 	public AudioSource StageMusic;
 
     private string _playerName;
@@ -102,7 +100,8 @@ public class GameManagerBehavior : MonoBehaviour
 		int multiplier = player == CurrentPlayer.PlayerOne ? -1 : 1;
 		bool rotation = player == CurrentPlayer.PlayerOne ? false : true;
 
-		var tmpPlayer = Instantiate (Characters[characterNb - 1], new Vector3(0.0f, 1.805f * multiplier, 0.0f), Characters[characterNb - 1].transform.rotation);
+		var tmpPlayerInstance = Resources.Load<GameObject> ("Prefabs/Player"+characterNb.ToString("D2"));
+		var tmpPlayer = Instantiate (tmpPlayerInstance, new Vector3(0.0f, 1.805f * multiplier, 0.0f), tmpPlayerInstance.transform.rotation);
 		if (rotation)
 			tmpPlayer.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
 		tmpPlayer.transform.name = player.ToString ();
@@ -116,6 +115,7 @@ public class GameManagerBehavior : MonoBehaviour
 		if (BallAlreadyExists())
 			return;
         var currentPlayer = GameObject.Find(_playerName);
+		currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
         var currentBall = Instantiate(Ball, new Vector3(0.0f, 0.0f, 0.0f), Ball.transform.rotation);
         currentBall.transform.name = "Ball";
 		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;

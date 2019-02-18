@@ -8,6 +8,7 @@ public class BallBehavior : MonoBehaviour
 
     public float Speed;
 	public int CatchCount;
+	public int NbCol;
 	public CurrentPlayer CurrentPlayer;
 	public CurrentPlayer IsThrownBy;
 	public Animator Animator;
@@ -25,7 +26,6 @@ public class BallBehavior : MonoBehaviour
 	private Direction _liftDirection;
 	private float _gravity;
 	private bool _gravityIsSet;
-	private int _nbCol;
 	private float _liftEffectDelay;
 	private float _quickEffectDelay;
 	private bool _isQuickThrow;
@@ -42,7 +42,7 @@ public class BallBehavior : MonoBehaviour
 		_liftDirection = Direction.Standby;
 		_gravity = 10.0f;
 		_gravityIsSet = false;
-		_nbCol = 0;
+		NbCol = 0;
 		_liftEffectDelay = 0.1f;
 		_quickEffectDelay = 0.05f;
 		_isQuickThrow = false;
@@ -86,7 +86,7 @@ public class BallBehavior : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-			_nbCol = 0;
+			NbCol = 0;
             _linkedPlayer = col.gameObject;
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
 			if (_linkedPlayer.GetComponent<PlayerBehavior>().HasTheDisc == false)
@@ -123,8 +123,8 @@ public class BallBehavior : MonoBehaviour
         }
 		else if (col.gameObject.tag == "Wall")
 		{
-			++_nbCol;
-			if (_liftDirection != Direction.Standby && _nbCol <= 1)
+			++NbCol;
+			if (_liftDirection != Direction.Standby && NbCol <= 1)
 				AddGravity (1.5f);
             _camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<WallBehavior>().WallHit();
@@ -139,7 +139,7 @@ public class BallBehavior : MonoBehaviour
 		        tmpWallHitEffect.GetComponent<SpriteRenderer>().flipY = true;
         }
 
-		if (_nbCol >= 10)
+		if (NbCol >= 10)
 		{
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(IsThrownBy, 2);
 			Destroy(gameObject);
@@ -184,7 +184,7 @@ public class BallBehavior : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = direction * customSpeed;
     }
 
-	private void SetGravityScaleFromPower(float power)
+	public void SetGravityScaleFromPower(float power)
 	{
 		if (power <= 0.5f)
 			GetComponent<Rigidbody2D> ().gravityScale = 0.7f;

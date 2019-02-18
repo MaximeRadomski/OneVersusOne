@@ -7,16 +7,21 @@ public class PlayerBehavior : MonoBehaviour
     public CurrentPlayer Player;
     public Direction Direction;
 	public Direction LiftDirection;
+	public Color SuperColor;
 
     public bool IsDashing;
     public bool HasTheDisc;
 	public bool IsControlledByAI;
 	public bool IsCastingSP;
+	public bool IsDoingSP;
+	public bool IsEngaging;
 	public ControlledAction ControlledAction;
 
     public float WalkDistance;
     public float DashDistance;
     public float Power;
+	public int SPMaxCooldown;
+	public int SPCooldown;
 
     public Animator Animator;
 	public BoxCollider2D BoxCollider;
@@ -27,7 +32,7 @@ public class PlayerBehavior : MonoBehaviour
     public GameObject DashEffect;
     public GameObject DashEffectParticles;
 	public GameObject CatchEffect;
-	public GameObject SPEffect;
+	public GameObject CastSPEffect;
 
     private Quaternion _initialRotation;
 	private Vector3 _initialPosition;
@@ -62,6 +67,7 @@ public class PlayerBehavior : MonoBehaviour
 	    _dashCooldown = 0.75f;
 		_castSPCooldown = 1.0f;
 	    _canDash = true;
+		SPCooldown = SPMaxCooldown;
 	}
 
     private void SetPlayerTwoAngleSprites()
@@ -250,6 +256,7 @@ public class PlayerBehavior : MonoBehaviour
 			var tmpCatchEffect = Instantiate(CatchEffect, transform.position, CatchEffect.transform.rotation);
 			if (Player == CurrentPlayer.PlayerTwo)
 				tmpCatchEffect.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
+			SPCooldown = SPCooldown - 1 <= 0 ? 0 : SPCooldown - 1;
 		}
 		HasTheDisc = true;
 		_throwAngle = 0.0f;
@@ -262,6 +269,21 @@ public class PlayerBehavior : MonoBehaviour
 			resetYPos = -resetYPos;
 		transform.position = new Vector3 (transform.position.x, resetYPos, 0.0f);
 		SetOrientation ();
+		if (IsCastingSP)
+			IsDoingSP = true;
+	}
+
+	public void Super()
+	{
+		if (!HasTheDisc)
+		{
+			return;
+		}
+		SPCooldown = SPMaxCooldown;
+		Invoke("SuperAfterDelay", 0.15f);
+		Animator.enabled = true;
+		Animator.Play("Throw");
+		Invoke ("ResetThrow", 0.4f);
 	}
 
 	public void Throw()
@@ -295,6 +317,8 @@ public class PlayerBehavior : MonoBehaviour
 	{
 	    HasTheDisc = false;
         Animator.Play("Idle");
+		IsDoingSP = false;
+		IsEngaging = false;
     }
 
     private void ThrowBallAfterDelay()
@@ -314,10 +338,25 @@ public class PlayerBehavior : MonoBehaviour
 		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
 		if (_ball == null)
 			_ball = GetBall();
-		if (_ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
+		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
-		_ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, true);
+		if (_ball != null)
+			_ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, true);
 		_throwAngle = 0;
+	}
+
+	private void SuperAfterDelay()
+	{
+		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
+		if (_ball == null)
+			_ball = GetBall();
+		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
+			return;
+		if (_ball != null)
+			this.GetComponent<SuperBehavior>().LaunchSupper(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, _directionalVector);
+		_throwAngle = 0;
+		var tmpSpEffect = Instantiate(CastSPEffect, transform.position, transform.rotation);
+		tmpSpEffect.GetComponent<SpriteRenderer> ().color = SuperColor;
 	}
 
     public void ResetInitialPosition()
@@ -347,6 +386,8 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void CastSP()
 	{
+		if (IsEngaging || SPCooldown > 0)
+			return;
 		IsCastingSP = true;
 		Invoke ("ResetCastSP", _castSPCooldown);
 
@@ -354,7 +395,7 @@ public class PlayerBehavior : MonoBehaviour
 		SetOrientation ();
 		Animator.enabled = false;
 		CurrentSprite.sprite = SPSprite;
-		Instantiate(SPEffect, transform.position, transform.rotation);
+		Instantiate(CastSPEffect, transform.position, transform.rotation);
 	}
 
 	private void ResetCastSP()

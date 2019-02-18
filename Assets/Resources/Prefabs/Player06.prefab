@@ -25,9 +25,9 @@ GameObject:
   - component: {fileID: 114396800479134400}
   - component: {fileID: 95074457835201762}
   - component: {fileID: 114773529050757134}
-  - component: {fileID: 82917317990811256}
+  - component: {fileID: 114484927290491396}
   m_Layer: 0
-  m_Name: Player05
+  m_Name: Player06
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,86 +91,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.2}
   m_EdgeRadius: 0
---- !u!82 &82917317990811256
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1982217508213234}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e6046aa3bfe6d534194716ef729ceb42, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &95074457835201762
 Animator:
   serializedVersion: 3
@@ -180,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 1982217508213234}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ad7b99c0af756ee489f66fe40e364525, type: 2}
+  m_Controller: {fileID: 9100000, guid: f37ba3afd78fb2a42898428d821ad598, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -202,31 +122,50 @@ MonoBehaviour:
   Player: 0
   Direction: 2
   LiftDirection: 0
+  SuperColor: {r: 1, g: 1, b: 1, a: 0.7058824}
   IsDashing: 0
   HasTheDisc: 0
   IsControlledByAI: 0
   IsCastingSP: 0
+  IsDoingSP: 0
+  IsEngaging: 0
   ControlledAction: 0
   WalkDistance: 0.03
   DashDistance: 0.8
   Power: 1.5
+  SPMaxCooldown: 2
+  SPCooldown: 2
   Animator: {fileID: 95074457835201762}
   BoxCollider: {fileID: 61144894470998226}
   CurrentSprite: {fileID: 212469492383567574}
   AngleSprites:
-  - {fileID: 21300010, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300012, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300014, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300016, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  - {fileID: 21300018, guid: 2eff5794a79d8424c953eb4b2d698802, type: 3}
-  DashSprite: {fileID: 21300000, guid: 009ca525e44ad01438b49c6117236634, type: 3}
-  SPSprite: {fileID: 21300002, guid: 009ca525e44ad01438b49c6117236634, type: 3}
+  - {fileID: 21300000, guid: 51f6a2c8e2edf7247bc54b8324401363, type: 3}
+  - {fileID: 21300002, guid: 51f6a2c8e2edf7247bc54b8324401363, type: 3}
+  - {fileID: 21300004, guid: 51f6a2c8e2edf7247bc54b8324401363, type: 3}
+  - {fileID: 21300006, guid: 51f6a2c8e2edf7247bc54b8324401363, type: 3}
+  - {fileID: 21300008, guid: 51f6a2c8e2edf7247bc54b8324401363, type: 3}
+  DashSprite: {fileID: 21300000, guid: 6edddf675d26db24494df6ac5232361b, type: 3}
+  SPSprite: {fileID: 21300002, guid: 6edddf675d26db24494df6ac5232361b, type: 3}
   DashEffect: {fileID: 1407422219576364, guid: f3a3f62725cd9064595ad28f68f9dcc3, type: 2}
   DashEffectParticles: {fileID: 1416681924767024, guid: ebecf29f912169a47b350090a84771b4,
     type: 2}
   CatchEffect: {fileID: 1725314493544336, guid: 6c03e7bf478e54d4c959fb77e5262629,
     type: 2}
-  SPEffect: {fileID: 1610780419782048, guid: 8734e1973b8bb6b43aa8ec082d800565, type: 2}
+  CastSPEffect: {fileID: 1610780419782048, guid: 8734e1973b8bb6b43aa8ec082d800565,
+    type: 2}
+--- !u!114 &114484927290491396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1982217508213234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a98c742f115f74e8958ecfe51d47d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Super: 2
+  Effect: {fileID: 1289409569762564, guid: dbc6729215f87b048818cd51f0551c9f, type: 2}
 --- !u!114 &114773529050757134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,7 +212,7 @@ SpriteRenderer:
   m_SortingLayerID: -1977211377
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300012, guid: 959e91cd70371ac4abeb50fbeed63159, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 167e96780f92aab42bf2a3af67bb082d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

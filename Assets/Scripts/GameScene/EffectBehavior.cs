@@ -53,6 +53,7 @@ public class EffectBehavior : MonoBehaviour
 			AndroidNativeAudio.play(_gameManagerBehavior.LiftAudioFileID);
 			break;
 		case EffectType.QuickEffect:
+		case EffectType.Super01:
 			AndroidNativeAudio.play(_gameManagerBehavior.QuickEffectAudioFileID);
 			break;
 		case EffectType.WallHit:
@@ -81,6 +82,7 @@ public class EffectBehavior : MonoBehaviour
 		QuickEffect,
 		CastSP,
 		WallHit,
-		None
+		None,
+		Super01
 	}
 }
