@@ -18,6 +18,12 @@ public class BallBehavior : MonoBehaviour
     public GameObject WallHitEffect;
     public GameObject GoalExplosionEffect;
 
+	public delegate bool OnWallCollisionDelegate();
+	public OnWallCollisionDelegate onWallCollisionDelegate;
+
+	public delegate bool OnPlayerCollisionDelegate();
+	public OnPlayerCollisionDelegate onPlayerCollisionDelegate;
+
     private GameObject _linkedPlayer;
     private GameObject _gameManager;
     private GameObject _camera;
@@ -47,6 +53,8 @@ public class BallBehavior : MonoBehaviour
 		_quickEffectDelay = 0.05f;
 		_isQuickThrow = false;
 		_hasHitGoal = false;
+		onWallCollisionDelegate = null;
+		onPlayerCollisionDelegate = null;
 	}
 
     void Update()
@@ -86,6 +94,12 @@ public class BallBehavior : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
+			onWallCollisionDelegate = null;
+			if (onPlayerCollisionDelegate != null)
+			{
+				if (onPlayerCollisionDelegate () == false)
+					return;
+			}
 			NbCol = 0;
             _linkedPlayer = col.gameObject;
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
@@ -102,9 +116,12 @@ public class BallBehavior : MonoBehaviour
         }
         else if (col.gameObject.tag == "Goal")
         {
+			onWallCollisionDelegate = null;
+			onPlayerCollisionDelegate = null;
 			if (_hasHitGoal)
 				return;
 			_hasHitGoal = true;
+			Physics2D.gravity = new Vector2 (0.0f,0.0f);
 			var yGoalEffect = MapsData.Maps[MapId - 1].GoalCollisionY;
             if (transform.position.y < 0)
                 yGoalEffect = -yGoalEffect;
@@ -123,6 +140,10 @@ public class BallBehavior : MonoBehaviour
         }
 		else if (col.gameObject.tag == "Wall")
 		{
+			if (onWallCollisionDelegate != null)
+			{
+				onWallCollisionDelegate ();
+			}
 			++NbCol;
 			if (_liftDirection != Direction.Standby && NbCol <= 1)
 				AddGravity (1.5f);

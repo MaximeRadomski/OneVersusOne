@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a98c742f115f74e8958ecfe51d47d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Super: 1
-  Effect: {fileID: 1546701277516640, guid: 394670ffe89b03b42a067d632cc5d810, type: 2}
+  Super: 3
+  Effect: {fileID: 1935633231438306, guid: 41b7027c28eaa4d418b416cfd35ded95, type: 2}
 --- !u!114 &114529781865923954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,8 +158,8 @@ MonoBehaviour:
   WalkDistance: 0.04
   DashDistance: 0.8
   Power: 1
-  SPMaxCooldown: 1
-  SPCooldown: 1
+  SPMaxCooldown: 3
+  SPCooldown: 3
   Animator: {fileID: 95003398407556574}
   BoxCollider: {fileID: 61309072804660436}
   CurrentSprite: {fileID: 212127136465412040}

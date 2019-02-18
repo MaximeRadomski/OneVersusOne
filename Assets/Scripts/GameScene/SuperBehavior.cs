@@ -10,33 +10,22 @@ public class SuperBehavior : MonoBehaviour
 	private GameObject _ball;
 	private float _superEffectDelay;
 	private float _zigzagDelay;
-	private bool _isAwaitingCollision;
 	private Vector2 _currentThrowDirection;
 	private Vector2 _playerThrowDirection;
 	private float _customSpeed;
-	private int _catchCount;
 	private float _zigzag;
+	private int _bounceCount;
+	private int _bounce;
+	private float _gravity;
 
 	void Start()
 	{
 		_superEffectDelay = 0.05f;
 		_zigzagDelay = 0.25f;
-		_isAwaitingCollision = false;
 		_zigzag = 0.0f;
-	}
-
-	void Update()
-	{
-		if (_isAwaitingCollision)
-		{
-			if (_ball == null || _ball.GetComponent<BallBehavior> ().CatchCount != _catchCount)
-			{
-				_isAwaitingCollision = false;
-				return;
-			}
-			else if (_ball.GetComponent<BallBehavior> ().NbCol > 0)
-				StraightOnCollision ();
-		}
+		_bounceCount = 1;
+		_bounce = 0;
+		_gravity = 15.0f;
 	}
 
 	private void BasicEffectThrow (Vector2 direction, CurrentPlayer throwingPlayer, float addedPower)
@@ -84,10 +73,23 @@ public class SuperBehavior : MonoBehaviour
 		//Invoke ("InstantiateZigzag", _zigzagDelay);
 	}
 
-	private void StraightOnCollision ()
+	private bool StraightOnCollision ()
 	{
 		_ball.GetComponent<Rigidbody2D>().velocity = _playerThrowDirection * (_customSpeed * 1.5f);
-		_isAwaitingCollision = false;
+		_ball.GetComponent<BallBehavior> ().onWallCollisionDelegate = null;
+		return true;
+	}
+
+	private bool PanzerBounce()
+	{
+		if (_bounce == 0) {
+			Physics2D.gravity = new Vector2 (0.0f, 0.0f);
+			return true;
+		} else {
+			--_bounce;
+			Physics2D.gravity = new Vector2 (0.0f, _gravity * _playerThrowDirection.y);
+			return false;
+		}
 	}
 
 	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection)
@@ -98,12 +100,19 @@ public class SuperBehavior : MonoBehaviour
 		{
 		case SuperType.Super01:
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
-			_isAwaitingCollision = true;
-			_catchCount = _ball.GetComponent<BallBehavior> ().CatchCount;
+			_ball.GetComponent<BallBehavior> ().onWallCollisionDelegate = StraightOnCollision;
 			break;
 		case SuperType.Super02:
 			BasicEffectThrow (playerThrowDirection, throwingPlayer, addedPower);
 			Invoke ("InstantiateZigzag", _zigzagDelay);
+			break;
+		case SuperType.Super03:
+			BasicEffectThrow (direction, throwingPlayer, addedPower);
+			_bounce = _bounceCount;
+			_ball.GetComponent<BallBehavior> ().onPlayerCollisionDelegate = PanzerBounce;
+			break;
+		case SuperType.Super04:
+			
 			break;
 		default :
 			break;
