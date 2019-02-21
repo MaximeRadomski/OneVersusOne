@@ -159,6 +159,12 @@ public class BallBehavior : MonoBehaviour
 		    if (GetComponent<Rigidbody2D>().velocity.y > 0)
 		        tmpWallHitEffect.GetComponent<SpriteRenderer>().flipY = true;
         }
+		else if (col.gameObject.tag == "FrozenWall")
+		{
+			_camera.GetComponent<CameraBehavior>().WallHit();
+			col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
+			col.gameObject.GetComponent<GoalBehavior> ().Unfreeze ();
+		}
 
 		if (NbCol >= 10)
 		{

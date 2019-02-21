@@ -10,7 +10,7 @@ public static class MapsData
 			Name = "OPEN AIR BEACH",
 			Country = "FRANCE",
 			City = "BISCARROSSE",
-			Effect = "NONE",
+			Effect = "NET POLES",
 			WallCollisionX = 1.472f,
 			GoalCollisionY = 1.833f},
 		new Map {

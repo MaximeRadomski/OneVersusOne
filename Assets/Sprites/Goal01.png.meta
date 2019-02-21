@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e876867e5b09e664aa853d40e4d5f6a0
-timeCreated: 1545578648
+timeCreated: 1550578961
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,10 @@ TextureImporter:
     21300002: Goal01_1
     21300004: Goal01_2
     21300006: Goal01_3
+    21300008: Goal01_4
+    21300010: Goal01_5
+    21300012: Goal01_6
+    21300014: Goal01_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -108,7 +112,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 19
+        y: 39
         width: 42
         height: 13
       alignment: 0
@@ -122,7 +126,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 19
+        y: 39
         width: 42
         height: 13
       alignment: 0
@@ -136,7 +140,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 6
+        y: 26
         width: 42
         height: 13
       alignment: 0
@@ -150,7 +154,63 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 6
+        y: 26
+        width: 42
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal01_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 13
+        width: 42
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal01_5
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 13
+        width: 42
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal01_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 42
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal01_7
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 0
         width: 42
         height: 13
       alignment: 0

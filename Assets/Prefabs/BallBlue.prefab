@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 95806610634825652}
   m_Layer: 0
   m_Name: BallBlue
-  m_TagString: Untagged
+  m_TagString: Disc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   MapId: 1
   Speed: 3
   CatchCount: 0
+  NbCol: 0
   CurrentPlayer: 0
   IsThrownBy: 0
   Animator: {fileID: 95806610634825652}

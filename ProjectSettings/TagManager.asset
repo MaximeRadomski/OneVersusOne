@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Goal
   - MenuBackground
+  - FrozenWall
+  - Disc
   layers:
   - Default
   - TransparentFX

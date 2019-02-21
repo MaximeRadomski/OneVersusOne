@@ -6,6 +6,7 @@ public class SuperBehavior : MonoBehaviour
 {
 	public SuperType Super;
 	public GameObject Effect;
+	public GameObject WhiteBall;
 
 	private GameObject _ball;
 	private float _superEffectDelay;
@@ -92,6 +93,40 @@ public class SuperBehavior : MonoBehaviour
 		}
 	}
 
+	private void FreezeGoals()
+	{
+		string tmpGoalName = "Top";
+		if (_playerThrowDirection == Vector2.up)
+			tmpGoalName = "Bot";
+
+		List<int> availableGoals = new List<int>{};
+		for (int i = 1; i <= 3; ++i)
+		{
+			if (GameObject.Find ("Goal" + tmpGoalName + i.ToString ("D2")).GetComponent<GoalBehavior> ().IsFrozen == false)
+				availableGoals.Add (i);
+		}
+
+		if (availableGoals.Count == 0)
+			return;
+
+		var tmpNumber = Random.Range (0,availableGoals.Count);
+		var tmpGoal = GameObject.Find ("Goal"+tmpGoalName+availableGoals[tmpNumber].ToString("D2")).GetComponent<GoalBehavior>();
+		tmpGoal.Freeze ();
+	}
+
+	private void InstantiateNewDisc ()
+	{
+		GameObject currentPlayer = null;
+		if (_playerThrowDirection == Vector2.up)
+			currentPlayer = GameObject.Find("PlayerOne");
+		else
+			currentPlayer = GameObject.Find("PlayerTwo");
+		currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
+		var currentBall = Instantiate(WhiteBall, new Vector3(0.0f, 0.0f, 0.0f), WhiteBall.transform.rotation);
+		currentBall.transform.name = "Ball";
+		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;
+	}
+
 	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection)
 	{
 		_currentThrowDirection = direction;
@@ -112,7 +147,12 @@ public class SuperBehavior : MonoBehaviour
 			_ball.GetComponent<BallBehavior> ().onPlayerCollisionDelegate = PanzerBounce;
 			break;
 		case SuperType.Super04:
-			
+			FreezeGoals ();
+			BasicEffectThrow (direction, throwingPlayer, addedPower);
+			break;
+		case SuperType.Super06:
+			BasicEffectThrow (direction, throwingPlayer, addedPower);
+			Invoke ("InstantiateNewDisc", 0.5f);
 			break;
 		default :
 			break;

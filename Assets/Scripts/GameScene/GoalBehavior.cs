@@ -8,6 +8,16 @@ public class GoalBehavior : MonoBehaviour
 	public Animator Animator;
 	public int Points;
 
+	public bool IsFrozen;
+
+	public Sprite NormalStateSprite;
+	public Sprite FrozenStateSprite;
+
+	void Start()
+	{
+		IsFrozen = false;
+	}
+
 	public void GoalHit()
 	{
 		if (Player == CurrentPlayer.PlayerOne)
@@ -20,5 +30,19 @@ public class GoalBehavior : MonoBehaviour
 	public void StopAnimation()
 	{
 		Animator.Play ("Idle");
+	}
+
+	public void Freeze()
+	{
+		IsFrozen = true;
+		gameObject.tag = "FrozenWall";
+		this.GetComponent<SpriteRenderer> ().sprite = FrozenStateSprite;
+	}
+
+	public void Unfreeze()
+	{
+		IsFrozen = false;
+		gameObject.tag = "Goal";
+		this.GetComponent<SpriteRenderer> ().sprite = NormalStateSprite;
 	}
 }

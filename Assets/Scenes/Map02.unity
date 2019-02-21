@@ -3231,6 +3231,9 @@ MonoBehaviour:
   Player: 0
   Animator: {fileID: 593400545}
   Points: 5
+  IsFrozen: 0
+  NormalStateSprite: {fileID: 21300002, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
+  FrozenStateSprite: {fileID: 21300006, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
 --- !u!95 &593400545
 Animator:
   serializedVersion: 3
@@ -3534,6 +3537,9 @@ MonoBehaviour:
   Player: 1
   Animator: {fileID: 691347861}
   Points: 5
+  IsFrozen: 0
+  NormalStateSprite: {fileID: 21300002, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
+  FrozenStateSprite: {fileID: 21300006, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
 --- !u!212 &691347858
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4160,6 +4166,9 @@ MonoBehaviour:
   Player: 1
   Animator: {fileID: 745231051}
   Points: 5
+  IsFrozen: 0
+  NormalStateSprite: {fileID: 21300002, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
+  FrozenStateSprite: {fileID: 21300006, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
 --- !u!212 &745231048
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5008,6 +5017,9 @@ MonoBehaviour:
   Player: 1
   Animator: {fileID: 850636874}
   Points: 3
+  IsFrozen: 0
+  NormalStateSprite: {fileID: 21300000, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
+  FrozenStateSprite: {fileID: 21300004, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
 --- !u!212 &850636871
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5161,6 +5173,9 @@ MonoBehaviour:
   Player: 0
   Animator: {fileID: 859583451}
   Points: 3
+  IsFrozen: 0
+  NormalStateSprite: {fileID: 21300000, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
+  FrozenStateSprite: {fileID: 21300004, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
 --- !u!212 &859583448
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11321,6 +11336,9 @@ MonoBehaviour:
   Player: 0
   Animator: {fileID: 2115179097}
   Points: 5
+  IsFrozen: 0
+  NormalStateSprite: {fileID: 21300002, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
+  FrozenStateSprite: {fileID: 21300006, guid: 5d35cc5dece748f4e978973804c98b5f, type: 3}
 --- !u!212 &2115179094
 SpriteRenderer:
   m_ObjectHideFlags: 0

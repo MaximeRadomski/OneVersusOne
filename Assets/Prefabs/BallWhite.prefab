@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114479350380164772}
   - component: {fileID: 95806610634825652}
   m_Layer: 0
-  m_Name: BallRed
+  m_Name: BallWhite
   m_TagString: Disc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296604735268884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.66373926, y: -1.2260842, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 983e12ef849326d438f5eb554daa98cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapId: 2
-  Speed: 4
+  MapId: 0
+  Speed: 3
   CatchCount: 0
   NbCol: 0
   CurrentPlayer: 0
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_SortingLayerID: -111219291
   m_SortingLayer: -4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dff9f7426bfa6dd4091ce91be2a53007, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e2485e28a2e695247a1f00e594c6151e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

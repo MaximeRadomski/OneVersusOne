@@ -15,6 +15,7 @@ public class AI : MonoBehaviour
 
 	private float _throwDelay;
 	private float _startReactDistance;
+	private float _startCastDistance;
 
 	private bool _checkSelfGoal;
 
@@ -43,6 +44,7 @@ public class AI : MonoBehaviour
 	{
 		_throwDelay = Random.Range (0.05f, 0.5f);
 		_startReactDistance = Random.Range (-0.5f, 0.5f);
+		_startCastDistance = Random.Range (0.5f, 1.0f);
 	}
 
 	private string GetFocusedPayerName()
@@ -89,24 +91,22 @@ public class AI : MonoBehaviour
             return;
 		if (_ball.transform.position.y > -_startReactDistance && Player == CurrentPlayer.PlayerOne)
 			return;
-		if (_ball.transform.position.x + _linkedPlayer.GetComponent<PlayerBehavior>().DashDistance < transform.position.x && _canDash)
-        {
-			_linkedPlayer.GetComponent<PlayerBehavior>().Direction = Direction.Left;
-			_linkedPlayer.GetComponent<PlayerBehavior>().Dash();
-            _canDash = false;
-            Invoke("ResetDashPossibility", _repeatDashCooldown);
-        }
-		else if (_ball.transform.position.x - _linkedPlayer.GetComponent<PlayerBehavior>().DashDistance  > transform.position.x && _canDash)
-        {
-			_linkedPlayer.GetComponent<PlayerBehavior>().Direction = Direction.Right;
-			_linkedPlayer.GetComponent<PlayerBehavior>().Dash();
-            _canDash = false;
-            Invoke("ResetDashPossibility", _repeatDashCooldown);
-        }
-        else if (_ball.transform.position.x + 0.2f < transform.position.x)
-			_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
-        else if (_ball.transform.position.x - 0.2f > transform.position.x)
-			_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
+		if (_ball.transform.position.x + _linkedPlayer.GetComponent<PlayerBehavior> ().DashDistance < transform.position.x && _canDash) {
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Direction = Direction.Left;
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Dash ();
+			_canDash = false;
+			Invoke ("ResetDashPossibility", _repeatDashCooldown);
+		} else if (_ball.transform.position.x - _linkedPlayer.GetComponent<PlayerBehavior> ().DashDistance > transform.position.x && _canDash) {
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Direction = Direction.Right;
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Dash ();
+			_canDash = false;
+			Invoke ("ResetDashPossibility", _repeatDashCooldown);
+		} else if (_ball.transform.position.x + 0.2f < transform.position.x)
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Move (Direction.Left);
+		else if (_ball.transform.position.x - 0.2f > transform.position.x)
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Move (Direction.Right);
+		else if (_linkedPlayer.GetComponent<PlayerBehavior> ().SPCooldown <= 0 && Vector2.Distance (transform.position, _ball.transform.position) <= _startCastDistance)
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Lift (); //CastSP
     }
 
     private void Recenter()
@@ -144,17 +144,23 @@ public class AI : MonoBehaviour
 				_linkedPlayer.GetComponent<PlayerBehavior> ().IncrementAngle ();
 			}
 		}
-		int nextThrow = Random.Range (0, 2);
-		if (nextThrow == 0)
-			_linkedPlayer.GetComponent<PlayerBehavior> ().Throw ();
+		if (_linkedPlayer.GetComponent<PlayerBehavior> ().IsCastingSP)
+		{
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Super ();
+		}
 		else
 		{
-			_linkedPlayer.GetComponent<PlayerBehavior> ().Lift ();
-			int liftDirection = Random.Range (0, 2);
-			if (liftDirection == 0)
-				_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
-			else
-				_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
+			int nextThrow = Random.Range (0, 2);
+			if (nextThrow == 0)
+				_linkedPlayer.GetComponent<PlayerBehavior> ().Throw ();
+			else {
+				_linkedPlayer.GetComponent<PlayerBehavior> ().Lift ();
+				int liftDirection = Random.Range (0, 2);
+				if (liftDirection == 0)
+					_linkedPlayer.GetComponent<PlayerBehavior> ().Move (Direction.Left);
+				else
+					_linkedPlayer.GetComponent<PlayerBehavior> ().Move (Direction.Right);
+			}
 		}
         Invoke("ResetThrowPossibility", 1.0f);
     }

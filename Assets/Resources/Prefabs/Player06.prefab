@@ -164,8 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a98c742f115f74e8958ecfe51d47d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Super: 3
+  Super: 6
   Effect: {fileID: 1935633231438306, guid: 41b7027c28eaa4d418b416cfd35ded95, type: 2}
+  WhiteBall: {fileID: 1296604735268884, guid: 7bb9fb8e37853c241b436a10ea2e495a, type: 2}
 --- !u!114 &114773529050757134
 MonoBehaviour:
   m_ObjectHideFlags: 1

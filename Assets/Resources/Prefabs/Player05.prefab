@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Super: 2
   Effect: {fileID: 1289409569762564, guid: dbc6729215f87b048818cd51f0551c9f, type: 2}
+  WhiteBall: {fileID: 1296604735268884, guid: 7bb9fb8e37853c241b436a10ea2e495a, type: 2}
 --- !u!114 &114396800479134400
 MonoBehaviour:
   m_ObjectHideFlags: 1
