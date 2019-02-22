@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50833873776078488}
   - component: {fileID: 114479350380164772}
   - component: {fileID: 95806610634825652}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BallBlue
   m_TagString: Disc
   m_Icon: {fileID: 0}

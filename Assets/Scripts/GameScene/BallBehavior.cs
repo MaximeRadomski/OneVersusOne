@@ -103,8 +103,16 @@ public class BallBehavior : MonoBehaviour
 			NbCol = 0;
             _linkedPlayer = col.gameObject;
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
-			if (_linkedPlayer.GetComponent<PlayerBehavior>().HasTheDisc == false)
-				_linkedPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
+			if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc == false) {
+				_linkedPlayer.GetComponent<PlayerBehavior> ().Ball = this.gameObject;
+				_linkedPlayer.GetComponent<PlayerBehavior> ().CatchTheDisc ();
+			}
+			else {
+				var tmpGoalEffect = Instantiate(GoalExplosionEffect, new Vector3(transform.position.x, _linkedPlayer.transform.position.y, 0.0f), transform.rotation);
+				if (transform.position.y > 0)
+					tmpGoalEffect.GetComponent<SpriteRenderer>().flipY = true;
+				Destroy(gameObject);
+			}
 			if (++CatchCount % 2 == 0 && CatchCount != 0) // "CatchCount != 0" because it starts at -1
 				Speed += 0.25f;
             IsThrownBy = CurrentPlayer.None;
@@ -129,13 +137,14 @@ public class BallBehavior : MonoBehaviour
             if (transform.position.y > 0)
                 tmpGoalEffect.GetComponent<SpriteRenderer>().flipY = true;
 
-			_camera.GetComponent<CameraBehavior>().GoalHit(transform.position.y);
+			if (!MoreThanOneBall())
+				_camera.GetComponent<CameraBehavior>().GoalHit(transform.position.y);
 			/*if (transform.position.x >= col.gameObject.transform.position.x - (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2) &&
 			    transform.position.x <= col.gameObject.transform.position.x + (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2))
 			{*/
 				col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
 			//}
-			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points);
+			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
             Destroy(gameObject);
         }
 		else if (col.gameObject.tag == "Wall")
@@ -168,10 +177,16 @@ public class BallBehavior : MonoBehaviour
 
 		if (NbCol >= 10)
 		{
-			_gameManager.GetComponent<GameManagerBehavior>().NewBall(IsThrownBy, 2);
+			_gameManager.GetComponent<GameManagerBehavior>().NewBall(IsThrownBy, 2, MoreThanOneBall());
 			Destroy(gameObject);
 		}
     }
+
+	private bool MoreThanOneBall()
+	{
+		var ballTab = GameObject.FindGameObjectsWithTag ("Disc");
+		return ballTab.Length > 1;
+	}
 
 	private void DisableQuickThrow()
 	{

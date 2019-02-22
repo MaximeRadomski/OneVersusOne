@@ -23,6 +23,7 @@ public class PlayerBehavior : MonoBehaviour
 	public int SPMaxCooldown;
 	public int SPCooldown;
 
+	public GameObject Ball;
     public Animator Animator;
 	public BoxCollider2D BoxCollider;
 	public SpriteRenderer CurrentSprite;
@@ -39,7 +40,6 @@ public class PlayerBehavior : MonoBehaviour
     private Vector2 _directionalVector;
     private float _throwAngle;
     private GameObject _gameManager;
-    private GameObject _ball;
     private Vector3 _dashingStart;
     private Vector3 _dashingEnd;
     private Direction _dashingDirection;
@@ -62,7 +62,7 @@ public class PlayerBehavior : MonoBehaviour
 		LiftDirection = Direction.Standby;
 	    _throwAngle = 0;
         _gameManager = GameObject.Find("$GameManager");
-	    _ball = GetBall();
+	    //Ball = GetBall();
         _dashingDirection = Direction.Standby;
 	    _dashCooldown = 0.75f;
 		_castSPCooldown = 1.0f;
@@ -118,7 +118,19 @@ public class PlayerBehavior : MonoBehaviour
 
     private GameObject GetBall()
     {
-        return GameObject.Find("Ball");
+		var ballTab = GameObject.FindGameObjectsWithTag ("Disc");
+		int ballIndex = -1;
+		for (int i = 0; i < ballTab.Length; ++i)
+		{
+			if (ballTab [i].GetComponent<BallBehavior> ().CurrentPlayer == Player)
+			{
+				ballIndex = i;
+				break;
+			}
+		}
+		if (ballIndex == -1)
+			return null;
+		return ballTab[ballIndex];
     }
 
     public void Move(Direction direction)
@@ -250,9 +262,10 @@ public class PlayerBehavior : MonoBehaviour
 
 	public void CatchTheDisc()
 	{
-		if (_ball == null)
-			_ball = GetBall ();
-		if (_ball.GetComponent<BallBehavior>().CatchCount >= 0) {
+		//Ball = GetBall ();
+		if (Ball == null)
+			return;
+		if (Ball.GetComponent<BallBehavior>().CatchCount >= 0) {
 			var tmpCatchEffect = Instantiate(CatchEffect, transform.position, CatchEffect.transform.rotation);
 			if (Player == CurrentPlayer.PlayerTwo)
 				tmpCatchEffect.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
@@ -324,35 +337,32 @@ public class PlayerBehavior : MonoBehaviour
     private void ThrowBallAfterDelay()
     {
 		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
-        if (_ball == null)
-            _ball = GetBall();
-		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
+        //Ball = GetBall();
+		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
-        if (_ball != null)
-            _ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, false);
+        if (Ball != null)
+            Ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, false);
         _throwAngle = 0;
     }
 
 	private void LiftBallAfterDelay()
 	{
 		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
-		if (_ball == null)
-			_ball = GetBall();
-		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
+		//Ball = GetBall();
+		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
-		if (_ball != null)
-			_ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, true);
+		if (Ball != null)
+			Ball.GetComponent<BallBehavior>().Throw(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, true);
 		_throwAngle = 0;
 	}
 
 	private void SuperAfterDelay()
 	{
 		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
-		if (_ball == null)
-			_ball = GetBall();
-		if (_ball != null && _ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
+		//Ball = GetBall();
+		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
-		if (_ball != null)
+		if (Ball != null)
 			this.GetComponent<SuperBehavior>().LaunchSupper(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, _directionalVector);
 		_throwAngle = 0;
 		var tmpSpEffect = Instantiate(CastSPEffect, transform.position, transform.rotation);

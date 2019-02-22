@@ -5,5 +5,6 @@ using UnityEngine;
 public enum ControlledAction
 {
 	Recenter,
-	Celebrate
+	Celebrate,
+	None
 }

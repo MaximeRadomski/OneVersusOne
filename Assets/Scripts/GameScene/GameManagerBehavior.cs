@@ -118,6 +118,7 @@ public class GameManagerBehavior : MonoBehaviour
 		currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
         var currentBall = Instantiate(Ball, new Vector3(0.0f, 0.0f, 0.0f), Ball.transform.rotation);
         currentBall.transform.name = "Ball";
+		currentPlayer.GetComponent<PlayerBehavior> ().Ball = currentBall;
 		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;
 		//currentPlayer.GetComponent<PlayerBehavior>().CatchTheDisc();
 		_scoreP1.GetComponent<Animator> ().Play ("StartingState");
@@ -198,23 +199,29 @@ public class GameManagerBehavior : MonoBehaviour
 			PlaceBall ();
 	}
 
-	public void NewBall(CurrentPlayer looser, int points)
+	public void NewBall(CurrentPlayer looser, int points, bool moreThanOneBall)
     {
 		_playerName = looser.ToString ();
 		if (looser == CurrentPlayer.PlayerOne)
 		{
 			ScorePlayerTwo += points;
-			_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose();
-			_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win();
+			if (!moreThanOneBall) {
+				_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose();
+				_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win();
+			}
 		}
 		else
 		{
 			ScorePlayerOne += points;
-			_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose();
-			_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win();
+			if (!moreThanOneBall) {
+				_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose ();
+				_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win ();
+			}
 		}
-		Invoke("DisplayScores", 0.5f);
-		Invoke("CheckIfSet", 3.0f);
+		if (!moreThanOneBall) {
+			Invoke ("DisplayScores", 0.5f);
+			Invoke ("CheckIfSet", 3.0f);
+		}
     }
 
 	private void DisplayScores()

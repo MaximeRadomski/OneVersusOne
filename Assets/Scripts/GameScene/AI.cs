@@ -56,7 +56,22 @@ public class AI : MonoBehaviour
 
 	private GameObject GetBall()
 	{
-		return GameObject.Find ("Ball");
+		var ballTab = GameObject.FindGameObjectsWithTag ("Disc");
+		float shortestDistance = 100;
+		float tmpDistance;
+		int ballIndex = -1;
+		for (int i = 0; i < ballTab.Length; ++i)
+		{
+			tmpDistance = Vector2.Distance (ballTab [i].transform.position, this.transform.position);
+			if (tmpDistance < shortestDistance)
+			{
+				shortestDistance = tmpDistance;
+				ballIndex = i;
+			}
+		}
+		if (ballIndex == -1)
+			return null;
+		return ballTab[ballIndex];
 	}
 
 	private void GetPlayers()
@@ -66,8 +81,7 @@ public class AI : MonoBehaviour
 
 	void Update ()
 	{
-		if (_ball == null)
-			_ball = GetBall ();
+		_ball = GetBall ();
 		if (_ball == null)
 			return;
 		if (_linkedPlayer == null)
@@ -83,6 +97,7 @@ public class AI : MonoBehaviour
             _isThrowing = true;
 			Invoke ("Throw", _throwDelay);
 		}
+
 	}
 
     private void ActFromBallPosition()
@@ -107,6 +122,9 @@ public class AI : MonoBehaviour
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Move (Direction.Right);
 		else if (_linkedPlayer.GetComponent<PlayerBehavior> ().SPCooldown <= 0 && Vector2.Distance (transform.position, _ball.transform.position) <= _startCastDistance)
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Lift (); //CastSP
+		else {
+			_linkedPlayer.GetComponent<PlayerBehavior> ().Standby ();
+		}
     }
 
     private void Recenter()

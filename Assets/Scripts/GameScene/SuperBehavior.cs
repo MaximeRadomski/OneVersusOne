@@ -13,6 +13,7 @@ public class SuperBehavior : MonoBehaviour
 	private float _zigzagDelay;
 	private Vector2 _currentThrowDirection;
 	private Vector2 _playerThrowDirection;
+	private GameObject _currentPlayer;
 	private float _customSpeed;
 	private float _zigzag;
 	private int _bounceCount;
@@ -121,16 +122,26 @@ public class SuperBehavior : MonoBehaviour
 			currentPlayer = GameObject.Find("PlayerOne");
 		else
 			currentPlayer = GameObject.Find("PlayerTwo");
-		currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
+		//currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
 		var currentBall = Instantiate(WhiteBall, new Vector3(0.0f, 0.0f, 0.0f), WhiteBall.transform.rotation);
 		currentBall.transform.name = "Ball";
+		currentBall.GetComponent<BallBehavior> ().MapId = PlayerPrefs.GetInt ("SelectedMap");
+		currentPlayer.GetComponent<PlayerBehavior> ().Ball = currentBall;
 		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;
+		currentPlayer.GetComponent<PlayerBehavior> ().CatchTheDisc ();
+	}
+
+	private void DisableAI()
+	{
+		_currentPlayer.GetComponent<PlayerBehavior>().IsControlledByAI = false;
+		_currentPlayer.GetComponent<PlayerBehavior> ().ControlledAction = ControlledAction.Recenter;
 	}
 
 	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection)
 	{
 		_currentThrowDirection = direction;
 		_playerThrowDirection = playerThrowDirection;
+		_currentPlayer = GameObject.Find (throwingPlayer.ToString());
 		switch (Super)
 		{
 		case SuperType.Super01:
@@ -152,7 +163,10 @@ public class SuperBehavior : MonoBehaviour
 			break;
 		case SuperType.Super06:
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
-			Invoke ("InstantiateNewDisc", 0.5f);
+			_currentPlayer.GetComponent<PlayerBehavior>().ControlledAction = ControlledAction.None;
+			_currentPlayer.GetComponent<PlayerBehavior>().IsControlledByAI = true;
+			Invoke ("InstantiateNewDisc", 0.41f);
+			Invoke ("DisableAI", 0.6f);
 			break;
 		default :
 			break;
