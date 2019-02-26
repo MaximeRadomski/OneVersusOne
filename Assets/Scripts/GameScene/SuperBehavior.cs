@@ -19,6 +19,7 @@ public class SuperBehavior : MonoBehaviour
 	private int _bounceCount;
 	private int _bounce;
 	private float _gravity;
+	private bool _isDoingSuper;
 
 	void Start()
 	{
@@ -32,7 +33,6 @@ public class SuperBehavior : MonoBehaviour
 
 	private void BasicEffectThrow (Vector2 direction, CurrentPlayer throwingPlayer, float addedPower)
 	{
-		_ball = GameObject.Find("Ball");	
 		_ball.GetComponent<BallBehavior>().SetGravityScaleFromPower (addedPower);
 		_ball.GetComponent<BallBehavior>().IsThrownBy = throwingPlayer;
 		_ball.GetComponent<BallBehavior>().CurrentPlayer = CurrentPlayer.None;
@@ -117,18 +117,12 @@ public class SuperBehavior : MonoBehaviour
 
 	private void InstantiateNewDisc ()
 	{
-		GameObject currentPlayer = null;
-		if (_playerThrowDirection == Vector2.up)
-			currentPlayer = GameObject.Find("PlayerOne");
-		else
-			currentPlayer = GameObject.Find("PlayerTwo");
-		//currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
-		var currentBall = Instantiate(WhiteBall, new Vector3(0.0f, 0.0f, 0.0f), WhiteBall.transform.rotation);
-		currentBall.transform.name = "Ball";
-		currentBall.GetComponent<BallBehavior> ().MapId = PlayerPrefs.GetInt ("SelectedMap");
-		currentPlayer.GetComponent<PlayerBehavior> ().Ball = currentBall;
-		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;
-		currentPlayer.GetComponent<PlayerBehavior> ().CatchTheDisc ();
+		var tmpNextBall = Instantiate(WhiteBall, new Vector3(-3.0f, 0.0f, 0.0f), WhiteBall.transform.rotation);
+		tmpNextBall.transform.name = "Ball";
+		tmpNextBall.GetComponent<BallBehavior> ().MapId = PlayerPrefs.GetInt ("SelectedMap");
+		tmpNextBall.GetComponent<BallBehavior> ().CurrentPlayer = _currentPlayer.GetComponent<PlayerBehavior> ().Player;
+		tmpNextBall.GetComponent<BallBehavior> ().IsNextBall = true;
+		_currentPlayer.GetComponent<PlayerBehavior>().NextBalls.Add(tmpNextBall);
 	}
 
 	private void DisableAI()
@@ -137,8 +131,9 @@ public class SuperBehavior : MonoBehaviour
 		_currentPlayer.GetComponent<PlayerBehavior> ().ControlledAction = ControlledAction.Recenter;
 	}
 
-	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection)
+	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection, GameObject ball)
 	{
+		_ball = ball;
 		_currentThrowDirection = direction;
 		_playerThrowDirection = playerThrowDirection;
 		_currentPlayer = GameObject.Find (throwingPlayer.ToString());
@@ -162,11 +157,11 @@ public class SuperBehavior : MonoBehaviour
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
 			break;
 		case SuperType.Super06:
+			InstantiateNewDisc();
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
-			_currentPlayer.GetComponent<PlayerBehavior>().ControlledAction = ControlledAction.None;
-			_currentPlayer.GetComponent<PlayerBehavior>().IsControlledByAI = true;
-			Invoke ("InstantiateNewDisc", 0.41f);
-			Invoke ("DisableAI", 0.6f);
+			//_currentPlayer.GetComponent<PlayerBehavior>().ControlledAction = ControlledAction.None;
+			//_currentPlayer.GetComponent<PlayerBehavior>().IsControlledByAI = true;
+			//Invoke ("DisableAI", 0.6f);
 			break;
 		default :
 			break;

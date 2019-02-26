@@ -12,6 +12,7 @@ public class BallBehavior : MonoBehaviour
 	public CurrentPlayer CurrentPlayer;
 	public CurrentPlayer IsThrownBy;
 	public Animator Animator;
+	public bool IsNextBall;
 
 	public GameObject LiftEffect;
 	public GameObject QuickEffect;
@@ -64,13 +65,17 @@ public class BallBehavior : MonoBehaviour
 			Animator.SetBool ("IsRotating", false);
 			if (_linkedPlayer == null)
 				_linkedPlayer = GetLinkedPlayer ();
-			float spaceYFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
-				? -1.6385f
-				: 1.5269f;
-			float spaceXFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
-				? 0.111f
-				: -0.083f;
-			transform.position = new Vector3 (_linkedPlayer.transform.position.x + spaceXFromPlayer, spaceYFromPlayer);
+			if (!IsNextBall) {
+				float spaceYFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
+					? -1.6385f
+					: 1.5269f;
+				float spaceXFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
+					? 0.111f
+					: -0.083f;
+				transform.position = new Vector3 (_linkedPlayer.transform.position.x + spaceXFromPlayer, spaceYFromPlayer);
+			} else {
+				transform.position = new Vector3 (-3.0f, 0.0f, 0.0f);
+			}
 		}
 		else
 			Animator.SetBool ("IsRotating", true);
@@ -103,15 +108,13 @@ public class BallBehavior : MonoBehaviour
 			NbCol = 0;
             _linkedPlayer = col.gameObject;
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
-			if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc == false) {
+			if (_linkedPlayer.GetComponent<PlayerBehavior>().NextBalls.Count == 0) {
 				_linkedPlayer.GetComponent<PlayerBehavior> ().Ball = this.gameObject;
 				_linkedPlayer.GetComponent<PlayerBehavior> ().CatchTheDisc ();
 			}
 			else {
-				var tmpGoalEffect = Instantiate(GoalExplosionEffect, new Vector3(transform.position.x, _linkedPlayer.transform.position.y, 0.0f), transform.rotation);
-				if (transform.position.y > 0)
-					tmpGoalEffect.GetComponent<SpriteRenderer>().flipY = true;
-				Destroy(gameObject);
+				IsNextBall = true;
+				_linkedPlayer.GetComponent<PlayerBehavior> ().NextBalls.Add(this.gameObject);
 			}
 			if (++CatchCount % 2 == 0 && CatchCount != 0) // "CatchCount != 0" because it starts at -1
 				Speed += 0.25f;
@@ -126,7 +129,7 @@ public class BallBehavior : MonoBehaviour
         {
 			onWallCollisionDelegate = null;
 			onPlayerCollisionDelegate = null;
-			if (_hasHitGoal)
+			if (_hasHitGoal || IsThrownBy == CurrentPlayer.None)
 				return;
 			_hasHitGoal = true;
 			Physics2D.gravity = new Vector2 (0.0f,0.0f);
@@ -145,7 +148,7 @@ public class BallBehavior : MonoBehaviour
 				col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
 			//}
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
-            Destroy(gameObject);
+	            Destroy(gameObject);
         }
 		else if (col.gameObject.tag == "Wall")
 		{

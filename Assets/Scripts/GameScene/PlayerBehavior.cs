@@ -24,6 +24,7 @@ public class PlayerBehavior : MonoBehaviour
 	public int SPCooldown;
 
 	public GameObject Ball;
+	public List<GameObject> NextBalls;
     public Animator Animator;
 	public BoxCollider2D BoxCollider;
 	public SpriteRenderer CurrentSprite;
@@ -296,7 +297,7 @@ public class PlayerBehavior : MonoBehaviour
 		Invoke("SuperAfterDelay", 0.15f);
 		Animator.enabled = true;
 		Animator.Play("Throw");
-		Invoke ("ResetThrow", 0.4f);
+		Invoke ("CheckIfNextBall", 0.4f);
 	}
 
 	public void Throw()
@@ -309,7 +310,7 @@ public class PlayerBehavior : MonoBehaviour
 	    Invoke("ThrowBallAfterDelay", 0.15f);
 		Animator.enabled = true;
         Animator.Play("Throw");
-		Invoke ("ResetThrow", 0.4f);
+		Invoke ("CheckIfNextBall", 0.4f);
 	}
 
 	public void Lift()
@@ -323,7 +324,21 @@ public class PlayerBehavior : MonoBehaviour
 		Invoke("LiftBallAfterDelay", 0.15f);
 		Animator.enabled = true;
 		Animator.Play("Throw");
-		Invoke ("ResetThrow", 0.4f);
+		Invoke ("CheckIfNextBall", 0.4f);
+	}
+
+	public void CheckIfNextBall ()
+	{
+		if (NextBalls.Count > 0) {
+			IsEngaging = true;
+			IsDoingSP = false;
+			Ball = NextBalls[0].gameObject;
+			NextBalls.RemoveAt (0);
+			Ball.GetComponent<BallBehavior> ().CurrentPlayer = Player;
+			Ball.GetComponent<BallBehavior> ().IsNextBall = false;
+		} else {
+			ResetThrow ();
+		}
 	}
 
 	private void ResetThrow()
@@ -363,7 +378,7 @@ public class PlayerBehavior : MonoBehaviour
 		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
 		if (Ball != null)
-			this.GetComponent<SuperBehavior>().LaunchSupper(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, _directionalVector);
+			this.GetComponent<SuperBehavior>().LaunchSupper(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, _directionalVector, Ball);
 		_throwAngle = 0;
 		var tmpSpEffect = Instantiate(CastSPEffect, transform.position, transform.rotation);
 		tmpSpEffect.GetComponent<SpriteRenderer> ().color = SuperColor;

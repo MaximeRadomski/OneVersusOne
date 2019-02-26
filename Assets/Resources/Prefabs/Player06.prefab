@@ -135,6 +135,7 @@ MonoBehaviour:
   Power: 1.5
   SPMaxCooldown: 3
   SPCooldown: 3
+  Ball: {fileID: 0}
   Animator: {fileID: 95074457835201762}
   BoxCollider: {fileID: 61144894470998226}
   CurrentSprite: {fileID: 212469492383567574}
@@ -165,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Super: 6
-  Effect: {fileID: 1935633231438306, guid: 41b7027c28eaa4d418b416cfd35ded95, type: 2}
+  Effect: {fileID: 1632186257049102, guid: 1731fdbfad9da684cbc10fd333c0db0a, type: 2}
   WhiteBall: {fileID: 1296604735268884, guid: 7bb9fb8e37853c241b436a10ea2e495a, type: 2}
 --- !u!114 &114773529050757134
 MonoBehaviour:
