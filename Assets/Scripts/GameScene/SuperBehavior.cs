@@ -20,6 +20,7 @@ public class SuperBehavior : MonoBehaviour
 	private int _bounce;
 	private float _gravity;
 	private bool _isDoingSuper;
+	private bool _hasInstantiateNewDisc;
 
 	void Start()
 	{
@@ -117,18 +118,19 @@ public class SuperBehavior : MonoBehaviour
 
 	private void InstantiateNewDisc ()
 	{
+		_hasInstantiateNewDisc = true;
+		var nbBalls = GameObject.FindGameObjectsWithTag ("Disc").Length;
 		var tmpNextBall = Instantiate(WhiteBall, new Vector3(-3.0f, 0.0f, 0.0f), WhiteBall.transform.rotation);
-		tmpNextBall.transform.name = "Ball";
+		tmpNextBall.transform.name = "Ball"+nbBalls;
 		tmpNextBall.GetComponent<BallBehavior> ().MapId = PlayerPrefs.GetInt ("SelectedMap");
 		tmpNextBall.GetComponent<BallBehavior> ().CurrentPlayer = _currentPlayer.GetComponent<PlayerBehavior> ().Player;
 		tmpNextBall.GetComponent<BallBehavior> ().IsNextBall = true;
 		_currentPlayer.GetComponent<PlayerBehavior>().NextBalls.Add(tmpNextBall);
 	}
 
-	private void DisableAI()
+	private void DisableInstantiate()
 	{
-		_currentPlayer.GetComponent<PlayerBehavior>().IsControlledByAI = false;
-		_currentPlayer.GetComponent<PlayerBehavior> ().ControlledAction = ControlledAction.Recenter;
+		_hasInstantiateNewDisc = false;
 	}
 
 	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection, GameObject ball)
@@ -157,11 +159,9 @@ public class SuperBehavior : MonoBehaviour
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
 			break;
 		case SuperType.Super06:
-			InstantiateNewDisc();
+			if (!_hasInstantiateNewDisc) InstantiateNewDisc();
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
-			//_currentPlayer.GetComponent<PlayerBehavior>().ControlledAction = ControlledAction.None;
-			//_currentPlayer.GetComponent<PlayerBehavior>().IsControlledByAI = true;
-			//Invoke ("DisableAI", 0.6f);
+			Invoke ("DisableInstantiate", 1.0f);
 			break;
 		default :
 			break;

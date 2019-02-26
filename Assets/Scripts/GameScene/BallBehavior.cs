@@ -99,6 +99,8 @@ public class BallBehavior : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
+			if (_hasHitGoal)
+				return;
 			onWallCollisionDelegate = null;
 			if (onPlayerCollisionDelegate != null)
 			{
@@ -108,7 +110,7 @@ public class BallBehavior : MonoBehaviour
 			NbCol = 0;
             _linkedPlayer = col.gameObject;
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
-			if (_linkedPlayer.GetComponent<PlayerBehavior>().NextBalls.Count == 0) {
+			if (_linkedPlayer.GetComponent<PlayerBehavior>().HasTheDisc == false) {
 				_linkedPlayer.GetComponent<PlayerBehavior> ().Ball = this.gameObject;
 				_linkedPlayer.GetComponent<PlayerBehavior> ().CatchTheDisc ();
 			}

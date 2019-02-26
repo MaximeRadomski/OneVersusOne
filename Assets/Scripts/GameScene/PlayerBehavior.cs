@@ -331,6 +331,7 @@ public class PlayerBehavior : MonoBehaviour
 	{
 		if (NextBalls.Count > 0) {
 			IsEngaging = true;
+			HasTheDisc = false;
 			IsDoingSP = false;
 			Ball = NextBalls[0].gameObject;
 			NextBalls.RemoveAt (0);
