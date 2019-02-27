@@ -157,10 +157,12 @@ MonoBehaviour:
   IsEngaging: 0
   ControlledAction: 0
   WalkDistance: 0.04
-  DashDistance: 0.8
+  DashDistance: 1
   Power: 1
-  SPMaxCooldown: 3
-  SPCooldown: 3
+  SPMaxCooldown: 4
+  SPCooldown: 4
+  Ball: {fileID: 0}
+  NextBalls: []
   Animator: {fileID: 95003398407556574}
   BoxCollider: {fileID: 61309072804660436}
   CurrentSprite: {fileID: 212127136465412040}

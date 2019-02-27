@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a98c742f115f74e8958ecfe51d47d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Super: 2
-  Effect: {fileID: 1289409569762564, guid: dbc6729215f87b048818cd51f0551c9f, type: 2}
+  Super: 5
+  Effect: {fileID: 1776410400650330, guid: 16a5f34328a5cd743b72a56eb8ab9083, type: 2}
   WhiteBall: {fileID: 1296604735268884, guid: 7bb9fb8e37853c241b436a10ea2e495a, type: 2}
 --- !u!114 &114396800479134400
 MonoBehaviour:
@@ -145,10 +145,12 @@ MonoBehaviour:
   IsEngaging: 0
   ControlledAction: 0
   WalkDistance: 0.03
-  DashDistance: 0.8
+  DashDistance: 1.2
   Power: 1.5
-  SPMaxCooldown: 2
-  SPCooldown: 2
+  SPMaxCooldown: 6
+  SPCooldown: 6
+  Ball: {fileID: 0}
+  NextBalls: []
   Animator: {fileID: 95074457835201762}
   BoxCollider: {fileID: 61144894470998226}
   CurrentSprite: {fileID: 212469492383567574}

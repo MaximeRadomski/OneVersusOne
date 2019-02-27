@@ -32,7 +32,7 @@ public class SuperBehavior : MonoBehaviour
 		_gravity = 15.0f;
 	}
 
-	private void BasicEffectThrow (Vector2 direction, CurrentPlayer throwingPlayer, float addedPower)
+	private void BasicEffectThrow (Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, bool isFixedSpeed = false)
 	{
 		_ball.GetComponent<BallBehavior>().SetGravityScaleFromPower (addedPower);
 		_ball.GetComponent<BallBehavior>().IsThrownBy = throwingPlayer;
@@ -40,6 +40,8 @@ public class SuperBehavior : MonoBehaviour
 		float speedQuarter = (_ball.GetComponent<BallBehavior>().Speed + addedPower) / 4;
 		_customSpeed = (_ball.GetComponent<BallBehavior>().Speed + addedPower) - (Mathf.Abs(direction.x) * speedQuarter);
 		_customSpeed = _customSpeed * 1.2f;
+		if (isFixedSpeed)
+			_customSpeed = 10;
 		if (Effect != null)
 			Invoke ("InstantiateSuperEffect", _superEffectDelay);
 		_ball.GetComponent<Rigidbody2D>().velocity = direction * _customSpeed;
@@ -133,6 +135,11 @@ public class SuperBehavior : MonoBehaviour
 		_hasInstantiateNewDisc = false;
 	}
 
+	private void ResetSuperEffectDelay()
+	{
+		_superEffectDelay = _superEffectDelay * 2;
+	}
+
 	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection, GameObject ball)
 	{
 		_ball = ball;
@@ -157,6 +164,11 @@ public class SuperBehavior : MonoBehaviour
 		case SuperType.Super04:
 			FreezeGoals ();
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
+			break;
+		case SuperType.Super05:
+			_superEffectDelay = _superEffectDelay / 2;
+			BasicEffectThrow (direction, throwingPlayer, addedPower, true);
+			Invoke ("ResetSuperEffectDelay", 1.0f);
 			break;
 		case SuperType.Super06:
 			if (!_hasInstantiateNewDisc) InstantiateNewDisc();

@@ -13,6 +13,7 @@ public class BallBehavior : MonoBehaviour
 	public CurrentPlayer IsThrownBy;
 	public Animator Animator;
 	public bool IsNextBall;
+	public bool HasHitPlayer;
 
 	public GameObject LiftEffect;
 	public GameObject QuickEffect;
@@ -54,14 +55,14 @@ public class BallBehavior : MonoBehaviour
 		_quickEffectDelay = 0.05f;
 		_isQuickThrow = false;
 		_hasHitGoal = false;
+		HasHitPlayer = false;
 		onWallCollisionDelegate = null;
 		onPlayerCollisionDelegate = null;
 	}
 
     void Update()
     {
-		if (CurrentPlayer != CurrentPlayer.None)
-		{
+		if (CurrentPlayer != CurrentPlayer.None) {
 			Animator.SetBool ("IsRotating", false);
 			if (_linkedPlayer == null)
 				_linkedPlayer = GetLinkedPlayer ();
@@ -76,9 +77,10 @@ public class BallBehavior : MonoBehaviour
 			} else {
 				transform.position = new Vector3 (-3.0f, 0.0f, 0.0f);
 			}
-		}
-		else
+		} else {
 			Animator.SetBool ("IsRotating", true);
+			HasHitPlayer = false;
+		}
 
 		if (_liftDirection != Direction.Standby && !_gravityIsSet)
 		{
@@ -99,8 +101,9 @@ public class BallBehavior : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-			if (_hasHitGoal)
+			if (_hasHitGoal || HasHitPlayer)
 				return;
+			HasHitPlayer = true;
 			onWallCollisionDelegate = null;
 			if (onPlayerCollisionDelegate != null)
 			{
@@ -131,7 +134,7 @@ public class BallBehavior : MonoBehaviour
         {
 			onWallCollisionDelegate = null;
 			onPlayerCollisionDelegate = null;
-			if (_hasHitGoal || IsThrownBy == CurrentPlayer.None)
+			if (_hasHitGoal || IsThrownBy == CurrentPlayer.None || HasHitPlayer)
 				return;
 			_hasHitGoal = true;
 			Physics2D.gravity = new Vector2 (0.0f,0.0f);
@@ -211,6 +214,7 @@ public class BallBehavior : MonoBehaviour
     {
 		SetGravityScaleFromPower (addedPower);
 		IsThrownBy = throwingPlayer;
+
 		CurrentPlayer = CurrentPlayer.None;
 		float speedQuarter = (Speed + addedPower) / 4;
 		float customSpeed = (Speed + addedPower) - (Mathf.Abs(direction.x) * speedQuarter);

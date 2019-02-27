@@ -147,6 +147,8 @@ MonoBehaviour:
   Power: 0.5
   SPMaxCooldown: 2
   SPCooldown: 2
+  Ball: {fileID: 0}
+  NextBalls: []
   Animator: {fileID: 95854237063709232}
   BoxCollider: {fileID: 61804633430177132}
   CurrentSprite: {fileID: 212903665873115856}

@@ -337,6 +337,7 @@ public class PlayerBehavior : MonoBehaviour
 			NextBalls.RemoveAt (0);
 			Ball.GetComponent<BallBehavior> ().CurrentPlayer = Player;
 			Ball.GetComponent<BallBehavior> ().IsNextBall = false;
+			Ball.GetComponent<BallBehavior> ().HasHitPlayer = false;
 		} else {
 			ResetThrow ();
 		}
