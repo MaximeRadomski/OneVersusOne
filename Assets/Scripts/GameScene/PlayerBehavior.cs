@@ -345,8 +345,10 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void ResetThrow()
 	{
-	    HasTheDisc = false;
-        Animator.Play("Idle");
+		if (NextBalls.Count == 0) {
+			HasTheDisc = false;
+			Animator.Play("Idle");	
+		}
 		IsDoingSP = false;
 		IsEngaging = false;
     }

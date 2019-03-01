@@ -10,6 +10,7 @@ public class SuperBehavior : MonoBehaviour
 
 	private GameObject _ball;
 	private float _superEffectDelay;
+	private float _baseSuperEffectDelay;
 	private float _zigzagDelay;
 	private Vector2 _currentThrowDirection;
 	private Vector2 _playerThrowDirection;
@@ -25,6 +26,7 @@ public class SuperBehavior : MonoBehaviour
 	void Start()
 	{
 		_superEffectDelay = 0.05f;
+		_baseSuperEffectDelay = _superEffectDelay;
 		_zigzagDelay = 0.25f;
 		_zigzag = 0.0f;
 		_bounceCount = 1;
@@ -32,7 +34,7 @@ public class SuperBehavior : MonoBehaviour
 		_gravity = 15.0f;
 	}
 
-	private void BasicEffectThrow (Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, bool isFixedSpeed = false)
+	private void BasicEffectThrow (Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, float fixedSpeed = 0)
 	{
 		_ball.GetComponent<BallBehavior>().SetGravityScaleFromPower (addedPower);
 		_ball.GetComponent<BallBehavior>().IsThrownBy = throwingPlayer;
@@ -40,8 +42,8 @@ public class SuperBehavior : MonoBehaviour
 		float speedQuarter = (_ball.GetComponent<BallBehavior>().Speed + addedPower) / 4;
 		_customSpeed = (_ball.GetComponent<BallBehavior>().Speed + addedPower) - (Mathf.Abs(direction.x) * speedQuarter);
 		_customSpeed = _customSpeed * 1.2f;
-		if (isFixedSpeed)
-			_customSpeed = 10;
+		if (fixedSpeed != 0)
+			_customSpeed = fixedSpeed;
 		if (Effect != null)
 			Invoke ("InstantiateSuperEffect", _superEffectDelay);
 		_ball.GetComponent<Rigidbody2D>().velocity = direction * _customSpeed;
@@ -137,7 +139,7 @@ public class SuperBehavior : MonoBehaviour
 
 	private void ResetSuperEffectDelay()
 	{
-		_superEffectDelay = _superEffectDelay * 2;
+		_superEffectDelay = _baseSuperEffectDelay;
 	}
 
 	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection, GameObject ball)
@@ -167,13 +169,15 @@ public class SuperBehavior : MonoBehaviour
 			break;
 		case SuperType.Super05:
 			_superEffectDelay = _superEffectDelay / 2;
-			BasicEffectThrow (direction, throwingPlayer, addedPower, true);
+			BasicEffectThrow (direction, throwingPlayer, addedPower, 10);
 			Invoke ("ResetSuperEffectDelay", 1.0f);
 			break;
 		case SuperType.Super06:
 			if (!_hasInstantiateNewDisc) InstantiateNewDisc();
-			BasicEffectThrow (direction, throwingPlayer, addedPower);
+			_superEffectDelay = _superEffectDelay * 3;
+			BasicEffectThrow (direction, throwingPlayer, addedPower, 2);
 			Invoke ("DisableInstantiate", 1.0f);
+			Invoke ("ResetSuperEffectDelay", 5.0f);
 			break;
 		default :
 			break;

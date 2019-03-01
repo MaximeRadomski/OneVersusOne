@@ -64,16 +64,8 @@ public class BallBehavior : MonoBehaviour
     {
 		if (CurrentPlayer != CurrentPlayer.None) {
 			Animator.SetBool ("IsRotating", false);
-			if (_linkedPlayer == null)
-				_linkedPlayer = GetLinkedPlayer ();
 			if (!IsNextBall) {
-				float spaceYFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
-					? -1.6385f
-					: 1.5269f;
-				float spaceXFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
-					? 0.111f
-					: -0.083f;
-				transform.position = new Vector3 (_linkedPlayer.transform.position.x + spaceXFromPlayer, spaceYFromPlayer);
+				PlaceBallFromPlayer ();
 			} else {
 				transform.position = new Vector3 (-3.0f, 0.0f, 0.0f);
 			}
@@ -87,6 +79,18 @@ public class BallBehavior : MonoBehaviour
 			AddGravity (1.0f);
 		}
     }
+
+	public void PlaceBallFromPlayer()
+	{
+		_linkedPlayer = GetLinkedPlayer ();
+		float spaceYFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
+			? -1.6385f
+			: 1.5269f;
+		float spaceXFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
+			? 0.111f
+			: -0.083f;
+		transform.position = new Vector3 (_linkedPlayer.transform.position.x + spaceXFromPlayer, spaceYFromPlayer);
+	}
 
 	private void AddGravity(float multiplier)
 	{
