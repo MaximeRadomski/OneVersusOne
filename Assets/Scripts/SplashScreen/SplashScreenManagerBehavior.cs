@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SplashScreenManagerBehavior : MonoBehaviour {
+public class SplashScreenManagerBehavior : MonoBehaviour
+{
 
 	// Use this for initialization
 	void Start () {

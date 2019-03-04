@@ -71,3 +71,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Scanlines
+    uniqueID: 3312676009
+    locked: 0
+  - name: TopBorders
+    uniqueID: 88227403
+    locked: 0
