@@ -25,4 +25,9 @@ public class MenuBackgroundBehavior : MonoBehaviour
 		float offset = Time.time * ScrollSpeed;
 		Renderer.material.mainTextureOffset = new Vector2(offset, offset/2);
 	}
+
+	public void PlayAudio()
+	{
+		this.gameObject.GetComponent<AudioSource> ().Play ();
+	}
 }

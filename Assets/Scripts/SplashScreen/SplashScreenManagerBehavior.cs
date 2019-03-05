@@ -1,17 +1,109 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SplashScreenManagerBehavior : MonoBehaviour
 {
+	// ---- AUDIOS ---- //
+	public int SwitchTVONFileID;
+	public int NamePresentationFileID;
+	public int BorderMovementFileID;
 
-	// Use this for initialization
-	void Start () {
-		
+	private GameObject _borderTop, _borderBot;
+	private GameObject _scanLines;
+	private GameObject _touchToStart;
+	private GameObject _gameName;
+	private GameObject _abjectPresents;
+	private GameObject _movingBackground;
+	private GameObject _blackBackground; 
+	private GameObject _camera;
+
+	private bool _canBeClicked;
+
+	void Start ()
+	{
+		AndroidNativeAudio.makePool();
+		_borderTop = GameObject.Find ("BorderTop");
+		_borderBot = GameObject.Find ("BorderBot");
+		_scanLines = GameObject.Find ("ScanLines");
+		_touchToStart = GameObject.Find ("TouchToStart");
+		_gameName = GameObject.Find ("GameName");
+		_abjectPresents = GameObject.Find ("AbjectPresents");
+		_movingBackground = GameObject.Find ("MovingBackground");
+		_blackBackground = GameObject.Find ("BlackBackground");
+		_camera = GameObject.Find("Camera");
+
+		_canBeClicked = false;
+
+		// ---- AUDIOS ---- //
+		SwitchTVONFileID = AndroidNativeAudio.load("SwitchTVON.mp3");
+		NamePresentationFileID = AndroidNativeAudio.load("NamePresentation.mp3");
+		BorderMovementFileID = AndroidNativeAudio.load("BorderMovement.mp3");
+
+		Invoke ("SwitchTVON", 1.0f);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void Update()
+	{
+		if (Input.GetMouseButtonDown (0) && _canBeClicked)
+		{
+			_canBeClicked = false;
+			PlayTitleAnimation ();
+		}
+			
+	}
+
+	private void SwitchTVON()
+	{
+		AndroidNativeAudio.play(SwitchTVONFileID);
+		_blackBackground.SetActive (false);
+		_movingBackground.GetComponent<MeshRenderer> ().enabled = true;
+		_movingBackground.GetComponent<MenuBackgroundBehavior> ().ScrollSpeed = 0.05f;
+		Invoke ("DisplayAbject", 1.0f);
+	}
+
+	private void DisplayAbject()
+	{
+		_abjectPresents.GetComponent<Animator> ().Play ("FadeInAndOut");
+		Invoke ("DisplayName", 3.5f);
+	}
+
+	private void DisplayName()
+	{
+		AndroidNativeAudio.play(NamePresentationFileID);
+		_abjectPresents.SetActive (false);
+		_gameName.GetComponent<SpriteRenderer> ().enabled = true;
+		_touchToStart.GetComponent<UnityEngine.UI.Text> ().enabled = true;
+		_canBeClicked = true;
+	}
+
+	public void PlayTitleAnimation()
+	{
+		_camera.GetComponent<CameraBehavior>().WallHit();
+		AndroidNativeAudio.play(BorderMovementFileID);
+		_movingBackground.GetComponent<MenuBackgroundBehavior> ().PlayAudio ();
+		_touchToStart.SetActive (false);
+		_borderTop.GetComponent<Animator> ().Play ("BorderGoesUp");
+		_borderBot.GetComponent<Animator> ().Play ("BorderGoesDown");
+		_gameName.GetComponent<Animator> ().Play ("GameNameGoesUp");
+		_scanLines.GetComponent<Animator> ().Play ("FadeOut");
+		_movingBackground.GetComponent<MenuBackgroundBehavior> ().ScrollSpeed = -1.0f;
+		Invoke ("GoToTitle", 0.5f);
+	}
+
+	private void GoToTitle()
+	{
+		_camera.GetComponent<CameraBehavior>().WallHit();
+		_movingBackground.GetComponent<MenuBackgroundBehavior> ().ScrollSpeed = 0.25f;
+		SceneManager.LoadScene("TitleScene");
+	}
+
+	void OnDestroy()
+	{
+		AndroidNativeAudio.unload (SwitchTVONFileID);
+		AndroidNativeAudio.unload (NamePresentationFileID);
+		AndroidNativeAudio.unload (BorderMovementFileID);
+		AndroidNativeAudio.releasePool();
 	}
 }
