@@ -148,7 +148,6 @@ public class MapSelManagerBehavior : MonoBehaviour
 			_p1Confirm = !_p1Confirm;
 		else
 			_p2Confirm = !_p2Confirm;
-		GameObject.Find ("P" + player + "-Confirm").GetComponent<MapSelButtonBehavior>().SwitchSprite();
 
 		if (_p1Confirm && _p2Confirm)
 		{

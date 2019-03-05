@@ -76,6 +76,15 @@ public class CharSelManagerBehavior : MonoBehaviour
 		ChangeSelectedCharacter(2, 1);
 	}
 
+	void Update()
+	{
+		if (Input.GetKeyUp(KeyCode.Escape))
+		{
+			SceneManager.LoadScene("TitleScene");
+			AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+		}
+	}
+
 	private IEnumerator InitiateLeft(GameObject A, GameObject B, GameObject C, GameObject D)
 	{
 		A.GetComponent<Animator> ().Play ("CharSelLeftToRight");
@@ -149,7 +158,6 @@ public class CharSelManagerBehavior : MonoBehaviour
 			_p1Confirm = !_p1Confirm;
 		else
 			_p2Confirm = !_p2Confirm;
-		GameObject.Find ("P" + player + "-Confirm").GetComponent<CharSelButtonBehavior>().SwitchSprite();
 
 		if (_p1Confirm && _p2Confirm)
 		{

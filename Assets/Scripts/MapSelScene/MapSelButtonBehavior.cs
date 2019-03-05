@@ -9,6 +9,7 @@ public class MapSelButtonBehavior : MonoBehaviour
 	public SpriteRenderer SpriteRenderer;
 	public Sprite SpriteOn;
 	public Sprite SpriteOff;
+	public bool KeepState;
 
 	public ButtonSoundType ButtonSound;
 

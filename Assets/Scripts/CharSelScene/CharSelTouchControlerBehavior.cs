@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharSelTouchControlerBehavior : MonoBehaviour
 {
 	private Vector3 _touchPosWorld;
+	private GameObject _currentButton = null;
 
 	void Update ()
 	{
@@ -29,9 +30,17 @@ public class CharSelTouchControlerBehavior : MonoBehaviour
 					//Debug.Log("Touched " + touchedObject.transform.name);
 					if (touchedObject.tag == "Button")
 					{
-						if (Input.GetTouch(i).phase == TouchPhase.Ended)
-							touchedObject.GetComponent<CharSelButtonBehavior>().DoAction();
+						if (Input.GetTouch(i).phase == TouchPhase.Began)
+						{
+							touchedObject.GetComponent<CharSelButtonBehavior>().SwitchSprite();
+							_currentButton = touchedObject;
+						}
 					}
+				}
+				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null)
+				{
+					_currentButton.GetComponent<CharSelButtonBehavior>().DoAction();
+					_currentButton = null;
 				}
 			}
 		}

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuTouchControleBehavior : MonoBehaviour
+public class GenericMenuTouchControleBehavior : MonoBehaviour
 {
 	private Vector3 _touchPosWorld;
+	private GameObject _currentButton = null;
 
 	void Update ()
 	{
@@ -30,10 +31,17 @@ public class MenuTouchControleBehavior : MonoBehaviour
 					if (touchedObject.tag == "Button")
 					{
 						if (Input.GetTouch(i).phase == TouchPhase.Began)
-							touchedObject.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
-						else if (Input.GetTouch(i).phase == TouchPhase.Ended)
-							touchedObject.GetComponent<GenericMenuButtonBehavior>().DoAction();
+						{
+							touchedObject.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();	
+							_currentButton = touchedObject;
+						}
 					}
+				}
+				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null)
+				{
+					_currentButton.GetComponent<GenericMenuButtonBehavior>().DoAction();
+					_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();	
+					_currentButton = null;
 				}
 			}
 		}
@@ -56,7 +64,7 @@ public class MenuTouchControleBehavior : MonoBehaviour
 		//Debug.Log("Touched " + touchedObject.transform.name);
 		if (touchedObject.tag == "Button")
 		{
-		touchedObject.GetComponent<CharSelButtonBehavior>().DoAction();
+					touchedObject.GetComponent<GenericMenuButtonBehavior>().DoAction();
 		}
 		}
 		}

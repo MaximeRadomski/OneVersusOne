@@ -1,11 +1,13 @@
 fileFormatVersion: 2
 guid: 2495044b9bf869b42b44a3d5ab3df6ae
-timeCreated: 1548616990
+timeCreated: 1551816356
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: ButtonDirection01_0
     21300002: ButtonDirection01_1
+    21300004: ButtonDirection01_2
+    21300006: ButtonDirection01_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -119,7 +121,35 @@ TextureImporter:
       name: ButtonDirection01_1
       rect:
         serializedVersion: 2
+        x: 29
+        y: 18
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ButtonDirection01_2
+      rect:
+        serializedVersion: 2
         x: 0
+        y: 0
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ButtonDirection01_3
+      rect:
+        serializedVersion: 2
+        x: 29
         y: 0
         width: 29
         height: 18

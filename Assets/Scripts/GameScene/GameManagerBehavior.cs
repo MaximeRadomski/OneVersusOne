@@ -141,7 +141,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void EndGame()
 	{
-		SceneManager.LoadScene("CharSelScene");
+		SceneManager.LoadScene("TitleScene");
 	}
 
 	private void CheckIfGame()
@@ -314,7 +314,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void LoadPreviousScene()
 	{
-		SceneManager.LoadScene("CharSelScene");
+		SceneManager.LoadScene("TitleScene");
 	}
 
 	void OnDestroy()
