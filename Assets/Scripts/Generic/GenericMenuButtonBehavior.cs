@@ -10,6 +10,7 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 	public Sprite SpriteOn;
 	public Sprite SpriteOff;
 	public string NextSceneName;
+	public bool KeepState;
 
 	public ButtonSoundType ButtonSound;
 

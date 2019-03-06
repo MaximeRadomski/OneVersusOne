@@ -10,6 +10,7 @@ TagManager:
   - MenuBackground
   - FrozenWall
   - Disc
+  - GenericMenu
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class MapSelButtonBehavior : MonoBehaviour
 	public ButtonSoundType ButtonSound;
 
 	private MapSelManagerBehavior _mapSelManager;
+	private GenericMenuManagerBehavior _genericMenuManager;
 	private int _player;
 
 	void Start()
@@ -23,6 +24,7 @@ public class MapSelButtonBehavior : MonoBehaviour
 		else
 			_player = 2;
 		_mapSelManager = GameObject.Find ("$MapSelManager").GetComponent<MapSelManagerBehavior>();
+		_genericMenuManager = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 	}
 
 	public void SwitchSprite()
@@ -55,10 +57,10 @@ public class MapSelButtonBehavior : MonoBehaviour
 		switch (ButtonSound)
 		{
 		case ButtonSoundType.MenuBipSelect:
-			AndroidNativeAudio.play (_mapSelManager.MenuBipSelectAudioFileID);
+			AndroidNativeAudio.play (_genericMenuManager.MenuBipSelectAudioFileID);
 			break;
 		case ButtonSoundType.MenuBipConfirm:
-			AndroidNativeAudio.play (_mapSelManager.MenuBipConfirmAudioFileID);
+			AndroidNativeAudio.play (_genericMenuManager.MenuBipConfirmAudioFileID);
 			break;
 		}
 	}

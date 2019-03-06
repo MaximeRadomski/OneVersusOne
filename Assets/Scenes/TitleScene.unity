@@ -571,6 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839f8c606011e74478b0fb88dc89a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanPressMultipleButtons: 0
 --- !u!4 &781209250
 Transform:
   m_ObjectHideFlags: 0
@@ -715,6 +716,7 @@ MonoBehaviour:
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   NextSceneName: CharSelScene
+  KeepState: 1
   ButtonSound: 0
 --- !u!61 &913855086
 BoxCollider2D:
@@ -918,6 +920,7 @@ MonoBehaviour:
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   NextSceneName: CharSelScene
+  KeepState: 1
   ButtonSound: 0
 --- !u!61 &957841281
 BoxCollider2D:
@@ -1109,6 +1112,7 @@ MonoBehaviour:
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   NextSceneName: CharSelScene
+  KeepState: 1
   ButtonSound: 0
 --- !u!61 &1027283492
 BoxCollider2D:
@@ -1315,6 +1319,7 @@ MonoBehaviour:
   SpriteOn: {fileID: 21300006, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300002, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   NextSceneName: CharSelScene
+  KeepState: 1
   ButtonSound: 0
 --- !u!61 &1065296364
 BoxCollider2D:
@@ -2132,6 +2137,7 @@ MonoBehaviour:
   SpriteOn: {fileID: 21300006, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300002, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   NextSceneName: CharSelScene
+  KeepState: 1
   ButtonSound: 0
 --- !u!61 &1637164281
 BoxCollider2D:
@@ -2306,7 +2312,7 @@ GameObject:
   - component: {fileID: 1883491026}
   m_Layer: 0
   m_Name: $GenericMenuManager
-  m_TagString: Untagged
+  m_TagString: GenericMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2323,8 +2329,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackSceneName: 
+  MenuBipDefaultAudioFileID: 0
   MenuBipGoToAudioFileID: 0
+  MenuBipSelectAudioFileID: 0
+  MenuBipConfirmAudioFileID: 0
   MenuBipReturnAudioFileID: 0
+  SwitchTVONFileID: 0
+  NamePresentationFileID: 0
+  BorderMovementFileID: 0
 --- !u!4 &1883491027
 Transform:
   m_ObjectHideFlags: 0

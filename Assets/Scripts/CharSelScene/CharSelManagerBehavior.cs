@@ -6,12 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class CharSelManagerBehavior : MonoBehaviour
 {
-	// ---- AUDIOS ---- //
-	public int MenuBipSelectAudioFileID;
-	public int MenuBipConfirmAudioFileID;
-	public int MenuBipReturnAudioFileID;
-	// ---- AUDIOS ---- //
-
 	public Sprite[] CharactersSprites;
 
 	private GameObject _p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters;
@@ -28,7 +22,6 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
-		AndroidNativeAudio.makePool();
 		_p1BannerPlayerName = GameObject.Find ("P1BannerPlayerName");
 		_p1LightCharacters = GameObject.Find ("P1LightCharacters");
 		_p1MediumCharacters = GameObject.Find ("P1MediumCharacters");
@@ -61,12 +54,6 @@ public class CharSelManagerBehavior : MonoBehaviour
 		StartCoroutine(InitiateLeft(_p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters));
 		StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
 
-		// ---- AUDIOS ---- //
-		MenuBipSelectAudioFileID = AndroidNativeAudio.load("MenuBipSelect.mp3");
-		MenuBipConfirmAudioFileID = AndroidNativeAudio.load("MenuBipConfirm.mp3");
-		MenuBipReturnAudioFileID = AndroidNativeAudio.load("MenuBipReturn.mp3");
-		// ---- AUDIOS ---- //
-
 		_p1Confirm = false;
 		_p2Confirm = false;
 
@@ -74,15 +61,6 @@ public class CharSelManagerBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("P2Character", 0);
 		ChangeSelectedCharacter(1, 1);
 		ChangeSelectedCharacter(2, 1);
-	}
-
-	void Update()
-	{
-		if (Input.GetKeyUp(KeyCode.Escape))
-		{
-			SceneManager.LoadScene("TitleScene");
-			AndroidNativeAudio.play (MenuBipReturnAudioFileID);
-		}
 	}
 
 	private IEnumerator InitiateLeft(GameObject A, GameObject B, GameObject C, GameObject D)
@@ -173,13 +151,5 @@ public class CharSelManagerBehavior : MonoBehaviour
 	private void LoadGameScene()
 	{
 		SceneManager.LoadScene("MapSelScene");
-	}
-
-	void OnDestroy()
-	{
-		AndroidNativeAudio.unload(MenuBipSelectAudioFileID);
-		AndroidNativeAudio.unload(MenuBipConfirmAudioFileID);
-		AndroidNativeAudio.unload(MenuBipReturnAudioFileID);
-		AndroidNativeAudio.releasePool();
 	}
 }

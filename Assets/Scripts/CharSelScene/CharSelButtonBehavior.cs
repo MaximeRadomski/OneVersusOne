@@ -13,6 +13,7 @@ public class CharSelButtonBehavior : MonoBehaviour
 	public ButtonSoundType ButtonSound;
 
 	private CharSelManagerBehavior _charSelManager;
+	private GenericMenuManagerBehavior _genericMenuManager;
 	private int _player;
 
 	void Start()
@@ -22,6 +23,7 @@ public class CharSelButtonBehavior : MonoBehaviour
 		else
 			_player = 2;
 		_charSelManager = GameObject.Find ("$CharSelManager").GetComponent<CharSelManagerBehavior>();
+		_genericMenuManager = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 	}
 
 	public void SwitchSprite()
@@ -66,10 +68,10 @@ public class CharSelButtonBehavior : MonoBehaviour
 		switch (ButtonSound)
 		{
 		case ButtonSoundType.MenuBipSelect:
-			AndroidNativeAudio.play (_charSelManager.MenuBipSelectAudioFileID);
+			AndroidNativeAudio.play (_genericMenuManager.MenuBipSelectAudioFileID);
 			break;
 		case ButtonSoundType.MenuBipConfirm:
-			AndroidNativeAudio.play (_charSelManager.MenuBipConfirmAudioFileID);
+			AndroidNativeAudio.play (_genericMenuManager.MenuBipConfirmAudioFileID);
 			break;
 		}
 	}

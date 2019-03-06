@@ -40,7 +40,7 @@ public class MapSelTouchControlerBehavior : MonoBehaviour
 				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null)
 				{
 					_currentButton.GetComponent<MapSelButtonBehavior>().DoAction();
-					if (!_currentButton.GetComponent<MapSelButtonBehavior>().KeepState)
+					if (_currentButton.GetComponent<MapSelButtonBehavior>().KeepState == false)
 						_currentButton.GetComponent<MapSelButtonBehavior>().SwitchSprite();
 					_currentButton = null;
 				}
