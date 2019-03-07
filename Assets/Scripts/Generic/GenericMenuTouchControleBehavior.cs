@@ -32,7 +32,9 @@ public class GenericMenuTouchControleBehavior : MonoBehaviour
 					{
 						if (Input.GetTouch(i).phase == TouchPhase.Began)
 						{
-							touchedObject.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();	
+							touchedObject.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
+							if (_currentButton != null)
+								_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
 							_currentButton = touchedObject;
 						}
 					}
@@ -40,8 +42,7 @@ public class GenericMenuTouchControleBehavior : MonoBehaviour
 				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null)
 				{
 					_currentButton.GetComponent<GenericMenuButtonBehavior>().DoAction();
-					if (_currentButton.GetComponent<GenericMenuButtonBehavior>().KeepState == false)
-						_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();	
+					ResetCurrentButton();
 					_currentButton = null;
 				}
 			}
@@ -70,5 +71,11 @@ public class GenericMenuTouchControleBehavior : MonoBehaviour
 		}
 		}
 		#endif
+	}
+
+	private void ResetCurrentButton()
+	{
+		if (_currentButton.GetComponent<GenericMenuButtonBehavior>().KeepState == false)
+			_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();	
 	}
 }

@@ -14,7 +14,10 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 	private GameObject _blackBackground; 
 	private GameObject _camera;
 
-	private bool _canBeClicked;
+	private bool _isDuringStart = false;
+	private bool _isDuringTVON = false;
+	private bool _isDuringAbject = false;
+	private bool _isDuringLogo = false;
 
 	void Start ()
 	{
@@ -29,23 +32,32 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 		_blackBackground = GameObject.Find ("BlackBackground");
 		_camera = GameObject.Find("Camera");
 
-		_canBeClicked = false;
+		_isDuringStart = true;
 
 		Invoke ("SwitchTVON", 1.0f);
 	}
 
 	void Update()
 	{
-		if (Input.GetMouseButtonDown (0) && _canBeClicked)
+		if (Input.GetMouseButtonDown (0))
 		{
-			_canBeClicked = false;
-			PlayTitleAnimation ();
+			if (_isDuringLogo)
+				PlayTitleAnimation ();
+			else if (_isDuringAbject)
+				DisplayName ();
+			else if (_isDuringTVON)
+				DisplayAbject ();
+			else if (_isDuringStart)
+				SwitchTVON ();
 		}
 			
 	}
 
 	private void SwitchTVON()
 	{
+		if (_isDuringTVON)
+			return;
+		_isDuringTVON = true;
 		AndroidNativeAudio.play(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().SwitchTVONFileID);
 		_blackBackground.SetActive (false);
 		_movingBackground.GetComponent<MeshRenderer> ().enabled = true;
@@ -55,17 +67,22 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 
 	private void DisplayAbject()
 	{
+		if (_isDuringAbject)
+			return;
+		_isDuringAbject = true;
 		_abjectPresents.GetComponent<Animator> ().Play ("FadeInAndOut");
 		Invoke ("DisplayName", 3.5f);
 	}
 
 	private void DisplayName()
 	{
+		if (_isDuringLogo)
+			return;
+		_isDuringLogo = true;
 		AndroidNativeAudio.play(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().NamePresentationFileID);
 		_abjectPresents.SetActive (false);
 		_gameName.GetComponent<SpriteRenderer> ().enabled = true;
 		_touchToStart.GetComponent<UnityEngine.UI.Text> ().enabled = true;
-		_canBeClicked = true;
 	}
 
 	public void PlayTitleAnimation()

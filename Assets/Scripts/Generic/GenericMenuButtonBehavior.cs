@@ -29,6 +29,16 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 			SpriteRenderer.sprite = SpriteOn;
 	}
 
+	public void SetSpriteOn()
+	{
+		SpriteRenderer.sprite = SpriteOn;
+	}
+
+	public void SetSpriteOff()
+	{
+		SpriteRenderer.sprite = SpriteOff;
+	}
+
 	public void DoAction()
 	{
 		switch (Action)

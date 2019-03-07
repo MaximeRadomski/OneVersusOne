@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapSelTouchControlerBehavior : MonoBehaviour
 {
 	private Vector3 _touchPosWorld;
-	private GameObject _currentButton = null;
+	//private GameObject _currentButton = null;
 
 	void Update ()
 	{
@@ -33,17 +33,18 @@ public class MapSelTouchControlerBehavior : MonoBehaviour
 						if (Input.GetTouch(i).phase == TouchPhase.Began)
 						{
 							touchedObject.GetComponent<MapSelButtonBehavior>().SwitchSprite();
-							_currentButton = touchedObject;
+							touchedObject.GetComponent<MapSelButtonBehavior>().DoAction();
+							//_currentButton = touchedObject;
 						}
 					}
 				}
-				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null)
+				/*if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null)
 				{
 					_currentButton.GetComponent<MapSelButtonBehavior>().DoAction();
 					if (_currentButton.GetComponent<MapSelButtonBehavior>().KeepState == false)
 						_currentButton.GetComponent<MapSelButtonBehavior>().SwitchSprite();
 					_currentButton = null;
-				}
+				}*/
 			}
 		}
 		#else

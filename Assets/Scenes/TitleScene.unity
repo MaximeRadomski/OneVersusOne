@@ -571,7 +571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839f8c606011e74478b0fb88dc89a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanPressMultipleButtons: 0
 --- !u!4 &781209250
 Transform:
   m_ObjectHideFlags: 0
@@ -715,7 +714,7 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 913855084}
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: TitleScene
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &913855086
@@ -919,7 +918,7 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 957841279}
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: TitleScene
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &957841281
@@ -1318,7 +1317,7 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 1065296362}
   SpriteOn: {fileID: 21300006, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300002, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: TitleScene
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &1065296364
@@ -2136,7 +2135,7 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 1637164279}
   SpriteOn: {fileID: 21300006, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300002, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: TitleScene
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &1637164281
