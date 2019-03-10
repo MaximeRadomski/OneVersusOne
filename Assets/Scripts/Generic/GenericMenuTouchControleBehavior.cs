@@ -28,7 +28,7 @@ public class GenericMenuTouchControleBehavior : MonoBehaviour
 					GameObject touchedObject = hitInformation.transform.gameObject;
 					//touchedObject should be the object someone touched.
 					//Debug.Log("Touched " + touchedObject.transform.name);
-					if (touchedObject.tag == "Button")
+					if (touchedObject.tag == "Button" || touchedObject.tag == "ButtonPopup")
 					{
 						if (Input.GetTouch(i).phase == TouchPhase.Began)
 						{
@@ -50,25 +50,25 @@ public class GenericMenuTouchControleBehavior : MonoBehaviour
 		#else
 		if (Input.GetMouseButtonDown (0))
 		{
-		//We transform the touch position into word space from screen space and store it.
-		_touchPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			//We transform the touch position into word space from screen space and store it.
+			_touchPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-		Vector2 touchPosWorld2D = new Vector2(_touchPosWorld.x, _touchPosWorld.y);
+			Vector2 touchPosWorld2D = new Vector2(_touchPosWorld.x, _touchPosWorld.y);
 
-		//We now raycast with this information. If we have hit something we can process it.
-		RaycastHit2D hitInformation = Physics2D.Raycast(touchPosWorld2D, Camera.main.transform.forward);
+			//We now raycast with this information. If we have hit something we can process it.
+			RaycastHit2D hitInformation = Physics2D.Raycast(touchPosWorld2D, Camera.main.transform.forward);
 
-		if (hitInformation.collider != null)
-		{
-		//We should have hit something with a 2D Physics collider!
-		GameObject touchedObject = hitInformation.transform.gameObject;
-		//touchedObject should be the object someone touched.
-		//Debug.Log("Touched " + touchedObject.transform.name);
-		if (touchedObject.tag == "Button")
-		{
+			if (hitInformation.collider != null)
+			{
+				//We should have hit something with a 2D Physics collider!
+				GameObject touchedObject = hitInformation.transform.gameObject;
+				//touchedObject should be the object someone touched.
+				//Debug.Log("Touched " + touchedObject.transform.name);
+				if (touchedObject.tag == "Button" || touchedObject.tag == "ButtonPopup")
+				{
 					touchedObject.GetComponent<GenericMenuButtonBehavior>().DoAction();
-		}
-		}
+				}
+			}
 		}
 		#endif
 	}

@@ -18,6 +18,8 @@ public class TouchControlerBehavior : MonoBehaviour
 	private GameObject _throwP2;*/
 	private GameObject _aiP1;
 	private GameObject _aiP2;
+
+	private GameObject _currentButton;
     
     void Start ()
 	{
@@ -32,10 +34,13 @@ public class TouchControlerBehavior : MonoBehaviour
 		_throwP2 = GameObject.Find ("ThrowP2");*/
 		_aiP1 = GameObject.Find ("AiP1");
 		_aiP2 = GameObject.Find ("AiP2");
+
+		_currentButton = null;
 	}
 	
 	void Update ()
 	{
+		#if UNITY_ANDROID
 	    if (Input.touchCount > 0)
 	    {
 	        for (int i = 0; i < Input.touchCount; i++)
@@ -63,11 +68,27 @@ public class TouchControlerBehavior : MonoBehaviour
                         else
                             touchedObject.GetComponent<TouchControlBehavior>().DoAction();
 	                }
+					else if (touchedObject.tag == "ButtonPopup")
+					{
+						if (Input.GetTouch(i).phase == TouchPhase.Began)
+						{
+							touchedObject.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
+							if (_currentButton != null)
+								_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
+							_currentButton = touchedObject;
+						}
+					}
 					else if (touchedObject.tag == "Player" && touchedObject.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerTwo)
 					{
 						touchedObject.GetComponent<TouchControlBehavior>().EndAction();
 					}
 	            }
+				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null && _currentButton.tag == "ButtonPopup")
+				{
+					_currentButton.GetComponent<GenericMenuButtonBehavior>().DoAction();
+					ResetCurrentButton();
+					_currentButton = null;
+				}
 	        }
 	    }
 
@@ -98,5 +119,43 @@ public class TouchControlerBehavior : MonoBehaviour
 			_aiP1.GetComponent<TouchControlBehavior> ().EndAction ();
 		if (Input.GetButtonUp("AiP2"))
 			_aiP2.GetComponent<TouchControlBehavior> ().EndAction ();
+
+
+		#else
+		if (Input.GetMouseButtonDown (0))
+		{
+			//We transform the touch position into word space from screen space and store it.
+			_touchPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+			Vector2 touchPosWorld2D = new Vector2(_touchPosWorld.x, _touchPosWorld.y);
+
+			//We now raycast with this information. If we have hit something we can process it.
+			RaycastHit2D hitInformation = Physics2D.Raycast(touchPosWorld2D, Camera.main.transform.forward);
+
+			if (hitInformation.collider != null)
+			{
+				//We should have hit something with a 2D Physics collider!
+				GameObject touchedObject = hitInformation.transform.gameObject;
+				//touchedObject should be the object someone touched.
+				//Debug.Log("Touched " + touchedObject.transform.name);
+				if (touchedObject.tag == "ButtonPopup")
+				{
+					touchedObject.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
+					if (_currentButton != null)
+						_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
+					_currentButton = touchedObject;
+					_currentButton.GetComponent<GenericMenuButtonBehavior>().DoAction();
+					ResetCurrentButton();
+					_currentButton = null;
+				}
+			}
+		}
+		#endif
     }
+
+	private void ResetCurrentButton()
+	{
+		if (_currentButton.GetComponent<GenericMenuButtonBehavior>().KeepState == false)
+			_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
+	}
 }

@@ -81,6 +81,8 @@ public class AI : MonoBehaviour
 
 	void Update ()
 	{
+		if (Time.timeScale == 0)
+			return;
 		_ball = GetBall ();
 		if (_ball == null)
 			return;

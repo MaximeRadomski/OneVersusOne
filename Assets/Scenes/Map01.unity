@@ -149,6 +149,7 @@ MonoBehaviour:
   SetPlayerOne: 0
   SetPlayerTwo: 0
   StageMusic: {fileID: 26052753}
+  PopupPause: {fileID: 1512347239762106, guid: 3a7d6e75abdf1ee408cdc9b8fa4220c2, type: 2}
   CastSPAudioFileID: 0
   CatchAudioFileID: 0
   DashAudioFileID: 0
@@ -160,6 +161,7 @@ MonoBehaviour:
   MenuBipSelectAudioFileID: 0
   MenuBipConfirmAudioFileID: 0
   MenuBipReturnAudioFileID: 0
+  MenuBipGoToAudioFileID: 0
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0

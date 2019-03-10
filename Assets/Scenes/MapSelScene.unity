@@ -143,6 +143,7 @@ MonoBehaviour:
   MapTemplates:
   - {fileID: 21300000, guid: 91ac3a3f136cd9346892c9dc7819159d, type: 3}
   - {fileID: 21300002, guid: 91ac3a3f136cd9346892c9dc7819159d, type: 3}
+  - {fileID: 21300004, guid: 91ac3a3f136cd9346892c9dc7819159d, type: 3}
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0
@@ -509,7 +510,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: OPEN AIR BEACH
+  m_Text: MAP NAME
 --- !u!222 &490555018
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -598,7 +599,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BISCARROSSE
+  m_Text: CITY
 --- !u!222 &514191892
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -773,7 +774,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BISCARROSSE
+  m_Text: CITY
 --- !u!222 &592444397
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -862,7 +863,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'EFFECT: NONE'
+  m_Text: EFFECTS
 --- !u!222 &622198336
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1139,7 +1140,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: FRANCE
+  m_Text: COUNTRY
 --- !u!222 &936546902
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1891,7 +1892,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 91ac3a3f136cd9346892c9dc7819159d, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 91ac3a3f136cd9346892c9dc7819159d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1983,7 +1984,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'EFFECT: NONE'
+  m_Text: EFFECTS
 --- !u!222 &1452629031
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2058,7 +2059,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: OPEN AIR BEACH
+  m_Text: MAP NAME
 --- !u!222 &1491439396
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2161,7 +2162,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: FRANCE
+  m_Text: COUNTRY
 --- !u!222 &1525459153
 CanvasRenderer:
   m_ObjectHideFlags: 0

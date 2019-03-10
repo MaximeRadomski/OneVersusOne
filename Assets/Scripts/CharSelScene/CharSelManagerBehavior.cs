@@ -88,21 +88,23 @@ public class CharSelManagerBehavior : MonoBehaviour
 		yield return new WaitForSeconds(0.1f);
 		if (player == CurrentPlayer.PlayerOne)
 		{
-			_p1CharacterName.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Name;
-			_p1CharacterSkill.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Skill;
-			_p1CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[character - 1];
+			_p1CharacterName.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character].Name;
+			_p1CharacterSkill.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character].Skill;
+			_p1CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[character];
 		}
 		else
 		{
-			_p2CharacterName.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Name;
-			_p2CharacterSkill.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character - 1].Skill;	
-			_p2CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[character - 1];
+			_p2CharacterName.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character].Name;
+			_p2CharacterSkill.GetComponent<UnityEngine.UI.Text> ().text = CharactersData.Characters [character].Skill;
+			_p2CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[character];
 		}
 	}
 
 	public void ChangeSelectedCharacter(int player, int character)
 	{
 		int lastCharacter = PlayerPrefs.GetInt ("P" + player.ToString () + "Character");
+		if (lastCharacter == character)
+			character = 0;
 		PlayerPrefs.SetInt ("P" + player.ToString() + "Character", character);
 		if (lastCharacter != character)
 		{
@@ -125,8 +127,11 @@ public class CharSelManagerBehavior : MonoBehaviour
 				var tmpLastButton = GameObject.Find ("P" + player + "-" + lastCharacter);
 				tmpLastButton.GetComponent<CharSelButtonBehavior> ().SpriteRenderer.sprite = tmpLastButton.GetComponent<CharSelButtonBehavior> ().SpriteOff;
 			}
-			var tmpButton = GameObject.Find ("P" + player + "-" + character);
-			tmpButton.GetComponent<CharSelButtonBehavior> ().SpriteRenderer.sprite = tmpButton.GetComponent<CharSelButtonBehavior> ().SpriteOn;
+			if (character != 0)
+			{
+				var tmpButton = GameObject.Find ("P" + player + "-" + character);
+				tmpButton.GetComponent<CharSelButtonBehavior> ().SpriteRenderer.sprite = tmpButton.GetComponent<CharSelButtonBehavior> ().SpriteOn;
+			}
 		}
 	}
 

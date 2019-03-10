@@ -13,6 +13,8 @@ public class GameManagerBehavior : MonoBehaviour
 
 	public AudioSource StageMusic;
 
+	public GameObject PopupPause;
+
     private string _playerName;
 	private GameObject _scoreP1, _scoreP2;
 	private GameObject _scoreP1_1, _scoreP1_2, _scoreP2_1, _scoreP2_2;
@@ -20,6 +22,8 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject _setP1_1, _setP1_2, _setP2_1, _setP2_2;
 	private GameObject _winner, _loser, _draw01, _draw02;
 	private GameObject _playerOne, _playerTwo;
+	private GameObject _tmpPopup;
+	private bool _isPaused;
 
 	// ---- AUDIOS ---- //
 	public int CastSPAudioFileID;
@@ -33,6 +37,7 @@ public class GameManagerBehavior : MonoBehaviour
 	public int MenuBipSelectAudioFileID;
 	public int MenuBipConfirmAudioFileID;
 	public int MenuBipReturnAudioFileID;
+	public int MenuBipGoToAudioFileID;
 
 	private int _pointAudioFileID;
 	private int _setAudioFileID;
@@ -81,6 +86,7 @@ public class GameManagerBehavior : MonoBehaviour
 		MenuBipSelectAudioFileID = AndroidNativeAudio.load("MenuBipSelect.mp3");
 		MenuBipConfirmAudioFileID = AndroidNativeAudio.load("MenuBipConfirm.mp3");
 		MenuBipReturnAudioFileID = AndroidNativeAudio.load("MenuBipReturn.mp3");
+		MenuBipGoToAudioFileID = AndroidNativeAudio.load("MenuBipGoTo.mp3");
 
 		_pointAudioFileID = AndroidNativeAudio.load("Point.mp3");
 		_setAudioFileID = AndroidNativeAudio.load("Set.mp3");
@@ -92,6 +98,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 		_playerOne = CreateCharacter(CurrentPlayer.PlayerOne, 1);
 		_playerTwo = CreateCharacter(CurrentPlayer.PlayerTwo, 2);
+		_isPaused = false;
 
 		PlaceBall();
 	}
@@ -305,14 +312,51 @@ public class GameManagerBehavior : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyUp(KeyCode.Escape))
+		if (Input.GetKeyUp (KeyCode.Escape))
 		{
-			AndroidNativeAudio.play (MenuBipReturnAudioFileID);
-			Invoke ("LoadPreviousScene", 0.5f);
+			if (_isPaused) {
+				PopupPauseReturn ();
+			} else
+				DisplayPopupPause ();
 		}
 	}
 
-	private void LoadPreviousScene()
+	private void DisplayPopupPause()
+	{
+		StageMusic.Pause ();
+		Time.timeScale = 0.0f;
+		_isPaused = true;
+		AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+		_tmpPopup = Instantiate (PopupPause, new Vector3(0.0f, 0.0f, 0.0f), PopupPause.transform.rotation);
+		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
+		GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
+		GameObject.Find ("Button03Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PrepareLoadScene;
+		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
+		var tmpCurrentScore = "SCORE: " + ScorePlayerOne.ToString ("D2") + "/" + ScorePlayerTwo.ToString ("D2");
+		GameObject.Find ("Score01Text").GetComponent<UnityEngine.UI.Text>().text = tmpCurrentScore;
+		GameObject.Find ("Score02Text").GetComponent<UnityEngine.UI.Text>().text = tmpCurrentScore;
+		var tmpCurrentSets = "SETS: " + SetPlayerOne.ToString ("D2") + "/" + SetPlayerTwo.ToString ("D2");
+		GameObject.Find ("Set01Text").GetComponent<UnityEngine.UI.Text>().text = tmpCurrentSets;
+		GameObject.Find ("Set02Text").GetComponent<UnityEngine.UI.Text>().text = tmpCurrentSets;
+	}
+
+	private void PopupPauseReturn()
+	{
+		StageMusic.Play ();
+		Time.timeScale = 1.0f;
+		Destroy (_tmpPopup);
+		_isPaused = false;
+		AndroidNativeAudio.play (MenuBipGoToAudioFileID);
+	}
+
+	private void PrepareLoadScene()
+	{
+		Time.timeScale = 1.0f;
+		AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+		Invoke ("LoadTitleScene", 0.5f);
+	}
+
+	private void LoadTitleScene()
 	{
 		SceneManager.LoadScene("TitleScene");
 	}
@@ -330,6 +374,7 @@ public class GameManagerBehavior : MonoBehaviour
 		AndroidNativeAudio.unload(MenuBipSelectAudioFileID);
 		AndroidNativeAudio.unload(MenuBipConfirmAudioFileID);
 		AndroidNativeAudio.unload(MenuBipReturnAudioFileID);
+		AndroidNativeAudio.unload(MenuBipGoToAudioFileID);
 
 		AndroidNativeAudio.unload(_pointAudioFileID);
 		AndroidNativeAudio.unload(_setAudioFileID);

@@ -14,6 +14,7 @@ public class GameLoadingManager : MonoBehaviour
 
 	void Start ()
 	{
+		Destroy(GameObject.Find ("$GenericMenuManager"));
 		_p1BannerPlayerName = GameObject.Find ("P1BannerPlayerName");
 		_p1PlayerInfo = GameObject.Find ("P1PlayerInfo");
 		_p1LoadingContainer = GameObject.Find ("P1LoadingContainer");
@@ -27,13 +28,16 @@ public class GameLoadingManager : MonoBehaviour
 		_mapTemplateContainer = GameObject.Find ("MapTemplateContainer");
 
 		var map = PlayerPrefs.GetInt ("SelectedMap");
-		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map - 1];
+		map = CheckMap (map);
+		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map];
 
 		int p1Character = PlayerPrefs.GetInt ("P1Character");
-		_p1CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[p1Character - 1];
+		p1Character = CheckCharacter (1, p1Character);
+		_p1CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[p1Character];
 
 		int p2Character = PlayerPrefs.GetInt ("P2Character");
-		_p2CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[p2Character - 1];
+		p2Character = CheckCharacter (2, p2Character);
+		_p2CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[p2Character];
 
 		_p1LoadingContainer.GetComponent<Animator> ().Play ("MapSelButtons");
 		_p2LoadingContainer.GetComponent<Animator> ().Play ("MapSelButtons");
@@ -45,6 +49,30 @@ public class GameLoadingManager : MonoBehaviour
 		_p2PlayerInfo.GetComponent<Animator> ().Play ("MapSelDescLeftToRight");
 
 		Invoke ("LoadGameScene", 2.0f);
+	}
+
+	private int CheckCharacter (int player, int characterNumber)
+	{
+		if (characterNumber == 0)
+		{
+			int tmpCharacterNumber = Random.Range (1, 7);
+			PlayerPrefs.SetInt ("P" + player.ToString() + "Character", tmpCharacterNumber);
+			return tmpCharacterNumber;
+		}
+		else
+			return characterNumber;
+	}
+
+	private int CheckMap (int mapNumber)
+	{
+		if (mapNumber == 0)
+		{
+			int tmpMapNumber = Random.Range (1, 3);
+			PlayerPrefs.SetInt ("SelectedMap", tmpMapNumber);
+			return tmpMapNumber;
+		}
+		else
+			return mapNumber;
 	}
 
 	private void LoadGameScene()

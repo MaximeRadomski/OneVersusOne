@@ -1,16 +1,11 @@
 fileFormatVersion: 2
-guid: 196f6af1771b10f469ebe33a52db9f34
-timeCreated: 1552217972
+guid: 41da00bd98764564c9e4ae087a7d86e6
+timeCreated: 1552138561
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: CharactersPictures01_0
-    21300002: CharactersPictures01_1
-    21300004: CharactersPictures01_2
-    21300006: CharactersPictures01_3
-    21300008: CharactersPictures01_4
-    21300010: CharactersPictures01_5
-    21300012: CharactersPictures01_6
+    21300000: Popup01_0
+    21300002: Popup01_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -64,7 +59,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -74,7 +69,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -84,7 +79,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 256
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -97,97 +102,27 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CharactersPictures01_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 110
-        width: 70
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: CharactersPictures01_1
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 110
-        width: 70
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: CharactersPictures01_2
-      rect:
-        serializedVersion: 2
-        x: 140
-        y: 110
-        width: 70
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: CharactersPictures01_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 55
-        width: 70
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: CharactersPictures01_4
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 55
-        width: 70
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: CharactersPictures01_5
-      rect:
-        serializedVersion: 2
-        x: 140
-        y: 55
-        width: 70
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: CharactersPictures01_6
+      name: Popup01_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 70
-        height: 55
+        width: 136
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Popup01_1
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 0
+        width: 136
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

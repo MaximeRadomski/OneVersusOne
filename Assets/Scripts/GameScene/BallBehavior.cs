@@ -142,7 +142,7 @@ public class BallBehavior : MonoBehaviour
 				return;
 			_hasHitGoal = true;
 			Physics2D.gravity = new Vector2 (0.0f,0.0f);
-			var yGoalEffect = MapsData.Maps[MapId - 1].GoalCollisionY;
+			var yGoalEffect = MapsData.Maps[MapId].GoalCollisionY;
             if (transform.position.y < 0)
                 yGoalEffect = -yGoalEffect;
             var tmpGoalEffect = Instantiate(GoalExplosionEffect, new Vector3(transform.position.x, yGoalEffect, 0.0f), transform.rotation);
@@ -171,7 +171,7 @@ public class BallBehavior : MonoBehaviour
             _camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<WallBehavior>().WallHit();
 
-			var xWallEffect = MapsData.Maps[MapId - 1].WallCollisionX;
+			var xWallEffect = MapsData.Maps[MapId].WallCollisionX;
 		    if (transform.position.x < 0)
 		        xWallEffect = -xWallEffect;
             var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(xWallEffect, transform.position.y, 0.0f), transform.rotation);

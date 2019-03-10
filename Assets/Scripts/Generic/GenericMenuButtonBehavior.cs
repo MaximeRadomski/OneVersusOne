@@ -14,11 +14,15 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 
 	public ButtonSoundType ButtonSound;
 
+	public delegate void ButtonDelegate();
+	public ButtonDelegate buttonDelegate;
+
 	private GenericMenuManagerBehavior _genericMenuManager;
 
 	void Start()
 	{
-		_genericMenuManager = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
+		if (ButtonSound != ButtonSoundType.NoSound)
+			_genericMenuManager = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 	}
 
 	public void SwitchSprite()
@@ -46,6 +50,9 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 		case GenericTapAction.GoTo:
 			SceneManager.LoadScene(NextSceneName);
 			break;
+		case GenericTapAction.DoDelegate:
+			buttonDelegate ();
+			break;
 		}
 		PlayButtonSound ();
 	}
@@ -57,17 +64,21 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 		case ButtonSoundType.MenuBipGoTo:
 			AndroidNativeAudio.play (_genericMenuManager.MenuBipGoToAudioFileID);
 			break;
+		default:
+			break;
 		}
 	}
 
 
 	public enum GenericTapAction
 	{
-		GoTo
+		GoTo,
+		DoDelegate
 	}
 
 	public enum ButtonSoundType
 	{
-		MenuBipGoTo
+		MenuBipGoTo,
+		NoSound
 	}
 }

@@ -56,10 +56,10 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 		if (Input.GetKeyUp(KeyCode.Escape))
 		{
 			if (BackSceneName != string.Empty && BackSceneName != null)
+			{
 				SceneManager.LoadScene (BackSceneName);
-			else
-				Application.Quit ();
-			AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+				AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+			}
 		}
 	}
 

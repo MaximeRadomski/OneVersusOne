@@ -46,6 +46,7 @@ public class MapSelManagerBehavior : MonoBehaviour
 		_p1SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
 		_p2SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
 		StartCoroutine(InitiateLeft(true));
+		StartCoroutine (ChangeMapInfo (1));
 	}
 
 	private IEnumerator InitiateLeft(bool firstTime = false)
@@ -87,17 +88,17 @@ public class MapSelManagerBehavior : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.1f);
 
-		_p1MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Name;
-		_p1Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Country;
-		_p1Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].City;
-		_p1Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map - 1].Effect;
+		_p1MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].Name;
+		_p1Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].Country;
+		_p1Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].City;
+		_p1Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map].Effect;
 
-		_p2MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Name;
-		_p2Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].Country;
-		_p2Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map - 1].City;
-		_p2Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map - 1].Effect;
+		_p2MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].Name;
+		_p2Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].Country;
+		_p2Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].City;
+		_p2Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map].Effect;
 
-		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map - 1];
+		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map];
 	}
 
 	public void ChangeSelectedMap(Direction direction)
@@ -107,10 +108,10 @@ public class MapSelManagerBehavior : MonoBehaviour
 			--map;
 		else
 			++map;
-		if (map == 0)
-			map = MapTemplates.Length;
-		else if (map > MapTemplates.Length)
-			map = 1;
+		if (map == -1)
+			map = MapTemplates.Length - 1;
+		else if (map > MapTemplates.Length - 1)
+			map = 0;
 
 		if (direction == Direction.Left) {
 			StartCoroutine (InitiateLeft ());

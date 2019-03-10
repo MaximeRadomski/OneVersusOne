@@ -6,6 +6,7 @@ public static class CharactersData
 {
 	public static List<Character> Characters = new List<Character>
 	{
+		new Character{Name = "RANDOM", Skill = "???"},
 		new Character{Name = "MARY POPPIN", Skill = "SCONES\nAND TEA"},
 		new Character{Name = "LISE BAGUET", Skill = "OMELETTE DU FROMAGE"},
 		new Character{Name = "HANS GRUBER", Skill = "PANZER-\nSCHRECK"},

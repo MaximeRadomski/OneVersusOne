@@ -7,6 +7,13 @@ public static class MapsData
 	public static List<Map> Maps = new List<Map>
 	{
 		new Map {
+			Name = "RANDOM MAP",
+			Country = "???",
+			City = "???",
+			Effect = "???",
+			WallCollisionX = 0.0f,
+			GoalCollisionY = 0.0f},
+		new Map {
 			Name = "OPEN AIR BEACH",
 			Country = "FRANCE",
 			City = "BISCARROSSE",

@@ -147,6 +147,7 @@ MonoBehaviour:
   - {fileID: 21300006, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
   - {fileID: 21300008, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
   - {fileID: 21300010, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
+  - {fileID: 21300012, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0
@@ -829,6 +830,8 @@ MonoBehaviour:
   MenuBipSelectAudioFileID: 0
   MenuBipConfirmAudioFileID: 0
   MenuBipReturnAudioFileID: 0
+  SwitchTVONFileID: 0
+  NamePresentationFileID: 0
   BorderMovementFileID: 0
 --- !u!4 &480410230
 Transform:
@@ -4041,7 +4044,7 @@ SpriteRenderer:
   m_SortingLayerID: -1977211377
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300008, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
+  m_Sprite: {fileID: 21300010, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5140,7 +5143,7 @@ SpriteRenderer:
   m_SortingLayerID: -1977211377
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300008, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
+  m_Sprite: {fileID: 21300010, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
