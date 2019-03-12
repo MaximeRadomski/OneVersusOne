@@ -611,7 +611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810a37623ff708c48a5d3c6e3330f140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Popup: {fileID: 1268828452907912, guid: 925c1a37192d3074c8cea4b48778ff43, type: 2}
+  PopupYesNo: {fileID: 1268828452907912, guid: 925c1a37192d3074c8cea4b48778ff43, type: 2}
+  PopupSingle: {fileID: 1132248975113400, guid: 3d38b07c4eadce145957133471468481,
+    type: 2}
 --- !u!4 &871123150
 Transform:
   m_ObjectHideFlags: 0
@@ -711,13 +713,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 913855084}
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: TitleScene
-  KeepState: 1
-  ButtonSound: 0
+  NextSceneName: 
+  KeepState: 0
+  ButtonSound: 1
 --- !u!61 &913855086
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -915,13 +917,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 957841279}
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: TitleScene
-  KeepState: 1
-  ButtonSound: 0
+  NextSceneName: 
+  KeepState: 0
+  ButtonSound: 1
 --- !u!61 &957841281
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1172,8 +1174,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0.000000029802322}
+  m_SizeDelta: {x: 720, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1032435503
 MonoBehaviour:
@@ -1314,13 +1316,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 1065296362}
   SpriteOn: {fileID: 21300006, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300002, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: TitleScene
-  KeepState: 1
-  ButtonSound: 0
+  NextSceneName: 
+  KeepState: 0
+  ButtonSound: 1
 --- !u!61 &1065296364
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1457,7 +1459,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 100}
+  m_SizeDelta: {x: 720, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1227039801
 MonoBehaviour:
@@ -1990,8 +1992,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 100}
+  m_AnchoredPosition: {x: 0, y: -0.000000059604645}
+  m_SizeDelta: {x: 720, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1617316065
 MonoBehaviour:
@@ -2132,13 +2134,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 1637164279}
   SpriteOn: {fileID: 21300006, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300002, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: TitleScene
-  KeepState: 1
-  ButtonSound: 0
+  NextSceneName: 
+  KeepState: 0
+  ButtonSound: 1
 --- !u!61 &1637164281
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2246,7 +2248,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 100}
+  m_SizeDelta: {x: 720, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1795576731
 MonoBehaviour:
@@ -2384,7 +2386,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 100}
+  m_SizeDelta: {x: 720, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000398433
 MonoBehaviour:

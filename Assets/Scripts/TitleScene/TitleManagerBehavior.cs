@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TitleManagerBehavior : MonoBehaviour
 {
-	public GameObject Popup;
+	public GameObject PopupYesNo;
+	public GameObject PopupSingle;
 
 	private GameObject _duelButton, _challengesButton, _howToPlayButton, _dashesText, _optionsButton, _aboutButton;
-	private bool _isBusy;
+	private bool _isDisplayingPopup;
 	private GameObject _tmpPopup;
 
 	private GenericMenuManagerBehavior _genericMenuManagerBehavior;
@@ -20,10 +21,13 @@ public class TitleManagerBehavior : MonoBehaviour
 		_dashesText = GameObject.Find ("DashesText");
 		_optionsButton = GameObject.Find ("OptionsButton");
 		_aboutButton = GameObject.Find ("AboutButton");
-
-		_isBusy = false;
-
 		_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
+		_isDisplayingPopup = false;
+
+		_challengesButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
+		_howToPlayButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
+		_optionsButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
+		_aboutButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
 
 		StartCoroutine (InitiateLeft());
 	}
@@ -32,21 +36,21 @@ public class TitleManagerBehavior : MonoBehaviour
 	{
 		if (Input.GetKeyUp(KeyCode.Escape))
 		{
-			if (_isBusy)
+			if (_isDisplayingPopup)
 			{
 				AndroidNativeAudio.play (_genericMenuManagerBehavior.MenuBipGoToAudioFileID);
 				PopupReturn ();
 			}
 			else
-				DisplayPopup ();
+				DisplayPopupYesNo ();
 		}
 	}
 
-	private void DisplayPopup()
+	private void DisplayPopupYesNo()
 	{
-		_isBusy = true;
+		_isDisplayingPopup = true;
 		AndroidNativeAudio.play (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
-		_tmpPopup = Instantiate (Popup, new Vector3(0.0f, 0.0f, 0.0f), Popup.transform.rotation);
+		_tmpPopup = Instantiate (PopupYesNo, new Vector3(0.0f, 0.0f, 0.0f), PopupYesNo.transform.rotation);
 		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "LEAVING GAME";
 		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "DO YOU WANT TO LEAVE THE GAME ?";
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Application.Quit;
@@ -54,12 +58,21 @@ public class TitleManagerBehavior : MonoBehaviour
 		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
 	}
 
-
+	private void DisplayPopupSingle()
+	{
+		_isDisplayingPopup = true;
+		AndroidNativeAudio.play (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
+		_tmpPopup = Instantiate (PopupSingle, new Vector3(0.0f, 0.0f, 0.0f), PopupSingle.transform.rotation);
+		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "OOPS!";
+		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "NOT IMPLEMENTED YET";
+		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
+		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
+	}
 
 	private void PopupReturn()
 	{
 		Destroy (_tmpPopup);
-		_isBusy = false;
+		_isDisplayingPopup = false;
 	}
 
 	private IEnumerator InitiateLeft()
