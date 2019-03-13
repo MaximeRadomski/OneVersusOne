@@ -1,12 +1,13 @@
 fileFormatVersion: 2
-guid: 41da00bd98764564c9e4ae087a7d86e6
-timeCreated: 1552464234
+guid: 7651d758349b0474f9e62a8787d54c16
+timeCreated: 1552477389
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Popup01_0
-    21300002: Popup01_1
-    21300004: Popup01_2
+    21300000: Buttons05_0
+    21300002: Buttons05_1
+    21300004: Buttons05_2
+    21300006: Buttons05_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -60,7 +61,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -70,7 +71,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 512
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -80,17 +81,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 512
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
-    maxTextureSize: 512
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -103,13 +94,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Popup01_0
+      name: Buttons05_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 104
-        width: 136
-        height: 104
+        y: 18
+        width: 30
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,13 +108,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Popup01_1
+      name: Buttons05_1
       rect:
         serializedVersion: 2
-        x: 136
-        y: 104
-        width: 136
-        height: 104
+        x: 30
+        y: 18
+        width: 30
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,13 +122,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Popup01_2
+      name: Buttons05_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 136
-        height: 104
+        width: 30
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Buttons05_3
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 0
+        width: 30
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
