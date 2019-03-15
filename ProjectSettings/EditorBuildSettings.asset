@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScene.unity
     guid: ea4192dc875a1524ba2a43ff8ba74ef6
   - enabled: 1
+    path: Assets/Scenes/DuelMenu.unity
+    guid: 5b2cfa450943c124d8d2a032a2e672d6
+  - enabled: 1
     path: Assets/Scenes/CharSelScene.unity
     guid: cf3f5963c44876143885e454fe87ea36
   - enabled: 1

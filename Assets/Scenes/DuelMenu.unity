@@ -515,12 +515,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 196233829}
   SpriteOn: {fileID: 21300004, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300000, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
-  KeepState: 1
+  NextSceneName: 
+  KeepState: 0
   ButtonSound: 0
 --- !u!61 &196233828
 BoxCollider2D:
@@ -599,6 +599,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 225850568}
+  - component: {fileID: 225850569}
   m_Layer: 0
   m_Name: SetsButtons
   m_TagString: Untagged
@@ -622,6 +623,23 @@ Transform:
   m_Father: {fileID: 346845321}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &225850569
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 225850567}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c31899def6b83ea47bdb659bb21ad877, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &276373711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,12 +1100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 395971952}
   SpriteOn: {fileID: 21300004, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300000, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
-  KeepState: 1
+  NextSceneName: 
+  KeepState: 0
   ButtonSound: 0
 --- !u!61 &395971951
 BoxCollider2D:
@@ -1230,11 +1248,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 434238933}
   SpriteOn: {fileID: 21300004, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300000, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &434238932
@@ -1580,11 +1598,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 640411968}
   SpriteOn: {fileID: 21300006, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300002, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &640411967
@@ -1753,6 +1771,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 666270618}
+  - component: {fileID: 666270619}
   m_Layer: 0
   m_Name: ScoreButtons
   m_TagString: Untagged
@@ -1776,6 +1795,23 @@ Transform:
   m_Father: {fileID: 346845321}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &666270619
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666270617}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c31899def6b83ea47bdb659bb21ad877, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &666881966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,11 +1943,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 687263078}
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &687263077
@@ -2256,6 +2292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae221cd4281f8bb4d82e7bf7f46afb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PopupNumbers: {fileID: 1382851716726060, guid: 685d84bc91bcd634ebe7c3f60fb7cf2a,
+    type: 2}
 --- !u!4 &879179795
 Transform:
   m_ObjectHideFlags: 0
@@ -2311,11 +2349,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 889168884}
   SpriteOn: {fileID: 21300004, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300000, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &889168883
@@ -2997,11 +3035,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 1150571407}
   SpriteOn: {fileID: 21300002, guid: a6563b86a6f9e1042bcfa46630a30754, type: 3}
   SpriteOff: {fileID: 21300000, guid: a6563b86a6f9e1042bcfa46630a30754, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &1150571406
@@ -3115,12 +3153,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 1164554472}
   SpriteOn: {fileID: 21300004, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300000, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
-  KeepState: 1
+  NextSceneName: 
+  KeepState: 0
   ButtonSound: 0
 --- !u!61 &1164554471
 BoxCollider2D:
@@ -3354,11 +3392,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 1419400279}
   SpriteOn: {fileID: 21300006, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300006, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &1419400278
@@ -3633,7 +3671,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2
+  m_Text: 02
 --- !u!222 &1551642808
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3730,11 +3768,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 1584969402}
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &1584969401
@@ -3937,12 +3975,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 1627117512}
   SpriteOn: {fileID: 21300004, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300000, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
-  KeepState: 1
+  NextSceneName: 
+  KeepState: 0
   ButtonSound: 0
 --- !u!61 &1627117511
 BoxCollider2D:
@@ -4145,11 +4183,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Action: 0
-  SpriteRenderer: {fileID: 0}
-  SpriteOn: {fileID: 0}
-  SpriteOff: {fileID: 0}
-  NextSceneName: 
-  KeepState: 0
+  SpriteRenderer: {fileID: 1740131126}
+  SpriteOn: {fileID: 21300002, guid: a607448135cab2c4ab6b23d0135646f0, type: 3}
+  SpriteOff: {fileID: 21300000, guid: a607448135cab2c4ab6b23d0135646f0, type: 3}
+  NextSceneName: CharSelScene
+  KeepState: 1
   ButtonSound: 0
 --- !u!61 &1740131125
 BoxCollider2D:
@@ -4441,11 +4479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 1908505635}
   SpriteOn: {fileID: 21300002, guid: a6563b86a6f9e1042bcfa46630a30754, type: 3}
   SpriteOff: {fileID: 21300000, guid: a6563b86a6f9e1042bcfa46630a30754, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &1908505634
@@ -4710,11 +4748,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 2120258423}
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &2120258422
@@ -4828,11 +4866,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 2121288571}
   SpriteOn: {fileID: 21300006, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   SpriteOff: {fileID: 21300006, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
-  NextSceneName: CharSelScene
+  NextSceneName: 
   KeepState: 1
   ButtonSound: 0
 --- !u!61 &2121288570
