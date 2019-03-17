@@ -22,6 +22,19 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
+		//Change "PLAYERTWO" Orientation if Opponent is an AI
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.AI.GetHashCode ())
+		{
+			var tmpPlayerTwo = GameObject.Find ("PLAYER TWO");
+			tmpPlayerTwo.transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f));
+			tmpPlayerTwo.transform.position = new Vector3 (0.0f, 3.618f, 0.0f);
+			GameObject.Find ("MenuSeparator").transform.position = new Vector2(0.0f, -0.05f);
+		}
+		else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
+		{
+			GameObject.Find ("PLAYER TWO").SetActive(false);
+		}
+
 		_p1BannerPlayerName = GameObject.Find ("P1BannerPlayerName");
 		_p1LightCharacters = GameObject.Find ("P1LightCharacters");
 		_p1MediumCharacters = GameObject.Find ("P1MediumCharacters");
@@ -37,30 +50,31 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 		StartCoroutine(InitiateLeft(_p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters));
 		StartCoroutine(InitiateRight(_p1CharacterImage, _p1BannerCharacterName, _p1Skill, _p1ConfirmButton));
-
-		_p2BannerPlayerName = GameObject.Find ("P2BannerPlayerName");
-		_p2LightCharacters = GameObject.Find ("P2LightCharacters");
-		_p2MediumCharacters = GameObject.Find ("P2MediumCharacters");
-		_p2HeavyCharacters = GameObject.Find ("P2HeavyCharacters");
-		_p2CharacterImage = GameObject.Find ("P2CharacterImage");
-		_p2BannerCharacterName = GameObject.Find ("P2BannerCharacterName");
-		_p2Skill = GameObject.Find ("P2Skill");
-		_p2ConfirmButton = GameObject.Find ("P2ConfirmButton");
-
-		_p2CharacterName = GameObject.Find ("P2CharacterName");
-		_p2CharacterSkill = GameObject.Find ("P2CharacterSkill");
-		_p2CharacterSprite = GameObject.Find ("P2CharacterSprite");
-
-		StartCoroutine(InitiateLeft(_p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters));
-		StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
-
 		_p1Confirm = false;
-		_p2Confirm = false;
-
 		PlayerPrefs.SetInt ("P1Character", 0);
-		PlayerPrefs.SetInt ("P2Character", 0);
 		ChangeSelectedCharacter(1, 1);
-		ChangeSelectedCharacter(2, 1);
+
+		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Wall.GetHashCode ())
+		{
+			_p2BannerPlayerName = GameObject.Find ("P2BannerPlayerName");
+			_p2LightCharacters = GameObject.Find ("P2LightCharacters");
+			_p2MediumCharacters = GameObject.Find ("P2MediumCharacters");
+			_p2HeavyCharacters = GameObject.Find ("P2HeavyCharacters");
+			_p2CharacterImage = GameObject.Find ("P2CharacterImage");
+			_p2BannerCharacterName = GameObject.Find ("P2BannerCharacterName");
+			_p2Skill = GameObject.Find ("P2Skill");
+			_p2ConfirmButton = GameObject.Find ("P2ConfirmButton");
+
+			_p2CharacterName = GameObject.Find ("P2CharacterName");
+			_p2CharacterSkill = GameObject.Find ("P2CharacterSkill");
+			_p2CharacterSprite = GameObject.Find ("P2CharacterSprite");
+
+			StartCoroutine(InitiateLeft(_p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters));
+			StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
+			_p2Confirm = false;
+			PlayerPrefs.SetInt ("P2Character", 0);
+			ChangeSelectedCharacter(2, 1);
+		}
 	}
 
 	private IEnumerator InitiateLeft(GameObject A, GameObject B, GameObject C, GameObject D)

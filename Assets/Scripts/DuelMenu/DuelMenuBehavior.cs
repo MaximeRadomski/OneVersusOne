@@ -64,6 +64,7 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("SetsMinusBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DecrementSets;
 		GameObject.Find ("SetsNbBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupNumbersSets;
 		GameObject.Find ("SetsPlusBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = IncrementSets;
+		GameObject.Find ("ConfirmBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Confirm;
 
 		_tmpPopup = null;
 		_isDisplayingPopupScore = false;
@@ -306,5 +307,17 @@ public class DuelMenuBehavior : MonoBehaviour
 			} else
 				SceneManager.LoadScene("TitleScene");
 		}
+	}
+
+	private void Confirm()
+	{
+		PlayerPrefs.SetInt ("Opponent", _opponent.GetHashCode());
+		PlayerPrefs.SetInt ("Difficulty", _difficulty.GetHashCode());
+		PlayerPrefs.SetInt ("Bounce", _bounce.GetHashCode());
+
+		PlayerPrefs.SetInt ("MaxScore", _nbScore);
+		PlayerPrefs.SetInt ("MaxSets", _nbSets);
+
+		SceneManager.LoadScene("CharSelScene");
 	}
 }

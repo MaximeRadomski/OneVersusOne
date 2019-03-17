@@ -4,20 +4,20 @@ using UnityEngine;
 
 public enum Opponent
 {
-	Player,
-	AI,
-	Wall
+	Player = 0,
+	AI = 1,
+	Wall = 2
 }
 
 public enum Difficulty
 {
-	Easy,
-	Normal,
-	Hard
+	Easy = 0,
+	Normal = 1,
+	Hard = 2
 }
 
 public enum Bounce
 {
-	Normal,
-	Random
+	Normal = 0,
+	Random = 1
 }

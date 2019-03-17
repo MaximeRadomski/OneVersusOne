@@ -25,6 +25,9 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject _tmpPopup;
 	private bool _isPaused;
 
+	private int _maxScore;
+	private int _maxSets;
+
 	// ---- AUDIOS ---- //
 	public int CastSPAudioFileID;
 	public int CatchAudioFileID;
@@ -53,6 +56,8 @@ public class GameManagerBehavior : MonoBehaviour
 		ScorePlayerTwo = 0;
 		SetPlayerOne = 0;
 		SetPlayerTwo = 0;
+		_maxScore = PlayerPrefs.GetInt ("MaxScore");
+		_maxSets = PlayerPrefs.GetInt ("MaxSets");
 		_playerName = CurrentPlayer.PlayerOne.ToString();
 
 		_scoreP1 = GameObject.Find ("ScoreP1");
@@ -97,7 +102,8 @@ public class GameManagerBehavior : MonoBehaviour
 		//_playerTwo = GameObject.Find ("PlayerTwo");
 
 		_playerOne = CreateCharacter(CurrentPlayer.PlayerOne, 1);
-		_playerTwo = CreateCharacter(CurrentPlayer.PlayerTwo, 2);
+		if (PlayerPrefs.GetInt("Opponent") != Opponent.Wall.GetHashCode())
+			_playerTwo = CreateCharacter(CurrentPlayer.PlayerTwo, 2);
 		_isPaused = false;
 
 		PlaceBall();
@@ -116,6 +122,8 @@ public class GameManagerBehavior : MonoBehaviour
 		tmpPlayer.transform.name = player.ToString ();
 		tmpPlayer.GetComponent<PlayerBehavior> ().Player = player;
 		tmpPlayer.GetComponent<AI> ().Player = player;
+		if (player == CurrentPlayer.PlayerTwo && PlayerPrefs.GetInt("Opponent") == Opponent.AI.GetHashCode())
+			tmpPlayer.GetComponent<AI>().enabled = true;
 		return tmpPlayer;
 	}
 
@@ -155,20 +163,20 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		bool gameEnd = false;
 
-		if (SetPlayerOne >= 2 && SetPlayerOne > SetPlayerTwo) {
+		if (SetPlayerOne >= _maxSets && SetPlayerOne > SetPlayerTwo) {
 			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
 			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 180.0f);
 			_winner.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_loser.GetComponent<Animator> ().Play ("DisplayFromTop");
 			gameEnd = true;
-		} else if (SetPlayerTwo >= 2 && SetPlayerTwo > SetPlayerOne) {
+		} else if (SetPlayerTwo >= _maxSets && SetPlayerTwo > SetPlayerOne) {
 			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
 			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
 			_winner.GetComponent<Animator> ().Play ("DisplayFromTop");
 			_loser.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			gameEnd = true;
 		}
-		else if (SetPlayerOne >= 2 && SetPlayerTwo >= 2 && SetPlayerOne == SetPlayerTwo)
+		else if (SetPlayerOne >= _maxSets && SetPlayerTwo >= _maxSets && SetPlayerOne == SetPlayerTwo)
 		{
 			_draw01.transform.eulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
 			_draw02.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
@@ -192,17 +200,17 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		bool reset = false;
 
-		if (ScorePlayerOne >= 12 && ScorePlayerOne > ScorePlayerTwo) {
+		if (ScorePlayerOne >= _maxScore && ScorePlayerOne > ScorePlayerTwo) {
 			++SetPlayerOne;
 			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose ();
 			reset = true;
-		} else if (ScorePlayerTwo >= 12 && ScorePlayerTwo > ScorePlayerOne) {
+		} else if (ScorePlayerTwo >= _maxScore && ScorePlayerTwo > ScorePlayerOne) {
 			++SetPlayerTwo;
 			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose ();
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			reset = true;
-		} else if (ScorePlayerOne >= 12 && ScorePlayerTwo >= 12 && ScorePlayerOne == ScorePlayerTwo) {
+		} else if (ScorePlayerOne >= _maxScore && ScorePlayerTwo >= _maxScore && ScorePlayerOne == ScorePlayerTwo) {
 			++SetPlayerOne;
 			++SetPlayerTwo;
 			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
