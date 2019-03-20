@@ -159,6 +159,10 @@ public class BallBehavior : MonoBehaviour
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
 	            Destroy(gameObject);
         }
+		else if (col.gameObject.tag == "TrainingWall")
+		{
+			NbCol = 0;
+		}
 		else if (col.gameObject.tag == "Wall")
 		{
 			if (onWallCollisionDelegate != null)

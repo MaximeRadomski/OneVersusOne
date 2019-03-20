@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 22ff78d002bd7e44fbfa776c2737217b
-timeCreated: 1552910280
+timeCreated: 1552912154
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -60,7 +60,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -70,7 +70,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -80,7 +80,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -97,8 +97,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 24
-        width: 96
+        y: 12
+        width: 144
         height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -111,22 +111,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
-        width: 96
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: TrainingWall01_2
-      rect:
-        serializedVersion: 2
-        x: 0
         y: 0
-        width: 96
+        width: 144
         height: 12
       alignment: 0
       pivot: {x: 0, y: 0}

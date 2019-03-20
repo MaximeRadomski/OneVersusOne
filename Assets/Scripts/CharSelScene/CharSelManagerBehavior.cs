@@ -28,8 +28,13 @@ public class CharSelManagerBehavior : MonoBehaviour
 			var tmpPlayerTwo = GameObject.Find ("PLAYER TWO");
 			tmpPlayerTwo.transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f));
 			tmpPlayerTwo.transform.position = new Vector3 (0.0f, 3.618f, 0.0f);
+			//Change "Player 2" to "AI"
+			tmpPlayerTwo.transform.GetChild(0).transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = "AI";
+			//Remove the "Confirm" button for AI
+			tmpPlayerTwo.transform.GetChild(7).transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
 			GameObject.Find ("MenuSeparator").transform.position = new Vector2(0.0f, -0.05f);
 		}
+		//Remove "PLAYERTWO" if Opponent is a WALL
 		else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 		{
 			GameObject.Find ("PLAYER TWO").SetActive(false);
@@ -156,7 +161,8 @@ public class CharSelManagerBehavior : MonoBehaviour
 		else
 			_p2Confirm = !_p2Confirm;
 
-		if (_p1Confirm && _p2Confirm)
+		if (_p1Confirm && _p2Confirm ||
+			(PlayerPrefs.GetInt ("Opponent") != Opponent.Player.GetHashCode () && _p1Confirm))
 		{
 			var tmpButtons = GameObject.FindGameObjectsWithTag("Button");
 			foreach (var button in tmpButtons)

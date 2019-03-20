@@ -27,6 +27,9 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private int _maxScore;
 	private int _maxSets;
+	private float _playerTwoXAxisUnder20;
+	private float _playerTwoXAxisOver20;
+	private float _playerTwoXAxisEquals1;
 
 	// ---- AUDIOS ---- //
 	public int CastSPAudioFileID;
@@ -58,6 +61,9 @@ public class GameManagerBehavior : MonoBehaviour
 		SetPlayerTwo = 0;
 		_maxScore = PlayerPrefs.GetInt ("MaxScore");
 		_maxSets = PlayerPrefs.GetInt ("MaxSets");
+		_playerTwoXAxisUnder20 = 0.78f;
+		_playerTwoXAxisOver20 = 1.2f;
+		_playerTwoXAxisEquals1 = 0.39f;
 		_playerName = CurrentPlayer.PlayerOne.ToString();
 
 		_scoreP1 = GameObject.Find ("ScoreP1");
@@ -102,8 +108,14 @@ public class GameManagerBehavior : MonoBehaviour
 		//_playerTwo = GameObject.Find ("PlayerTwo");
 
 		_playerOne = CreateCharacter(CurrentPlayer.PlayerOne, 1);
-		if (PlayerPrefs.GetInt("Opponent") != Opponent.Wall.GetHashCode())
-			_playerTwo = CreateCharacter(CurrentPlayer.PlayerTwo, 2);
+
+		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Player.GetHashCode ())
+			DestroyP2Objects ();
+
+		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Wall.GetHashCode ())
+			_playerTwo = CreateCharacter (CurrentPlayer.PlayerTwo, 2);
+		else
+			CreateWall ();
 		_isPaused = false;
 
 		PlaceBall();
@@ -127,6 +139,25 @@ public class GameManagerBehavior : MonoBehaviour
 		return tmpPlayer;
 	}
 
+	private void CreateWall ()
+	{
+		var mapNb = PlayerPrefs.GetInt ("SelectedMap");
+		var tmpWallInstance = Resources.Load<GameObject> ("Prefabs/TrainingWall"+mapNb.ToString("D2"));
+		Instantiate (tmpWallInstance, tmpWallInstance.transform.position, tmpWallInstance.transform.rotation);
+	}
+
+	private void DestroyP2Objects()
+	{
+		Destroy (GameObject.Find("ShadowP2"));
+		Destroy (GameObject.Find("P2SPCoolDown"));
+		Destroy (GameObject.Find("LeftP2"));
+		Destroy (GameObject.Find("RightP2"));
+		Destroy (GameObject.Find("LiftP2"));
+		Destroy (GameObject.Find("ThrowP2"));
+		Destroy (GameObject.Find("SuperP2"));
+		Destroy (GameObject.Find("AiP2"));
+	}
+
     private void PlaceBall()
     {
 		if (BallAlreadyExists())
@@ -145,7 +176,8 @@ public class GameManagerBehavior : MonoBehaviour
 		_winner.GetComponent<Animator> ().Play ("StartingState");
 		_loser.GetComponent<Animator> ().Play ("StartingState");
 		_playerOne.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
-		_playerTwo.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
+		if (_playerTwo != null)
+			_playerTwo.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
     }
 
 	public bool BallAlreadyExists()
@@ -221,6 +253,10 @@ public class GameManagerBehavior : MonoBehaviour
 		if (reset) {
 			ScorePlayerOne = 0;
 			ScorePlayerTwo = 0;
+			if (ScorePlayerTwo == 0) {
+				_scoreP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20 + 5.5f, _scoreP1_2.transform.position.y, _scoreP1_2.transform.position.z);
+				_scoreP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20 - 5.5f, _scoreP2_2.transform.position.y, _scoreP2_2.transform.position.z);
+			}
 			ChangeAllScores ();
 			DisplaySets();
 			Invoke("CheckIfGame", 3.0f);
@@ -231,6 +267,11 @@ public class GameManagerBehavior : MonoBehaviour
 
 	public void NewBall(CurrentPlayer looser, int points, bool moreThanOneBall)
     {
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
+		{
+			Invoke("PlaceBall", 0.5f);
+			return;
+		}
 		_playerName = looser.ToString ();
 		if (looser == CurrentPlayer.PlayerOne)
 		{
@@ -258,7 +299,8 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		AndroidNativeAudio.play(_slideAudioFileID);
 		_playerOne.GetComponent<PlayerBehavior> ().Recenter ();
-		_playerTwo.GetComponent<PlayerBehavior> ().Recenter ();
+		if (_playerTwo != null)
+			_playerTwo.GetComponent<PlayerBehavior> ().Recenter ();
 		_scoreP1.GetComponent<Animator> ().Play ("DisplayScore01");
 		_scoreP2.GetComponent<Animator> ().Play ("DisplayScore02");
 		Invoke ("ChangeAllScores", 0.75f);
@@ -276,6 +318,15 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		if (ScorePlayerOne > 0 || ScorePlayerTwo > 0)
 			AndroidNativeAudio.play(_pointAudioFileID);
+
+		if (ScorePlayerTwo >= 20) {
+			_scoreP1_2.transform.position = new Vector3 (_playerTwoXAxisOver20, _scoreP1_2.transform.position.y, _scoreP1_2.transform.position.z);
+			_scoreP2_2.transform.position = new Vector3 (-_playerTwoXAxisOver20, _scoreP2_2.transform.position.y, _scoreP2_2.transform.position.z);
+		} else if (ScorePlayerTwo != 0) {
+			_scoreP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20, _scoreP1_2.transform.position.y, _scoreP1_2.transform.position.z);
+			_scoreP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20, _scoreP2_2.transform.position.y, _scoreP2_2.transform.position.z);
+		}
+
 		ChangeScore (ScorePlayerOne, _scoreP1_1);
 		ChangeScore (ScorePlayerTwo, _scoreP1_2);
 		ChangeScore (ScorePlayerOne, _scoreP2_1);
@@ -286,6 +337,18 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		if (SetPlayerOne > 0 || SetPlayerTwo > 0)
 			AndroidNativeAudio.play(_setAudioFileID);
+
+		if (SetPlayerTwo >= 20) {
+			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisOver20, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
+			_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisOver20, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
+		} else if (SetPlayerTwo > 1 && SetPlayerTwo < 20) {
+			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
+			_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
+		} else {
+			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisEquals1, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
+			_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisEquals1, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
+		}
+
 		ChangeScore (SetPlayerOne, _setP1_1);
 		ChangeScore (SetPlayerTwo, _setP1_2);
 		ChangeScore (SetPlayerOne, _setP2_1);

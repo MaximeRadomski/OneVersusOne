@@ -20,6 +20,12 @@ public class MapSelManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
+		//Remove "PLAYERTWO" if Opponent is not a Player
+		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Player.GetHashCode ())
+		{
+			GameObject.Find ("PLAYER TWO").SetActive(false);
+		}
+
 		_p1BannerMapName = GameObject.Find ("P1BannerMapName");
 		_p1MapDescription = GameObject.Find ("P1MapDescription");
 		_p1SelectAndConfirmButton = GameObject.Find ("P1SelectAndConfirmButton");
@@ -28,23 +34,26 @@ public class MapSelManagerBehavior : MonoBehaviour
 		_p1Info1 = GameObject.Find ("P1Info1");
 		_p1Info2 = GameObject.Find ("P1Info2");
 		_p1Info4 = GameObject.Find ("P1Info4");
+		_p1SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
 
-		_p2BannerMapName = GameObject.Find ("P2BannerMapName");
-		_p2MapDescription = GameObject.Find ("P2MapDescription");
-		_p2SelectAndConfirmButton = GameObject.Find ("P2SelectAndConfirmButton");
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Player.GetHashCode ())
+		{
+			_p2BannerMapName = GameObject.Find ("P2BannerMapName");
+			_p2MapDescription = GameObject.Find ("P2MapDescription");
+			_p2SelectAndConfirmButton = GameObject.Find ("P2SelectAndConfirmButton");
 
-		_p2MapName = GameObject.Find ("P2MapName");
-		_p2Info1 = GameObject.Find ("P2Info1");
-		_p2Info2 = GameObject.Find ("P2Info2");
-		_p2Info4 = GameObject.Find ("P2Info4");
+			_p2MapName = GameObject.Find ("P2MapName");
+			_p2Info1 = GameObject.Find ("P2Info1");
+			_p2Info2 = GameObject.Find ("P2Info2");
+			_p2Info4 = GameObject.Find ("P2Info4");
+			_p2SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
+		}
 
 		_mapTemplate = GameObject.Find ("MapTemplate");
 		_mapTemplateContainer = GameObject.Find ("MapTemplateContainer");
 
 		PlayerPrefs.SetInt ("SelectedMap", 1);
 
-		_p1SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
-		_p2SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
 		StartCoroutine(InitiateLeft(true));
 		StartCoroutine (ChangeMapInfo (1));
 	}
@@ -60,9 +69,11 @@ public class MapSelManagerBehavior : MonoBehaviour
 		}
 		_mapTemplate.GetComponent<Animator> ().Play ("StartLeftToRight");
 		_p1BannerMapName.GetComponent<Animator> ().Play ("StartNameBanner");
-		_p2BannerMapName.GetComponent<Animator> ().Play ("StartNameBanner");
+		if (_p2BannerMapName != null)
+			_p2BannerMapName.GetComponent<Animator> ().Play ("StartNameBanner");
 		_p1MapDescription.GetComponent<Animator> ().Play ("StartLeftToRight");
-		_p2MapDescription.GetComponent<Animator> ().Play ("StartLeftToRight");
+		if (_p2MapDescription != null)
+			_p2MapDescription.GetComponent<Animator> ().Play ("StartLeftToRight");
 		yield return new WaitForSeconds(0.5f);
 		if (tmpMapTemplate != null)
 			Destroy (tmpMapTemplate);
@@ -76,9 +87,11 @@ public class MapSelManagerBehavior : MonoBehaviour
 		tmpMapTemplate.GetComponent<Animator> ().Play ("StartCenterToLeft");
 		_mapTemplate.GetComponent<Animator> ().Play ("StartRightToLeft");
 		_p1BannerMapName.GetComponent<Animator> ().Play ("StartNameBanner");
-		_p2BannerMapName.GetComponent<Animator> ().Play ("StartNameBanner");
+		if (_p2BannerMapName != null)
+			_p2BannerMapName.GetComponent<Animator> ().Play ("StartNameBanner");
 		_p1MapDescription.GetComponent<Animator> ().Play ("StartLeftToRight");
-		_p2MapDescription.GetComponent<Animator> ().Play ("StartLeftToRight");
+		if (_p2MapDescription != null)
+			_p2MapDescription.GetComponent<Animator> ().Play ("StartLeftToRight");
 		yield return new WaitForSeconds(0.5f);
 		Destroy (tmpMapTemplate);
 		EnableButtons ();
@@ -93,10 +106,13 @@ public class MapSelManagerBehavior : MonoBehaviour
 		_p1Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].City;
 		_p1Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map].Effect;
 
-		_p2MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].Name;
-		_p2Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].Country;
-		_p2Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].City;
-		_p2Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map].Effect;
+		if (_p2MapName != null)
+		{
+			_p2MapName.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].Name;
+			_p2Info1.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].Country;
+			_p2Info2.GetComponent<UnityEngine.UI.Text> ().text = MapsData.Maps[map].City;
+			_p2Info4.GetComponent<UnityEngine.UI.Text> ().text = "EFFECT: " + MapsData.Maps[map].Effect;
+		}
 
 		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map];
 	}
@@ -127,7 +143,8 @@ public class MapSelManagerBehavior : MonoBehaviour
 		var tmpConfirm = GameObject.Find ("P1-Confirm");
 		tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteRenderer.sprite = tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteOff;
 		tmpConfirm = GameObject.Find ("P2-Confirm");
-		tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteRenderer.sprite = tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteOff;
+		if (tmpConfirm != null)
+			tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteRenderer.sprite = tmpConfirm.GetComponent<MapSelButtonBehavior> ().SpriteOff;
 	}
 
 	public void Confirm(int player)
@@ -137,7 +154,8 @@ public class MapSelManagerBehavior : MonoBehaviour
 		else
 			_p2Confirm = !_p2Confirm;
 
-		if (_p1Confirm && _p2Confirm)
+		if (_p1Confirm && _p2Confirm ||
+			(PlayerPrefs.GetInt ("Opponent") != Opponent.Player.GetHashCode () && _p1Confirm))
 		{
 			DisableButtons ();	
 			Invoke ("LoadGameScene", 0.5f);

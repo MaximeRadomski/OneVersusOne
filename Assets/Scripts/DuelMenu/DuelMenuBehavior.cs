@@ -200,6 +200,7 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("WallBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn();
 		GameObject.Find ("NormalBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn();
 		GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+
 	}
 
 	private void SetWallRandomBounce ()

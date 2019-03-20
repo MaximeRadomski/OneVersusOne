@@ -2292,7 +2292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae221cd4281f8bb4d82e7bf7f46afb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PopupNumbers: {fileID: 1382851716726060, guid: 685d84bc91bcd634ebe7c3f60fb7cf2a,
+  PopupNumbers: {fileID: 1770496515112378, guid: 685d84bc91bcd634ebe7c3f60fb7cf2a,
     type: 2}
 --- !u!4 &879179795
 Transform:

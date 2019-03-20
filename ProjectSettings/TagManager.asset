@@ -12,6 +12,7 @@ TagManager:
   - Disc
   - GenericMenu
   - ButtonPopup
+  - TrainingWall
   layers:
   - Default
   - TransparentFX
