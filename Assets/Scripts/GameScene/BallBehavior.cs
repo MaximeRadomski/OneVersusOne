@@ -34,6 +34,7 @@ public class BallBehavior : MonoBehaviour
 	private Direction _liftDirection;
 	private float _gravity;
 	private bool _gravityIsSet;
+	private bool _isRandomBounce;
 	private float _liftEffectDelay;
 	private float _quickEffectDelay;
 	private bool _isQuickThrow;
@@ -50,6 +51,7 @@ public class BallBehavior : MonoBehaviour
 		_liftDirection = Direction.Standby;
 		_gravity = 10.0f;
 		_gravityIsSet = false;
+		_isRandomBounce = PlayerPrefs.GetInt ("Bounce") == Bounce.Random.GetHashCode () ? true : false ;
 		NbCol = 0;
 		_liftEffectDelay = 0.1f;
 		_quickEffectDelay = 0.05f;
@@ -162,6 +164,11 @@ public class BallBehavior : MonoBehaviour
 		else if (col.gameObject.tag == "TrainingWall")
 		{
 			NbCol = 0;
+			var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, 1.61f, 0.0f), transform.rotation);
+			tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, 90.0f);
+			_camera.GetComponent<CameraBehavior>().WallHit();
+			if (_isRandomBounce)
+				GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, -2.0f)) * Speed;
 		}
 		else if (col.gameObject.tag == "Wall")
 		{

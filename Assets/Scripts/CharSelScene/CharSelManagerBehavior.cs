@@ -37,7 +37,13 @@ public class CharSelManagerBehavior : MonoBehaviour
 		//Remove "PLAYERTWO" if Opponent is a WALL
 		else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 		{
-			GameObject.Find ("PLAYER TWO").SetActive(false);
+			var playerTwoContainer = GameObject.Find ("PLAYER TWO");
+			var childCountLessOne = playerTwoContainer.transform.childCount - 1;
+			for (int i = 0; i < childCountLessOne; ++i)
+				playerTwoContainer.transform.GetChild (i).gameObject.SetActive (false);
+			//Up lines replace this
+			//GameObject.Find ("PLAYER TWO").SetActive(false);
+			GameObject.Find ("P2Wall").GetComponent<Animator> ().Play ("MapSelDescLeftToRight");
 		}
 
 		_p1BannerPlayerName = GameObject.Find ("P1BannerPlayerName");

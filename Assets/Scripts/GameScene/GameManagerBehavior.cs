@@ -341,12 +341,12 @@ public class GameManagerBehavior : MonoBehaviour
 		if (SetPlayerTwo >= 20) {
 			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisOver20, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
 			_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisOver20, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
-		} else if (SetPlayerTwo > 1 && SetPlayerTwo < 20) {
-			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
-			_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
-		} else {
+		} else if (SetPlayerTwo == 1) {
 			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisEquals1, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
 			_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisEquals1, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
+		} else {
+			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
+			_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
 		}
 
 		ChangeScore (SetPlayerOne, _setP1_1);
