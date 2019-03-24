@@ -219,9 +219,13 @@ public class GameManagerBehavior : MonoBehaviour
 
 		if (gameEnd == true)
 		{
-			SetPlayerOne = 0;
+			/*SetPlayerOne = 0;
 			SetPlayerTwo = 0;
-			ChangeAllSets ();
+			if (SetPlayerTwo == 0) {
+				_setP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20 + 5.5f, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
+				_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20 - 5.5f, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
+			}
+			ChangeAllSets ();*/
 			Invoke("EndGame", 8.0f);
 		}
 		else
@@ -253,7 +257,7 @@ public class GameManagerBehavior : MonoBehaviour
 		if (reset) {
 			ScorePlayerOne = 0;
 			ScorePlayerTwo = 0;
-			if (ScorePlayerTwo == 0) {
+			if (SetPlayerTwo == 0) {
 				_scoreP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20 + 5.5f, _scoreP1_2.transform.position.y, _scoreP1_2.transform.position.z);
 				_scoreP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20 - 5.5f, _scoreP2_2.transform.position.y, _scoreP2_2.transform.position.z);
 			}
@@ -424,11 +428,6 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		Time.timeScale = 1.0f;
 		AndroidNativeAudio.play (MenuBipReturnAudioFileID);
-		Invoke ("LoadTitleScene", 0.5f);
-	}
-
-	private void LoadTitleScene()
-	{
 		SceneManager.LoadScene("TitleScene");
 	}
 
