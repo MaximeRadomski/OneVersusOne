@@ -22,6 +22,7 @@ public class PlayerBehavior : MonoBehaviour
     public float Power;
 	public int SPMaxCooldown;
 	public int SPCooldown;
+	public int ConsecutiveHit;
 
 	public GameObject Ball;
 	public List<GameObject> NextBalls;
@@ -35,6 +36,7 @@ public class PlayerBehavior : MonoBehaviour
     public GameObject DashEffectParticles;
 	public GameObject CatchEffect;
 	public GameObject CastSPEffect;
+	public GameObject ConsecutiveHitEffect;
 
     private Quaternion _initialRotation;
 	private Vector3 _initialPosition;
@@ -47,6 +49,7 @@ public class PlayerBehavior : MonoBehaviour
     private float _dashCooldown;
 	private float _castSPCooldown;
     private bool _canDash;
+	private bool _isAgainstWall;
 
     void Start ()
 	{
@@ -69,6 +72,9 @@ public class PlayerBehavior : MonoBehaviour
 		_castSPCooldown = 1.0f;
 	    _canDash = true;
 		SPCooldown = SPMaxCooldown;
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
+			_isAgainstWall = true;
+		ConsecutiveHit = 0;
 	}
 
     private void SetPlayerTwoAngleSprites()
@@ -285,6 +291,14 @@ public class PlayerBehavior : MonoBehaviour
 		SetOrientation ();
 		if (IsCastingSP)
 			IsDoingSP = true;
+		if (_isAgainstWall)
+		{
+			var consecutiveHitEffect = Instantiate (ConsecutiveHitEffect, gameObject.transform.position, ConsecutiveHitEffect.transform.rotation);
+			consecutiveHitEffect.transform.SetParent (GameObject.Find("Canvas").transform);
+			consecutiveHitEffect.transform.position = gameObject.transform.position;
+			consecutiveHitEffect.transform.GetChild(0).GetComponent<ConsecutiveHitBehavior> ().Number = ConsecutiveHit;
+			++ConsecutiveHit;
+		}
 	}
 
 	public void Super()

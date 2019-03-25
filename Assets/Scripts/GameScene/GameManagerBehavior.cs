@@ -12,8 +12,8 @@ public class GameManagerBehavior : MonoBehaviour
 	public int SetPlayerOne, SetPlayerTwo;
 
 	public AudioSource StageMusic;
-
 	public GameObject PopupPause;
+	public Sprite[] CharactersSprites;
 
     private string _playerName;
 	private GameObject _scoreP1, _scoreP2;
@@ -124,6 +124,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject CreateCharacter(CurrentPlayer player, int playerNb)
 	{
 		int characterNb = PlayerPrefs.GetInt ("P" + playerNb + "Character");
+		GameObject.Find ("Player"+playerNb.ToString("D2")+"Image").GetComponent<SpriteRenderer>().sprite = CharactersSprites[characterNb];
 		int multiplier = player == CurrentPlayer.PlayerOne ? -1 : 1;
 		bool rotation = player == CurrentPlayer.PlayerOne ? false : true;
 
@@ -156,6 +157,14 @@ public class GameManagerBehavior : MonoBehaviour
 		Destroy (GameObject.Find("ThrowP2"));
 		Destroy (GameObject.Find("SuperP2"));
 		Destroy (GameObject.Find("AiP2"));
+
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
+		{
+			GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "TRAINING";
+			GameObject.Find ("Player02Image").GetComponent<SpriteRenderer> ().enabled = false;
+		}
+		GameObject.Find ("NoPlayerBanner").transform.position += new Vector3 (5.0f, 0.0f, 0.0f);
+
 	}
 
     private void PlaceBall()
@@ -176,6 +185,7 @@ public class GameManagerBehavior : MonoBehaviour
 		_winner.GetComponent<Animator> ().Play ("StartingState");
 		_loser.GetComponent<Animator> ().Play ("StartingState");
 		_playerOne.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
+		_playerOne.GetComponent<PlayerBehavior> ().ConsecutiveHit = 0;
 		if (_playerTwo != null)
 			_playerTwo.GetComponent<PlayerBehavior> ().IsControlledByAI = false;
     }

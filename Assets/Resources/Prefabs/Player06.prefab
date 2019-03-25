@@ -135,6 +135,7 @@ MonoBehaviour:
   Power: 1.5
   SPMaxCooldown: 6
   SPCooldown: 6
+  ConsecutiveHit: 0
   Ball: {fileID: 0}
   NextBalls: []
   Animator: {fileID: 95074457835201762}
@@ -154,6 +155,8 @@ MonoBehaviour:
   CatchEffect: {fileID: 1725314493544336, guid: 6c03e7bf478e54d4c959fb77e5262629,
     type: 2}
   CastSPEffect: {fileID: 1610780419782048, guid: 8734e1973b8bb6b43aa8ec082d800565,
+    type: 2}
+  ConsecutiveHitEffect: {fileID: 1887644210731906, guid: 5eb758dc5fe93e04988c0c0f2b4961b0,
     type: 2}
 --- !u!114 &114484927290491396
 MonoBehaviour:
