@@ -72,9 +72,9 @@ public class TouchControlerBehavior : MonoBehaviour
 					{
 						if (Input.GetTouch(i).phase == TouchPhase.Began)
 						{
-							touchedObject.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
-							if (_currentButton != null)
-								_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
+							touchedObject.GetComponent<GenericMenuButtonBehavior>().PressSprite();
+							/*if (_currentButton != null)
+								_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();*/
 							_currentButton = touchedObject;
 						}
 					}
@@ -121,7 +121,7 @@ public class TouchControlerBehavior : MonoBehaviour
 			_aiP2.GetComponent<TouchControlBehavior> ().EndAction ();
 
 
-		else
+		#else
 		if (Input.GetMouseButtonDown (0))
 		{
 			//We transform the touch position into word space from screen space and store it.

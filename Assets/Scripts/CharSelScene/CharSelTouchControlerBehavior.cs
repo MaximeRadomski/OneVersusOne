@@ -45,7 +45,7 @@ public class CharSelTouchControlerBehavior : MonoBehaviour
 				}*/
 			}
 		}
-		else
+		#else
 		if (Input.GetMouseButtonDown (0))
 		{
 			//We transform the touch position into word space from screen space and store it.

@@ -1316,13 +1316,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 1
+  Action: 0
   SpriteRenderer: {fileID: 1065296362}
   SpriteOn: {fileID: 21300006, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300002, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: 
-  KeepState: 0
-  ButtonSound: 1
+  NextSceneName: OptionsMenu
+  KeepState: 1
+  ButtonSound: 0
 --- !u!61 &1065296364
 BoxCollider2D:
   m_ObjectHideFlags: 0
