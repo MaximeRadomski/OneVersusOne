@@ -8,15 +8,17 @@ public class OptionsMenuBehavior : MonoBehaviour
 
 	private GameObject _gameTitle, _graphicsTitle, _audioTitle;
 	private GameObject _gameButtons, _graphicsButtons, _audioButtons;
+	private GameObject _scanLinesObject;
 	//private GameObject _tmpPopup;
 	//private GenericMenuManagerBehavior _genericMenuManagerBehavior;
 
-	private bool _ads;
-	private bool _scanlines;
-	private bool _music;
-	private bool _effects;
+	private int _ads;
+	private int _scanlines;
+	private int _music;
+	private int _effects;
 
 	private bool _isDisplayingPopup;
+	private bool _init;
 
 	void Start ()
 	{
@@ -26,9 +28,21 @@ public class OptionsMenuBehavior : MonoBehaviour
 		_gameButtons = GameObject.Find ("GameButtons");
 		_graphicsButtons = GameObject.Find ("GraphicsButtons");
 		_audioButtons = GameObject.Find ("AudioButtons");
+		_scanLinesObject = GameObject.Find ("ScanLines");
 		//_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 
+		_ads = PlayerPrefs.GetInt ("Ads", 1);
+		_scanlines = PlayerPrefs.GetInt ("ScanLines", 1);
+		_music = PlayerPrefs.GetInt ("Music", 1);
+		_effects = PlayerPrefs.GetInt ("Effects", 1);
+
+		_init = true;
 		SetAds ();
+		SetScanlines ();
+		SetMusic ();
+		SetEffects ();
+		_init = false;
+
 		GameObject.Find ("AdsButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetAds;
 		GameObject.Find ("ScanlinesButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetScanlines;
 		GameObject.Find ("MusicButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetMusic;
@@ -56,49 +70,60 @@ public class OptionsMenuBehavior : MonoBehaviour
 
 	private void SetAds ()
 	{
-		_ads = !_ads;
-		if (_ads) {
+		if (!_init)
+			_ads = _ads == 1 ? 0 : 1;
+		if (_ads == 1) {
 			GameObject.Find ("AdsButtonText").GetComponent<UnityEngine.UI.Text> ().text = "ON";
 			GameObject.Find ("AdsButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn ();
 		} else {
 			GameObject.Find ("AdsButtonText").GetComponent<UnityEngine.UI.Text> ().text = "OFF";
 			GameObject.Find ("AdsButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		}
+		PlayerPrefs.SetInt("Ads", _ads);
 	}
 
 	private void SetScanlines ()
 	{
-		_scanlines = !_scanlines;
-		if (_scanlines) {
-			GameObject.Find ("ScanlinesButtonText").GetComponent<UnityEngine.UI.Text> ().text = "ON";
+		if (!_init)
+			_scanlines = _scanlines + 1 > 4 ? 0 : _scanlines + 1;
+		if (_scanlines > 0) {
+			GameObject.Find ("ScanlinesButtonText").GetComponent<UnityEngine.UI.Text> ().text = _scanlines.ToString ();
 			GameObject.Find ("ScanlinesButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn ();
 		} else {
 			GameObject.Find ("ScanlinesButtonText").GetComponent<UnityEngine.UI.Text> ().text = "OFF";
 			GameObject.Find ("ScanlinesButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		}
+		var newOpacity = (float)_scanlines * 0.10f;
+		if (_scanLinesObject != null)
+			GameObject.Find ("ScanLines").GetComponent<ScanLinesBehaviours> ().SetOpacity (newOpacity);
+		PlayerPrefs.SetInt("ScanLines", _scanlines);
 	}
 
 	private void SetMusic ()
 	{
-		_music = !_music;
-		if (_music) {
+		if (!_init)
+			_music = _music == 1 ? 0 : 1;
+		if (_music == 1) {
 			GameObject.Find ("MusicButtonText").GetComponent<UnityEngine.UI.Text> ().text = "ON";
 			GameObject.Find ("MusicButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn ();
 		} else {
 			GameObject.Find ("MusicButtonText").GetComponent<UnityEngine.UI.Text> ().text = "OFF";
 			GameObject.Find ("MusicButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		}
+		PlayerPrefs.SetInt("Music", _music);
 	}
 
 	private void SetEffects ()
 	{
-		_effects = !_effects;
-		if (_effects) {
+		if (!_init)
+			_effects = _effects == 1 ? 0 : 1;
+		if (_effects == 1) {
 			GameObject.Find ("EffectsButtonText").GetComponent<UnityEngine.UI.Text> ().text = "ON";
 			GameObject.Find ("EffectsButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn ();
 		} else {
 			GameObject.Find ("EffectsButtonText").GetComponent<UnityEngine.UI.Text> ().text = "OFF";
 			GameObject.Find ("EffectsButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		}
+		PlayerPrefs.SetInt("Effects", _effects);
 	}
 }

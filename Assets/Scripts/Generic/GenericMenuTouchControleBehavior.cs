@@ -42,7 +42,7 @@ public class GenericMenuTouchControleBehavior : MonoBehaviour
 				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null)
 				{
 					_currentButton.GetComponent<GenericMenuButtonBehavior>().DoAction();
-					ResetCurrentButton();
+					//ResetCurrentButton();
 					_currentButton = null;
 				}
 			}

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SplashScreenManagerBehavior : MonoBehaviour
 {
 	private GameObject _borderTop, _borderBot;
-	private GameObject _scanLines;
+	//private GameObject _scanLines;
 	private GameObject _touchToStart;
 	private GameObject _gameName;
 	private GameObject _abjectPresents;
@@ -24,7 +24,7 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 		AndroidNativeAudio.makePool();
 		_borderTop = GameObject.Find ("BorderTop");
 		_borderBot = GameObject.Find ("BorderBot");
-		_scanLines = GameObject.Find ("ScanLines");
+		//_scanLines = GameObject.Find ("ScanLines");
 		_touchToStart = GameObject.Find ("TouchToStart");
 		_gameName = GameObject.Find ("GameName");
 		_abjectPresents = GameObject.Find ("AbjectPresents");
@@ -94,7 +94,7 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 		_borderTop.GetComponent<Animator> ().Play ("BorderGoesUp");
 		_borderBot.GetComponent<Animator> ().Play ("BorderGoesDown");
 		_gameName.GetComponent<Animator> ().Play ("GameNameGoesUp");
-		_scanLines.GetComponent<Animator> ().Play ("FadeOut");
+		//_scanLines.GetComponent<Animator> ().Play ("FadeOut");
 		_movingBackground.GetComponent<MenuBackgroundBehavior> ().ScrollSpeed = -1.0f;
 		Invoke ("GoToTitle", 0.5f);
 	}

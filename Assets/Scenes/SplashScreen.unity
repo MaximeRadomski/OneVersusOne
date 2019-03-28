@@ -162,7 +162,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 88227403
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f852bb7cdd401934b9821181a00a8d1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -231,8 +231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d75c925abd43e4fb1de51fe3957699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwitchTVONFileID: 0
-  NamePresentationFileID: 0
 --- !u!4 &203992685
 Transform:
   m_ObjectHideFlags: 0
@@ -352,6 +350,8 @@ MonoBehaviour:
   MenuBipSelectAudioFileID: 0
   MenuBipConfirmAudioFileID: 0
   MenuBipReturnAudioFileID: 0
+  SwitchTVONFileID: 0
+  NamePresentationFileID: 0
   BorderMovementFileID: 0
 --- !u!4 &410353148
 Transform:
@@ -650,7 +650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1321710652}
   - component: {fileID: 1321710651}
-  - component: {fileID: 1321710653}
+  - component: {fileID: 1321710654}
   m_Layer: 0
   m_Name: ScanLines
   m_TagString: Untagged
@@ -690,10 +690,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -982291287
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1a594c1956c7fed4da4e90deae645f45, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -715,23 +715,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1321710653
-Animator:
-  serializedVersion: 3
+--- !u!114 &1321710654
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1321710650}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 26c83c9ba99321849be5e19e7712a523, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fc16bcde85c4f408d4da7711c49b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1328045097
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,7 +957,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 88227403
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f852bb7cdd401934b9821181a00a8d1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
