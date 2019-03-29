@@ -1,12 +1,13 @@
 fileFormatVersion: 2
 guid: 41da00bd98764564c9e4ae087a7d86e6
-timeCreated: 1552464234
+timeCreated: 1553859709
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Popup01_0
     21300002: Popup01_1
     21300004: Popup01_2
+    21300006: Popup01_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -135,6 +136,20 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
+        y: 0
+        width: 136
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Popup01_3
+      rect:
+        serializedVersion: 2
+        x: 136
         y: 0
         width: 136
         height: 104

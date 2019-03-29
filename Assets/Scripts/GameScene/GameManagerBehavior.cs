@@ -414,7 +414,7 @@ public class GameManagerBehavior : MonoBehaviour
 		AndroidNativeAudio.play (MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupPause, new Vector3(0.0f, 0.0f, 0.0f), PopupPause.transform.rotation);
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
-		GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
+		//GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
 		GameObject.Find ("Button03Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PrepareLoadScene;
 		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
 		var tmpCurrentScore = "SCORE: " + ScorePlayerOne.ToString ("D2") + "/" + ScorePlayerTwo.ToString ("D2");
