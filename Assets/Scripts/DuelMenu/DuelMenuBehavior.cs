@@ -250,7 +250,7 @@ public class DuelMenuBehavior : MonoBehaviour
 		if (_isDisplayingPopup)
 			return;
 		_isDisplayingPopupScore = true;
-		AndroidNativeAudio.play (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
+		CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupNumbers, new Vector3(0.0f, 0.0f, 0.0f), PopupNumbers.transform.rotation);
 		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "SCORE";
 		GameObject.Find ("ButtonBackBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupNumbersScoreReturn;
@@ -271,7 +271,7 @@ public class DuelMenuBehavior : MonoBehaviour
 		if (_isDisplayingPopup)
 			return;
 		_isDisplayingPopupSets = true;
-		AndroidNativeAudio.play (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
+		CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupNumbers, new Vector3(0.0f, 0.0f, 0.0f), PopupNumbers.transform.rotation);
 		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "SETS";
 		GameObject.Find ("ButtonBackBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupNumbersSetsReturn;

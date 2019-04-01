@@ -39,7 +39,7 @@ public class TitleManagerBehavior : MonoBehaviour
 		{
 			if (_isDisplayingPopup)
 			{
-				AndroidNativeAudio.play (_genericMenuManagerBehavior.MenuBipGoToAudioFileID);
+				CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipGoToAudioFileID);
 				PopupReturn ();
 			}
 			else
@@ -50,7 +50,7 @@ public class TitleManagerBehavior : MonoBehaviour
 	private void DisplayPopupYesNo()
 	{
 		_isDisplayingPopup = true;
-		AndroidNativeAudio.play (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
+		CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupYesNo, new Vector3(0.0f, 0.0f, 0.0f), PopupYesNo.transform.rotation);
 		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "LEAVING GAME";
 		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "DO YOU WANT TO LEAVE THE GAME ?";
@@ -62,7 +62,7 @@ public class TitleManagerBehavior : MonoBehaviour
 	private void DisplayPopupSingle()
 	{
 		_isDisplayingPopup = true;
-		AndroidNativeAudio.play (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
+		CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupSingle, new Vector3(0.0f, 0.0f, 0.0f), PopupSingle.transform.rotation);
 		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "OOPS!";
 		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "NOT IMPLEMENTED YET";

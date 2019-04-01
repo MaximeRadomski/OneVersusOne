@@ -38,26 +38,26 @@ public class EffectBehavior : MonoBehaviour
 		switch (Effect)
 		{
 		case EffectType.CastSP:
-			AndroidNativeAudio.play(_gameManagerBehavior.CastSPAudioFileID);
+			CustomAudio.PlayEffect(_gameManagerBehavior.CastSPAudioFileID);
 			break;
 		case EffectType.Catch:
-			AndroidNativeAudio.play(_gameManagerBehavior.CatchAudioFileID);
+			CustomAudio.PlayEffect(_gameManagerBehavior.CatchAudioFileID);
 			break;
 		case EffectType.Dash:
-			AndroidNativeAudio.play(_gameManagerBehavior.DashAudioFileID);
+			CustomAudio.PlayEffect(_gameManagerBehavior.DashAudioFileID);
 			break;
 		case EffectType.Goal:
-			AndroidNativeAudio.play(_gameManagerBehavior.GoalAudioFileID);
+			CustomAudio.PlayEffect(_gameManagerBehavior.GoalAudioFileID);
 			break;
 		case EffectType.Lift:
-			AndroidNativeAudio.play(_gameManagerBehavior.LiftAudioFileID);
+			CustomAudio.PlayEffect(_gameManagerBehavior.LiftAudioFileID);
 			break;
 		case EffectType.QuickEffect:
 		case EffectType.Super01:
-			AndroidNativeAudio.play(_gameManagerBehavior.QuickEffectAudioFileID);
+			CustomAudio.PlayEffect(_gameManagerBehavior.QuickEffectAudioFileID);
 			break;
 		case EffectType.WallHit:
-			AndroidNativeAudio.play(_gameManagerBehavior.WallHitAudioFileID);
+			CustomAudio.PlayEffect(_gameManagerBehavior.WallHitAudioFileID);
 			break;
 		}
 	}

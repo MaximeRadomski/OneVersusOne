@@ -106,9 +106,11 @@ public class OptionsMenuBehavior : MonoBehaviour
 		if (_music == 1) {
 			GameObject.Find ("MusicButtonText").GetComponent<UnityEngine.UI.Text> ().text = "ON";
 			GameObject.Find ("MusicButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn ();
+			GameObject.Find("MovingBackground").GetComponent<AudioSource> ().volume = 1.0f;
 		} else {
 			GameObject.Find ("MusicButtonText").GetComponent<UnityEngine.UI.Text> ().text = "OFF";
 			GameObject.Find ("MusicButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+			GameObject.Find("MovingBackground").GetComponent<AudioSource> ().volume = 0.0f;
 		}
 		PlayerPrefs.SetInt("Music", _music);
 	}

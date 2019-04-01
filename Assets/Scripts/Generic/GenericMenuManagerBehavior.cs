@@ -58,7 +58,7 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 			if (BackSceneName != string.Empty && BackSceneName != null)
 			{
 				SceneManager.LoadScene (BackSceneName);
-				AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+				CustomAudio.PlayEffect(MenuBipReturnAudioFileID);
 			}
 		}
 	}

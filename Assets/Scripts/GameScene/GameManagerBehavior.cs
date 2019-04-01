@@ -54,6 +54,8 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		AndroidNativeAudio.makePool();
 		Destroy(GameObject.FindGameObjectWithTag ("MenuBackground"));
+		if (PlayerPrefs.GetInt ("Music") == 0)
+			StageMusic.volume = 0.0f;
 		StageMusic.Play ();
 		ScorePlayerOne = 0;
 		ScorePlayerTwo = 0;
@@ -311,7 +313,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void DisplayScores()
 	{
-		AndroidNativeAudio.play(_slideAudioFileID);
+		CustomAudio.PlayEffect(_slideAudioFileID);
 		_playerOne.GetComponent<PlayerBehavior> ().Recenter ();
 		if (_playerTwo != null)
 			_playerTwo.GetComponent<PlayerBehavior> ().Recenter ();
@@ -322,7 +324,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void DisplaySets()
 	{
-		AndroidNativeAudio.play(_slideAudioFileID);
+		CustomAudio.PlayEffect(_slideAudioFileID);
 		_setP1.GetComponent<Animator> ().Play ("DisplayScore01");
 		_setP2.GetComponent<Animator> ().Play ("DisplayScore02");
 		Invoke ("ChangeAllSets", 0.75f);
@@ -331,7 +333,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private void ChangeAllScores()
 	{
 		if (ScorePlayerOne > 0 || ScorePlayerTwo > 0)
-			AndroidNativeAudio.play(_pointAudioFileID);
+			CustomAudio.PlayEffect(_pointAudioFileID);
 
 		if (ScorePlayerTwo >= 20) {
 			_scoreP1_2.transform.position = new Vector3 (_playerTwoXAxisOver20, _scoreP1_2.transform.position.y, _scoreP1_2.transform.position.z);
@@ -350,7 +352,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private void ChangeAllSets()
 	{
 		if (SetPlayerOne > 0 || SetPlayerTwo > 0)
-			AndroidNativeAudio.play(_setAudioFileID);
+			CustomAudio.PlayEffect(_setAudioFileID);
 
 		if (SetPlayerTwo >= 20) {
 			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisOver20, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
@@ -411,7 +413,7 @@ public class GameManagerBehavior : MonoBehaviour
 		StageMusic.Pause ();
 		Time.timeScale = 0.0f;
 		_isPaused = true;
-		AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupPause, new Vector3(0.0f, 0.0f, 0.0f), PopupPause.transform.rotation);
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
 		//GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
@@ -431,13 +433,13 @@ public class GameManagerBehavior : MonoBehaviour
 		Time.timeScale = 1.0f;
 		Destroy (_tmpPopup);
 		_isPaused = false;
-		AndroidNativeAudio.play (MenuBipGoToAudioFileID);
+		CustomAudio.PlayEffect (MenuBipGoToAudioFileID);
 	}
 
 	private void PrepareLoadScene()
 	{
 		Time.timeScale = 1.0f;
-		AndroidNativeAudio.play (MenuBipReturnAudioFileID);
+		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
 		SceneManager.LoadScene("TitleScene");
 	}
 

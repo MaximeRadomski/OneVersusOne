@@ -68,10 +68,10 @@ public class CharSelButtonBehavior : MonoBehaviour
 		switch (ButtonSound)
 		{
 		case ButtonSoundType.MenuBipSelect:
-			AndroidNativeAudio.play (_genericMenuManager.MenuBipSelectAudioFileID);
+			CustomAudio.PlayEffect (_genericMenuManager.MenuBipSelectAudioFileID);
 			break;
 		case ButtonSoundType.MenuBipConfirm:
-			AndroidNativeAudio.play (_genericMenuManager.MenuBipConfirmAudioFileID);
+			CustomAudio.PlayEffect (_genericMenuManager.MenuBipConfirmAudioFileID);
 			break;
 		}
 	}

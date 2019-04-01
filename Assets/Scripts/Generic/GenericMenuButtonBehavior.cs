@@ -71,7 +71,7 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 		switch (ButtonSound)
 		{
 		case ButtonSoundType.MenuBipGoTo:
-			AndroidNativeAudio.play (_genericMenuManager.MenuBipGoToAudioFileID);
+			CustomAudio.PlayEffect(_genericMenuManager.MenuBipGoToAudioFileID);
 			break;
 		default:
 			break;

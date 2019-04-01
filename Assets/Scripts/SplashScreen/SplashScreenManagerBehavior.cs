@@ -58,7 +58,7 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 		if (_isDuringTVON)
 			return;
 		_isDuringTVON = true;
-		AndroidNativeAudio.play(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().SwitchTVONFileID);
+		CustomAudio.PlayEffect(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().SwitchTVONFileID);
 		_blackBackground.SetActive (false);
 		_movingBackground.GetComponent<MeshRenderer> ().enabled = true;
 		_movingBackground.GetComponent<MenuBackgroundBehavior> ().ScrollSpeed = 0.05f;
@@ -79,7 +79,7 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 		if (_isDuringLogo)
 			return;
 		_isDuringLogo = true;
-		AndroidNativeAudio.play(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().NamePresentationFileID);
+		CustomAudio.PlayEffect(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().NamePresentationFileID);
 		_abjectPresents.SetActive (false);
 		_gameName.GetComponent<SpriteRenderer> ().enabled = true;
 		_touchToStart.GetComponent<UnityEngine.UI.Text> ().enabled = true;
@@ -88,7 +88,7 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 	public void PlayTitleAnimation()
 	{
 		_camera.GetComponent<CameraBehavior>().WallHit();
-		AndroidNativeAudio.play(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().BorderMovementFileID);
+		CustomAudio.PlayEffect(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().BorderMovementFileID);
 		_movingBackground.GetComponent<MenuBackgroundBehavior> ().PlayAudio ();
 		_touchToStart.SetActive (false);
 		_borderTop.GetComponent<Animator> ().Play ("BorderGoesUp");

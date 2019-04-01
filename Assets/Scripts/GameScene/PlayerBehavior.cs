@@ -369,7 +369,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void ThrowBallAfterDelay()
     {
-		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
+		CustomAudio.PlayEffect(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
         //Ball = GetBall();
 		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
@@ -380,7 +380,7 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void LiftBallAfterDelay()
 	{
-		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
+		CustomAudio.PlayEffect(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
 		//Ball = GetBall();
 		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
@@ -391,7 +391,7 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void SuperAfterDelay()
 	{
-		AndroidNativeAudio.play(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
+		CustomAudio.PlayEffect(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
 		//Ball = GetBall();
 		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
