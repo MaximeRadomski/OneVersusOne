@@ -151,7 +151,6 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void DestroyP2Objects()
 	{
-		Destroy (GameObject.Find("ShadowP2"));
 		Destroy (GameObject.Find("P2SPCoolDown"));
 		Destroy (GameObject.Find("LeftP2"));
 		Destroy (GameObject.Find("RightP2"));
@@ -162,6 +161,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 		{
+			Destroy (GameObject.Find("ShadowP2"));
 			GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "TRAINING";
 			GameObject.Find ("Player02Image").GetComponent<SpriteRenderer> ().enabled = false;
 		}

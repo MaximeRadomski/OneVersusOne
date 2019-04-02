@@ -46,7 +46,7 @@ public class DuelMenuBehavior : MonoBehaviour
 		_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 		_confirmButton = GameObject.Find ("ConfirmButton");
 		_opponent = Opponent.Player;
-		_difficulty = Difficulty.Normal;
+		_difficulty = Difficulty.Easy;
 		_bounce = Bounce.Normal;
 
 		SetOpponentPlayer ();

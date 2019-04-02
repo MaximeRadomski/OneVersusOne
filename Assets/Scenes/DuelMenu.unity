@@ -3398,7 +3398,7 @@ MonoBehaviour:
   SpriteOff: {fileID: 21300006, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   NextSceneName: 
   KeepState: 1
-  ButtonSound: 0
+  ButtonSound: 1
 --- !u!61 &1419400278
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4872,7 +4872,7 @@ MonoBehaviour:
   SpriteOff: {fileID: 21300006, guid: 7651d758349b0474f9e62a8787d54c16, type: 3}
   NextSceneName: 
   KeepState: 1
-  ButtonSound: 0
+  ButtonSound: 1
 --- !u!61 &2121288570
 BoxCollider2D:
   m_ObjectHideFlags: 0
