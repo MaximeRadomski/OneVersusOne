@@ -32,10 +32,6 @@ public class AI : MonoBehaviour
 		GetPlayers ();
 		ResetRandomFactors ();
 		_isThrowing = false;
-	    _repeatDashCooldown = 1.0f;
-		_yBallLimit = 1.5f;
-		if (Player == CurrentPlayer.PlayerOne)
-			_yBallLimit = -_yBallLimit;
 	    _canDash = true;
 		_checkSelfGoal = false;
 		if (Player == CurrentPlayer.PlayerOne)
@@ -47,20 +43,26 @@ public class AI : MonoBehaviour
 	private void ResetRandomFactors()
 	{
 		if (PlayerPrefs.GetInt ("Difficulty", 0) == Difficulty.Easy.GetHashCode ()) {
-			_throwDelay = Random.Range (0.05f, 0.5f);
+			_throwDelay = 0.5f;
+			_startReactDistance = -0.5f;
+			_startCastDistance = 1.0f;
+			_repeatDashCooldown = 1.0f;
+			_yBallLimit = 1.9f;
+		} else if (PlayerPrefs.GetInt ("Difficulty", 0) == Difficulty.Normal.GetHashCode ()) {
+			_throwDelay = Random.Range (0.0f, 0.5f);
 			_startReactDistance = Random.Range (-0.5f, 0.5f);
 			_startCastDistance = Random.Range (0.5f, 1.0f);
-		} else if (PlayerPrefs.GetInt ("Difficulty", 0) == Difficulty.Normal.GetHashCode ()) {
-			_throwDelay = Random.Range (0.05f, 0.25f);
-			_startReactDistance = Random.Range (0f, 0.5f);
-			_startCastDistance = Random.Range (0.5f, 0.75f);
 			_repeatDashCooldown = 0.75f;
+			_yBallLimit = 1.7f;
 		} else {
 			_throwDelay = 0.0f;
 			_startReactDistance = 0.35f;
 			_startCastDistance = 0.75f;
 			_repeatDashCooldown = 0.5f;
+			_yBallLimit = 1.5f;
 		}
+		if (Player == CurrentPlayer.PlayerOne)
+			_yBallLimit = -_yBallLimit;
 	}
 
 	private string GetFocusedPayerName()
