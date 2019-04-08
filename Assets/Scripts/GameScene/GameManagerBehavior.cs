@@ -212,12 +212,16 @@ public class GameManagerBehavior : MonoBehaviour
 			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 180.0f);
 			_winner.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_loser.GetComponent<Animator> ().Play ("DisplayFromTop");
+			_playerOne.GetComponent<Animator> ().Play ("Victory");
+			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
 			gameEnd = true;
 		} else if (SetPlayerTwo >= _maxSets && SetPlayerTwo > SetPlayerOne) {
 			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
 			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
 			_winner.GetComponent<Animator> ().Play ("DisplayFromTop");
 			_loser.GetComponent<Animator> ().Play ("DisplayFromBottom");
+			_playerOne.GetComponent<Animator> ().Play ("Defeat");
+			_playerTwo.GetComponent<Animator> ().Play ("Victory");
 			gameEnd = true;
 		}
 		else if (SetPlayerOne >= _maxSets && SetPlayerTwo >= _maxSets && SetPlayerOne == SetPlayerTwo)
@@ -226,6 +230,8 @@ public class GameManagerBehavior : MonoBehaviour
 			_draw02.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
 			_draw01.GetComponent<Animator> ().Play ("DisplayFromTop");
 			_draw02.GetComponent<Animator> ().Play ("DisplayFromBottom");
+			_playerOne.GetComponent<Animator> ().Play ("Defeat");
+			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
 			gameEnd = true;
 		}
 
