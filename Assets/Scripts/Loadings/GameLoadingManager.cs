@@ -77,7 +77,7 @@ public class GameLoadingManager : MonoBehaviour
 	{
 		if (mapNumber == 0)
 		{
-			int tmpMapNumber = Random.Range (1, 3);
+			int tmpMapNumber = Random.Range (1, MapTemplates.Length);
 			PlayerPrefs.SetInt ("SelectedMap", tmpMapNumber);
 			return tmpMapNumber;
 		}

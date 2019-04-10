@@ -134,7 +134,7 @@ public class BallBehavior : MonoBehaviour
 			Physics2D.gravity = new Vector2 (0.0f,0.0f);
 			_gravityIsSet = false;
 			_isQuickThrow = true;
-			Invoke ("DisableQuickThrow", 0.25f);
+			Invoke ("DisableQuickThrow", 0.3f);
         }
         else if (col.gameObject.tag == "Goal")
         {

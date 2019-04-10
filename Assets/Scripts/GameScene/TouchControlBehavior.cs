@@ -31,6 +31,8 @@ public class TouchControlBehavior : MonoBehaviour
 
     public void BeganAction()
     {
+		if (_player == null)
+			_player = GameObject.Find(GetFocusedPayerName());
 		if (_player.GetComponent<PlayerBehavior> ().IsControlledByAI)
 			return;
         switch (Action)

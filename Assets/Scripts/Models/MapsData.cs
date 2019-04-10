@@ -26,7 +26,14 @@ public static class MapsData
 			City = "MANCHESTER",
 			Effect = "FASTER DISC",
 			WallCollisionX = 1.278f,
-			GoalCollisionY = 1.917f}
+			GoalCollisionY = 1.917f},
+		new Map {
+			Name = "EARTH WIND N RIVER",
+			Country = "JAPAN",
+			City = "KYOTO",
+			Effect = "ZEN",
+			WallCollisionX = 1.472f,
+			GoalCollisionY = 1.833f}
 	};
 
 	public class Map

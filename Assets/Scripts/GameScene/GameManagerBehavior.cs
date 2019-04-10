@@ -244,7 +244,7 @@ public class GameManagerBehavior : MonoBehaviour
 				_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20 - 5.5f, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
 			}
 			ChangeAllSets ();*/
-			Invoke("EndGame", 8.0f);
+			Invoke("EndGame", 5.0f);
 		}
 		else
 			PlaceBall ();
