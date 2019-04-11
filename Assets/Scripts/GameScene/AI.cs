@@ -12,6 +12,7 @@ public class AI : MonoBehaviour
     private float _repeatDashCooldown;
 	private float _yBallLimit;
     private bool _canDash;
+	private bool _canDahEarly;
 	private CurrentPlayer _rival;
 
 	private float _throwDelay;
@@ -47,19 +48,24 @@ public class AI : MonoBehaviour
 			_startReactDistance = -0.5f;
 			_startCastDistance = 1.0f;
 			_repeatDashCooldown = 1.0f;
-			_yBallLimit = 1.9f;
+			_yBallLimit = 2.0f;
+			var tmpCanDashEarly = Random.Range (0, 3);
+			_canDahEarly = tmpCanDashEarly == 0 ? false : true;
 		} else if (PlayerPrefs.GetInt ("Difficulty", 0) == Difficulty.Normal.GetHashCode ()) {
 			_throwDelay = Random.Range (0.0f, 0.5f);
 			_startReactDistance = Random.Range (-0.5f, 0.5f);
 			_startCastDistance = Random.Range (0.5f, 1.0f);
 			_repeatDashCooldown = 0.75f;
-			_yBallLimit = 1.7f;
+			_yBallLimit = 1.75f;
+			var tmpCanDashEarly = Random.Range (0, 2);
+			_canDahEarly = tmpCanDashEarly == 0 ? false : true;
 		} else {
 			_throwDelay = 0.0f;
 			_startReactDistance = 0.35f;
 			_startCastDistance = 0.75f;
 			_repeatDashCooldown = 0.5f;
 			_yBallLimit = 1.5f;
+			_canDahEarly = false;
 		}
 		if (Player == CurrentPlayer.PlayerOne)
 			_yBallLimit = -_yBallLimit;
@@ -131,13 +137,13 @@ public class AI : MonoBehaviour
 			shouldDashLimit = true;
 		if (_ball.transform.position.y < _yBallLimit && Player == CurrentPlayer.PlayerOne)
 			shouldDashLimit = true;
-		if ((shouldDashLimit == true && _ball.transform.position.x + _linkedPlayer.GetComponent<PlayerBehavior> ().DashDistance < transform.position.x && _canDash) ||
+		if ((_canDahEarly && _ball.transform.position.x + _linkedPlayer.GetComponent<PlayerBehavior> ().DashDistance < transform.position.x && _canDash) ||
 			(shouldDashLimit == true && _ball.transform.position.x < transform.position.x && _canDash)) {
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Direction = Direction.Left;
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Dash ();
 			_canDash = false;
 			Invoke ("ResetDashPossibility", _repeatDashCooldown);
-		} else if ((shouldDashLimit == true && _ball.transform.position.x - _linkedPlayer.GetComponent<PlayerBehavior> ().DashDistance > transform.position.x && _canDash) ||
+		} else if ((shouldDashLimit == false && _ball.transform.position.x - _linkedPlayer.GetComponent<PlayerBehavior> ().DashDistance > transform.position.x && _canDash) ||
 			(shouldDashLimit == true && _ball.transform.position.x > transform.position.x && _canDash)) {
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Direction = Direction.Right;
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Dash ();

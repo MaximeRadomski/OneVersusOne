@@ -319,8 +319,8 @@ MonoBehaviour:
   Animator: {fileID: 43494149}
   Points: 3
   IsFrozen: 0
-  NormalStateSprite: {fileID: 21300000, guid: e876867e5b09e664aa853d40e4d5f6a0, type: 3}
-  FrozenStateSprite: {fileID: 21300008, guid: e876867e5b09e664aa853d40e4d5f6a0, type: 3}
+  NormalStateSprite: {fileID: 21300000, guid: 7c2877a1521d66045bfafe9de20e5842, type: 3}
+  FrozenStateSprite: {fileID: 21300008, guid: 7c2877a1521d66045bfafe9de20e5842, type: 3}
 --- !u!212 &43494151
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8102,8 +8102,8 @@ MonoBehaviour:
   Animator: {fileID: 1270600707}
   Points: 3
   IsFrozen: 0
-  NormalStateSprite: {fileID: 21300000, guid: e876867e5b09e664aa853d40e4d5f6a0, type: 3}
-  FrozenStateSprite: {fileID: 21300008, guid: e876867e5b09e664aa853d40e4d5f6a0, type: 3}
+  NormalStateSprite: {fileID: 21300000, guid: 7c2877a1521d66045bfafe9de20e5842, type: 3}
+  FrozenStateSprite: {fileID: 21300008, guid: 7c2877a1521d66045bfafe9de20e5842, type: 3}
 --- !u!212 &1270600709
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11099,8 +11099,8 @@ MonoBehaviour:
   Animator: {fileID: 1716505140}
   Points: 5
   IsFrozen: 0
-  NormalStateSprite: {fileID: 21300002, guid: e876867e5b09e664aa853d40e4d5f6a0, type: 3}
-  FrozenStateSprite: {fileID: 21300010, guid: e876867e5b09e664aa853d40e4d5f6a0, type: 3}
+  NormalStateSprite: {fileID: 21300002, guid: 7c2877a1521d66045bfafe9de20e5842, type: 3}
+  FrozenStateSprite: {fileID: 21300010, guid: 7c2877a1521d66045bfafe9de20e5842, type: 3}
 --- !u!212 &1716505142
 SpriteRenderer:
   m_ObjectHideFlags: 0
