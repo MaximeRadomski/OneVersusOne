@@ -9,19 +9,20 @@ public class SuperBehavior : MonoBehaviour
 	public GameObject WhiteBall;
 
 	private GameObject _ball;
+	private GameObject _shadow;
 	private float _superEffectDelay;
 	private float _baseSuperEffectDelay;
 	private float _zigzagDelay;
 	private Vector2 _currentThrowDirection;
 	private Vector2 _playerThrowDirection;
-	private GameObject _currentPlayer;
+	//private GameObject _currentPlayer;
 	private float _customSpeed;
 	private float _zigzag;
 	private int _bounceCount;
 	private int _bounce;
 	private float _gravity;
 	private bool _isDoingSuper;
-	private bool _hasInstantiateNewDisc;
+	//private bool _hasInstantiateNewDisc;
 
 	void Start()
 	{
@@ -32,6 +33,34 @@ public class SuperBehavior : MonoBehaviour
 		_bounceCount = 1;
 		_bounce = 0;
 		_gravity = 15.0f;
+	}
+
+	private Vector2 ExtremeFromCurrentDirection()
+	{
+		float x = 0.0f;
+		if (_currentThrowDirection.x == 0) {
+			if (_ball.transform.position.x >= 0)
+				x = 1.0f;
+			else
+				x = -1.0f;
+		} else if (_currentThrowDirection.x > 0) {
+			x = 1.0f;
+		} else {
+			x = -1.0f;
+		}
+		return new Vector2 (x, _currentThrowDirection.y);
+	}
+
+	private Vector2 OnlySideFromCurrentDirection()
+	{
+		float x = _currentThrowDirection.x;
+		if (_currentThrowDirection.x == 0) {
+			if (_ball.transform.position.x >= 0)
+				x = 0.5f;
+			else
+				x = -0.5f;
+		}
+		return new Vector2 (x, _currentThrowDirection.y);
 	}
 
 	private void BasicEffectThrow (Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, float fixedSpeed = 0)
@@ -47,6 +76,22 @@ public class SuperBehavior : MonoBehaviour
 		if (Effect != null)
 			Invoke ("InstantiateSuperEffect", _superEffectDelay);
 		_ball.GetComponent<Rigidbody2D>().velocity = direction * _customSpeed;
+	}
+
+	private void ShadowThrow (Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, float fixedSpeed = 0)
+	{
+		_shadow = Instantiate (_ball, _ball.transform.position, _ball.transform.rotation);
+		_shadow.GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.66f);
+		_shadow.tag = "DiscShadow";
+		_shadow.GetComponent<BallBehavior>().SetGravityScaleFromPower (addedPower);
+		_shadow.GetComponent<BallBehavior>().IsThrownBy = throwingPlayer;
+		_shadow.GetComponent<BallBehavior>().CurrentPlayer = CurrentPlayer.None;
+		float speedQuarter = (_shadow.GetComponent<BallBehavior>().Speed + addedPower) / 4;
+		_customSpeed = (_shadow.GetComponent<BallBehavior>().Speed + addedPower) - (Mathf.Abs(direction.x) * speedQuarter);
+		_customSpeed = _customSpeed * 1.2f;
+		if (fixedSpeed != 0)
+			_customSpeed = fixedSpeed;
+		_shadow.GetComponent<Rigidbody2D>().velocity = direction * _customSpeed;
 	}
 
 	private void InstantiateSuperEffect()
@@ -106,7 +151,10 @@ public class SuperBehavior : MonoBehaviour
 			tmpGoalName = "Bot";
 
 		List<int> availableGoals = new List<int>{};
-		for (int i = 1; i <= 3; ++i)
+		int nbGoals = 3;
+		if (PlayerPrefs.GetInt ("SelectedMap") == 4)
+			nbGoals = 2;
+		for (int i = 1; i <= nbGoals; ++i)
 		{
 			if (GameObject.Find ("Goal" + tmpGoalName + i.ToString ("D2")).GetComponent<GoalBehavior> ().IsFrozen == false)
 				availableGoals.Add (i);
@@ -120,7 +168,7 @@ public class SuperBehavior : MonoBehaviour
 		tmpGoal.Freeze ();
 	}
 
-	private void InstantiateNewDisc ()
+	/*private void InstantiateNewDisc ()
 	{
 		_hasInstantiateNewDisc = true;
 		var nbBalls = GameObject.FindGameObjectsWithTag ("Disc").Length;
@@ -130,12 +178,12 @@ public class SuperBehavior : MonoBehaviour
 		tmpNextBall.GetComponent<BallBehavior> ().CurrentPlayer = _currentPlayer.GetComponent<PlayerBehavior> ().Player;
 		tmpNextBall.GetComponent<BallBehavior> ().IsNextBall = true;
 		_currentPlayer.GetComponent<PlayerBehavior>().NextBalls.Add(tmpNextBall);
-	}
+	}*/
 
-	private void DisableInstantiate()
+	/*private void DisableInstantiate()
 	{
 		_hasInstantiateNewDisc = false;
-	}
+	}*/
 
 	private void ResetSuperEffectDelay()
 	{
@@ -147,10 +195,11 @@ public class SuperBehavior : MonoBehaviour
 		_ball = ball;
 		_currentThrowDirection = direction;
 		_playerThrowDirection = playerThrowDirection;
-		_currentPlayer = GameObject.Find (throwingPlayer.ToString());
+		//_currentPlayer = GameObject.Find (throwingPlayer.ToString());
 		switch (Super)
 		{
 		case SuperType.Super01:
+			direction = ExtremeFromCurrentDirection ();
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
 			_ball.GetComponent<BallBehavior> ().onWallCollisionDelegate = StraightOnCollision;
 			break;
@@ -168,16 +217,18 @@ public class SuperBehavior : MonoBehaviour
 			BasicEffectThrow (direction, throwingPlayer, addedPower);
 			break;
 		case SuperType.Super05:
-			_superEffectDelay = _superEffectDelay / 2;
-			BasicEffectThrow (direction, throwingPlayer, addedPower, 10);
+			_superEffectDelay = _superEffectDelay / 1.5f;
+			BasicEffectThrow (direction, throwingPlayer, addedPower, 8);
 			Invoke ("ResetSuperEffectDelay", 1.0f);
 			break;
 		case SuperType.Super06:
-			if (!_hasInstantiateNewDisc) InstantiateNewDisc();
-			_superEffectDelay = _superEffectDelay * 3;
-			BasicEffectThrow (direction, throwingPlayer, addedPower, 2);
-			Invoke ("DisableInstantiate", 1.0f);
-			Invoke ("ResetSuperEffectDelay", 5.0f);
+			//if (!_hasInstantiateNewDisc) InstantiateNewDisc();
+			//_superEffectDelay = _superEffectDelay * 3;
+			direction = OnlySideFromCurrentDirection ();
+			BasicEffectThrow (direction, throwingPlayer, addedPower);
+			ShadowThrow (new Vector2(direction.x * -1.0f, direction.y), throwingPlayer, addedPower);
+			//Invoke ("DisableInstantiate", 1.0f);
+			//Invoke ("ResetSuperEffectDelay", 5.0f);
 			break;
 		default :
 			break;

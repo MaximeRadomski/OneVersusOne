@@ -80,22 +80,17 @@ public class AI : MonoBehaviour
 
 	private GameObject GetBall()
 	{
-		var ballTab = GameObject.FindGameObjectsWithTag ("Disc");
-		float shortestDistance = 100;
-		float tmpDistance;
-		int ballIndex = -1;
-		for (int i = 0; i < ballTab.Length; ++i)
-		{
-			tmpDistance = Vector2.Distance (ballTab [i].transform.position, this.transform.position);
-			if (tmpDistance < shortestDistance)
-			{
-				shortestDistance = tmpDistance;
-				ballIndex = i;
-			}
+		var ball = GameObject.FindGameObjectWithTag ("Disc");
+		var ballShadow = GameObject.FindGameObjectWithTag ("DiscShadow");
+
+		if (ballShadow != null) {
+			if (Vector2.Distance (ball.transform.position, this.transform.position) <
+			    Vector2.Distance (ballShadow.transform.position, this.transform.position))
+				return ball;
+			else
+				return ballShadow;
 		}
-		if (ballIndex == -1)
-			return null;
-		return ballTab[ballIndex];
+		return ball;
 	}
 
 	private void GetPlayers()

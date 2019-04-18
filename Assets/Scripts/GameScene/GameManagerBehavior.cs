@@ -289,6 +289,8 @@ public class GameManagerBehavior : MonoBehaviour
 
 	public void NewBall(CurrentPlayer looser, int points, bool moreThanOneBall)
     {
+		if (PlayerPrefs.GetInt ("SelectedMap") == 4)
+			this.gameObject.GetComponent<ChangingGoalsBehavior> ().SomeoneScored (looser);
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 		{
 			Invoke("PlaceBall", 0.5f);

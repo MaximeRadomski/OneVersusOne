@@ -105,7 +105,10 @@ public class BallBehavior : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Player")
+		if (col.gameObject.tag != "Player" && col.gameObject.tag != "Wall" && gameObject.tag == "DiscShadow")
+			Destroy (gameObject);
+
+		if (col.gameObject.tag == "Player" && gameObject.tag != "DiscShadow")
         {
 			if (_hasHitGoal || HasHitPlayer)
 				return;
@@ -159,7 +162,7 @@ public class BallBehavior : MonoBehaviour
 				col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
 			//}
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
-	            Destroy(gameObject);
+            Destroy(gameObject);
         }
 		else if (col.gameObject.tag == "TrainingWall")
 		{

@@ -33,7 +33,14 @@ public static class MapsData
 			City = "KYOTO",
 			Effect = "ZEN",
 			WallCollisionX = 1.472f,
-			GoalCollisionY = 1.833f}
+			GoalCollisionY = 1.833f},
+		new Map {
+			Name = "DOUBLE EDGED",
+			Country = "U.S.A",
+			City = "NEW ORLEANS",
+			Effect = "BACKFIRE GOALS",
+			WallCollisionX = 1.472f,
+			GoalCollisionY = 1.833f},
 	};
 
 	public class Map

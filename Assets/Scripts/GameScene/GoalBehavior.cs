@@ -45,4 +45,12 @@ public class GoalBehavior : MonoBehaviour
 		gameObject.tag = "Goal";
 		this.GetComponent<SpriteRenderer> ().sprite = NormalStateSprite;
 	}
+
+	public void Actualize()
+	{
+		if (IsFrozen)
+			this.GetComponent<SpriteRenderer> ().sprite = FrozenStateSprite;
+		else
+			this.GetComponent<SpriteRenderer> ().sprite = NormalStateSprite;
+	}
 }
