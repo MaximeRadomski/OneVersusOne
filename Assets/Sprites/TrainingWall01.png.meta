@@ -1,12 +1,13 @@
 fileFormatVersion: 2
 guid: 22ff78d002bd7e44fbfa776c2737217b
-timeCreated: 1554893350
+timeCreated: 1555672019
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: TrainingWall01_0
     21300002: TrainingWall01_1
     21300004: TrainingWall01_2
+    21300006: TrainingWall01_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -97,7 +98,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 24
+        y: 36
         width: 144
         height: 12
       alignment: 0
@@ -111,7 +112,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
+        y: 24
         width: 144
         height: 12
       alignment: 0
@@ -122,6 +123,20 @@ TextureImporter:
       tessellationDetail: 0
     - serializedVersion: 2
       name: TrainingWall01_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 12
+        width: 144
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: TrainingWall01_3
       rect:
         serializedVersion: 2
         x: 0

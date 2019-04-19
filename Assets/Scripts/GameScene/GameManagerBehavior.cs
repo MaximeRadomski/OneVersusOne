@@ -15,6 +15,8 @@ public class GameManagerBehavior : MonoBehaviour
 	public GameObject PopupPause;
 	public Sprite[] CharactersSprites;
 
+	public bool IsHowToPlay;
+
     private string _playerName;
 	private GameObject _scoreP1, _scoreP2;
 	private GameObject _scoreP1_1, _scoreP1_2, _scoreP2_1, _scoreP2_2;
@@ -52,8 +54,15 @@ public class GameManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
+		if (IsHowToPlay) {
+			PlayerPrefs.SetInt ("Opponent", Opponent.Wall.GetHashCode());
+			PlayerPrefs.SetInt ("Bounce", Bounce.Normal.GetHashCode());
+			PlayerPrefs.SetInt ("P1Character", 2);
+			PlayerPrefs.SetInt ("SelectedMap", 1);
+		}
 		AndroidNativeAudio.makePool();
-		Destroy(GameObject.FindGameObjectWithTag ("MenuBackground"));
+		if (!IsHowToPlay)
+			Destroy(GameObject.FindGameObjectWithTag ("MenuBackground"));
 		if (PlayerPrefs.GetInt ("Music") == 0)
 			StageMusic.volume = 0.0f;
 		StageMusic.Play ();
@@ -120,7 +129,8 @@ public class GameManagerBehavior : MonoBehaviour
 			CreateWall ();
 		_isPaused = false;
 
-		PlaceBall();
+		if (!IsHowToPlay)
+			PlaceBall();
 	}
 
 	private GameObject CreateCharacter(CurrentPlayer player, int playerNb)
@@ -146,7 +156,9 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		var mapNb = PlayerPrefs.GetInt ("SelectedMap");
 		var tmpWallInstance = Resources.Load<GameObject> ("Prefabs/TrainingWall"+mapNb.ToString("D2"));
-		Instantiate (tmpWallInstance, tmpWallInstance.transform.position, tmpWallInstance.transform.rotation);
+		var tmpWall = Instantiate (tmpWallInstance, tmpWallInstance.transform.position, tmpWallInstance.transform.rotation);
+		if (IsHowToPlay)
+			tmpWall.GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
 	}
 
 	private void DestroyP2Objects()
@@ -163,6 +175,8 @@ public class GameManagerBehavior : MonoBehaviour
 		{
 			Destroy (GameObject.Find("ShadowP2"));
 			GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "TRAINING";
+			if (IsHowToPlay)
+				GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "\t\t\t\t\t\t\tHOW TO PLAY";
 			GameObject.Find ("Player02Image").GetComponent<SpriteRenderer> ().enabled = false;
 		}
 		GameObject.Find ("NoPlayerBanner").transform.position += new Vector3 (5.0f, 0.0f, 0.0f);
