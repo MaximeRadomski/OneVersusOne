@@ -917,11 +917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 0
+  Action: 1
   SpriteRenderer: {fileID: 957841279}
   SpriteOn: {fileID: 21300004, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300000, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: HowToPlayMenu
+  NextSceneName: 
   KeepState: 0
   ButtonSound: 0
 --- !u!61 &957841281
@@ -2134,13 +2134,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a118f6d7aa0db45be6126ccd591b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Action: 1
+  Action: 0
   SpriteRenderer: {fileID: 1637164279}
   SpriteOn: {fileID: 21300006, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
   SpriteOff: {fileID: 21300002, guid: 632070515ee5552428be56f4f5a02d54, type: 3}
-  NextSceneName: 
+  NextSceneName: AboutMenu
   KeepState: 0
-  ButtonSound: 1
+  ButtonSound: 0
 --- !u!61 &1637164281
 BoxCollider2D:
   m_ObjectHideFlags: 0

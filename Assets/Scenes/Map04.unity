@@ -3394,6 +3394,7 @@ MonoBehaviour:
   - {fileID: 21300008, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
   - {fileID: 21300010, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
   - {fileID: 21300012, guid: 196f6af1771b10f469ebe33a52db9f34, type: 3}
+  IsHowToPlay: 0
   CastSPAudioFileID: 0
   CatchAudioFileID: 0
   DashAudioFileID: 0
@@ -12218,7 +12219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2079532054
 Transform:
   m_ObjectHideFlags: 0

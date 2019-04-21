@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleManagerBehavior : MonoBehaviour
 {
@@ -26,9 +27,7 @@ public class TitleManagerBehavior : MonoBehaviour
 		_isDisplayingPopup = false;
 
 		_challengesButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
-		_howToPlayButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
-		_optionsButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
-		_aboutButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
+		_howToPlayButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoToHowToPlay;
 
 		StartCoroutine (InitiateLeft());
 	}
@@ -74,6 +73,15 @@ public class TitleManagerBehavior : MonoBehaviour
 	{
 		Destroy (_tmpPopup);
 		_isDisplayingPopup = false;
+	}
+
+	private void GoToHowToPlay ()
+	{
+		PlayerPrefs.SetInt ("Opponent", Opponent.Wall.GetHashCode());
+		PlayerPrefs.SetInt ("Bounce", Bounce.Normal.GetHashCode());
+		PlayerPrefs.SetInt ("P1Character", 2);
+		PlayerPrefs.SetInt ("SelectedMap", -1);
+		SceneManager.LoadScene("GameLoadingScene");
 	}
 
 	private IEnumerator InitiateLeft()

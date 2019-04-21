@@ -55,17 +55,15 @@ public class GameManagerBehavior : MonoBehaviour
 	void Start ()
 	{
 		if (IsHowToPlay) {
-			PlayerPrefs.SetInt ("Opponent", Opponent.Wall.GetHashCode());
-			PlayerPrefs.SetInt ("Bounce", Bounce.Normal.GetHashCode());
-			PlayerPrefs.SetInt ("P1Character", 2);
 			PlayerPrefs.SetInt ("SelectedMap", 1);
 		}
 		AndroidNativeAudio.makePool();
 		if (!IsHowToPlay)
 			Destroy(GameObject.FindGameObjectWithTag ("MenuBackground"));
-		if (PlayerPrefs.GetInt ("Music") == 0)
+		if (PlayerPrefs.GetInt ("Music") == 0 && StageMusic != null)
 			StageMusic.volume = 0.0f;
-		StageMusic.Play ();
+		if (StageMusic != null)
+			StageMusic.Play ();
 		ScorePlayerOne = 0;
 		ScorePlayerTwo = 0;
 		SetPlayerOne = 0;
@@ -183,7 +181,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	}
 
-    private void PlaceBall()
+    public void PlaceBall()
     {
 		if (BallAlreadyExists())
 			return;
@@ -432,7 +430,8 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void DisplayPopupPause()
 	{
-		StageMusic.Pause ();
+		if (StageMusic != null)
+			StageMusic.Pause ();
 		Time.timeScale = 0.0f;
 		_isPaused = true;
 		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
@@ -451,7 +450,8 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void PopupPauseReturn()
 	{
-		StageMusic.Play ();
+		if (StageMusic != null)
+			StageMusic.Play ();
 		Time.timeScale = 1.0f;
 		Destroy (_tmpPopup);
 		_isPaused = false;

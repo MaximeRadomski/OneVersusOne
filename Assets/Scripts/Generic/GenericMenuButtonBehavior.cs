@@ -27,6 +27,8 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 
 	public void SwitchSprite()
 	{
+		if (SpriteRenderer == null)
+			return;
 		SpriteRenderer.color = new Color (1.0f, 1.0f, 1.0f);
 		if (SpriteRenderer.sprite == SpriteOn)
 			SpriteRenderer.sprite = SpriteOff;
@@ -36,24 +38,31 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 
 	public void PressSprite()
 	{
+		if (SpriteRenderer == null)
+			return;
 		SpriteRenderer.color = new Color (0.8f, 0.8f, 0.8f);
 	}
 
 	public void SetSpriteOn()
 	{
+		if (SpriteRenderer == null)
+			return;
 		SpriteRenderer.color = new Color (1.0f, 1.0f, 1.0f);
 		SpriteRenderer.sprite = SpriteOn;
 	}
 
 	public void SetSpriteOff()
 	{
+		if (SpriteRenderer == null)
+			return;
 		SpriteRenderer.color = new Color (1.0f, 1.0f, 1.0f);
 		SpriteRenderer.sprite = SpriteOff;
 	}
 
 	public void DoAction()
 	{
-		SpriteRenderer.color = new Color (1.0f, 1.0f, 1.0f);
+		if (SpriteRenderer != null)
+			SpriteRenderer.color = new Color (1.0f, 1.0f, 1.0f);
 		switch (Action)
 		{
 		case GenericTapAction.GoTo:

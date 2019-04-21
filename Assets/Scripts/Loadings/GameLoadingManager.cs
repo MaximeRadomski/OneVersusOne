@@ -29,7 +29,12 @@ public class GameLoadingManager : MonoBehaviour
 
 		var map = PlayerPrefs.GetInt ("SelectedMap");
 		map = CheckMap (map);
-		_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map];
+		if (map != -1)
+			_mapTemplateContainer.GetComponent<SpriteRenderer> ().sprite = MapTemplates [map];
+		else {
+			_mapTemplateContainer.GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+			GameObject.Find("MapTemplateBackground").GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+		}
 
 		int p1Character = PlayerPrefs.GetInt ("P1Character");
 		p1Character = CheckCharacter (1, p1Character);
@@ -88,6 +93,9 @@ public class GameLoadingManager : MonoBehaviour
 	private void LoadGameScene()
 	{
 		var map = PlayerPrefs.GetInt ("SelectedMap");
-		SceneManager.LoadScene("Map"+map.ToString("D2"));
+		if (map == -1)
+			SceneManager.LoadScene("HowToPlayMenu");
+		else
+			SceneManager.LoadScene("Map"+map.ToString("D2"));
 	}
 }
