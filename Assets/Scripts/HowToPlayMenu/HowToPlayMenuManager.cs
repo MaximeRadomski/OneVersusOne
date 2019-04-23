@@ -13,6 +13,9 @@ public class HowToPlayMenuManager : MonoBehaviour
 
 	void Start ()
 	{
+		GameObject.Find ("GoalTop01").SetActive (false);
+		GameObject.Find ("GoalTop02").SetActive (false);
+		GameObject.Find ("GoalTop03").SetActive (false);
 		_tutorialTitle = GameObject.Find ("TutorialTitle").GetComponent<UnityEngine.UI.Text> ();
 		_tutorialContent = GameObject.Find ("TutorialContent").GetComponent<UnityEngine.UI.Text> ();
 		_tutorialNext = GameObject.Find ("TutorialNext");

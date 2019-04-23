@@ -168,7 +168,7 @@ public class BallBehavior : MonoBehaviour
 		else if (col.gameObject.tag == "TrainingWall")
 		{
 			NbCol = 0;
-			var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, 1.61f, 0.0f), transform.rotation);
+			var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, col.transform.position.y - 0.39f, 0.0f), transform.rotation);
 			tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, 90.0f);
 			_camera.GetComponent<CameraBehavior>().WallHit();
 			if (_isRandomBounce)

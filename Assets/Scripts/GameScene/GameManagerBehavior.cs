@@ -155,8 +155,10 @@ public class GameManagerBehavior : MonoBehaviour
 		var mapNb = PlayerPrefs.GetInt ("SelectedMap");
 		var tmpWallInstance = Resources.Load<GameObject> ("Prefabs/TrainingWall"+mapNb.ToString("D2"));
 		var tmpWall = Instantiate (tmpWallInstance, tmpWallInstance.transform.position, tmpWallInstance.transform.rotation);
-		if (IsHowToPlay)
+		if (IsHowToPlay) {
 			tmpWall.GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+			tmpWall.transform.position = new Vector3 (0.0f, 2.7f, 0.0f);
+		}
 	}
 
 	private void DestroyP2Objects()
