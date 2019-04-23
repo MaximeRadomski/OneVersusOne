@@ -75,6 +75,9 @@ public class PlayerBehavior : MonoBehaviour
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 			_isAgainstWall = true;
 		ConsecutiveHit = 0;
+		//var mimicShadowInstance = Resources.Load<GameObject> ("Prefabs/MimicShadow");
+		//var mimicShadow = Instantiate (mimicShadowInstance, transform.position, transform.rotation);
+		//mimicShadow.GetComponent<MimicShadow> ().LinkedGameObject = this.gameObject;
 	}
 
     private void SetPlayerTwoAngleSprites()
@@ -361,7 +364,9 @@ public class PlayerBehavior : MonoBehaviour
 	{
 		if (NextBalls.Count == 0) {
 			HasTheDisc = false;
-			Animator.Play("Idle");	
+			Animator.Play ("Idle");	
+		} else {
+			CheckIfNextBall ();
 		}
 		IsDoingSP = false;
 		IsEngaging = false;

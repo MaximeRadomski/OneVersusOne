@@ -130,7 +130,7 @@ public class BallBehavior : MonoBehaviour
 				IsNextBall = true;
 				_linkedPlayer.GetComponent<PlayerBehavior> ().NextBalls.Add(this.gameObject);
 			}
-			if (++CatchCount % 2 == 0 && CatchCount != 0) // "CatchCount != 0" because it starts at -1
+			if (++CatchCount % 2 == 0 && CatchCount != 0 && Speed < 6.0f) // "CatchCount != 0" because it starts at -1
 				Speed += 0.25f;
             IsThrownBy = CurrentPlayer.None;
 			_liftDirection = Direction.Standby;
@@ -138,6 +138,7 @@ public class BallBehavior : MonoBehaviour
 			_gravityIsSet = false;
 			_isQuickThrow = true;
 			Invoke ("DisableQuickThrow", 0.3f);
+			Invoke ("PlayerGetBallLastCheck", 0.3f);
         }
         else if (col.gameObject.tag == "Goal")
         {
@@ -207,6 +208,14 @@ public class BallBehavior : MonoBehaviour
 			Destroy(gameObject);
 		}
     }
+
+	private void PlayerGetBallLastCheck()
+	{
+		if (CurrentPlayer != CurrentPlayer.None) {
+			if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc == false)
+				_linkedPlayer.GetComponent<PlayerBehavior> ().CatchTheDisc ();
+		}
+	}
 
 	private bool MoreThanOneBall()
 	{
