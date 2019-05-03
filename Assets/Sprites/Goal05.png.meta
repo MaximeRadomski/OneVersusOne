@@ -1,15 +1,21 @@
 fileFormatVersion: 2
-guid: 91ac3a3f136cd9346892c9dc7819159d
-timeCreated: 1556879776
+guid: 6a12030200ce2d747942ac6f79f030e8
+timeCreated: 1556879757
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: MapTemplate01_0
-    21300002: MapTemplate01_1
-    21300004: MapTemplate01_2
-    21300006: MapTemplate01_3
-    21300008: MapTemplate01_4
-    21300010: MapTemplate01_5
+    21300000: Goal05_0
+    21300002: Goal05_1
+    21300004: Goal05_2
+    21300006: Goal05_3
+    21300008: Goal05_4
+    21300010: Goal05_5
+    21300012: Goal05_6
+    21300014: Goal05_7
+    21300016: Goal05_8
+    21300018: Goal05_9
+    21300020: Goal05_10
+    21300022: Goal05_11
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,7 +69,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -73,7 +79,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -83,16 +89,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 256
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
     maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
@@ -106,13 +102,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MapTemplate01_0
+      name: Goal05_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 140
-        width: 96
-        height: 70
+        y: 36
+        width: 42
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,13 +116,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_1
+      name: Goal05_1
       rect:
         serializedVersion: 2
-        x: 96
-        y: 140
-        width: 96
-        height: 70
+        x: 42
+        y: 36
+        width: 42
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,13 +130,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_2
+      name: Goal05_2
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 36
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal05_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 70
-        width: 96
-        height: 70
+        y: 24
+        width: 42
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,13 +158,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_3
+      name: Goal05_4
       rect:
         serializedVersion: 2
-        x: 96
-        y: 70
-        width: 96
-        height: 70
+        x: 42
+        y: 24
+        width: 42
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,13 +172,69 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_4
+      name: Goal05_5
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 24
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal05_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 12
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal05_7
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 12
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal05_8
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 12
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal05_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 70
+        width: 42
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,13 +242,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_5
+      name: Goal05_10
       rect:
         serializedVersion: 2
-        x: 96
+        x: 42
         y: 0
-        width: 96
-        height: 70
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Goal05_11
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 42
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

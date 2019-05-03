@@ -39,6 +39,7 @@ public class BallBehavior : MonoBehaviour
 	private float _quickEffectDelay;
 	private bool _isQuickThrow;
 	private bool _hasHitGoal;
+	private int _currentMap;
 
 	void Start ()
 	{
@@ -60,6 +61,7 @@ public class BallBehavior : MonoBehaviour
 		HasHitPlayer = false;
 		onWallCollisionDelegate = null;
 		onPlayerCollisionDelegate = null;
+		_currentMap = PlayerPrefs.GetInt ("SelectedMap");
 	}
 
     void Update()
@@ -118,6 +120,9 @@ public class BallBehavior : MonoBehaviour
 			{
 				if (onPlayerCollisionDelegate () == false)
 					return;
+			}
+			if (_currentMap == 5) {
+				GameObject.Find ("MiddleWall01").GetComponent<MiddleWallBehavior> ().Reset ();
 			}
 			NbCol = 0;
             _linkedPlayer = col.gameObject;

@@ -1,15 +1,11 @@
 fileFormatVersion: 2
-guid: 91ac3a3f136cd9346892c9dc7819159d
-timeCreated: 1556879776
+guid: 04a6c5b7f7f91004d8b8ec2faabb58a1
+timeCreated: 1556880218
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: MapTemplate01_0
-    21300002: MapTemplate01_1
-    21300004: MapTemplate01_2
-    21300006: MapTemplate01_3
-    21300008: MapTemplate01_4
-    21300010: MapTemplate01_5
+    21300000: Walls05_0
+    21300002: Walls05_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -92,83 +88,17 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
-    maxTextureSize: 128
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MapTemplate01_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 140
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_1
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 140
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 70
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 70
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_4
+      name: Walls05_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 70
+        width: 10
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,13 +106,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_5
+      name: Walls05_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 10
         y: 0
-        width: 96
-        height: 70
+        width: 10
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

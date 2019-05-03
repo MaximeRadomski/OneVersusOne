@@ -41,6 +41,13 @@ public static class MapsData
 			Effect = "BACKFIRE GOALS",
 			WallCollisionX = 1.472f,
 			GoalCollisionY = 1.833f},
+		new Map {
+			Name = "DER AUTOMAT",
+			Country = "GERMANY",
+			City = "BERLIN",
+			Effect = "MIDDLE WALLS",
+			WallCollisionX = 1.472f,
+			GoalCollisionY = 1.833f}
 	};
 
 	public class Map

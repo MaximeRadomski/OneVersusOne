@@ -1,15 +1,17 @@
 fileFormatVersion: 2
-guid: 91ac3a3f136cd9346892c9dc7819159d
-timeCreated: 1556879776
+guid: c45c041b9480e494caba882ae63000cb
+timeCreated: 1556879725
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: MapTemplate01_0
-    21300002: MapTemplate01_1
-    21300004: MapTemplate01_2
-    21300006: MapTemplate01_3
-    21300008: MapTemplate01_4
-    21300010: MapTemplate01_5
+    21300000: Disc05_0
+    21300002: Disc05_1
+    21300004: Disc05_2
+    21300006: Disc05_3
+    21300008: Disc05_4
+    21300010: Disc05_5
+    21300012: Disc05_6
+    21300014: Disc05_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,7 +65,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -73,7 +75,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -83,17 +85,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 256
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -106,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MapTemplate01_0
+      name: Disc05_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 140
-        width: 96
-        height: 70
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,13 +112,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_1
+      name: Disc05_1
       rect:
         serializedVersion: 2
-        x: 96
-        y: 140
-        width: 96
-        height: 70
+        x: 13
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,13 +126,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_2
+      name: Disc05_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 70
-        width: 96
-        height: 70
+        x: 26
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,13 +140,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_3
+      name: Disc05_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 70
-        width: 96
-        height: 70
+        x: 39
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,13 +154,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_4
+      name: Disc05_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 70
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,13 +168,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_5
+      name: Disc05_5
       rect:
         serializedVersion: 2
-        x: 96
+        x: 13
         y: 0
-        width: 96
-        height: 70
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Disc05_6
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 0
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Disc05_7
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 0
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

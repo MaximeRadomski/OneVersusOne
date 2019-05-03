@@ -14,6 +14,7 @@ TagManager:
   - ButtonPopup
   - TrainingWall
   - DiscShadow
+  - MiddleWall
   layers:
   - Default
   - TransparentFX

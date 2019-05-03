@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 91ac3a3f136cd9346892c9dc7819159d
-timeCreated: 1556879776
+guid: 18c861d4a1e086845b4b64bfe1155aba
+timeCreated: 1556879808
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: MapTemplate01_0
-    21300002: MapTemplate01_1
-    21300004: MapTemplate01_2
-    21300006: MapTemplate01_3
-    21300008: MapTemplate01_4
-    21300010: MapTemplate01_5
+    21300000: MovingWalls05_0
+    21300002: MovingWalls05_1
+    21300004: MovingWalls05_2
+    21300006: MovingWalls05_3
+    21300008: MovingWalls05_4
+    21300010: MovingWalls05_5
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,7 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -73,7 +73,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -83,16 +83,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 256
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
     maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
@@ -106,69 +96,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MapTemplate01_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 140
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_1
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 140
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 70
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 70
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_4
+      name: MovingWalls05_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 70
+        width: 14
+        height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,13 +110,69 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_5
+      name: MovingWalls05_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 14
         y: 0
-        width: 96
-        height: 70
+        width: 14
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MovingWalls05_2
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 14
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MovingWalls05_3
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 0
+        width: 14
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MovingWalls05_4
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 0
+        width: 14
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MovingWalls05_5
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 0
+        width: 14
+        height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
