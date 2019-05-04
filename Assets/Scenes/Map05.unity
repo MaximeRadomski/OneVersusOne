@@ -2701,8 +2701,8 @@ Transform:
   m_Father: {fileID: 808505650}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &509659716
-CircleCollider2D:
+--- !u!60 &509659716
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2713,9 +2713,24 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.085, y: 0.5}
-  serializedVersion: 2
-  m_Radius: 0.61
+  m_Offset: {x: 0, y: 0.055}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.1666666, y: 0.33333334}
+    newSize: {x: 1.1666666, y: 0.3611111}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.194, y: -0.138}
+      - {x: 0.361, y: -0.027}
+      - {x: 0.416, y: 0.111}
+      - {x: -0.583, y: 0.111}
+      - {x: -0.499, y: -0.055}
+      - {x: -0.36, y: -0.138}
 --- !u!95 &509659717
 Animator:
   serializedVersion: 3
@@ -6384,8 +6399,8 @@ Transform:
   m_Father: {fileID: 590075864}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1108643819
-CircleCollider2D:
+--- !u!60 &1108643819
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -6396,9 +6411,24 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.085, y: -0.44}
-  serializedVersion: 2
-  m_Radius: 0.61
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.1666666, y: 0.33333334}
+    newSize: {x: 1.1666666, y: 0.3611111}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.194, y: 0.138}
+      - {x: 0.361, y: 0.027}
+      - {x: 0.416, y: -0.111}
+      - {x: -0.583, y: -0.111}
+      - {x: -0.499, y: 0.055}
+      - {x: -0.36, y: 0.138}
 --- !u!95 &1108643820
 Animator:
   serializedVersion: 3
