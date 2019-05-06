@@ -43,6 +43,7 @@ public class PlayerBehavior : MonoBehaviour
     private Vector2 _directionalVector;
     private float _throwAngle;
     private GameObject _gameManager;
+	private GameObject _mimicShadow;
     private Vector3 _dashingStart;
     private Vector3 _dashingEnd;
     private Direction _dashingDirection;
@@ -76,8 +77,8 @@ public class PlayerBehavior : MonoBehaviour
 			_isAgainstWall = true;
 		ConsecutiveHit = 0;
 		var mimicShadowInstance = Resources.Load<GameObject> ("Prefabs/MimicShadow");
-		var mimicShadow = Instantiate (mimicShadowInstance, transform.position, transform.rotation);
-		mimicShadow.GetComponent<MimicShadow> ().LinkedGameObject = this.gameObject;
+		_mimicShadow = Instantiate (mimicShadowInstance, transform.position, transform.rotation);
+		_mimicShadow.GetComponent<MimicShadow> ().LinkedGameObject = this.gameObject;
 	}
 
     private void SetPlayerTwoAngleSprites()
@@ -279,7 +280,8 @@ public class PlayerBehavior : MonoBehaviour
 			var tmpCatchEffect = Instantiate(CatchEffect, transform.position, CatchEffect.transform.rotation);
 			if (Player == CurrentPlayer.PlayerTwo)
 				tmpCatchEffect.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
-			SPCooldown = SPCooldown - 1 <= 0 ? 0 : SPCooldown - 1;
+			if (Ball.GetComponent<BallBehavior>().LastThrownBy != Player)
+				SPCooldown = SPCooldown - 1 <= 0 ? 0 : SPCooldown - 1;
 		}
 		HasTheDisc = true;
 		_throwAngle = 0.0f;
@@ -310,6 +312,7 @@ public class PlayerBehavior : MonoBehaviour
 		{
 			return;
 		}
+		_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
 		SPCooldown = SPMaxCooldown;
 		Invoke("SuperAfterDelay", 0.15f);
 		Animator.enabled = true;
@@ -324,6 +327,7 @@ public class PlayerBehavior : MonoBehaviour
 	        Dash();
 	        return;
 	    }
+		_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
 	    Invoke("ThrowBallAfterDelay", 0.15f);
 		Animator.enabled = true;
         Animator.Play("Throw");
@@ -338,6 +342,7 @@ public class PlayerBehavior : MonoBehaviour
 				CastSP();
 			return;
 		}
+		_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
 		Invoke("LiftBallAfterDelay", 0.15f);
 		Animator.enabled = true;
 		Animator.Play("Throw");

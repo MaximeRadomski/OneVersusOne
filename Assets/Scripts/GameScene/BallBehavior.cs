@@ -11,6 +11,7 @@ public class BallBehavior : MonoBehaviour
 	public int NbCol;
 	public CurrentPlayer CurrentPlayer;
 	public CurrentPlayer IsThrownBy;
+	public CurrentPlayer LastThrownBy;
 	public Animator Animator;
 	public bool IsNextBall;
 	public bool HasHitPlayer;
@@ -49,6 +50,7 @@ public class BallBehavior : MonoBehaviour
         _camera = GameObject.Find("Camera");
 		CatchCount = -1; //-1 because the first collision counts when serving
 	    IsThrownBy = CurrentPlayer.None;
+		LastThrownBy = IsThrownBy;
 		_liftDirection = Direction.Standby;
 		_gravity = 10.0f;
 		_gravityIsSet = false;
@@ -107,7 +109,7 @@ public class BallBehavior : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-		if (col.gameObject.tag != "Player" && col.gameObject.tag != "Wall" && gameObject.tag == "DiscShadow")
+		if (col.gameObject.tag != "Player" && col.gameObject.tag != "Wall" && col.gameObject.tag != "MiddleWall" && gameObject.tag == "DiscShadow")
 			Destroy (gameObject);
 
 		if (col.gameObject.tag == "Player" && gameObject.tag != "DiscShadow")
@@ -125,6 +127,7 @@ public class BallBehavior : MonoBehaviour
 				GameObject.Find ("MiddleWall01").GetComponent<MiddleWallBehavior> ().Reset ();
 			}
 			NbCol = 0;
+			LastThrownBy = IsThrownBy;
             _linkedPlayer = col.gameObject;
 			CurrentPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player;
 			if (_linkedPlayer.GetComponent<PlayerBehavior>().HasTheDisc == false) {

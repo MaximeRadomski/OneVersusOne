@@ -6,9 +6,12 @@ public class MiddleWallBehavior : MonoBehaviour
 {
 	public Sprite SpriteOn, SpriteOff;
 
+	private int _order;
+
 	void Start()
 	{
 		Disable ();
+		_order = 1;
 	}
 
 	public void Enable()
@@ -28,10 +31,13 @@ public class MiddleWallBehavior : MonoBehaviour
 		Disable ();
 		GameObject.Find ("MiddleWall02").GetComponent<MiddleWallBehavior> ().Disable ();
 		GameObject.Find ("MiddleWall03").GetComponent<MiddleWallBehavior> ().Disable ();
-		var newWallId = Random.Range (1, 4);
-		if (newWallId == 1)
+		//var newWallId = Random.Range (1, 4);
+		_order++;
+		if (_order > 3)
+			_order = 1;
+		if (_order == 1)
 			Enable ();
 		else
-			GameObject.Find ("MiddleWall" + newWallId.ToString("D2")).GetComponent<MiddleWallBehavior> ().Enable ();
+			GameObject.Find ("MiddleWall" + _order.ToString("D2")).GetComponent<MiddleWallBehavior> ().Enable ();
 	}
 }

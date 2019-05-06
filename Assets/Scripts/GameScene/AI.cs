@@ -208,7 +208,7 @@ public class AI : MonoBehaviour
 					_linkedPlayer.GetComponent<PlayerBehavior> ().Move (Direction.Right);
 			}
 		}
-        Invoke("ResetThrowPossibility", 1.0f);
+        Invoke("ResetThrowPossibility", 0.5f);
     }
 
     private void ResetThrowPossibility()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MimicShadow : MonoBehaviour
 {
 	public GameObject LinkedGameObject;
+	public bool IsDoingAction;
 
 	private SpriteRenderer _linkedSpriteRenderer;
 	private SpriteRenderer _currentSpriteRenderer;
@@ -28,8 +29,10 @@ public class MimicShadow : MonoBehaviour
 		_oldDirection = _currentDirection;
 		_currentDirection = LinkedGameObject.GetComponent<PlayerBehavior>().Direction;
 		transform.rotation = LinkedGameObject.transform.rotation;
-		if (_oldDirection != _currentDirection)
+		if (_oldDirection != _currentDirection || IsDoingAction) {
 			_currentSpriteRenderer.color = _transparent;
+			IsDoingAction = false;
+		}
 		else
 			_currentSpriteRenderer.color = _fullColor;
 		_currentSpriteRenderer.sprite = _linkedSpriteRenderer.sprite;
