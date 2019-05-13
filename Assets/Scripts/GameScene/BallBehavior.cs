@@ -182,6 +182,33 @@ public class BallBehavior : MonoBehaviour
 			if (_isRandomBounce)
 				GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, -2.0f)) * Speed;
 		}
+		else if (col.gameObject.tag == "MiddleWall")
+		{
+			Vector2 point;
+			if (col.contacts.Length > 0)
+				point = col.contacts [0].point;
+			else
+				point = this.transform.position;
+			float effectRotation = 0.0f;
+			float offset = 0.35f;
+			float effectX = -offset;
+			float effectY = 0.0f;
+			if (point.x < this.transform.position.x - 0.1f) {
+				effectRotation = 180.0f;
+				effectX = offset;
+				effectY = 0.0f;
+			} else if (point.y < this.transform.position.y - 0.1f) {
+				effectRotation = 270.0f;
+				effectX = 0.0f;
+				effectY = offset;
+			} else if (point.y > this.transform.position.y + 0.1f) {
+				effectRotation = 90.0f;
+				effectX = 0.0f;
+				effectY = -offset;
+			}
+			var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(point.x + effectX, point.y + effectY, 0.0f), transform.rotation);
+			tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, effectRotation);
+		}
 		else if (col.gameObject.tag == "Wall")
 		{
 			if (onWallCollisionDelegate != null)

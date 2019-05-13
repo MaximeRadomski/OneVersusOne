@@ -18,7 +18,7 @@ public class MenuBackgroundBehavior : MonoBehaviour
 		if (menuBackgroundList.Length > 1)
 			Destroy(gameObject);
 		Renderer.sortingLayerName = "Background";
-		if (PlayerPrefs.GetInt ("Music") == 0)
+		if (PlayerPrefs.GetInt ("Music", 1) == 0)
 			this.gameObject.GetComponent<AudioSource> ().volume = 0.0f;
 	}
 
