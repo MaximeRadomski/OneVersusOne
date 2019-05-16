@@ -224,6 +224,24 @@ public class PlayerBehavior : MonoBehaviour
 			CurrentSprite.sprite = AngleSprites [4];
 	}
 
+	public void Eject(Vector2 ballPosition)
+	{
+		_canDash = true;
+		IsCastingSP = false;
+		if (Vector2.Distance (ballPosition, transform.position) > 2.0f)
+			return;
+		if (ballPosition.x < transform.position.x)
+			Direction = Direction.Right;
+		else
+			Direction = Direction.Left;
+		Dash ();
+		if (Direction == Direction.Right)
+			Direction = Direction.Left;
+		else
+			Direction = Direction.Right;
+		SetOrientation ();
+	}
+
     public void Dash()
     {
 		if (!_canDash || Direction == Direction.Standby || IsCastingSP)

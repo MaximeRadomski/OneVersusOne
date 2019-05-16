@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HowToPlayMenuManager : MonoBehaviour
 {
@@ -30,8 +31,10 @@ public class HowToPlayMenuManager : MonoBehaviour
 
 	private void NextTutorialIteration()
 	{
-		if (_tutorialIteration + 1 >= TutorialData.Tutorials.Count)
+		if (_tutorialIteration + 1 >= TutorialData.Tutorials.Count) {
+			SceneManager.LoadScene("TitleScene");
 			return;
+		}
 		++_tutorialIteration;
 		ChangeTutorialIteration ();
 	}
@@ -52,9 +55,9 @@ public class HowToPlayMenuManager : MonoBehaviour
 			_tutorialPrevious.GetComponent<UnityEngine.UI.Text> ().color = _fullColor;
 
 		if (_tutorialIteration == TutorialData.Tutorials.Count - 1)
-			_tutorialNext.GetComponent<UnityEngine.UI.Text> ().color = _transparentColor;
+			_tutorialNext.GetComponent<UnityEngine.UI.Text> ().text = "X";
 		else
-			_tutorialNext.GetComponent<UnityEngine.UI.Text> ().color = _fullColor;
+			_tutorialNext.GetComponent<UnityEngine.UI.Text> ().text = ">";
 
 		_tutorialTitle.text = TutorialData.Tutorials [_tutorialIteration].Title;
 		_tutorialContent.text = TutorialData.Tutorials [_tutorialIteration].Content;

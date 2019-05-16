@@ -170,6 +170,9 @@ public class BallBehavior : MonoBehaviour
 			{*/
 				col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
 			//}
+			var looserGameObject = GameObject.Find (col.gameObject.GetComponent<GoalBehavior>().Player.ToString ());
+			looserGameObject.GetComponent<PlayerBehavior> ().Eject(transform.position);
+			CollideElement (looserGameObject.transform.position);
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
             Destroy(gameObject);
         }
@@ -189,25 +192,7 @@ public class BallBehavior : MonoBehaviour
 				point = col.contacts [0].point;
 			else
 				point = this.transform.position;
-			float effectRotation = 0.0f;
-			float offset = 0.35f;
-			float effectX = -offset;
-			float effectY = 0.0f;
-			if (point.x < this.transform.position.x - 0.1f) {
-				effectRotation = 180.0f;
-				effectX = offset;
-				effectY = 0.0f;
-			} else if (point.y < this.transform.position.y - 0.1f) {
-				effectRotation = 270.0f;
-				effectX = 0.0f;
-				effectY = offset;
-			} else if (point.y > this.transform.position.y + 0.1f) {
-				effectRotation = 90.0f;
-				effectX = 0.0f;
-				effectY = -offset;
-			}
-			var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(point.x + effectX, point.y + effectY, 0.0f), transform.rotation);
-			tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, effectRotation);
+			CollideElement (point);
 		}
 		else if (col.gameObject.tag == "Wall")
 		{
@@ -243,6 +228,29 @@ public class BallBehavior : MonoBehaviour
 			Destroy(gameObject);
 		}
     }
+
+	private void CollideElement(Vector2 point)
+	{
+		float effectRotation = 0.0f;
+		float offset = 0.35f;
+		float effectX = -offset;
+		float effectY = 0.0f;
+		if (point.x < this.transform.position.x - 0.1f) {
+			effectRotation = 180.0f;
+			effectX = offset;
+			effectY = 0.0f;
+		} else if (point.y < this.transform.position.y - 0.1f) {
+			effectRotation = 270.0f;
+			effectX = 0.0f;
+			effectY = offset;
+		} else if (point.y > this.transform.position.y + 0.1f) {
+			effectRotation = 90.0f;
+			effectX = 0.0f;
+			effectY = -offset;
+		}
+		var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(point.x + effectX, point.y + effectY, 0.0f), transform.rotation);
+		tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, effectRotation);
+	}
 
 	private void PlayerGetBallLastCheck()
 	{
