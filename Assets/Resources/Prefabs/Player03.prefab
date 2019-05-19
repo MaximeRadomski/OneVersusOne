@@ -162,6 +162,7 @@ MonoBehaviour:
   SPMaxCooldown: 4
   SPCooldown: 4
   ConsecutiveHit: 0
+  CharacterNumber: 3
   Ball: {fileID: 0}
   NextBalls: []
   Animator: {fileID: 95003398407556574}

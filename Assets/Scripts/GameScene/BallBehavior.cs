@@ -182,6 +182,7 @@ public class BallBehavior : MonoBehaviour
 			var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, col.transform.position.y - 0.39f, 0.0f), transform.rotation);
 			tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, 90.0f);
 			_camera.GetComponent<CameraBehavior>().WallHit();
+			IsThrownBy = CurrentPlayer.PlayerTwo;
 			if (_isRandomBounce)
 				GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, -2.0f)) * Speed;
 		}

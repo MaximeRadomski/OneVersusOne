@@ -23,6 +23,7 @@ public class PlayerBehavior : MonoBehaviour
 	public int SPMaxCooldown;
 	public int SPCooldown;
 	public int ConsecutiveHit;
+	public int CharacterNumber;
 
 	public GameObject Ball;
 	public List<GameObject> NextBalls;
@@ -51,6 +52,7 @@ public class PlayerBehavior : MonoBehaviour
 	private float _castSPCooldown;
     private bool _canDash;
 	private bool _isAgainstWall;
+	private bool _isAgainstAI;
 
     void Start ()
 	{
@@ -75,6 +77,8 @@ public class PlayerBehavior : MonoBehaviour
 		SPCooldown = SPMaxCooldown;
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 			_isAgainstWall = true;
+		else if (PlayerPrefs.GetInt ("Opponent") == Opponent.AI.GetHashCode ())
+			_isAgainstAI = true;
 		ConsecutiveHit = 0;
 		var mimicShadowInstance = Resources.Load<GameObject> ("Prefabs/MimicShadow");
 		_mimicShadow = Instantiate (mimicShadowInstance, transform.position, transform.rotation);
@@ -292,6 +296,8 @@ public class PlayerBehavior : MonoBehaviour
 	public void CatchTheDisc()
 	{
 		//Ball = GetBall ();
+		if (Mathf.Abs (transform.position.x) > 2)
+			transform.position = new Vector3 (0.0f, transform.position.y, 0.0f);
 		if (Ball == null)
 			return;
 		if (Ball.GetComponent<BallBehavior>().CatchCount >= 0) {
@@ -330,12 +336,27 @@ public class PlayerBehavior : MonoBehaviour
 		{
 			return;
 		}
+		Punchline();
 		_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
 		SPCooldown = SPMaxCooldown;
 		Invoke("SuperAfterDelay", 0.15f);
 		Animator.enabled = true;
 		Animator.Play("Throw");
 		Invoke ("CheckIfNextBall", 0.4f);
+	}
+
+	private void Punchline()
+	{
+		var punchlineModel = Resources.Load<GameObject> ("Prefabs/Punchline");
+		var punchlineInstance = Instantiate (punchlineModel, gameObject.transform.position, gameObject.transform.rotation);
+		punchlineInstance.transform.SetParent (GameObject.Find("Canvas").transform);
+		punchlineInstance.transform.position = gameObject.transform.position;
+		if (_isAgainstAI && Player == CurrentPlayer.PlayerTwo) {
+			punchlineInstance.transform.GetChild(0).transform.Rotate(0.0f, 0.0f, 180.0f);
+			//punchlineInstance.transform.Rotate(0.0f, 0.0f, 180.0f);
+		}
+		var punchlinesCount = PunchlinesData.Punchlines [CharacterNumber-1].Count;
+		punchlineInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = PunchlinesData.Punchlines[CharacterNumber-1][Random.Range(0, punchlinesCount)];
 	}
 
 	public void Throw()

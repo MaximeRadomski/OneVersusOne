@@ -136,6 +136,7 @@ MonoBehaviour:
   SPMaxCooldown: 6
   SPCooldown: 6
   ConsecutiveHit: 0
+  CharacterNumber: 6
   Ball: {fileID: 0}
   NextBalls: []
   Animator: {fileID: 95074457835201762}

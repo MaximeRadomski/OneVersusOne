@@ -21,7 +21,7 @@ public class CameraBehavior : MonoBehaviour
 
     public void WallHit()
     {
-        Camera.orthographicSize -= 0.025f;
+        Camera.orthographicSize -= 0.040f;
 		++_nbReset;
         Invoke("ResetCamera", 0.1f);
     }
@@ -38,7 +38,7 @@ public class CameraBehavior : MonoBehaviour
 	public void GoalHit(float goalYAxe)
     {
 		_nbReset = 5;
-		Camera.orthographicSize -= 0.025f;
+		Camera.orthographicSize -= 0.040f;
 		ShakyCam ();
     }
 

@@ -22,6 +22,7 @@ public class DuelMenuBehavior : MonoBehaviour
 
 	private bool _isDisplayingPopupScore;
 	private bool _isDisplayingPopupSets;
+	private bool _isTraining;
 	private int _nbScore;
 	private int _nbSets;
 
@@ -38,10 +39,10 @@ public class DuelMenuBehavior : MonoBehaviour
 	void Start ()
 	{
 		_opponentTitle = GameObject.Find ("Opponent");
-		_scoreTitle = GameObject.Find ("Score");
-		_setsTitle = GameObject.Find ("Sets");
 		_opponentButtons = GameObject.Find ("OpponentButtons");
+		_scoreTitle = GameObject.Find ("Score");
 		_scoreButtons = GameObject.Find ("ScoreButtons");
+		_setsTitle = GameObject.Find ("Sets");
 		_setsButtons = GameObject.Find ("SetsButtons");
 		_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 		_confirmButton = GameObject.Find ("ConfirmButton");
@@ -69,6 +70,7 @@ public class DuelMenuBehavior : MonoBehaviour
 		_tmpPopup = null;
 		_isDisplayingPopupScore = false;
 		_isDisplayingPopupSets = false;
+		_isTraining = false;
 		_nbScore = 12;
 		_nbSets = 2;
 
@@ -103,6 +105,8 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("WallBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("NormalBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+		if (_isTraining)
+			ActivateScoreSets (true);
 	}
 
 	private void SetOpponentAI ()
@@ -125,6 +129,8 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("WallBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("NormalBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+		if (_isTraining)
+			ActivateScoreSets (true);
 	}
 
 	private void SetAIEasy ()
@@ -139,6 +145,8 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("WallBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("NormalBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+		if (_isTraining)
+			ActivateScoreSets (true);
 	}
 
 	private void SetAINormal ()
@@ -153,6 +161,8 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("WallBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("NormalBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+		if (_isTraining)
+			ActivateScoreSets (true);
 	}
 
 	private void SetAIHard ()
@@ -167,6 +177,8 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("WallBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("NormalBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+		if (_isTraining)
+			ActivateScoreSets (true);
 	}
 
 	private void SetOpponentWall ()
@@ -186,6 +198,8 @@ public class DuelMenuBehavior : MonoBehaviour
 			GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn();
 		else
 			GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+		if (!_isTraining)
+			ActivateScoreSets (false);
 	}
 
 	private void SetWallNormalBounce ()
@@ -200,7 +214,8 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("WallBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn();
 		GameObject.Find ("NormalBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn();
 		GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
-
+		if (!_isTraining)
+			ActivateScoreSets (false);
 	}
 
 	private void SetWallRandomBounce ()
@@ -215,6 +230,8 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("WallBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn();
 		GameObject.Find ("NormalBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		GameObject.Find ("RandomBouncesBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn();
+		if (!_isTraining)
+			ActivateScoreSets (false);
 	}
 
 	private void DecrementScore ()
@@ -308,6 +325,15 @@ public class DuelMenuBehavior : MonoBehaviour
 			} else
 				SceneManager.LoadScene("TitleScene");
 		}
+	}
+
+	private void ActivateScoreSets(bool action)
+	{
+		_isTraining = !action;
+		_scoreTitle.SetActive (action);
+		_scoreButtons.SetActive (action);
+		_setsTitle.SetActive (action);
+		_setsButtons.SetActive (action);
 	}
 
 	private void Confirm()

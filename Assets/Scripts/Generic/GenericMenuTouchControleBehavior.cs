@@ -33,8 +33,8 @@ public class GenericMenuTouchControleBehavior : MonoBehaviour
 						if (Input.GetTouch(i).phase == TouchPhase.Began)
 						{
 							touchedObject.GetComponent<GenericMenuButtonBehavior>().PressSprite();
-							/*if (_currentButton != null)
-								_currentButton.GetComponent<GenericMenuButtonBehavior>().SwitchSprite();*/
+							if (_currentButton != null)
+								_currentButton.GetComponent<GenericMenuButtonBehavior>().SetSpriteOff();
 							_currentButton = touchedObject;
 						}
 					}

@@ -17,6 +17,8 @@ public class TitleManagerBehavior : MonoBehaviour
 	void Start ()
 	{
 		PlayerPrefs.SetInt ("IsPausedInOptions", 0);
+		PlayerPrefs.SetInt ("P1Character", 1);
+		PlayerPrefs.SetInt ("P2Character", 1);
 		_duelButton = GameObject.Find ("DuelButton");
 		_challengesButton = GameObject.Find ("ChallengesButton");
 		_howToPlayButton = GameObject.Find ("HowToPlayButton");

@@ -19,6 +19,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	private bool _p1Confirm;
 	private bool _p2Confirm;
+	private int[] _lastCharacter = {-1,-1};
 
 	void Start ()
 	{
@@ -62,8 +63,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 		StartCoroutine(InitiateLeft(_p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters));
 		StartCoroutine(InitiateRight(_p1CharacterImage, _p1BannerCharacterName, _p1Skill, _p1ConfirmButton));
 		_p1Confirm = false;
-		PlayerPrefs.SetInt ("P1Character", 0);
-		ChangeSelectedCharacter(1, 1);
+		ChangeSelectedCharacter(1, PlayerPrefs.GetInt ("P1Character", 1));
 
 		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Wall.GetHashCode ())
 		{
@@ -83,8 +83,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 			StartCoroutine(InitiateLeft(_p2BannerPlayerName, _p2LightCharacters, _p2MediumCharacters, _p2HeavyCharacters));
 			StartCoroutine(InitiateRight(_p2CharacterImage, _p2BannerCharacterName, _p2Skill, _p2ConfirmButton));
 			_p2Confirm = false;
-			PlayerPrefs.SetInt ("P2Character", 0);
-			ChangeSelectedCharacter(2, 1);
+			ChangeSelectedCharacter(2, PlayerPrefs.GetInt ("P2Character", 1));
 		}
 	}
 
@@ -127,11 +126,11 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	public void ChangeSelectedCharacter(int player, int character)
 	{
-		int lastCharacter = PlayerPrefs.GetInt ("P" + player.ToString () + "Character");
-		if (lastCharacter == character)
+		//_lastCharacter[player-1] = PlayerPrefs.GetInt ("P" + player.ToString () + "Character");
+		if (_lastCharacter[player-1] == character)
 			character = 0;
 		PlayerPrefs.SetInt ("P" + player.ToString() + "Character", character);
-		if (lastCharacter != character)
+		if (_lastCharacter [player - 1] != character)
 		{
 			if (player == 1)
 			{
@@ -147,9 +146,9 @@ public class CharSelManagerBehavior : MonoBehaviour
 			}
 			var tmpConfirm = GameObject.Find ("P" + player + "-Confirm");
 			tmpConfirm.GetComponent<CharSelButtonBehavior> ().SpriteRenderer.sprite = tmpConfirm.GetComponent<CharSelButtonBehavior> ().SpriteOff;
-			if (lastCharacter != 0)
+			if (_lastCharacter [player - 1] > 0)
 			{
-				var tmpLastButton = GameObject.Find ("P" + player + "-" + lastCharacter);
+				var tmpLastButton = GameObject.Find ("P" + player + "-" + _lastCharacter [player - 1]);
 				tmpLastButton.GetComponent<CharSelButtonBehavior> ().SpriteRenderer.sprite = tmpLastButton.GetComponent<CharSelButtonBehavior> ().SpriteOff;
 			}
 			if (character != 0)
@@ -157,6 +156,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 				var tmpButton = GameObject.Find ("P" + player + "-" + character);
 				tmpButton.GetComponent<CharSelButtonBehavior> ().SpriteRenderer.sprite = tmpButton.GetComponent<CharSelButtonBehavior> ().SpriteOn;
 			}
+			_lastCharacter [player - 1] = character;
 		}
 	}
 

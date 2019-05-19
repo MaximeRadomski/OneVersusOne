@@ -60,7 +60,7 @@ public class GameManagerBehavior : MonoBehaviour
 		AndroidNativeAudio.makePool();
 		if (!IsHowToPlay)
 			Destroy(GameObject.FindGameObjectWithTag ("MenuBackground"));
-		if (PlayerPrefs.GetInt ("Music") == 0 && StageMusic != null)
+		if (PlayerPrefs.GetInt ("Music", 1) == 0 && StageMusic != null)
 			StageMusic.volume = 0.0f;
 		if (StageMusic != null)
 			StageMusic.Play ();
@@ -214,7 +214,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void EndGame()
 	{
-		SceneManager.LoadScene("TitleScene");
+		SceneManager.LoadScene("CharSelScene");
 	}
 
 	private void CheckIfGame()
@@ -439,8 +439,8 @@ public class GameManagerBehavior : MonoBehaviour
 		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupPause, new Vector3(0.0f, 0.0f, 0.0f), PopupPause.transform.rotation);
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
-		//GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
-		GameObject.Find ("Button03Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PrepareLoadScene;
+		GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoBackVersusMenu;
+		GameObject.Find ("Button03Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoBackTitleScreen;
 		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
 		var tmpCurrentScore = "SCORE: " + ScorePlayerOne.ToString ("D2") + "/" + ScorePlayerTwo.ToString ("D2");
 		GameObject.Find ("Score01Text").GetComponent<UnityEngine.UI.Text>().text = tmpCurrentScore;
@@ -460,7 +460,14 @@ public class GameManagerBehavior : MonoBehaviour
 		CustomAudio.PlayEffect (MenuBipGoToAudioFileID);
 	}
 
-	private void PrepareLoadScene()
+	private void GoBackVersusMenu()
+	{
+		Time.timeScale = 1.0f;
+		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
+		SceneManager.LoadScene("CharSelScene");
+	}
+
+	private void GoBackTitleScreen()
 	{
 		Time.timeScale = 1.0f;
 		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
