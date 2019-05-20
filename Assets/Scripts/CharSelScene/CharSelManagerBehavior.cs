@@ -20,12 +20,14 @@ public class CharSelManagerBehavior : MonoBehaviour
 	private bool _p1Confirm;
 	private bool _p2Confirm;
 	private int[] _lastCharacter = {-1,-1};
+	private bool _isAgainstAI;
 
 	void Start ()
 	{
 		//Change "PLAYERTWO" Orientation if Opponent is an AI
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.AI.GetHashCode ())
 		{
+			_isAgainstAI = true;
 			var tmpPlayerTwo = GameObject.Find ("PLAYER TWO");
 			tmpPlayerTwo.transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f));
 			tmpPlayerTwo.transform.position = new Vector3 (0.0f, 3.618f, 0.0f);
@@ -162,10 +164,15 @@ public class CharSelManagerBehavior : MonoBehaviour
 
 	public void Confirm(int player)
 	{
-		if (player == 1)
+		if (player == 1) {
 			_p1Confirm = !_p1Confirm;
-		else
+			if (_p1Confirm)
+				Intro (1);
+		} else {
 			_p2Confirm = !_p2Confirm;
+			if (_p2Confirm)
+				Intro (2);
+		}
 
 		if (_p1Confirm && _p2Confirm ||
 			(PlayerPrefs.GetInt ("Opponent") != Opponent.Player.GetHashCode () && _p1Confirm))
@@ -177,6 +184,20 @@ public class CharSelManagerBehavior : MonoBehaviour
 			}
 			Invoke ("LoadGameScene", 0.5f);
 		}
+	}
+
+	private void Intro(int player)
+	{
+		var introModel = Resources.Load<GameObject> ("Prefabs/Punchline");
+		var parentObject = GameObject.Find ("P" + player + "CharacterName");
+		var introInstance = Instantiate (introModel, parentObject.transform.position, parentObject.transform.rotation);
+		introInstance.transform.SetParent (GameObject.Find("Canvas").transform);
+		introInstance.transform.position = parentObject.transform.position + new Vector3(1.0f * player == 1 ? -1.0f : 1.0f, 0.0f, 0.0f);
+		if (_isAgainstAI && player == 2)
+			introInstance.transform.GetChild(0).transform.Rotate(0.0f, 0.0f, 180.0f);
+		var currentPlayer = PlayerPrefs.GetInt ("P" + player.ToString() + "Character");
+		var introsCount = PunchlinesData.Intros [currentPlayer-1].Count;
+		introInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = PunchlinesData.Intros[currentPlayer-1][Random.Range(0, introsCount)];
 	}
 
 	private void LoadGameScene()

@@ -41,7 +41,7 @@ public class GameLoadingManager : MonoBehaviour
 		_p1CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[p1Character];
 
 		int p2Character = PlayerPrefs.GetInt ("P2Character");
-		p2Character = CheckCharacter (2, p2Character);
+		p2Character = CheckCharacter (2, p2Character, p1Character);
 		_p2CharacterSprite.GetComponent<SpriteRenderer> ().sprite = CharactersSprites[p2Character];
 
 		_p1LoadingContainer.GetComponent<Animator> ().Play ("MapSelButtons");
@@ -66,11 +66,14 @@ public class GameLoadingManager : MonoBehaviour
 		Invoke ("LoadGameScene", 2.0f);
 	}
 
-	private int CheckCharacter (int player, int characterNumber)
+	private int CheckCharacter (int player, int characterNumber, int p1Character = -1)
 	{
 		if (characterNumber == 0)
 		{
 			int tmpCharacterNumber = Random.Range (1, 7);
+
+			if (p1Character != -1 && tmpCharacterNumber == p1Character)
+				tmpCharacterNumber = tmpCharacterNumber + 1 > 6 ? 1 : tmpCharacterNumber + 1;
 			PlayerPrefs.SetInt ("P" + player.ToString() + "Character", tmpCharacterNumber);
 			return tmpCharacterNumber;
 		}

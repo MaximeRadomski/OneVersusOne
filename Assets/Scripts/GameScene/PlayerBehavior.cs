@@ -351,10 +351,8 @@ public class PlayerBehavior : MonoBehaviour
 		var punchlineInstance = Instantiate (punchlineModel, gameObject.transform.position, gameObject.transform.rotation);
 		punchlineInstance.transform.SetParent (GameObject.Find("Canvas").transform);
 		punchlineInstance.transform.position = gameObject.transform.position;
-		if (_isAgainstAI && Player == CurrentPlayer.PlayerTwo) {
+		if (_isAgainstAI && Player == CurrentPlayer.PlayerTwo)
 			punchlineInstance.transform.GetChild(0).transform.Rotate(0.0f, 0.0f, 180.0f);
-			//punchlineInstance.transform.Rotate(0.0f, 0.0f, 180.0f);
-		}
 		var punchlinesCount = PunchlinesData.Punchlines [CharacterNumber-1].Count;
 		punchlineInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = PunchlinesData.Punchlines[CharacterNumber-1][Random.Range(0, punchlinesCount)];
 	}
