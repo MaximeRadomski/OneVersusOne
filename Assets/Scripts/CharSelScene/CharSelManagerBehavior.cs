@@ -192,12 +192,15 @@ public class CharSelManagerBehavior : MonoBehaviour
 		var parentObject = GameObject.Find ("P" + player + "CharacterName");
 		var introInstance = Instantiate (introModel, parentObject.transform.position, parentObject.transform.rotation);
 		introInstance.transform.SetParent (GameObject.Find("Canvas").transform);
-		introInstance.transform.position = parentObject.transform.position + new Vector3(1.0f * player == 1 ? -1.0f : 1.0f, 0.0f, 0.0f);
+		introInstance.transform.position = parentObject.transform.position + new Vector3(
+			Random.Range(player == 1 ? -0.5f : 0.5f, player == 1 ? -1.0f : 1.0f),
+			Random.Range(0.0f, player == 1 ? 1.0f : -1.0f),
+			0.0f);
 		if (_isAgainstAI && player == 2)
 			introInstance.transform.GetChild(0).transform.Rotate(0.0f, 0.0f, 180.0f);
-		var currentPlayer = PlayerPrefs.GetInt ("P" + player.ToString() + "Character");
-		var introsCount = PunchlinesData.Intros [currentPlayer-1].Count;
-		introInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = PunchlinesData.Intros[currentPlayer-1][Random.Range(0, introsCount)];
+		var currentCharacter = PlayerPrefs.GetInt ("P" + player.ToString() + "Character");
+		var introsCount = PunchlinesData.Intros [currentCharacter].Count;
+		introInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = PunchlinesData.Intros[currentCharacter][Random.Range(0, introsCount)];
 	}
 
 	private void LoadGameScene()
