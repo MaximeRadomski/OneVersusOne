@@ -60,7 +60,6 @@ public class GameLoadingManager : MonoBehaviour
 		{
 			_p2BannerPlayerName.transform.GetChild (1).transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f));
 			_p2BannerPlayerName.transform.GetChild (1).GetComponent<UnityEngine.UI.Text>().alignment = TextAnchor.MiddleRight;
-			_p2BannerPlayerName.transform.GetChild (1).transform.position += new Vector3 (0.0f, 0.02f, 0.0f);
 		}
 
 		Invoke ("LoadGameScene", 2.0f);
