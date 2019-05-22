@@ -25,7 +25,8 @@ public class MimicShadow : MonoBehaviour
 
 	void Update ()
 	{
-		transform.position = LinkedGameObject.transform.position + new Vector3 (0.028f, -0.028f, 0.0f);
+		_currentSpriteRenderer.sprite = _linkedSpriteRenderer.sprite;
+		transform.position = LinkedGameObject.transform.position + new Vector3 (0.056f, -0.056f, 0.0f);
 		_oldDirection = _currentDirection;
 		_currentDirection = LinkedGameObject.GetComponent<PlayerBehavior>().Direction;
 		transform.rotation = LinkedGameObject.transform.rotation;
@@ -35,6 +36,5 @@ public class MimicShadow : MonoBehaviour
 		}
 		else
 			_currentSpriteRenderer.color = _fullColor;
-		_currentSpriteRenderer.sprite = _linkedSpriteRenderer.sprite;
 	}
 }

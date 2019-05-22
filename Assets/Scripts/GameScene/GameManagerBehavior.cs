@@ -285,6 +285,10 @@ public class GameManagerBehavior : MonoBehaviour
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			reset = true;
 		}
+		if (SetPlayerOne > 99)
+			SetPlayerOne = 99;
+		if (SetPlayerTwo > 99)
+			SetPlayerTwo = 99;
 
 		if (reset) {
 			ScorePlayerOne = 0;
@@ -314,6 +318,8 @@ public class GameManagerBehavior : MonoBehaviour
 		if (looser == CurrentPlayer.PlayerOne)
 		{
 			ScorePlayerTwo += points;
+			if (ScorePlayerTwo > 99)
+				ScorePlayerTwo = 99;
 			if (!moreThanOneBall) {
 				_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose();
 				_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win();
@@ -322,6 +328,8 @@ public class GameManagerBehavior : MonoBehaviour
 		else
 		{
 			ScorePlayerOne += points;
+			if (ScorePlayerOne > 99)
+				ScorePlayerOne = 99;
 			if (!moreThanOneBall) {
 				_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose ();
 				_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win ();

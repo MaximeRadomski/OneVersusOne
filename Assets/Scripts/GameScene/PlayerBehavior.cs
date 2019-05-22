@@ -216,6 +216,8 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void SetSpriteFromAngle ()
 	{
+		if (Animator.enabled == true)
+			return;
 		if (_throwAngle <= -1.0f)
 			CurrentSprite.sprite = AngleSprites [0];
 		else if (_throwAngle == -0.5f)
@@ -337,7 +339,7 @@ public class PlayerBehavior : MonoBehaviour
 			return;
 		}
 		Punchline();
-		_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
+		//_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
 		SPCooldown = SPMaxCooldown;
 		Invoke("SuperAfterDelay", 0.15f);
 		Animator.enabled = true;
@@ -364,7 +366,7 @@ public class PlayerBehavior : MonoBehaviour
 	        Dash();
 	        return;
 	    }
-		_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
+		//_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
 	    Invoke("ThrowBallAfterDelay", 0.15f);
 		Animator.enabled = true;
         Animator.Play("Throw");
@@ -379,7 +381,7 @@ public class PlayerBehavior : MonoBehaviour
 				CastSP();
 			return;
 		}
-		_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
+		//_mimicShadow.GetComponent<MimicShadow> ().IsDoingAction = true;
 		Invoke("LiftBallAfterDelay", 0.15f);
 		Animator.enabled = true;
 		Animator.Play("Throw");

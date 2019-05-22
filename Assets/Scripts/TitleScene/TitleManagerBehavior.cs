@@ -16,9 +16,7 @@ public class TitleManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
-		PlayerPrefs.SetInt ("IsPausedInOptions", 0);
-		PlayerPrefs.SetInt ("P1Character", 1);
-		PlayerPrefs.SetInt ("P2Character", 1);
+		ResetPlayerPrefs ();
 		_duelButton = GameObject.Find ("DuelButton");
 		_challengesButton = GameObject.Find ("ChallengesButton");
 		_howToPlayButton = GameObject.Find ("HowToPlayButton");
@@ -32,6 +30,18 @@ public class TitleManagerBehavior : MonoBehaviour
 		_howToPlayButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoToHowToPlay;
 
 		StartCoroutine (InitiateLeft());
+	}
+
+	private void ResetPlayerPrefs()
+	{
+		PlayerPrefs.SetInt ("IsPausedInOptions", 0);
+		PlayerPrefs.SetInt ("P1Character", 1);
+		PlayerPrefs.SetInt ("P2Character", 1);
+		PlayerPrefs.SetInt ("Opponent", Opponent.Player.GetHashCode());
+		PlayerPrefs.SetInt ("Difficulty", Difficulty.Easy.GetHashCode());
+		PlayerPrefs.SetInt ("Bounce", Bounce.Normal.GetHashCode());
+		PlayerPrefs.SetInt ("MaxScore", 12);
+		PlayerPrefs.SetInt ("MaxSets", 2);
 	}
 
 	void Update()

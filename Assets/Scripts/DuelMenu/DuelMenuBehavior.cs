@@ -46,11 +46,13 @@ public class DuelMenuBehavior : MonoBehaviour
 		_setsButtons = GameObject.Find ("SetsButtons");
 		_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 		_confirmButton = GameObject.Find ("ConfirmButton");
-		_opponent = Opponent.Player;
-		_difficulty = Difficulty.Easy;
-		_bounce = Bounce.Normal;
 
-		SetOpponentPlayer ();
+		_opponent = (Opponent)PlayerPrefs.GetInt ("Opponent");
+		_difficulty = (Difficulty)PlayerPrefs.GetInt ("Difficulty");
+		_bounce = (Bounce)PlayerPrefs.GetInt ("Bounce");
+		_nbScore = PlayerPrefs.GetInt ("MaxScore");
+		_nbSets = PlayerPrefs.GetInt ("MaxSets");
+
 		GameObject.Find ("PlayerBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetOpponentPlayer;
 		GameObject.Find ("AIBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetOpponentAI;
 		GameObject.Find ("EasyBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetAIEasy;
@@ -67,12 +69,28 @@ public class DuelMenuBehavior : MonoBehaviour
 		GameObject.Find ("SetsPlusBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = IncrementSets;
 		GameObject.Find ("ConfirmBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Confirm;
 
+		GameObject.Find ("ScoreNbText").GetComponent<UnityEngine.UI.Text>().text = _nbScore.ToString("D2");
+		GameObject.Find ("SetsNbText").GetComponent<UnityEngine.UI.Text>().text = _nbSets.ToString("D2");
+		if (_opponent == Opponent.AI) {
+			if (_difficulty == Difficulty.Easy)
+				SetAIEasy ();
+			else if (_difficulty == Difficulty.Normal)
+				SetAINormal ();
+			else
+				SetAIHard ();
+		} else if (_opponent == Opponent.Player)
+			SetOpponentPlayer ();
+		else {
+			if (_bounce == Bounce.Normal)
+				SetWallNormalBounce ();
+			else
+				SetWallRandomBounce ();
+			_isTraining = true;
+		}
+
 		_tmpPopup = null;
 		_isDisplayingPopupScore = false;
 		_isDisplayingPopupSets = false;
-		_isTraining = false;
-		_nbScore = 12;
-		_nbSets = 2;
 
 		StartCoroutine (InitiateLeft());
 	}
@@ -330,10 +348,17 @@ public class DuelMenuBehavior : MonoBehaviour
 	private void ActivateScoreSets(bool action)
 	{
 		_isTraining = !action;
-		_scoreTitle.SetActive (action);
-		_scoreButtons.SetActive (action);
-		_setsTitle.SetActive (action);
-		_setsButtons.SetActive (action);
+		ActivateChildren (_scoreTitle, action);
+		ActivateChildren (_scoreButtons, action);
+		ActivateChildren (_setsTitle, action);
+		ActivateChildren (_setsButtons, action);
+	}
+
+	private void ActivateChildren(GameObject parent, bool action)
+	{
+		for (int i = 0; i < parent.transform.childCount; ++i) {
+			parent.transform.GetChild (i).gameObject.SetActive(action);
+		}
 	}
 
 	private void Confirm()
