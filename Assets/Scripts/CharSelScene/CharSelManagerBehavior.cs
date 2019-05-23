@@ -166,8 +166,11 @@ public class CharSelManagerBehavior : MonoBehaviour
 	{
 		if (player == 1) {
 			_p1Confirm = !_p1Confirm;
-			if (_p1Confirm)
+			if (_p1Confirm) {
 				Intro (1);
+				if (_isAgainstAI)
+					Intro (2);
+			}
 		} else {
 			_p2Confirm = !_p2Confirm;
 			if (_p2Confirm)
@@ -182,7 +185,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 			{
 				button.GetComponent<BoxCollider2D> ().enabled = false;
 			}
-			Invoke ("LoadGameScene", 0.5f);
+			Invoke ("LoadGameScene", 1.0f);
 		}
 	}
 
@@ -192,12 +195,11 @@ public class CharSelManagerBehavior : MonoBehaviour
 		var parentObject = GameObject.Find ("P" + player + "CharacterName");
 		var introInstance = Instantiate (introModel, parentObject.transform.position, parentObject.transform.rotation);
 		introInstance.transform.SetParent (GameObject.Find("Canvas").transform);
+		var mult = player == 1 || (_isAgainstAI && player == 2) ? -1 : 1;
 		introInstance.transform.position = parentObject.transform.position + new Vector3(
-			Random.Range(player == 1 ? -0.5f : 0.5f, player == 1 ? -1.0f : 1.0f),
-			Random.Range(0.0f, player == 1 ? 1.0f : -1.0f),
+			Random.Range(0.5f * mult, 1.0f * mult),
+			Random.Range(0.0f, 1.0f * -mult),
 			0.0f);
-		if (_isAgainstAI && player == 2)
-			introInstance.transform.GetChild(0).transform.Rotate(0.0f, 0.0f, 180.0f);
 		var currentCharacter = PlayerPrefs.GetInt ("P" + player.ToString() + "Character");
 		var introsCount = PunchlinesData.Intros [currentCharacter].Count;
 		introInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = PunchlinesData.Intros[currentCharacter][Random.Range(0, introsCount)];
