@@ -14,6 +14,9 @@ public class MenuBackgroundBehavior : MonoBehaviour
 
 	void Start()
 	{
+		//float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
+		//transform.localScale = new Vector3(transform.localScale.x, worldScreenHeight, 1);
+
 		var menuBackgroundList = GameObject.FindGameObjectsWithTag ("MenuBackground");
 		if (menuBackgroundList.Length > 1)
 			Destroy(gameObject);

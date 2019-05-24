@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraBehavior : MonoBehaviour
 {
     public Camera Camera;
+	public float sceneWidth = 4;
 
 	private int _nbReset;
 
@@ -13,9 +14,13 @@ public class CameraBehavior : MonoBehaviour
 
     void Start()
     {
-		_nbReset = 0;
+		float unitsPerPixel = sceneWidth / Screen.width;
+		float desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
+		Camera.orthographicSize = desiredHalfHeight;
+		Debug.Log ("[DEBUG] desiredHalfHeight: " + desiredHalfHeight);
 
-        _initialCameraSize = Camera.orthographicSize;
+		_nbReset = 0;
+		_initialCameraSize = Camera.orthographicSize;
 		_initialCameraPosition = Camera.transform.position;
     }
 

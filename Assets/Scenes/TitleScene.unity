@@ -775,6 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 957081278}
+  sceneWidth: 4
 --- !u!81 &957081277
 AudioListener:
   m_ObjectHideFlags: 0
