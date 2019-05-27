@@ -17,7 +17,6 @@ public class CameraBehavior : MonoBehaviour
 		float unitsPerPixel = sceneWidth / Screen.width;
 		float desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
 		Camera.orthographicSize = desiredHalfHeight;
-		Debug.Log ("[DEBUG] desiredHalfHeight: " + desiredHalfHeight);
 
 		_nbReset = 0;
 		_initialCameraSize = Camera.orthographicSize;
