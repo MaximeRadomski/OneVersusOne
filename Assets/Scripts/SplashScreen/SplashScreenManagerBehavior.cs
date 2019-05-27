@@ -101,6 +101,7 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 
 	private void GoToTitle()
 	{
+		_movingBackground.GetComponent<MenuBackgroundBehavior> ().AdjustToCamera();
 		_camera.GetComponent<CameraBehavior>().WallHit();
 		_movingBackground.GetComponent<MenuBackgroundBehavior> ().ScrollSpeed = 0.25f;
 		SceneManager.LoadScene("TitleScene");

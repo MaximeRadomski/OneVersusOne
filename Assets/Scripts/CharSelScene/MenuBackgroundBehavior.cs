@@ -7,6 +7,8 @@ public class MenuBackgroundBehavior : MonoBehaviour
 	public float ScrollSpeed;
 	public MeshRenderer Renderer;
 
+	private float _originalHeight;
+
 	private void Awake()
 	{
 		DontDestroyOnLoad(transform.gameObject);
@@ -14,9 +16,8 @@ public class MenuBackgroundBehavior : MonoBehaviour
 
 	void Start()
 	{
-		float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
-		Debug.Log ("[DEBUG] worldScreenHeight: " + worldScreenHeight);
-		transform.localScale = new Vector3(transform.localScale.x, worldScreenHeight, 1);
+		_originalHeight = transform.lossyScale.y;
+		AdjustToCamera ();
 
 		var menuBackgroundList = GameObject.FindGameObjectsWithTag ("MenuBackground");
 		if (menuBackgroundList.Length > 1)
@@ -24,6 +25,13 @@ public class MenuBackgroundBehavior : MonoBehaviour
 		Renderer.sortingLayerName = "Background";
 		if (PlayerPrefs.GetInt ("Music", 1) == 0)
 			this.gameObject.GetComponent<AudioSource> ().volume = 0.0f;
+	}
+
+	public void AdjustToCamera()
+	{
+		float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
+		transform.localScale = new Vector3(transform.localScale.x, worldScreenHeight, 1);
+		Renderer.material.mainTextureScale = new Vector2 (1.0f, transform.lossyScale.y / _originalHeight);
 	}
 
 	void Update ()
