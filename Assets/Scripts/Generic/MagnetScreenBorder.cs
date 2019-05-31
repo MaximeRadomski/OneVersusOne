@@ -19,9 +19,12 @@ public class MagnetScreenBorder : MonoBehaviour
 	{
 		float WorldSize;
 		if (Type == GameObjectType.Text)
-			WorldSize = this.GetComponent<RectTransform>().rect.y * this.transform.lossyScale.y;
-		else
-			WorldSize = this.transform.lossyScale.y;
+			WorldSize = this.GetComponent<RectTransform> ().rect.y * this.transform.lossyScale.y;
+		else {
+			//WorldSize = this.transform.lossyScale.y / -2f;
+			WorldSize = this.GetComponent<SpriteRenderer>().bounds.size.y / -2;
+		}
+			
 		transform.position = new Vector3(transform.position.x, (_mult * Camera.main.orthographicSize) + (_mult * WorldSize), 0.0f);
 	}
 }

@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: b1ef1597ed47fe04db6059a9d6073ccb
-timeCreated: 1559300285
+guid: 98689cdcd12a64c46aa60d248b3be612
+timeCreated: 1559299194
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: UnderMap_0
-    21300002: UnderMap_1
+  fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -42,7 +40,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -59,7 +57,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -69,7 +67,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -79,7 +77,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -90,35 +88,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: UnderMap_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 25
-        width: 144
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: UnderMap_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 144
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
+    sprites: []
     outline: []
     physicsShape: []
   spritePackingTag: 
