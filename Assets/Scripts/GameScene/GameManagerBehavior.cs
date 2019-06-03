@@ -447,7 +447,12 @@ public class GameManagerBehavior : MonoBehaviour
 		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupPause, new Vector3(0.0f, 0.0f, 0.0f), PopupPause.transform.rotation);
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
-		GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoBackVersusMenu;
+		if (IsHowToPlay) {
+			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().PressSprite();
+			GameObject.Find ("Button02Background").GetComponent<BoxCollider2D>().enabled = false;
+		}
+		else
+			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoBackVersusMenu;
 		GameObject.Find ("Button03Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoBackTitleScreen;
 		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
 		var tmpCurrentScore = "SCORE: " + ScorePlayerOne.ToString ("D2") + "/" + ScorePlayerTwo.ToString ("D2");

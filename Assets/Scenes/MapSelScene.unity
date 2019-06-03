@@ -239,7 +239,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 699502769
-  m_SortingLayer: -8
+  m_SortingLayer: -9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f10077ed134d71542a64abc2a674057c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -273,6 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 309818684}
   - component: {fileID: 309818685}
+  - component: {fileID: 309818686}
   m_Layer: 0
   m_Name: P2SelectAndConfirmButton
   m_TagString: Untagged
@@ -313,6 +314,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &309818686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 309818683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87255aadc7b6d184d8ff68d772026ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410383381
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +336,7 @@ GameObject:
   - component: {fileID: 410383386}
   - component: {fileID: 410383385}
   - component: {fileID: 410383384}
+  - component: {fileID: 410383383}
   m_Layer: 5
   m_Name: P2-SelectRight
   m_TagString: Button
@@ -344,6 +357,23 @@ Transform:
   m_Father: {fileID: 309818684}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &410383383
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410383381}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c857f20fb87ef244aa46554d86849aa0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &410383384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +452,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: 2495044b9bf869b42b44a3d5ab3df6ae, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -646,6 +676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 519420031}
+  sceneWidth: 4
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1161,6 +1192,7 @@ GameObject:
   - component: {fileID: 958163397}
   - component: {fileID: 958163396}
   - component: {fileID: 958163395}
+  - component: {fileID: 958163394}
   m_Layer: 5
   m_Name: P2-SelectLeft
   m_TagString: Button
@@ -1181,6 +1213,23 @@ Transform:
   m_Father: {fileID: 309818684}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &958163394
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 958163392}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c857f20fb87ef244aa46554d86849aa0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &958163395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,7 +1308,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2495044b9bf869b42b44a3d5ab3df6ae, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1352,6 +1401,7 @@ GameObject:
   - component: {fileID: 1006949939}
   - component: {fileID: 1006949938}
   - component: {fileID: 1006949937}
+  - component: {fileID: 1006949936}
   m_Layer: 5
   m_Name: P1-SelectLeft
   m_TagString: Button
@@ -1372,6 +1422,23 @@ Transform:
   m_Father: {fileID: 1947215310}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1006949936
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1006949934}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c857f20fb87ef244aa46554d86849aa0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &1006949937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1450,7 +1517,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2495044b9bf869b42b44a3d5ab3df6ae, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2304,6 +2371,7 @@ GameObject:
   - component: {fileID: 1714486566}
   - component: {fileID: 1714486565}
   - component: {fileID: 1714486564}
+  - component: {fileID: 1714486563}
   m_Layer: 5
   m_Name: P2-Confirm
   m_TagString: Button
@@ -2324,6 +2392,23 @@ Transform:
   m_Father: {fileID: 309818684}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1714486563
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1714486561}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c857f20fb87ef244aa46554d86849aa0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &1714486564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2402,7 +2487,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a607448135cab2c4ab6b23d0135646f0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2510,6 +2595,7 @@ GameObject:
   - component: {fileID: 1838591971}
   - component: {fileID: 1838591970}
   - component: {fileID: 1838591969}
+  - component: {fileID: 1838591972}
   m_Layer: 5
   m_Name: P1-Confirm
   m_TagString: Button
@@ -2608,7 +2694,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a607448135cab2c4ab6b23d0135646f0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2617,6 +2703,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!95 &1838591972
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1838591967}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c857f20fb87ef244aa46554d86849aa0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1851512770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2678,7 +2781,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 699502769
-  m_SortingLayer: -8
+  m_SortingLayer: -9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9ddc1d0121f4ce943b91ebd1458590c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2761,6 +2864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1947215310}
   - component: {fileID: 1947215311}
+  - component: {fileID: 1947215312}
   m_Layer: 0
   m_Name: P1SelectAndConfirmButton
   m_TagString: Untagged
@@ -2801,6 +2905,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1947215312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1947215309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87255aadc7b6d184d8ff68d772026ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1958938649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,6 +2927,7 @@ GameObject:
   - component: {fileID: 1958938654}
   - component: {fileID: 1958938653}
   - component: {fileID: 1958938652}
+  - component: {fileID: 1958938651}
   m_Layer: 5
   m_Name: P1-SelectRight
   m_TagString: Button
@@ -2832,6 +2948,23 @@ Transform:
   m_Father: {fileID: 1947215310}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1958938651
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1958938649}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c857f20fb87ef244aa46554d86849aa0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &1958938652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2910,7 +3043,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: 2495044b9bf869b42b44a3d5ab3df6ae, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

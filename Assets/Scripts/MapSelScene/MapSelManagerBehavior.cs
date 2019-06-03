@@ -34,6 +34,7 @@ public class MapSelManagerBehavior : MonoBehaviour
 		_p1Info1 = GameObject.Find ("P1Info1");
 		_p1Info2 = GameObject.Find ("P1Info2");
 		_p1Info4 = GameObject.Find ("P1Info4");
+		_p1SelectAndConfirmButton.GetComponent<ConfirmButtonContainer> ().SetChildrenGradiantOpacityToVisible ();
 		_p1SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
 
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Player.GetHashCode ())
@@ -46,6 +47,7 @@ public class MapSelManagerBehavior : MonoBehaviour
 			_p2Info1 = GameObject.Find ("P2Info1");
 			_p2Info2 = GameObject.Find ("P2Info2");
 			_p2Info4 = GameObject.Find ("P2Info4");
+			_p2SelectAndConfirmButton.GetComponent<ConfirmButtonContainer> ().SetChildrenGradiantOpacityToVisible ();
 			_p2SelectAndConfirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
 		}
 

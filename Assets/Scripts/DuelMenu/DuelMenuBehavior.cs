@@ -109,6 +109,7 @@ public class DuelMenuBehavior : MonoBehaviour
 		yield return new WaitForSeconds(0.05f);
 		_setsButtons.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
 		yield return new WaitForSeconds(0.05f);
+		_confirmButton.GetComponent<ConfirmButtonContainer> ().SetChildrenGradiantOpacityToVisible ();
 		_confirmButton.GetComponent<Animator> ().Play ("MapSelButtons");
 	}
 
