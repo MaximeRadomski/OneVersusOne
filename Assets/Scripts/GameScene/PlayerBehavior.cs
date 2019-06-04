@@ -15,6 +15,7 @@ public class PlayerBehavior : MonoBehaviour
 	public bool IsCastingSP;
 	public bool IsDoingSP;
 	public bool IsEngaging;
+	public bool IsMoving;
 	public ControlledAction ControlledAction;
 
     public float WalkDistance;
@@ -170,12 +171,14 @@ public class PlayerBehavior : MonoBehaviour
             transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
         if (transform.position.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             transform.position = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
+		IsMoving = true;
     }
 
     public void Standby()
     {
         if (IsDashing == true)
             return;
+		IsMoving = false;
         Direction = Direction.Standby;
 		SetOrientation ();
     }

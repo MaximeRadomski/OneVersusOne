@@ -12,14 +12,16 @@ public class TouchControlerBehavior : MonoBehaviour
 	private GameObject _liftP1;
 	private GameObject _throwP1;
 	private GameObject _superP1;
-	/*private GameObject _leftP2;
-	private GameObject _rightP2;
+	private GameObject _leftP2;
+	/*private GameObject _rightP2;
 	private GameObject _liftP2;
 	private GameObject _throwP2;*/
 	private GameObject _aiP1;
 	private GameObject _aiP2;
 
 	private GameObject _currentButton;
+
+	private GameObject _playerOne, _playerTwo;
     
     void Start ()
 	{
@@ -28,14 +30,17 @@ public class TouchControlerBehavior : MonoBehaviour
 		_liftP1 = GameObject.Find ("LiftP1");
 		_throwP1 = GameObject.Find ("ThrowP1");
 		_superP1 = GameObject.Find ("SuperP1");
-		/*_leftP2 = GameObject.Find ("LeftP2");
-		_rightP2 = GameObject.Find ("RightP2");
+		_leftP2 = GameObject.Find ("LeftP2");
+		/*_rightP2 = GameObject.Find ("RightP2");
 		_liftP2 = GameObject.Find ("LiftP2");
 		_throwP2 = GameObject.Find ("ThrowP2");*/
 		_aiP1 = GameObject.Find ("AiP1");
 		_aiP2 = GameObject.Find ("AiP2");
 
 		_currentButton = null;
+
+		//_playerOne = GameObject.Find ("PlayerOne");
+		//_playerTwo = GameObject.Find ("PlayerTwo");
 	}
 	
 	void Update ()
@@ -83,6 +88,13 @@ public class TouchControlerBehavior : MonoBehaviour
 						touchedObject.GetComponent<TouchControlBehavior>().EndAction();
 					}
 	            }
+				else if (hitInformation.collider == null && Input.GetTouch(i).phase != TouchPhase.Began && Input.GetTouch(i).phase != TouchPhase.Ended)
+				{
+					if (touchPosWorld2D.y < 0)
+						_leftP1.GetComponent<TouchControlBehavior>().EndAction();
+					else
+						_leftP2.GetComponent<TouchControlBehavior>().EndAction();
+				}
 				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null && _currentButton.tag == "ButtonPopup")
 				{
 					_currentButton.GetComponent<GenericMenuButtonBehavior>().DoAction();
@@ -91,6 +103,12 @@ public class TouchControlerBehavior : MonoBehaviour
 				}
 	        }
 	    }
+		/*else {
+			if (_playerOne.GetComponent<PlayerBehavior>().IsMoving)
+				_leftP1.GetComponent<TouchControlBehavior>().EndAction();
+			if (_playerTwo.GetComponent<PlayerBehavior>().IsMoving)
+				_leftP2.GetComponent<TouchControlBehavior>().EndAction();
+		}*/
 
 		if (Input.GetButtonDown("LeftP1"))
 			_leftP1.GetComponent<TouchControlBehavior> ().BeganAction ();
