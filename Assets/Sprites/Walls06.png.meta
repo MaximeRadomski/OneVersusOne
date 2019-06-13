@@ -1,15 +1,11 @@
 fileFormatVersion: 2
-guid: 22ff78d002bd7e44fbfa776c2737217b
-timeCreated: 1560425428
+guid: 739a1dcadf9bb0d41aa1ac17a7553fc5
+timeCreated: 1560425479
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: TrainingWall01_0
-    21300002: TrainingWall01_1
-    21300004: TrainingWall01_2
-    21300006: TrainingWall01_3
-    21300008: TrainingWall01_4
-    21300010: TrainingWall01_5
+    21300000: Walls06_0
+    21300002: Walls06_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -96,83 +92,27 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TrainingWall01_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 60
-        width: 144
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: TrainingWall01_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 48
-        width: 144
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: TrainingWall01_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 36
-        width: 144
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: TrainingWall01_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 24
-        width: 144
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: TrainingWall01_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 12
-        width: 144
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: TrainingWall01_5
+      name: Walls06_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 144
-        height: 12
+        width: 10
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Walls06_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 0
+        width: 10
+        height: 206
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

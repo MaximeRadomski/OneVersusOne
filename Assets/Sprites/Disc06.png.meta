@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 91ac3a3f136cd9346892c9dc7819159d
-timeCreated: 1560425321
+guid: eaa5a208234c13547a15d197ae51aaa7
+timeCreated: 1560425179
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: MapTemplate01_0
-    21300002: MapTemplate01_1
-    21300004: MapTemplate01_2
-    21300006: MapTemplate01_3
-    21300008: MapTemplate01_4
-    21300010: MapTemplate01_5
-    21300012: MapTemplate01_6
-    21300014: MapTemplate01_7
+    21300000: Disc06_0
+    21300002: Disc06_1
+    21300004: Disc06_2
+    21300006: Disc06_3
+    21300008: Disc06_4
+    21300010: Disc06_5
+    21300012: Disc06_6
+    21300014: Disc06_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -65,7 +65,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -75,7 +75,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 512
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -85,17 +85,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 512
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -108,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MapTemplate01_0
+      name: Disc06_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 210
-        width: 96
-        height: 70
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -122,13 +112,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_1
+      name: Disc06_1
       rect:
         serializedVersion: 2
-        x: 96
-        y: 210
-        width: 96
-        height: 70
+        x: 13
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,13 +126,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_2
+      name: Disc06_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 140
-        width: 96
-        height: 70
+        x: 26
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,13 +140,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_3
+      name: Disc06_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 140
-        width: 96
-        height: 70
+        x: 39
+        y: 16
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,41 +154,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 70
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_5
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 70
-        width: 96
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MapTemplate01_6
+      name: Disc06_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 70
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,13 +168,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTemplate01_7
+      name: Disc06_5
       rect:
         serializedVersion: 2
-        x: 96
+        x: 13
         y: 0
-        width: 96
-        height: 70
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Disc06_6
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 0
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Disc06_7
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 0
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -47,3 +47,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map05.unity
     guid: d15e73065017dde419380e7ab0afe5fe
+  - enabled: 1
+    path: Assets/Scenes/Map06.unity
+    guid: e7e40344e806de148a45ad4e36d0876a

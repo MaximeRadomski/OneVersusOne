@@ -47,6 +47,13 @@ public static class MapsData
 			City = "BERLIN",
 			Effect = "MIDDLE WALLS",
 			WallCollisionX = 1.472f,
+			GoalCollisionY = 1.833f},
+		new Map {
+			Name = "ICE RINK",
+			Country = "CANADA",
+			City = "QUEBEC CITY",
+			Effect = "FROZEN WALLS",
+			WallCollisionX = 1.472f,
 			GoalCollisionY = 1.833f}
 	};
 
