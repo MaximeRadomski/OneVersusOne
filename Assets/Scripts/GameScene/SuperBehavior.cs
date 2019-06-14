@@ -144,10 +144,10 @@ public class SuperBehavior : MonoBehaviour
 		}
 	}
 
-	private void FreezeGoals()
+	public void FreezeGoals()
 	{
 		string tmpGoalName = "Top";
-		if (_playerThrowDirection == Vector2.up)
+		if (this.GetComponentInParent<PlayerBehavior>().Player == CurrentPlayer.PlayerOne)
 			tmpGoalName = "Bot";
 
 		List<int> availableGoals = new List<int>{};

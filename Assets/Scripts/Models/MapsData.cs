@@ -52,7 +52,7 @@ public static class MapsData
 			Name = "ICE RINK",
 			Country = "CANADA",
 			City = "QUEBEC CITY",
-			Effect = "FROZEN WALLS",
+			Effect = "FROZEN GOALS",
 			WallCollisionX = 1.472f,
 			GoalCollisionY = 1.833f}
 	};
