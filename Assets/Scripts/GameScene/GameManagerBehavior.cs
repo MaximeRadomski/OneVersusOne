@@ -26,6 +26,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject _playerOne, _playerTwo;
 	private GameObject _tmpPopup;
 	private bool _isPaused;
+	private bool _gameEnd;
 
 	private int _maxScore;
 	private int _maxSets;
@@ -93,6 +94,7 @@ public class GameManagerBehavior : MonoBehaviour
 		_loser = GameObject.Find ("Loser");
 		_draw01 = GameObject.Find ("Draw01");
 		_draw02 = GameObject.Find ("Draw02");
+		_gameEnd = false;
 
 		// ---- AUDIOS ---- //
 		CastSPAudioFileID = AndroidNativeAudio.load("CastSP.mp3");
@@ -219,7 +221,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void CheckIfGame()
 	{
-		bool gameEnd = false;
+		_gameEnd = false;
 
 		if (SetPlayerOne >= _maxSets && SetPlayerOne > SetPlayerTwo) {
 			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
@@ -228,7 +230,7 @@ public class GameManagerBehavior : MonoBehaviour
 			_loser.GetComponent<Animator> ().Play ("DisplayFromTop");
 			_playerOne.GetComponent<Animator> ().Play ("Victory");
 			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
-			gameEnd = true;
+			_gameEnd = true;
 		} else if (SetPlayerTwo >= _maxSets && SetPlayerTwo > SetPlayerOne) {
 			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
 			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
@@ -236,7 +238,7 @@ public class GameManagerBehavior : MonoBehaviour
 			_loser.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_playerOne.GetComponent<Animator> ().Play ("Defeat");
 			_playerTwo.GetComponent<Animator> ().Play ("Victory");
-			gameEnd = true;
+			_gameEnd = true;
 		}
 		else if (SetPlayerOne >= _maxSets && SetPlayerTwo >= _maxSets && SetPlayerOne == SetPlayerTwo)
 		{
@@ -246,10 +248,10 @@ public class GameManagerBehavior : MonoBehaviour
 			_draw02.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_playerOne.GetComponent<Animator> ().Play ("Defeat");
 			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
-			gameEnd = true;
+			_gameEnd = true;
 		}
 
-		if (gameEnd == true)
+		if (_gameEnd == true)
 		{
 			/*SetPlayerOne = 0;
 			SetPlayerTwo = 0;
@@ -431,7 +433,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyUp (KeyCode.Escape))
+		if (Input.GetKeyUp (KeyCode.Escape) && !_gameEnd)
 		{
 			if (_isPaused) {
 				PopupPauseReturn ();

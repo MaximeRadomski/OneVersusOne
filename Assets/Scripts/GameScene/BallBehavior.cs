@@ -49,7 +49,8 @@ public class BallBehavior : MonoBehaviour
         _gameManager = GameObject.Find("$GameManager");
         _camera = GameObject.Find("Camera");
 		CatchCount = -1; //-1 because the first collision counts when serving
-	    IsThrownBy = CurrentPlayer.None;
+		if (this.tag != "DiscShadow")
+	    	IsThrownBy = CurrentPlayer.None;
 		LastThrownBy = IsThrownBy;
 		_liftDirection = Direction.Standby;
 		_gravity = 10.0f;
@@ -109,8 +110,12 @@ public class BallBehavior : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-		if (col.gameObject.tag != "Player" && col.gameObject.tag != "Wall" && col.gameObject.tag != "MiddleWall" && gameObject.tag == "DiscShadow")
-			Destroy (gameObject);
+		if (gameObject.tag == "DiscShadow")
+			if ((col.gameObject.tag == "Player" && col.gameObject.GetComponent<PlayerBehavior>().Player != this.IsThrownBy)
+			|| col.gameObject.tag == "Goal"
+			|| col.gameObject.tag == "FrozenWall"
+			|| col.gameObject.tag == "TrainingWall")
+				Destroy (gameObject);
 
 		if (col.gameObject.tag == "Player" && gameObject.tag != "DiscShadow")
         {
@@ -148,7 +153,7 @@ public class BallBehavior : MonoBehaviour
 			Invoke ("DisableQuickThrow", 0.3f);
 			Invoke ("PlayerGetBallLastCheck", 0.3f);
         }
-        else if (col.gameObject.tag == "Goal")
+		else if (col.gameObject.tag == "Goal" && gameObject.tag != "DiscShadow")
         {
 			onWallCollisionDelegate = null;
 			onPlayerCollisionDelegate = null;
@@ -176,7 +181,7 @@ public class BallBehavior : MonoBehaviour
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
             Destroy(gameObject);
         }
-		else if (col.gameObject.tag == "TrainingWall")
+		else if (col.gameObject.tag == "TrainingWall" && gameObject.tag != "DiscShadow")
 		{
 			NbCol = 0;
 			var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, col.transform.position.y - 0.39f, 0.0f), transform.rotation);
@@ -216,7 +221,7 @@ public class BallBehavior : MonoBehaviour
 		    if (GetComponent<Rigidbody2D>().velocity.y > 0)
 		        tmpWallHitEffect.GetComponent<SpriteRenderer>().flipY = true;
         }
-		else if (col.gameObject.tag == "FrozenWall")
+		else if (col.gameObject.tag == "FrozenWall" && gameObject.tag != "DiscShadow")
 		{
 			_camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();

@@ -83,7 +83,7 @@ public class AI : MonoBehaviour
 		var ball = GameObject.FindGameObjectWithTag ("Disc");
 		var ballShadow = GameObject.FindGameObjectWithTag ("DiscShadow");
 
-		if (ballShadow != null) {
+		if (ballShadow != null && ball != null) {
 			if (Vector2.Distance (ball.transform.position, this.transform.position) <
 			    Vector2.Distance (ballShadow.transform.position, this.transform.position))
 				return ball;
