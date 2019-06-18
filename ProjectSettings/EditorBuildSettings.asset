@@ -50,3 +50,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map06.unity
     guid: e7e40344e806de148a45ad4e36d0876a
+  - enabled: 1
+    path: Assets/Scenes/AdScene.unity
+    guid: 18543b092093b1444a4b20e1b2df99b4

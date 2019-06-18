@@ -216,7 +216,10 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void EndGame()
 	{
-		SceneManager.LoadScene("CharSelScene");
+		if (PlayerPrefs.GetInt ("Ads", 1) == 1)
+			SceneManager.LoadScene("AdScene");
+		else
+			SceneManager.LoadScene("CharSelScene");
 	}
 
 	private void CheckIfGame()

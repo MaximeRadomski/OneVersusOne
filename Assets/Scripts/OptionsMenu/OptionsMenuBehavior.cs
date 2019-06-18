@@ -9,6 +9,7 @@ public class OptionsMenuBehavior : MonoBehaviour
 	private GameObject _gameTitle, _graphicsTitle, _audioTitle;
 	private GameObject _gameButtons, _graphicsButtons, _audioButtons;
 	private GameObject _scanLinesObject;
+	private GameObject _whyAdsContent;
 	//private GameObject _tmpPopup;
 	//private GenericMenuManagerBehavior _genericMenuManagerBehavior;
 
@@ -29,6 +30,7 @@ public class OptionsMenuBehavior : MonoBehaviour
 		_graphicsButtons = GameObject.Find ("GraphicsButtons");
 		_audioButtons = GameObject.Find ("AudioButtons");
 		_scanLinesObject = GameObject.Find ("ScanLines");
+		_whyAdsContent = GameObject.Find ("WhyAdsContent");
 		//_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 
 		_ads = PlayerPrefs.GetInt ("Ads", 1);
@@ -66,6 +68,8 @@ public class OptionsMenuBehavior : MonoBehaviour
 		_audioTitle.GetComponent<Animator> ().Play ("CharSelLeftToRight");
 		yield return new WaitForSeconds(0.05f);
 		_audioButtons.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
+		yield return new WaitForSeconds(1.0f);
+		_whyAdsContent.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
 	}
 
 	private void SetAds ()

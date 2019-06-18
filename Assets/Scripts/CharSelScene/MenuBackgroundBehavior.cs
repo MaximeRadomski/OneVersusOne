@@ -6,12 +6,14 @@ public class MenuBackgroundBehavior : MonoBehaviour
 {
 	public float ScrollSpeed;
 	public MeshRenderer Renderer;
+	public bool IsAdSceneBackground;
 
 	private float _originalHeight;
 
 	private void Awake()
 	{
-		DontDestroyOnLoad(transform.gameObject);
+		if (!IsAdSceneBackground)
+			DontDestroyOnLoad(transform.gameObject);
 	}
 
 	void Start()
