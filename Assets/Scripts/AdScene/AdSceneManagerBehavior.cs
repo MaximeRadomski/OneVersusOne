@@ -45,9 +45,17 @@ public class AdSceneManagerBehavior : MonoBehaviour
 			//We transform the touch position into word space from screen space and store it.
 			var touchPosWorld = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			if (touchPosWorld.y > -2.0f)
-				Application.OpenURL ("market://details?id=" + AdsData.GameAds [_adId].UrlId);
+				OpenCustomUrl ();
 			else if (touchPosWorld.x > 1.0f)
 				SetAd ();
 		}
+	}
+
+	private void OpenCustomUrl()
+	{
+		if (AdsData.GameAds [_adId].IsMobileGame)
+			Application.OpenURL ("market://details?id=" + AdsData.GameAds [_adId].UrlId);
+		else
+			Application.OpenURL (AdsData.GameAds [_adId].UrlId);
 	}
 }
