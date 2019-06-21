@@ -12,6 +12,11 @@ public class AdsData : MonoBehaviour
 			UrlId = "http://www.dotemu.com/game/windjammers/",
 			IsMobileGame = false},
 		new GameAd {
+			Name = "Teturss",
+			Description = "My Tetris fan-game.\nI made it in order to have an ad-free Tetris game that I can play everywhere, and with the rules I like the most in Tetris games.\nYou even have sexy Bolsheviks coming with it!",
+			UrlId = "https://abject.itch.io/teturss",
+			IsMobileGame = false},
+		new GameAd {
 			Name = "Horizon Chase",
 			Description = "You like old arcade racing games ?\nThen this one is made for you !\nEasy to learn/hard to master gameplay, Gorgeous musics and a real challenge await you!",
 			UrlId = "com.aquiris.horizonchase"},
@@ -30,7 +35,11 @@ public class AdsData : MonoBehaviour
 		new GameAd {
 			Name = "Hoppenhelm",
 			Description = "Little and simple game with good vibes.\nArcade runner with one handed controls.\nPerfect for short runs from times to times.",
-			UrlId = "com.tobiasornberg.knightgame"}
+			UrlId = "com.tobiasornberg.knightgame"},
+		new GameAd {
+			Name = "Terra Battle",
+			Description = "One of the best tactical RPG on mobile.\nThe gameplay is a nice mix between skill and strategy.\nIt has a beautiful character design and sublime artworks.",
+			UrlId = "com.mistwalkercorp.guardians"}
 	};
 
 	public class GameAd
