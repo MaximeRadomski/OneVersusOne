@@ -1004,6 +1004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 519420031}
+  sceneWidth: 4
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -4277,7 +4278,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6ff509fc5ff54dc4aac8ad64addfe33b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 841817d1b666f814db9c74a1412e55ee, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -4361,6 +4362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScrollSpeed: 0.25
   Renderer: {fileID: 1707340632}
+  IsAdSceneBackground: 0
 --- !u!23 &1707340632
 MeshRenderer:
   m_ObjectHideFlags: 0
