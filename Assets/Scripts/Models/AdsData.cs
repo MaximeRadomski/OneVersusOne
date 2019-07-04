@@ -39,7 +39,11 @@ public class AdsData : MonoBehaviour
 		new GameAd {
 			Name = "Terra Battle",
 			Description = "One of the best tactical RPG on mobile.\nThe gameplay is a nice mix between skill and strategy.\nIt has a beautiful character design and sublime artworks.",
-			UrlId = "com.mistwalkercorp.guardians"}
+			UrlId = "com.mistwalkercorp.guardians"},
+		new GameAd {
+			Name = "Snakebird",
+			Description = "A puzzle game where you play against gravity with unique mechanisms.\nIt's fun, colorful and cute!\nTake care, the difficulty won't be so cute after some levels !",
+			UrlId = "com.NoumenonGames.SnakeBird_Touch"}
 	};
 
 	public class GameAd

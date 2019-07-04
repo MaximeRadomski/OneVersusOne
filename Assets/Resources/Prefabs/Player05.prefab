@@ -143,12 +143,13 @@ MonoBehaviour:
   IsCastingSP: 0
   IsDoingSP: 0
   IsEngaging: 0
+  IsMoving: 0
   ControlledAction: 0
   WalkDistance: 0.03
   DashDistance: 1.2
   Power: 1.5
-  SPMaxCooldown: 6
-  SPCooldown: 6
+  SPMaxCooldown: 4
+  SPCooldown: 4
   ConsecutiveHit: 0
   CharacterNumber: 5
   Ball: {fileID: 0}
