@@ -298,6 +298,13 @@ public class PlayerBehavior : MonoBehaviour
 		}
     }
 
+	public void TriggerCatch()
+	{
+		var tmpCatchEffect = Instantiate(CatchEffect, transform.position, CatchEffect.transform.rotation);
+		if (Player == CurrentPlayer.PlayerTwo)
+			tmpCatchEffect.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
+	}
+
 	public void CatchTheDisc()
 	{
 		//Ball = GetBall ();

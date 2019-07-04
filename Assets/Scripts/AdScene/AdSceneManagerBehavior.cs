@@ -35,7 +35,7 @@ public class AdSceneManagerBehavior : MonoBehaviour
 
 	private IEnumerator InitiateLeft()
 	{
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(1.5f);
 		_leaveButton.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
 	}
 

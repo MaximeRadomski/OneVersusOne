@@ -20,7 +20,6 @@ public class SuperBehavior : MonoBehaviour
 	private float _zigzag;
 	private int _bounceCount;
 	private int _bounce;
-	private float _bounceStrengh;
 	private float _bounceYPosition;
 	private float _gravity;
 	private bool _isDoingSuper;
@@ -34,7 +33,6 @@ public class SuperBehavior : MonoBehaviour
 		_zigzag = 0.0f;
 		_bounceCount = 1;
 		_bounce = 0;
-		_bounceStrengh = 0.5f;
 		_bounceYPosition = 1.75f;
 		_gravity = 15.0f;
 	}
@@ -145,7 +143,7 @@ public class SuperBehavior : MonoBehaviour
 			--_bounce;
 			Physics2D.gravity = new Vector2 (0.0f, _gravity * _playerThrowDirection.y);
 			_ball.transform.position = new Vector3 (_ball.transform.position.x, _bounceYPosition * _ball.transform.position.y > 0 ? 1.0f : -1.0f, 0.0f);
-			_ball.GetComponent<Rigidbody2D>().velocity = new Vector2(_bounceStrengh * _ball.transform.position.x > 0 ? -1.0f : 1.0f, _playerThrowDirection.y * -1.0f) * (_customSpeed / 1.75f);
+			_ball.GetComponent<Rigidbody2D>().velocity = new Vector2(_ball.transform.position.x > 0 ? -1.0f : 1.0f, _playerThrowDirection.y * -1.0f) * _customSpeed;
 			return false;
 		}
 	}

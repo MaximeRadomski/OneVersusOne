@@ -126,7 +126,11 @@ public class BallBehavior : MonoBehaviour
 			if (onPlayerCollisionDelegate != null)
 			{
 				if (onPlayerCollisionDelegate () == false)
+				{
+					_linkedPlayer = col.gameObject;
+					_linkedPlayer.GetComponent<PlayerBehavior> ().TriggerCatch ();
 					return;
+				}
 			}
 			if (_currentMap == 5) {
 				GameObject.Find ("MiddleWall01").GetComponent<MiddleWallBehavior> ().Reset ();
