@@ -2730,7 +2730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395f05f213eaa9d4cbed8f791653589c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackSceneName: 
+  BackSceneName: TitleScene
   MenuBipDefaultAudioFileID: 0
   MenuBipGoToAudioFileID: 0
   MenuBipSelectAudioFileID: 0

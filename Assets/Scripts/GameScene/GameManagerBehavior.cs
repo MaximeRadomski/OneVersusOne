@@ -225,6 +225,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private void CheckIfGame()
 	{
 		_gameEnd = false;
+		string matchEndMusic = "MatchEndLoose";
 
 		if (SetPlayerOne >= _maxSets && SetPlayerOne > SetPlayerTwo) {
 			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
@@ -233,6 +234,7 @@ public class GameManagerBehavior : MonoBehaviour
 			_loser.GetComponent<Animator> ().Play ("DisplayFromTop");
 			_playerOne.GetComponent<Animator> ().Play ("Victory");
 			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
+			matchEndMusic = "MatchEndWin";
 			_gameEnd = true;
 		} else if (SetPlayerTwo >= _maxSets && SetPlayerTwo > SetPlayerOne) {
 			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
@@ -241,6 +243,7 @@ public class GameManagerBehavior : MonoBehaviour
 			_loser.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_playerOne.GetComponent<Animator> ().Play ("Defeat");
 			_playerTwo.GetComponent<Animator> ().Play ("Victory");
+			matchEndMusic = "MatchEndLoose";
 			_gameEnd = true;
 		}
 		else if (SetPlayerOne >= _maxSets && SetPlayerTwo >= _maxSets && SetPlayerOne == SetPlayerTwo)
@@ -251,6 +254,7 @@ public class GameManagerBehavior : MonoBehaviour
 			_draw02.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_playerOne.GetComponent<Animator> ().Play ("Defeat");
 			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
+			matchEndMusic = "MatchEndLoose";
 			_gameEnd = true;
 		}
 
@@ -263,6 +267,10 @@ public class GameManagerBehavior : MonoBehaviour
 				_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20 - 5.5f, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
 			}
 			ChangeAllSets ();*/
+			this.gameObject.GetComponent<AudioSource> ().loop = false;
+			this.gameObject.GetComponent<AudioSource> ().Stop ();
+			this.gameObject.GetComponent<AudioSource> ().clip = Resources.Load<AudioClip> ("Musics/" + matchEndMusic);
+			this.gameObject.GetComponent<AudioSource> ().Play ();
 			Invoke("EndGame", 5.0f);
 		}
 		else
@@ -491,6 +499,8 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		Time.timeScale = 1.0f;
 		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
+		if (IsHowToPlay)
+			Destroy (GameObject.FindGameObjectWithTag ("MenuBackground"));
 		SceneManager.LoadScene("TitleScene");
 	}
 

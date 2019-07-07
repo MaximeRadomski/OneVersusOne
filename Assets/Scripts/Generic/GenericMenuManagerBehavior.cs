@@ -22,10 +22,10 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
-		var menuBackgroundList = GameObject.FindGameObjectsWithTag ("GenericMenu");
-		if (menuBackgroundList.Length > 1)
+		var genericMenuList = GameObject.FindGameObjectsWithTag ("GenericMenu");
+		if (genericMenuList.Length > 1)
 		{
-			foreach (var genericMenuManager in menuBackgroundList)
+			foreach (var genericMenuManager in genericMenuList)
 				genericMenuManager.GetComponent<GenericMenuManagerBehavior> ().BackSceneName = this.BackSceneName;
 			Destroy(gameObject);
 			return;

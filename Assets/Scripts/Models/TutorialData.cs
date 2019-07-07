@@ -39,27 +39,27 @@ public static class TutorialData
 					  "CATCHING THE DISC"
 		},
 		new Tutorial {
-			Title = "SPECIAL THROW",
+			Title = "SUPER THROW",
 			Content = "EACH CHARACTER HAS A UNIQUE\n" +
-					  "SPECIAL THROW,\n" +
+					  "SUPER THROW,\n" +
 					  "AND ITS COOLDOWN"
 		},
 		new Tutorial {
-			Title = "SPECIAL THROW",
+			Title = "SUPER THROW",
 			Content = "THE COOLDOWN DECREASES EACH\n" +
 					  "TIME YOU CATCH THE DISC"
 		},
 		new Tutorial {
-			Title = "SPECIAL THROW",
+			Title = "SUPER THROW",
 			Content = "YOU ARE IMMOBILIZED FOR\n" +
 					  "ONE SECOND AFTER CASTING\n" +
-					  "YOUR SPECIAL THROW"
+					  "YOUR SUPER THROW"
 		},
 		new Tutorial {
-			Title = "SPECIAL THROW",
+			Title = "SUPER THROW",
 			Content = "CATCH THE DISC DURING\n" +
 					  "THIS PHASE TO DO YOUR\n" +
-					  "SPECIAL THROW"
+					  "SUPER THROW"
 		},
 		new Tutorial {
 			Title = "GOALS",

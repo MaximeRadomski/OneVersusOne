@@ -32,6 +32,7 @@ public class HowToPlayMenuManager : MonoBehaviour
 	private void NextTutorialIteration()
 	{
 		if (_tutorialIteration + 1 >= TutorialData.Tutorials.Count) {
+			Destroy (GameObject.FindGameObjectWithTag ("MenuBackground"));
 			SceneManager.LoadScene("TitleScene");
 			return;
 		}

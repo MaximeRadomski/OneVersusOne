@@ -14,6 +14,8 @@ public class GameLoadingManager : MonoBehaviour
 
 	void Start ()
 	{
+		var menuBackground = GameObject.FindGameObjectWithTag ("MenuBackground");
+		menuBackground.GetComponent<AudioSource> ().Stop ();
 		Destroy(GameObject.Find ("$GenericMenuManager"));
 		_p1BannerPlayerName = GameObject.Find ("P1BannerPlayerName");
 		_p1PlayerInfo = GameObject.Find ("P1PlayerInfo");
@@ -62,7 +64,7 @@ public class GameLoadingManager : MonoBehaviour
 			_p2BannerPlayerName.transform.GetChild (1).GetComponent<UnityEngine.UI.Text>().alignment = TextAnchor.MiddleRight;
 		}
 
-		Invoke ("LoadGameScene", 2.0f);
+		Invoke ("LoadGameScene", 2.5f);
 	}
 
 	private int CheckCharacter (int player, int characterNumber, int p1Character = -1)
