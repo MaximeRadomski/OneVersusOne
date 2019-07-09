@@ -14,6 +14,7 @@ public class OptionsMenuBehavior : MonoBehaviour
 	//private GenericMenuManagerBehavior _genericMenuManagerBehavior;
 
 	private int _ads;
+	private int _showBack;
 	private int _scanlines;
 	private int _music;
 	private int _effects;
@@ -34,6 +35,7 @@ public class OptionsMenuBehavior : MonoBehaviour
 		//_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 
 		_ads = PlayerPrefs.GetInt ("Ads", 1);
+		_showBack = PlayerPrefs.GetInt ("ShowBack", 0);
 		_scanlines = PlayerPrefs.GetInt ("ScanLines", 1);
 		_music = PlayerPrefs.GetInt ("Music", 1);
 		_effects = PlayerPrefs.GetInt ("Effects", 1);
@@ -46,6 +48,7 @@ public class OptionsMenuBehavior : MonoBehaviour
 		_init = false;
 
 		GameObject.Find ("AdsButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetAds;
+		GameObject.Find ("ShowBackButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetShowBack;
 		GameObject.Find ("ScanlinesButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetScanlines;
 		GameObject.Find ("MusicButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetMusic;
 		GameObject.Find ("EffectsButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetEffects;
@@ -84,6 +87,22 @@ public class OptionsMenuBehavior : MonoBehaviour
 			GameObject.Find ("AdsButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		}
 		PlayerPrefs.SetInt("Ads", _ads);
+	}
+
+	private void SetShowBack ()
+	{
+		if (!_init)
+			_showBack = _showBack == 1 ? 0 : 1;
+		if (_showBack == 1) {
+			GameObject.Find ("ShowBackButtonText").GetComponent<UnityEngine.UI.Text> ().text = "ON";
+			GameObject.Find ("ShowBackButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn ();
+			GameObject.Find ("BackButton").GetComponent<BackButtonBehavior> ().Enable ();
+		} else {
+			GameObject.Find ("ShowBackButtonText").GetComponent<UnityEngine.UI.Text> ().text = "OFF";
+			GameObject.Find ("ShowBackButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
+			GameObject.Find ("BackButton").GetComponent<BackButtonBehavior> ().Disable ();
+		}
+		PlayerPrefs.SetInt("ShowBack", _showBack);
 	}
 
 	private void SetScanlines ()

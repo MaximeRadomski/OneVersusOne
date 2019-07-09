@@ -15,6 +15,7 @@ TagManager:
   - TrainingWall
   - DiscShadow
   - MiddleWall
+  - BackButton
   layers:
   - Default
   - TransparentFX

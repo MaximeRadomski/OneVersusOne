@@ -28,7 +28,7 @@ public class GenericMenuTouchControleBehavior : MonoBehaviour
 					GameObject touchedObject = hitInformation.transform.gameObject;
 					//touchedObject should be the object someone touched.
 					//Debug.Log("Touched " + touchedObject.transform.name);
-					if (touchedObject.tag == "Button" || touchedObject.tag == "ButtonPopup")
+					if (touchedObject.tag == "Button" || touchedObject.tag == "ButtonPopup" || touchedObject.tag == "BackButton")
 					{
 						if (Input.GetTouch(i).phase == TouchPhase.Began)
 						{

@@ -37,6 +37,13 @@ public class MapSelTouchControlerBehavior : MonoBehaviour
 							//_currentButton = touchedObject;
 						}
 					}
+					else if (touchedObject.tag == "BackButton")
+					{
+						if (Input.GetTouch(i).phase == TouchPhase.Began)
+						{
+							touchedObject.GetComponent<GenericMenuButtonBehavior>().DoAction();
+						}
+					}
 				}
 				/*if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null)
 				{

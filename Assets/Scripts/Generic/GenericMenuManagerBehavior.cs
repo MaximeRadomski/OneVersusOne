@@ -19,6 +19,7 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 	public int BorderMovementFileID;
 
 	private bool _hasMadeAudioPool = false;
+	private GameObject _backButton;
 
 	void Start ()
 	{
@@ -34,6 +35,9 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 		AndroidNativeAudio.makePool();
 		_hasMadeAudioPool = true;
 
+		SceneManager.sceneLoaded += OnSceneLoaded;
+		HandleBackButton ();
+
 		// ---- AUDIOS ---- //
 		MenuBipDefaultAudioFileID = AndroidNativeAudio.load("MenuBipDefault.mp3");
 		MenuBipGoToAudioFileID = AndroidNativeAudio.load("MenuBipGoTo.mp3");
@@ -46,6 +50,21 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 		BorderMovementFileID = AndroidNativeAudio.load("BorderMovement.mp3");
 	}
 
+	private void OnSceneLoaded (Scene arg0, LoadSceneMode arg1)
+	{
+		HandleBackButton ();
+	}
+
+	private void HandleBackButton()
+	{
+		_backButton = GameObject.Find ("BackButton");
+		if (_backButton != null)
+		{
+			_backButton.GetComponent<GenericMenuButtonBehavior> ().buttonDelegate = OnBackButtonPressed;
+			Debug.Log("\t[DEBUG]\tBack Button set to : \"" + BackSceneName + "\"");
+		}
+	}
+
 	private void Awake()
 	{
 		DontDestroyOnLoad(transform.gameObject);
@@ -55,16 +74,22 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 	{
 		if (Input.GetKeyUp(KeyCode.Escape))
 		{
-			if (BackSceneName != string.Empty && BackSceneName != null)
-			{
-				SceneManager.LoadScene (BackSceneName);
-				CustomAudio.PlayEffect(MenuBipReturnAudioFileID);
-			}
+			OnBackButtonPressed ();
+		}
+	}
+
+	private void OnBackButtonPressed()
+	{
+		if (BackSceneName != string.Empty && BackSceneName != null)
+		{
+			SceneManager.LoadScene (BackSceneName);
+			CustomAudio.PlayEffect(MenuBipReturnAudioFileID);
 		}
 	}
 
 	void OnDestroy()
 	{
+		SceneManager.sceneLoaded -= OnSceneLoaded;
 		if (_hasMadeAudioPool)
 		{
 			AndroidNativeAudio.unload (MenuBipDefaultAudioFileID);
