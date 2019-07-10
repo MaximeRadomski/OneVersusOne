@@ -42,6 +42,7 @@ public class OptionsMenuBehavior : MonoBehaviour
 
 		_init = true;
 		SetAds ();
+		SetShowBack ();
 		SetScanlines ();
 		SetMusic ();
 		SetEffects ();

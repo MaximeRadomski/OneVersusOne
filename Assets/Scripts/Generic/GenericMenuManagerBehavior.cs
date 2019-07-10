@@ -61,7 +61,6 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 		if (_backButton != null)
 		{
 			_backButton.GetComponent<GenericMenuButtonBehavior> ().buttonDelegate = OnBackButtonPressed;
-			Debug.Log("\t[DEBUG]\tBack Button set to : \"" + BackSceneName + "\"");
 		}
 	}
 

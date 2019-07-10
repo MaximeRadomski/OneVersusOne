@@ -11,6 +11,7 @@ public class ChangingButtonBehavior : MonoBehaviour
 	public bool IsThrowLift;
 
 	private PlayerBehavior _playerbehavior;
+	private GameManagerBehavior _gameManagerBehavior;
 	private bool _hasTheDisc;
 
 	void Start()
@@ -21,6 +22,7 @@ public class ChangingButtonBehavior : MonoBehaviour
 	private void GetPlayer()
 	{
 		_playerbehavior = GameObject.Find (Player.ToString()).GetComponent<PlayerBehavior>();
+		_gameManagerBehavior = GameObject.Find ("$GameManager").GetComponent<GameManagerBehavior>();
 	}
 
 	void Update ()
@@ -38,7 +40,7 @@ public class ChangingButtonBehavior : MonoBehaviour
 		if (_playerbehavior == null)
 			return;
 		
-		if (_playerbehavior.IsDoingSP)
+		if (_playerbehavior.IsDoingSP || _gameManagerBehavior.IsPaused)
 			DisableCurrentButton ();
 		else
 			EnableCurrentButton ();
@@ -78,7 +80,10 @@ public class ChangingButtonBehavior : MonoBehaviour
 
 	public void DisableCurrentButton()
 	{
-		this.GetComponent<SpriteRenderer> ().enabled = false;
 		this.GetComponent<BoxCollider2D> ().enabled = false;
+		if (_gameManagerBehavior.IsPaused)
+			return;
+		this.GetComponent<SpriteRenderer> ().enabled = false;
+
 	}
 }

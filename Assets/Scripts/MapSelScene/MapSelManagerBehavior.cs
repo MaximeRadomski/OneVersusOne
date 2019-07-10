@@ -15,6 +15,8 @@ public class MapSelManagerBehavior : MonoBehaviour
 
 	private GameObject _mapTemplate, _mapTemplateContainer;
 
+	private GameObject _backButtonContainer;
+
 	private bool _p1Confirm;
 	private bool _p2Confirm;
 
@@ -54,10 +56,13 @@ public class MapSelManagerBehavior : MonoBehaviour
 		_mapTemplate = GameObject.Find ("MapTemplate");
 		_mapTemplateContainer = GameObject.Find ("MapTemplateContainer");
 
+		_backButtonContainer = GameObject.Find ("BackButtonContainer");
+
 		PlayerPrefs.SetInt ("SelectedMap", 1);
 
 		StartCoroutine(InitiateLeft(true));
 		StartCoroutine (ChangeMapInfo (1));
+		_backButtonContainer.GetComponent<Animator> ().Play ("StartRightToLeft");
 	}
 
 	private IEnumerator InitiateLeft(bool firstTime = false)

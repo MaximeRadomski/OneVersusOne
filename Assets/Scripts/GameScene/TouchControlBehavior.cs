@@ -67,8 +67,11 @@ public class TouchControlBehavior : MonoBehaviour
             case GenericTapAction.Right:
                 _player.GetComponent<PlayerBehavior>().Standby();
                 break;
-		case GenericTapAction.PlayerAI:
+			case GenericTapAction.PlayerAI:
 				ActivateAI ();
+				break;
+			case GenericTapAction.Field:
+				GameObject.Find("$GameManager").GetComponent<GameManagerBehavior>().OnBackButtonPressed();
 				break;
         }
     }
@@ -101,6 +104,7 @@ public class TouchControlBehavior : MonoBehaviour
         Throw,
         Lift,
 		PlayerAI,
-		Super
+		Super,
+		Field
     }
 }

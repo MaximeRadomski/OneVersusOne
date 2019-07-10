@@ -8,6 +8,7 @@ public class GameManagerBehavior : MonoBehaviour
     public GameObject Ball;
     public float DistanceWall;
     public bool IsGoal;
+	public bool IsPaused;
 	public int ScorePlayerOne, ScorePlayerTwo;
 	public int SetPlayerOne, SetPlayerTwo;
 
@@ -25,7 +26,6 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject _winner, _loser, _draw01, _draw02;
 	private GameObject _playerOne, _playerTwo;
 	private GameObject _tmpPopup;
-	private bool _isPaused;
 	private bool _gameEnd;
 
 	private int _maxScore;
@@ -127,7 +127,7 @@ public class GameManagerBehavior : MonoBehaviour
 			_playerTwo = CreateCharacter (CurrentPlayer.PlayerTwo, 2);
 		else
 			CreateWall ();
-		_isPaused = false;
+		IsPaused = false;
 
 		if (!IsHowToPlay)
 			PlaceBall();
@@ -322,13 +322,13 @@ public class GameManagerBehavior : MonoBehaviour
     {
 		if (PlayerPrefs.GetInt ("SelectedMap") == 4)
 			this.gameObject.GetComponent<ChangingGoalsBehavior> ().SomeoneScored (looser);
-		else if (PlayerPrefs.GetInt ("SelectedMap") == 6)
-			GameObject.Find (looser == CurrentPlayer.PlayerOne ? "PlayerTwo" : "PlayerOne").GetComponent<SuperBehavior> ().FreezeGoals ();
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 		{
 			Invoke("PlaceBall", 0.5f);
 			return;
 		}
+		if (PlayerPrefs.GetInt ("SelectedMap") == 6)
+			GameObject.Find (looser == CurrentPlayer.PlayerOne ? "PlayerTwo" : "PlayerOne").GetComponent<SuperBehavior> ().FreezeGoals ();
 		_playerName = looser.ToString ();
 		if (looser == CurrentPlayer.PlayerOne)
 		{
@@ -444,13 +444,20 @@ public class GameManagerBehavior : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyUp (KeyCode.Escape) && !_gameEnd)
+		if (Input.GetKeyUp (KeyCode.Escape))
 		{
-			if (_isPaused) {
-				PopupPauseReturn ();
-			} else
-				DisplayPopupPause ();
+			OnBackButtonPressed ();
 		}
+	}
+
+	public void OnBackButtonPressed()
+	{
+		if (_gameEnd)
+			return;
+		if (IsPaused) {
+			PopupPauseReturn ();
+		} else
+			DisplayPopupPause ();
 	}
 
 	private void DisplayPopupPause()
@@ -458,7 +465,7 @@ public class GameManagerBehavior : MonoBehaviour
 		if (StageMusic != null)
 			StageMusic.Pause ();
 		Time.timeScale = 0.0f;
-		_isPaused = true;
+		IsPaused = true;
 		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupPause, new Vector3(0.0f, 0.0f, 0.0f), PopupPause.transform.rotation);
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
@@ -484,7 +491,7 @@ public class GameManagerBehavior : MonoBehaviour
 			StageMusic.Play ();
 		Time.timeScale = 1.0f;
 		Destroy (_tmpPopup);
-		_isPaused = false;
+		IsPaused = false;
 		CustomAudio.PlayEffect (MenuBipGoToAudioFileID);
 	}
 
