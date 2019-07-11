@@ -143,7 +143,7 @@ public class SuperBehavior : MonoBehaviour
 			--_bounce;
 			Physics2D.gravity = new Vector2 (0.0f, _gravity * _playerThrowDirection.y);
 			_ball.transform.position = new Vector3 (_ball.transform.position.x, _bounceYPosition * _ball.transform.position.y > 0 ? 1.0f : -1.0f, 0.0f);
-			_ball.GetComponent<Rigidbody2D>().velocity = new Vector2(_ball.transform.position.x > 0 ? -1.0f : 1.0f, _playerThrowDirection.y * -1.0f) * _customSpeed;
+			_ball.GetComponent<Rigidbody2D>().velocity = new Vector2(_ball.transform.position.x > 0 ? -1.0f : 1.0f, _playerThrowDirection.y * -1.0f) * (_customSpeed / 2);
 			return false;
 		}
 	}

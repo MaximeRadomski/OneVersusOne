@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DuelMenu.unity
     guid: 5b2cfa450943c124d8d2a032a2e672d6
   - enabled: 1
+    path: Assets/Scenes/ChallengesMenu.unity
+    guid: 28c915a8b6838524fb58b174fea7a4c3
+  - enabled: 1
     path: Assets/Scenes/HowToPlayMenu.unity
     guid: 2d2b4c6c460f8c44bbf229eca3d227a7
   - enabled: 1
