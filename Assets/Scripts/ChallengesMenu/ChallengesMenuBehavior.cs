@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class ChallengesMenuBehavior : MonoBehaviour
 {
-	private GameObject _tournamentTitle, _targetsTitle, _catchTitle;
-	private GameObject _tournamentButtons, _targetsButtons, _catchButtons;
+	private GameObject _tournamentTitle, _targetsTitle, _catchTitle, _breakoutTitle;
+	private GameObject _tournamentButtons, _targetsButtons, _catchButtons, _breakoutButtons;
+
+	private string[] _challengesNames = new string[] {"Targets", "Catch", "Breakout", "Tournament"};
+	private List<int> _challengesProgression;
 
 	void Start ()
 	{
@@ -15,8 +18,58 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		_targetsButtons = GameObject.Find ("TargetsButtons");
 		_catchTitle = GameObject.Find ("Catch");
 		_catchButtons = GameObject.Find ("CatchButtons");
+		_breakoutTitle = GameObject.Find ("Breakout");
+		_breakoutButtons = GameObject.Find ("BreakoutButtons");
 
+		PlayerPrefs.SetInt (_challengesNames [0], 3);
+		PlayerPrefs.SetInt (_challengesNames [1], 3);
+		PlayerPrefs.SetInt (_challengesNames [2], 3);
+		PlayerPrefs.SetInt (_challengesNames [3], 0);
+		SetButtons ();
 		StartCoroutine (InitiateLeft());
+	}
+
+	private void SetButtons ()
+	{
+		_challengesProgression = new List<int> ();
+		_challengesProgression.Add (PlayerPrefs.GetInt(_challengesNames[0], 1));
+		_challengesProgression.Add (PlayerPrefs.GetInt(_challengesNames[1], 1));
+		_challengesProgression.Add (PlayerPrefs.GetInt(_challengesNames[2], 1));
+		_challengesProgression.Add (PlayerPrefs.GetInt(_challengesNames[3], 0));
+
+		for (int i = 1; i < 4; ++i)
+		{
+			if (_challengesProgression [0] > i &&
+				_challengesProgression [1] > i &&
+				_challengesProgression [2] > i &&
+				_challengesProgression [3] == i - 1)
+			{
+				IncrementTournament ();
+			}
+		}
+
+		for (int i = 0; i < _challengesProgression.Count; ++i)
+		{
+			for (int j = 1; j <= 4; ++j)
+			{
+				var tmpButton = GameObject.Find (_challengesNames [i] + j.ToString ("D2") + "Button");
+				if (tmpButton == null)
+					continue;
+				if (_challengesProgression [i] > j)
+					tmpButton.transform.GetChild (1).GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
+				else if (j > _challengesProgression [i])
+				{
+					tmpButton.transform.GetChild (0).GetComponent<UnityEngine.UI.Text> ().color = new Color (1.0f, 1.0f, 1.0f, 0.5f);
+					tmpButton.transform.GetChild (1).GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.5f);
+					tmpButton.transform.GetChild (1).GetComponent<BoxCollider2D> ().enabled = false;
+				}
+			}
+		}
+	}
+
+	private void IncrementTournament ()
+	{
+		PlayerPrefs.SetInt (_challengesNames[3], ++_challengesProgression[3]);
 	}
 
 	private IEnumerator InitiateLeft()
@@ -33,5 +86,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		yield return new WaitForSeconds(0.05f);
 		_catchButtons.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
 		yield return new WaitForSeconds(0.05f);
+		_breakoutTitle.GetComponent<Animator> ().Play ("CharSelLeftToRight");
+		yield return new WaitForSeconds(0.05f);
+		_breakoutButtons.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
 	}
 }
