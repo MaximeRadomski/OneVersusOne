@@ -69,7 +69,7 @@ public class CharSelTouchControlerBehavior : MonoBehaviour
 				GameObject touchedObject = hitInformation.transform.gameObject;
 				//touchedObject should be the object someone touched.
 				//Debug.Log("Touched " + touchedObject.transform.name);
-				if (touchedObject.tag == "Button")
+				if (touchedObject.tag == "Button" || touchedObject.tag == "BackButton")
 				{
 					touchedObject.GetComponent<CharSelButtonBehavior>().DoAction();
 				}

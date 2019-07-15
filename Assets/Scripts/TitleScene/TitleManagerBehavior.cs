@@ -14,6 +14,8 @@ public class TitleManagerBehavior : MonoBehaviour
 
 	private GenericMenuManagerBehavior _genericMenuManagerBehavior;
 
+	private int _titleClick;
+
 	void Start ()
 	{
 		ResetPlayerPrefs ();
@@ -25,9 +27,11 @@ public class TitleManagerBehavior : MonoBehaviour
 		_aboutButton = GameObject.Find ("AboutButton");
 		_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 		_isDisplayingPopup = false;
+		_titleClick = 0;
 
-		//_challengesButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupSingle;
+		//_challengesButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupNotImplemented;
 		_howToPlayButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoToHowToPlay;
+		GameObject.Find("GameName").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = IncrementTitleClick;
 
 		StartCoroutine (InitiateLeft());
 	}
@@ -54,23 +58,23 @@ public class TitleManagerBehavior : MonoBehaviour
 				PopupReturn ();
 			}
 			else
-				DisplayPopupYesNo ();
+				DisplayPopupQuit ();
 		}
 	}
 
-	private void DisplayPopupYesNo()
+	private void DisplayPopupQuit()
 	{
 		_isDisplayingPopup = true;
 		CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
 		_tmpPopup = Instantiate (PopupYesNo, new Vector3(0.0f, 0.0f, 0.0f), PopupYesNo.transform.rotation);
 		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "LEAVING GAME";
-		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "DO YOU WANT TO LEAVE THE GAME ?";
+		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "DO YOU WANT TO LEAVE THE GAME?";
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Application.Quit;
 		GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
 		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
 	}
 
-	private void DisplayPopupSingle()
+	private void DisplayPopupNotImplemented()
 	{
 		_isDisplayingPopup = true;
 		CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
@@ -79,6 +83,36 @@ public class TitleManagerBehavior : MonoBehaviour
 		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "NOT IMPLEMENTED YET";
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
 		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
+	}
+
+	private void DisplayPopupEraseData()
+	{
+		_isDisplayingPopup = true;
+		CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
+		_tmpPopup = Instantiate (PopupYesNo, new Vector3(0.0f, 0.0f, 0.0f), PopupYesNo.transform.rotation);
+		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "Watchout";
+		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "DO YOU WANT TO ERASE YOUR PROGRESSION?";
+		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DeletePlayerPrefsAndPopupReturn;
+		GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
+		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
+	}
+
+	private void DisplayPopupCheat()
+	{
+		_isDisplayingPopup = true;
+		CustomAudio.PlayEffect (_genericMenuManagerBehavior.MenuBipReturnAudioFileID);
+		_tmpPopup = Instantiate (PopupSingle, new Vector3(0.0f, 0.0f, 0.0f), PopupSingle.transform.rotation);
+		GameObject.Find ("PopupTitle").GetComponent<UnityEngine.UI.Text>().text = "HEHE BOY";
+		GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text>().text = "Give your meat a good old rub!";
+		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
+		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupReturn;
+	}
+
+	private void DeletePlayerPrefsAndPopupReturn()
+	{
+		PlayerPrefs.DeleteAll();
+		Destroy (_tmpPopup);
+		_isDisplayingPopup = false;
 	}
 
 	private void PopupReturn()
@@ -94,6 +128,22 @@ public class TitleManagerBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("P1Character", 2);
 		PlayerPrefs.SetInt ("SelectedMap", -1);
 		SceneManager.LoadScene("GameLoadingScene");
+	}
+
+	private void IncrementTitleClick()
+	{
+		++_titleClick;
+		if (_titleClick == 5)
+			DisplayPopupEraseData ();
+		else if (_titleClick == 10)
+		{
+			PlayerPrefs.SetInt ("Targets", 4);
+			PlayerPrefs.SetInt ("Catch", 4);
+			PlayerPrefs.SetInt ("Breakout", 4);
+			PlayerPrefs.SetInt ("Tournament", 4);
+			DisplayPopupCheat ();
+		}
+		Debug.Log ("_titleClick = " + _titleClick);
 	}
 
 	private IEnumerator InitiateLeft()

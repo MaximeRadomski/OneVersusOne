@@ -9,6 +9,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private string[] _challengesNames = new string[] {"Targets", "Catch", "Breakout", "Tournament"};
 	private List<int> _challengesProgression;
+	private int _localTournamentProgression;
 
 	void Start ()
 	{
@@ -21,10 +22,6 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		_breakoutTitle = GameObject.Find ("Breakout");
 		_breakoutButtons = GameObject.Find ("BreakoutButtons");
 
-		PlayerPrefs.SetInt (_challengesNames [0], 3);
-		PlayerPrefs.SetInt (_challengesNames [1], 3);
-		PlayerPrefs.SetInt (_challengesNames [2], 3);
-		PlayerPrefs.SetInt (_challengesNames [3], 0);
 		SetButtons ();
 		StartCoroutine (InitiateLeft());
 	}
@@ -36,17 +33,20 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		_challengesProgression.Add (PlayerPrefs.GetInt(_challengesNames[1], 1));
 		_challengesProgression.Add (PlayerPrefs.GetInt(_challengesNames[2], 1));
 		_challengesProgression.Add (PlayerPrefs.GetInt(_challengesNames[3], 0));
+		_localTournamentProgression = 0;
 
 		for (int i = 1; i < 4; ++i)
 		{
 			if (_challengesProgression [0] > i &&
 				_challengesProgression [1] > i &&
-				_challengesProgression [2] > i &&
-				_challengesProgression [3] == i - 1)
+				_challengesProgression [2] > i)
 			{
-				IncrementTournament ();
+				++_localTournamentProgression;
 			}
 		}
+
+		if (_challengesProgression [3] == 4)
+			++_localTournamentProgression;
 
 		for (int i = 0; i < _challengesProgression.Count; ++i)
 		{
@@ -57,7 +57,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 					continue;
 				if (_challengesProgression [i] > j)
 					tmpButton.transform.GetChild (1).GetComponent<GenericMenuButtonBehavior>().SwitchSprite();
-				else if (j > _challengesProgression [i])
+				else if (i != 3 && j > _challengesProgression [i] || i == 3 && j > _localTournamentProgression)
 				{
 					tmpButton.transform.GetChild (0).GetComponent<UnityEngine.UI.Text> ().color = new Color (1.0f, 1.0f, 1.0f, 0.5f);
 					tmpButton.transform.GetChild (1).GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.5f);
@@ -65,11 +65,6 @@ public class ChallengesMenuBehavior : MonoBehaviour
 				}
 			}
 		}
-	}
-
-	private void IncrementTournament ()
-	{
-		PlayerPrefs.SetInt (_challengesNames[3], ++_challengesProgression[3]);
 	}
 
 	private IEnumerator InitiateLeft()
