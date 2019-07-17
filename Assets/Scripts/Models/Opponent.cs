@@ -6,7 +6,10 @@ public enum Opponent
 {
 	Player = 0,
 	AI = 1,
-	Wall = 2
+	Wall = 2,
+	Target = 3,
+	Catch = 4,
+	Breakout = 5
 }
 
 public enum Difficulty
@@ -20,4 +23,13 @@ public enum Bounce
 {
 	Normal = 0,
 	Random = 1
+}
+
+public enum GameMode
+{
+	Duel = 0,
+	Tournament = 1,
+	Target = 2,
+	Catch = 3,
+	Breakout = 4
 }

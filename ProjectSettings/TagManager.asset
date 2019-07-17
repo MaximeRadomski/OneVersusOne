@@ -16,6 +16,7 @@ TagManager:
   - DiscShadow
   - MiddleWall
   - BackButton
+  - Target
   layers:
   - Default
   - TransparentFX

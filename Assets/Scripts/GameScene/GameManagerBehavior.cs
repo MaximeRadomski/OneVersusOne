@@ -125,12 +125,20 @@ public class GameManagerBehavior : MonoBehaviour
 
 		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Wall.GetHashCode ())
 			_playerTwo = CreateCharacter (CurrentPlayer.PlayerTwo, 2);
-		else
+		else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 			CreateWall ();
 		IsPaused = false;
 
-		if (!IsHowToPlay)
-			PlaceBall();
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Duel.GetHashCode ())
+		{
+			if (!IsHowToPlay)
+				PlaceBall();
+		}
+		else if (PlayerPrefs.GetInt ("GameMode") != GameMode.Tournament.GetHashCode ())
+		{
+			NewBallChallenge ();
+		}
+			
 	}
 
 	private GameObject CreateCharacter(CurrentPlayer player, int playerNb)
@@ -355,6 +363,16 @@ public class GameManagerBehavior : MonoBehaviour
 			Invoke ("CheckIfSet", 3.0f);
 		}
     }
+
+	public void NewBallChallenge()
+	{
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ())
+		{
+			var tmpTargetInstance = Resources.Load<GameObject> ("Prefabs/Target");
+			Instantiate (tmpTargetInstance, new Vector3(Random.Range(1.3f, 1.3f), tmpTargetInstance.transform.position.y, tmpTargetInstance.transform.position.z), tmpTargetInstance.transform.rotation);	
+		}
+		Invoke("PlaceBall", 0.5f);
+	}
 
 	private void DisplayScores()
 	{

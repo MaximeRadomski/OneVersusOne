@@ -364,6 +364,7 @@ public class DuelMenuBehavior : MonoBehaviour
 
 	private void Confirm()
 	{
+		PlayerPrefs.SetInt ("GameMode", GameMode.Duel.GetHashCode());
 		PlayerPrefs.SetInt ("Opponent", _opponent.GetHashCode());
 		PlayerPrefs.SetInt ("Difficulty", _difficulty.GetHashCode());
 		PlayerPrefs.SetInt ("Bounce", _bounce.GetHashCode());

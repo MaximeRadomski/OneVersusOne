@@ -231,6 +231,16 @@ public class BallBehavior : MonoBehaviour
 			col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
 			col.gameObject.GetComponent<GoalBehavior> ().Unfreeze ();
 		}
+		else if (gameObject.tag == "Target")
+		{
+			Vector2 point;
+			if (col.contacts.Length > 0)
+				point = col.contacts [0].point;
+			else
+				point = this.transform.position;
+			CollideElement (point);
+			Destroy(gameObject);
+		}
 
 		if (NbCol >= 10)
 		{

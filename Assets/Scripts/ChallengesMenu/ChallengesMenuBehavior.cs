@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChallengesMenuBehavior : MonoBehaviour
 {
@@ -22,8 +23,20 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		_breakoutTitle = GameObject.Find ("Breakout");
 		_breakoutButtons = GameObject.Find ("BreakoutButtons");
 
+		GameObject.Find ("Targets01ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Target01;
+
 		SetButtons ();
 		StartCoroutine (InitiateLeft());
+	}
+
+	private void Target01()
+	{
+		PlayerPrefs.SetInt ("Opponent", Opponent.Target.GetHashCode ());
+		PlayerPrefs.SetInt ("Difficulty", Difficulty.Easy.GetHashCode ());
+		PlayerPrefs.SetInt ("GameMode", GameMode.Target.GetHashCode ());
+		PlayerPrefs.SetInt ("SelectedMap", 1);
+		PlayerPrefs.SetInt ("P1Character", 2);
+		LoadGameScene ();
 	}
 
 	private void SetButtons ()
@@ -84,5 +97,10 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		_breakoutTitle.GetComponent<Animator> ().Play ("CharSelLeftToRight");
 		yield return new WaitForSeconds(0.05f);
 		_breakoutButtons.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
+	}
+
+	private void LoadGameScene()
+	{
+		SceneManager.LoadScene("GameLoadingScene");
 	}
 }

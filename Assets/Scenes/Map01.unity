@@ -144,6 +144,7 @@ MonoBehaviour:
   Ball: {fileID: 1296604735268884, guid: bb7829b91632d9e4a803a55fdf671c19, type: 2}
   DistanceWall: 1.5
   IsGoal: 0
+  IsPaused: 0
   ScorePlayerOne: 0
   ScorePlayerTwo: 0
   SetPlayerOne: 0
