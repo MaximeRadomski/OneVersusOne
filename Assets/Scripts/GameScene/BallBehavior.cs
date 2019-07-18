@@ -180,8 +180,11 @@ public class BallBehavior : MonoBehaviour
 				col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
 			//}
 			var looserGameObject = GameObject.Find (col.gameObject.GetComponent<GoalBehavior>().Player.ToString ());
-			looserGameObject.GetComponent<PlayerBehavior> ().Eject(transform.position);
-			CollideElement (looserGameObject.transform.position);
+			if (looserGameObject != null)
+			{
+				looserGameObject.GetComponent<PlayerBehavior> ().Eject(transform.position);
+				CollideElement (looserGameObject.transform.position);
+			}
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
             Destroy(gameObject);
         }
@@ -231,7 +234,7 @@ public class BallBehavior : MonoBehaviour
 			col.gameObject.GetComponent<GoalBehavior> ().GoalHit ();
 			col.gameObject.GetComponent<GoalBehavior> ().Unfreeze ();
 		}
-		else if (gameObject.tag == "Target")
+		else if (col.gameObject.tag == "Target")
 		{
 			Vector2 point;
 			if (col.contacts.Length > 0)
@@ -239,6 +242,7 @@ public class BallBehavior : MonoBehaviour
 			else
 				point = this.transform.position;
 			CollideElement (point);
+			_gameManager.GetComponent<GameManagerBehavior> ().NewBallChallenge ();
 			Destroy(gameObject);
 		}
 

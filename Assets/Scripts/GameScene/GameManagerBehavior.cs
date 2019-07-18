@@ -30,6 +30,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private int _maxScore;
 	private int _maxSets;
+	private int _challengeScoreCount;
 	private float _playerTwoXAxisUnder20;
 	private float _playerTwoXAxisOver20;
 	private float _playerTwoXAxisEquals1;
@@ -123,7 +124,8 @@ public class GameManagerBehavior : MonoBehaviour
 		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Player.GetHashCode ())
 			DestroyP2Objects ();
 
-		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Wall.GetHashCode ())
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Player.GetHashCode () ||
+			PlayerPrefs.GetInt ("Opponent") == Opponent.AI.GetHashCode ())
 			_playerTwo = CreateCharacter (CurrentPlayer.PlayerTwo, 2);
 		else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
 			CreateWall ();
@@ -136,6 +138,11 @@ public class GameManagerBehavior : MonoBehaviour
 		}
 		else if (PlayerPrefs.GetInt ("GameMode") != GameMode.Tournament.GetHashCode ())
 		{
+			if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ())
+			{
+				NewTarget ();
+				_challengeScoreCount = -1;
+			}
 			NewBallChallenge ();
 		}
 			
@@ -181,10 +188,18 @@ public class GameManagerBehavior : MonoBehaviour
 		Destroy (GameObject.Find("SuperP2"));
 		Destroy (GameObject.Find("AiP2"));
 
-		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
+		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Player.GetHashCode () &&
+			PlayerPrefs.GetInt ("Opponent") != Opponent.AI.GetHashCode ())
 		{
 			Destroy (GameObject.Find("ShadowP2"));
-			GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "TRAINING";
+			if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
+				GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "TRAINING";
+			else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Target.GetHashCode ())
+				GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "TARGET";
+			else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Catch.GetHashCode ())
+				GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "CATCH";
+			else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Breakout.GetHashCode ())
+				GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "BREAKOUT";
 			if (IsHowToPlay)
 				GameObject.Find ("NoPlayerBannerTitle").GetComponent<UnityEngine.UI.Text> ().text = "\t\t\t\t\t\t\tHOW TO PLAY";
 			GameObject.Find ("Player02Image").GetComponent<SpriteRenderer> ().enabled = false;
@@ -285,6 +300,32 @@ public class GameManagerBehavior : MonoBehaviour
 			PlaceBall ();
 	}
 
+	private void ChallengeEnd(bool victory)
+	{
+		_gameEnd = false;
+		string matchEndMusic = "MatchEndLoose";
+
+		if (victory) {
+			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+			_winner.GetComponent<Animator> ().Play ("DisplayFromBottom");
+			_playerOne.GetComponent<Animator> ().Play ("Victory");
+			matchEndMusic = "MatchEndWin";
+			_gameEnd = true;
+		} else {
+			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
+			_loser.GetComponent<Animator> ().Play ("DisplayFromBottom");
+			_playerOne.GetComponent<Animator> ().Play ("Defeat");
+			matchEndMusic = "MatchEndLoose";
+			_gameEnd = true;
+		}
+
+		this.gameObject.GetComponent<AudioSource> ().loop = false;
+		this.gameObject.GetComponent<AudioSource> ().Stop ();
+		this.gameObject.GetComponent<AudioSource> ().clip = Resources.Load<AudioClip> ("Musics/" + matchEndMusic);
+		this.gameObject.GetComponent<AudioSource> ().Play ();
+		Invoke("EndGame", 5.0f);
+	}
+
 	private void CheckIfSet()
 	{
 		bool reset = false;
@@ -328,6 +369,13 @@ public class GameManagerBehavior : MonoBehaviour
 
 	public void NewBall(CurrentPlayer looser, int points, bool moreThanOneBall)
     {
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode () ||
+			PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () ||
+			PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode ())
+		{
+			NewBallChallenge (true);
+			return;
+		}
 		if (PlayerPrefs.GetInt ("SelectedMap") == 4)
 			this.gameObject.GetComponent<ChangingGoalsBehavior> ().SomeoneScored (looser);
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
@@ -364,14 +412,32 @@ public class GameManagerBehavior : MonoBehaviour
 		}
     }
 
-	public void NewBallChallenge()
+	public void NewBallChallenge(bool isGoal = false)
 	{
-		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ())
+		if (isGoal)
 		{
-			var tmpTargetInstance = Resources.Load<GameObject> ("Prefabs/Target");
-			Instantiate (tmpTargetInstance, new Vector3(Random.Range(1.3f, 1.3f), tmpTargetInstance.transform.position.y, tmpTargetInstance.transform.position.z), tmpTargetInstance.transform.rotation);	
+			ChallengeEnd (false);
+			return;
+		}
+		++_challengeScoreCount;
+		if (_challengeScoreCount >= PlayerPrefs.GetInt ("MaxScore"))
+		{
+			ChallengeEnd (true);
+			return;
 		}
 		Invoke("PlaceBall", 0.5f);
+	}
+
+	public void NewTarget()
+	{
+		var tmpTargetInstance = Resources.Load<GameObject> ("Prefabs/Target");
+		var currentTargets = GameObject.FindGameObjectsWithTag ("Target");
+		float currentTargetX = 0.0f;
+		if (currentTargets != null && currentTargets.Length > 0) {
+			currentTargetX = currentTargets [0].transform.position.x;
+		}
+		float multiplier = currentTargetX > 0 ? -1.0f : 1.0f;
+		Instantiate (tmpTargetInstance, new Vector3(Random.Range(0.4f, 1.3f) * multiplier, tmpTargetInstance.transform.position.y, tmpTargetInstance.transform.position.z), tmpTargetInstance.transform.rotation);
 	}
 
 	private void DisplayScores()

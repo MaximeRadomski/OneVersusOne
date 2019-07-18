@@ -28,7 +28,7 @@ public class ShadowBehavior : MonoBehaviour
 			} else {
 				_linkedPlayer = GameObject.Find ("PlayerTwo");
 			}
-		}	
+		}
 		transform.position = _linkedPlayer.transform.position +	new Vector3 (0.0278f, _y, 0.0f);
 	}
 }

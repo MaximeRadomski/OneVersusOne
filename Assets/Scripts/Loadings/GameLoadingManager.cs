@@ -7,6 +7,7 @@ public class GameLoadingManager : MonoBehaviour
 {
 	public Sprite[] MapTemplates;
 	public Sprite[] CharactersSprites;
+	public Sprite[] GameModeSprites;
 
 	private GameObject _p1BannerPlayerName, _p1PlayerInfo, _p1LoadingContainer, _p1CharacterSprite;
 	private GameObject _p2BannerPlayerName, _p2PlayerInfo, _p2LoadingContainer, _p2CharacterSprite;
@@ -53,10 +54,18 @@ public class GameLoadingManager : MonoBehaviour
 		_p2BannerPlayerName.GetComponent<Animator> ().Play ("CharSelLeftToRight");
 
 		_p1PlayerInfo.GetComponent<Animator> ().Play ("MapSelDescLeftToRight");
-		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Wall.GetHashCode ())
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Player.GetHashCode () ||
+			PlayerPrefs.GetInt ("Opponent") == Opponent.AI.GetHashCode ())
 			_p2PlayerInfo.GetComponent<Animator> ().Play ("MapSelDescLeftToRight");
 		else
 			GameObject.Find ("P2Wall").GetComponent<Animator> ().Play ("MapSelDescLeftToRight");
+
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ())
+			GameObject.Find ("P2WallSprite").GetComponent<SpriteRenderer>().sprite = GameModeSprites[1];
+		else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode ())
+			GameObject.Find ("P2WallSprite").GetComponent<SpriteRenderer>().sprite = GameModeSprites[2];
+		else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode ())
+			GameObject.Find ("P2WallSprite").GetComponent<SpriteRenderer>().sprite = GameModeSprites[3];
 
 		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Player.GetHashCode ())
 		{

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AdSceneManagerBehavior : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class AdSceneManagerBehavior : MonoBehaviour
 		_gameImage = GameObject.Find ("GameImage");
 		_gameDescription = GameObject.Find ("GameDescriptionText");
 		_leaveButton = GameObject.Find ("LeaveButton");
+		GameObject.Find ("LeaveButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = ExitAds;
 
 		StartCoroutine (InitiateLeft());
 		SetAd ();
@@ -57,5 +59,17 @@ public class AdSceneManagerBehavior : MonoBehaviour
 			Application.OpenURL ("market://details?id=" + AdsData.GameAds [_adId].UrlId);
 		else
 			Application.OpenURL (AdsData.GameAds [_adId].UrlId);
+	}
+
+	private void ExitAds()
+	{
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode () ||
+		    PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () ||
+		    PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode () ||
+		    PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ()) {
+			SceneManager.LoadScene("ChallengesMenu");
+		} else {
+			SceneManager.LoadScene("CharSelScene");
+		}
 	}
 }
