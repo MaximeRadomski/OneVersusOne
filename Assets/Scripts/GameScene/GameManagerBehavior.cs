@@ -239,10 +239,23 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void EndGame()
 	{
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode () && PlayerPrefs.GetInt("Targets") <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
+			PlayerPrefs.SetInt("Targets", PlayerPrefs.GetInt("Targets") + 1);
+		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () && PlayerPrefs.GetInt("Catch") <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
+			PlayerPrefs.SetInt("Catch", PlayerPrefs.GetInt("Catch") + 1);
+		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode () && PlayerPrefs.GetInt("Breakout") <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
+			PlayerPrefs.SetInt("Breakout", PlayerPrefs.GetInt("Breakout") + 1);
+		}
+
 		if (PlayerPrefs.GetInt ("Ads", 1) == 1)
 			SceneManager.LoadScene("AdScene");
 		else
 			SceneManager.LoadScene("CharSelScene");
+	}
+
+	private void ResetScene()
+	{
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 	}
 
 	private void CheckIfGame()
@@ -303,6 +316,8 @@ public class GameManagerBehavior : MonoBehaviour
 	private void ChallengeEnd(bool victory)
 	{
 		_gameEnd = false;
+		_playerOne.GetComponent<PlayerBehavior> ().IsControlledByAI = true;
+		_playerOne.GetComponent<PlayerBehavior> ().ControlledAction = ControlledAction.None;
 		string matchEndMusic = "MatchEndLoose";
 
 		if (victory) {
@@ -311,19 +326,20 @@ public class GameManagerBehavior : MonoBehaviour
 			_playerOne.GetComponent<Animator> ().Play ("Victory");
 			matchEndMusic = "MatchEndWin";
 			_gameEnd = true;
+			Invoke("EndGame", 5.0f);
 		} else {
 			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
 			_loser.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_playerOne.GetComponent<Animator> ().Play ("Defeat");
 			matchEndMusic = "MatchEndLoose";
 			_gameEnd = true;
+			Invoke("ResetScene", 5.0f);
 		}
 
 		this.gameObject.GetComponent<AudioSource> ().loop = false;
 		this.gameObject.GetComponent<AudioSource> ().Stop ();
 		this.gameObject.GetComponent<AudioSource> ().clip = Resources.Load<AudioClip> ("Musics/" + matchEndMusic);
 		this.gameObject.GetComponent<AudioSource> ().Play ();
-		Invoke("EndGame", 5.0f);
 	}
 
 	private void CheckIfSet()
@@ -416,14 +432,21 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		if (isGoal)
 		{
+			if (_challengeScoreCount >= PlayerPrefs.GetInt ("MaxScore"))
+			{
+				ChallengeEnd (true);
+				return;
+			}
 			ChallengeEnd (false);
 			return;
 		}
 		++_challengeScoreCount;
-		if (_challengeScoreCount >= PlayerPrefs.GetInt ("MaxScore"))
-		{
-			ChallengeEnd (true);
-			return;
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ()) {
+			var scoreCountModel = Resources.Load<GameObject> ("Prefabs/Punchline");
+			var scoreCountInstance = Instantiate (scoreCountModel, _playerOne.transform.position, scoreCountModel.transform.rotation);
+			scoreCountInstance.transform.SetParent (GameObject.Find("Canvas").transform);
+			scoreCountInstance.transform.position = _playerOne.transform.position;
+			scoreCountInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = _challengeScoreCount.ToString();	
 		}
 		Invoke("PlaceBall", 0.5f);
 	}
@@ -437,7 +460,17 @@ public class GameManagerBehavior : MonoBehaviour
 			currentTargetX = currentTargets [0].transform.position.x;
 		}
 		float multiplier = currentTargetX > 0 ? -1.0f : 1.0f;
-		Instantiate (tmpTargetInstance, new Vector3(Random.Range(0.4f, 1.3f) * multiplier, tmpTargetInstance.transform.position.y, tmpTargetInstance.transform.position.z), tmpTargetInstance.transform.rotation);
+		Instantiate (tmpTargetInstance, new Vector3(Random.Range(0f, 1.3f) * multiplier, tmpTargetInstance.transform.position.y, tmpTargetInstance.transform.position.z), tmpTargetInstance.transform.rotation);
+		if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") == 2) {
+			var targetWall = GameObject.Find ("TargetWall");
+			if (targetWall == null) {
+				var tmpTargetWallInstance = Resources.Load<GameObject> ("Prefabs/TargetWall");
+				targetWall = Instantiate (tmpTargetWallInstance, new Vector3 (Random.Range(0, 2) == 0 ? -1.0f : 1.0f, tmpTargetWallInstance.transform.position.y, tmpTargetWallInstance.transform.position.z), tmpTargetWallInstance.transform.rotation);
+				targetWall.gameObject.name = "TargetWall";
+			} else {
+				targetWall.transform.position = new Vector3(Random.Range(0, 2) == 0 ? -1.0f : 1.0f, targetWall.transform.position.y, targetWall.transform.position.z);
+			}
+		}
 	}
 
 	private void DisplayScores()
@@ -554,11 +587,14 @@ public class GameManagerBehavior : MonoBehaviour
 		_tmpPopup = Instantiate (PopupPause, new Vector3(0.0f, 0.0f, 0.0f), PopupPause.transform.rotation);
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
 		if (IsHowToPlay) {
-			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().PressSprite();
-			GameObject.Find ("Button02Background").GetComponent<BoxCollider2D>().enabled = false;
+			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior> ().PressSprite ();
+			GameObject.Find ("Button02Background").GetComponent<BoxCollider2D> ().enabled = false;
+		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Duel.GetHashCode ()) {
+			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior> ().buttonDelegate = GoBackVersusMenu;
+		} else {
+			GameObject.Find ("Button02Text").GetComponent<UnityEngine.UI.Text>().text = "Challenges";
+			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior> ().buttonDelegate = GoBackChallengesMenu;
 		}
-		else
-			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoBackVersusMenu;
 		GameObject.Find ("Button03Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoBackTitleScreen;
 		GameObject.Find ("PopupBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
 		var tmpCurrentScore = "SCORE: " + ScorePlayerOne.ToString ("D2") + "/" + ScorePlayerTwo.ToString ("D2");
@@ -584,6 +620,13 @@ public class GameManagerBehavior : MonoBehaviour
 		Time.timeScale = 1.0f;
 		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
 		SceneManager.LoadScene("CharSelScene");
+	}
+
+	private void GoBackChallengesMenu()
+	{
+		Time.timeScale = 1.0f;
+		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
+		SceneManager.LoadScene("ChallengesMenu");
 	}
 
 	private void GoBackTitleScreen()

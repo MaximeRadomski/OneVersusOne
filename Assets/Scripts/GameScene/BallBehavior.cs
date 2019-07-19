@@ -241,7 +241,7 @@ public class BallBehavior : MonoBehaviour
 				point = col.contacts [0].point;
 			else
 				point = this.transform.position;
-			CollideElement (point);
+			CollideElement (point, true);
 			_gameManager.GetComponent<GameManagerBehavior> ().NewBallChallenge ();
 			Destroy(gameObject);
 		}
@@ -253,7 +253,7 @@ public class BallBehavior : MonoBehaviour
 		}
     }
 
-	private void CollideElement(Vector2 point)
+	private void CollideElement(Vector2 point, bool goalExplosion = false)
 	{
 		float effectRotation = 0.0f;
 		float offset = 0.35f;
@@ -272,7 +272,13 @@ public class BallBehavior : MonoBehaviour
 			effectX = 0.0f;
 			effectY = -offset;
 		}
-		var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(point.x + effectX, point.y + effectY, 0.0f), transform.rotation);
+		GameObject effect = WallHitEffect;
+		if (goalExplosion) {
+			effect = GoalExplosionEffect;
+			effectRotation = 180;
+			effectY = -0.7f;
+		}
+		var tmpWallHitEffect = Instantiate(effect, new Vector3(point.x + effectX, point.y + effectY, 0.0f), transform.rotation);
 		tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, effectRotation);
 	}
 

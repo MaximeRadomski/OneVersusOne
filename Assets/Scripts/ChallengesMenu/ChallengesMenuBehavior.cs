@@ -24,6 +24,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		_breakoutButtons = GameObject.Find ("BreakoutButtons");
 
 		GameObject.Find ("Targets01ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Target01;
+		GameObject.Find ("Targets02ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Target02;
 
 		SetButtons ();
 		StartCoroutine (InitiateLeft());
@@ -31,12 +32,25 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Target01()
 	{
+		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("Difficulty", Difficulty.Easy.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 1);
-		PlayerPrefs.SetInt ("P1Character", 2);
-		PlayerPrefs.SetInt ("MaxScore", 12);
+		PlayerPrefs.SetInt ("P1Character", 6);
+		PlayerPrefs.SetInt ("MaxScore", 10);
+		LoadGameScene ();
+	}
+
+	private void Target02()
+	{
+		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
+		PlayerPrefs.SetInt ("Opponent", Opponent.Target.GetHashCode ());
+		PlayerPrefs.SetInt ("Difficulty", Difficulty.Normal.GetHashCode ());
+		PlayerPrefs.SetInt ("GameMode", GameMode.Target.GetHashCode ());
+		PlayerPrefs.SetInt ("SelectedMap", 4);
+		PlayerPrefs.SetInt ("P1Character", 5);
+		PlayerPrefs.SetInt ("MaxScore", 10);
 		LoadGameScene ();
 	}
 
