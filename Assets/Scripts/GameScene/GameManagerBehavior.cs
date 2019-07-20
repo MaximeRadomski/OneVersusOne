@@ -143,6 +143,7 @@ public class GameManagerBehavior : MonoBehaviour
 				NewTarget ();
 				_challengeScoreCount = -1;
 			}
+			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
 			NewBallChallenge ();
 		}
 			
@@ -210,7 +211,7 @@ public class GameManagerBehavior : MonoBehaviour
 
     public void PlaceBall()
     {
-		if (BallAlreadyExists())
+		if (BallAlreadyExists() || _gameEnd)
 			return;
         var currentPlayer = GameObject.Find(_playerName);
 		currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
@@ -239,12 +240,12 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void EndGame()
 	{
-		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode () && PlayerPrefs.GetInt("Targets") <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
-			PlayerPrefs.SetInt("Targets", PlayerPrefs.GetInt("Targets") + 1);
-		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () && PlayerPrefs.GetInt("Catch") <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
-			PlayerPrefs.SetInt("Catch", PlayerPrefs.GetInt("Catch") + 1);
-		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode () && PlayerPrefs.GetInt("Breakout") <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
-			PlayerPrefs.SetInt("Breakout", PlayerPrefs.GetInt("Breakout") + 1);
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode () && PlayerPrefs.GetInt("Targets", 1) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
+			PlayerPrefs.SetInt("Targets", PlayerPrefs.GetInt("Targets", 1) + 1);
+		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () && PlayerPrefs.GetInt("Catch", 1) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
+			PlayerPrefs.SetInt("Catch", PlayerPrefs.GetInt("Catch", 1) + 1);
+		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode () && PlayerPrefs.GetInt("Breakout", 1) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
+			PlayerPrefs.SetInt("Breakout", PlayerPrefs.GetInt("Breakout", 1) + 1);
 		}
 
 		if (PlayerPrefs.GetInt ("Ads", 1) == 1)
@@ -315,7 +316,7 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void ChallengeEnd(bool victory)
 	{
-		_gameEnd = false;
+		_gameEnd = true;
 		_playerOne.GetComponent<PlayerBehavior> ().IsControlledByAI = true;
 		_playerOne.GetComponent<PlayerBehavior> ().ControlledAction = ControlledAction.None;
 		string matchEndMusic = "MatchEndLoose";
@@ -325,15 +326,13 @@ public class GameManagerBehavior : MonoBehaviour
 			_winner.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_playerOne.GetComponent<Animator> ().Play ("Victory");
 			matchEndMusic = "MatchEndWin";
-			_gameEnd = true;
 			Invoke("EndGame", 5.0f);
 		} else {
 			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
 			_loser.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_playerOne.GetComponent<Animator> ().Play ("Defeat");
 			matchEndMusic = "MatchEndLoose";
-			_gameEnd = true;
-			Invoke("ResetScene", 5.0f);
+			Invoke("ResetScene", 4.0f);
 		}
 
 		this.gameObject.GetComponent<AudioSource> ().loop = false;
@@ -441,6 +440,7 @@ public class GameManagerBehavior : MonoBehaviour
 			return;
 		}
 		++_challengeScoreCount;
+		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
 		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ()) {
 			var scoreCountModel = Resources.Load<GameObject> ("Prefabs/Punchline");
 			var scoreCountInstance = Instantiate (scoreCountModel, _playerOne.transform.position, scoreCountModel.transform.rotation);
@@ -448,28 +448,45 @@ public class GameManagerBehavior : MonoBehaviour
 			scoreCountInstance.transform.position = _playerOne.transform.position;
 			scoreCountInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = _challengeScoreCount.ToString();	
 		}
-		Invoke("PlaceBall", 0.5f);
+		Invoke("PlaceBall", 0.1f);
 	}
+
+	private List<float> _targetPosBag;
+	private float _lastTargetPos = -5.0f;
 
 	public void NewTarget()
 	{
-		var tmpTargetInstance = Resources.Load<GameObject> ("Prefabs/Target");
-		var currentTargets = GameObject.FindGameObjectsWithTag ("Target");
-		float currentTargetX = 0.0f;
-		if (currentTargets != null && currentTargets.Length > 0) {
-			currentTargetX = currentTargets [0].transform.position.x;
+		if (_targetPosBag == null || _targetPosBag.Count == 0) {
+			if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") < 2)
+				_targetPosBag = new List<float>{ -1.1f, 0.05f, 1.2f };
+			else
+				_targetPosBag = new List<float>{ -1.1f, -0.6f, 0.05f, 0.7f, 1.2f };
 		}
-		float multiplier = currentTargetX > 0 ? -1.0f : 1.0f;
-		Instantiate (tmpTargetInstance, new Vector3(Random.Range(0f, 1.3f) * multiplier, tmpTargetInstance.transform.position.y, tmpTargetInstance.transform.position.z), tmpTargetInstance.transform.rotation);
-		if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") == 2) {
+		var tmpTargetModel = Resources.Load<GameObject> ("Prefabs/Target");
+		var randomPosId = Random.Range (0, _targetPosBag.Count);
+		if (_targetPosBag [randomPosId] == _lastTargetPos) {
+			randomPosId = randomPosId + 1 >= _targetPosBag.Count ? 0 : randomPosId + 1;
+		}
+		var tmpTargetInstance = Instantiate (tmpTargetModel, new Vector3(_targetPosBag[randomPosId], tmpTargetModel.transform.position.y, tmpTargetModel.transform.position.z), tmpTargetModel.transform.rotation);
+		_lastTargetPos = _targetPosBag [randomPosId];
+		_targetPosBag.RemoveAt (randomPosId);
+		if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") == 2 && GameObject.Find ("TargetWallDouble") == null) {
+			var tmpTargetWallDoubleModel = Resources.Load<GameObject> ("Prefabs/TargetWallDouble");
+			var tmpTargetWallDoubleInstance = Instantiate (tmpTargetWallDoubleModel, new Vector3 (0.0f, tmpTargetWallDoubleModel.transform.position.y, tmpTargetWallDoubleModel.transform.position.z), tmpTargetWallDoubleModel.transform.rotation);
+			tmpTargetWallDoubleInstance.gameObject.name = "TargetWallDouble";
+		} else if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") == 3) {
 			var targetWall = GameObject.Find ("TargetWall");
 			if (targetWall == null) {
 				var tmpTargetWallInstance = Resources.Load<GameObject> ("Prefabs/TargetWall");
-				targetWall = Instantiate (tmpTargetWallInstance, new Vector3 (Random.Range(0, 2) == 0 ? -1.0f : 1.0f, tmpTargetWallInstance.transform.position.y, tmpTargetWallInstance.transform.position.z), tmpTargetWallInstance.transform.rotation);
+				targetWall = Instantiate (tmpTargetWallInstance, new Vector3 (5.0f, tmpTargetWallInstance.transform.position.y, tmpTargetWallInstance.transform.position.z), tmpTargetWallInstance.transform.rotation);
 				targetWall.gameObject.name = "TargetWall";
-			} else {
-				targetWall.transform.position = new Vector3(Random.Range(0, 2) == 0 ? -1.0f : 1.0f, targetWall.transform.position.y, targetWall.transform.position.z);
 			}
+			float targetWallX = 0.02f;
+			if (tmpTargetInstance.transform.position.x < 0.04f)
+				targetWallX = -1.06f;
+			else if (tmpTargetInstance.transform.position.x > 0.06f)
+				targetWallX = 1.11f;
+			targetWall.transform.position = new Vector3(Random.Range(0,2) == 0 ? 0.02f : targetWallX, targetWall.transform.position.y, targetWall.transform.position.z);
 		}
 	}
 

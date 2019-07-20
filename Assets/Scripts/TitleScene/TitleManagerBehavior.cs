@@ -144,7 +144,6 @@ public class TitleManagerBehavior : MonoBehaviour
 			PlayerPrefs.SetInt ("Tournament", 4);
 			DisplayPopupCheat ();
 		}
-		Debug.Log ("_titleClick = " + _titleClick);
 	}
 
 	private IEnumerator InitiateLeft()
