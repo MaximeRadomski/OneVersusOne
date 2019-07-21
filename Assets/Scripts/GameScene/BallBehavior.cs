@@ -172,7 +172,7 @@ public class BallBehavior : MonoBehaviour
             if (transform.position.y > 0)
                 tmpGoalEffect.GetComponent<SpriteRenderer>().flipY = true;
 
-			if (!MoreThanOneBall())
+			if (!MoreThanOneBall() && _camera != null)
 				_camera.GetComponent<CameraBehavior>().GoalHit(transform.position.y);
 			/*if (transform.position.x >= col.gameObject.transform.position.x - (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2) &&
 			    transform.position.x <= col.gameObject.transform.position.x + (col.gameObject.GetComponent<BoxCollider2D> ().size.x / 2))
@@ -185,7 +185,8 @@ public class BallBehavior : MonoBehaviour
 				looserGameObject.GetComponent<PlayerBehavior> ().Eject(transform.position);
 				CollideElement (looserGameObject.transform.position);
 			}
-			_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
+			if (_gameManager != null)
+				_gameManager.GetComponent<GameManagerBehavior>().NewBall(col.gameObject.GetComponent<GoalBehavior>().Player, col.gameObject.GetComponent<GoalBehavior>().Points, MoreThanOneBall());
             Destroy(gameObject);
         }
 		else if (col.gameObject.tag == "TrainingWall" && gameObject.tag != "DiscShadow")
@@ -321,7 +322,10 @@ public class BallBehavior : MonoBehaviour
 		if (isLifted)
 		{
 			_isQuickThrow = false;
-			_liftDirection = _linkedPlayer.GetComponent<PlayerBehavior> ().LiftDirection;
+			if (PlayerPrefs.GetInt ("Opponent") == Opponent.Catch.GetHashCode ())
+				_liftDirection = GameObject.Find("Launcher").GetComponent<LauncherBehavior> ().LiftDirection;
+			else
+				_liftDirection = _linkedPlayer.GetComponent<PlayerBehavior> ().LiftDirection;
 			customSpeed = customSpeed * 0.8f;
 			_gravityIsSet = true;
 			Invoke ("CanSetGravity", 0.15f);

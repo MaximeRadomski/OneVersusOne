@@ -26,6 +26,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject _winner, _loser, _draw01, _draw02;
 	private GameObject _playerOne, _playerTwo;
 	private GameObject _tmpPopup;
+	private GameObject _launcher;
 	private bool _gameEnd;
 
 	private int _maxScore;
@@ -142,8 +143,18 @@ public class GameManagerBehavior : MonoBehaviour
 			{
 				NewTarget ();
 				_challengeScoreCount = -1;
+			} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode ())
+			{
+				var tmpLauncherModel = Resources.Load<GameObject> ("Prefabs/Launcher");
+				_launcher = Instantiate (tmpLauncherModel, new Vector3(-5.0f, tmpLauncherModel.transform.position.y, tmpLauncherModel.transform.position.z), tmpLauncherModel.transform.rotation);
+				_launcher.gameObject.name = "Launcher";
+				Invoke("NewLaunch", 0.5f);
+				GameObject.Find ("GoalTop01").tag = "MiddleWall";
+				GameObject.Find ("GoalTop02").tag = "MiddleWall";
+				GameObject.Find ("GoalTop03").tag = "MiddleWall";
+				_challengeScoreCount = -1;
 			}
-			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
+			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + 0 + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
 			NewBallChallenge ();
 		}
 			
@@ -388,7 +399,15 @@ public class GameManagerBehavior : MonoBehaviour
 			PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () ||
 			PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode ())
 		{
-			NewBallChallenge (true);
+			if (points > 2)
+				NewBallChallenge (true);
+			else {
+				--_challengeScoreCount;
+				if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode ())
+					NewLaunch ();
+				else
+					NewBallChallenge ();
+			}
 			return;
 		}
 		if (PlayerPrefs.GetInt ("SelectedMap") == 4)
@@ -439,16 +458,16 @@ public class GameManagerBehavior : MonoBehaviour
 			ChallengeEnd (false);
 			return;
 		}
-		++_challengeScoreCount;
-		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
 		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ()) {
+			++_challengeScoreCount;
+			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text> ().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString ();
 			var scoreCountModel = Resources.Load<GameObject> ("Prefabs/Punchline");
 			var scoreCountInstance = Instantiate (scoreCountModel, _playerOne.transform.position, scoreCountModel.transform.rotation);
-			scoreCountInstance.transform.SetParent (GameObject.Find("Canvas").transform);
+			scoreCountInstance.transform.SetParent (GameObject.Find ("Canvas").transform);
 			scoreCountInstance.transform.position = _playerOne.transform.position;
-			scoreCountInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = _challengeScoreCount.ToString();	
+			scoreCountInstance.transform.GetChild (0).GetComponent<PunchlineBehavior> ().Text = _challengeScoreCount.ToString ();	
+			Invoke ("PlaceBall", 0.1f);
 		}
-		Invoke("PlaceBall", 0.1f);
 	}
 
 	private List<float> _targetPosBag;
@@ -457,9 +476,6 @@ public class GameManagerBehavior : MonoBehaviour
 	public void NewTarget()
 	{
 		if (_targetPosBag == null || _targetPosBag.Count == 0) {
-			if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") < 2)
-				_targetPosBag = new List<float>{ -1.1f, 0.05f, 1.2f };
-			else
 				_targetPosBag = new List<float>{ -1.1f, -0.6f, 0.05f, 0.7f, 1.2f };
 		}
 		var tmpTargetModel = Resources.Load<GameObject> ("Prefabs/Target");
@@ -488,6 +504,23 @@ public class GameManagerBehavior : MonoBehaviour
 				targetWallX = 1.11f;
 			targetWall.transform.position = new Vector3(Random.Range(0,2) == 0 ? 0.02f : targetWallX, targetWall.transform.position.y, targetWall.transform.position.z);
 		}
+	}
+
+	public void NewLaunch()
+	{
+		++_challengeScoreCount;
+		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
+		if (_targetPosBag == null || _targetPosBag.Count == 0) {
+			_targetPosBag = new List<float>{ -1.1f, -0.6f, 0.05f, 0.7f, 1.2f };
+		}
+		var randomPosId = Random.Range (0, _targetPosBag.Count);
+		if (_targetPosBag [randomPosId] == _lastTargetPos) {
+			randomPosId = randomPosId + 1 >= _targetPosBag.Count ? 0 : randomPosId + 1;
+		}
+		_launcher.transform.position = new Vector3(_targetPosBag[randomPosId], _launcher.transform.position.y, _launcher.transform.position.z);
+		_lastTargetPos = _targetPosBag [randomPosId];
+		_targetPosBag.RemoveAt (randomPosId);
+		_launcher.GetComponent<LauncherBehavior> ().Launch (Ball);
 	}
 
 	private void DisplayScores()

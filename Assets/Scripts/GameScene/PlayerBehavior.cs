@@ -319,6 +319,11 @@ public class PlayerBehavior : MonoBehaviour
 			if (Ball.GetComponent<BallBehavior>().LastThrownBy != Player)
 				SPCooldown = SPCooldown - 1 <= 0 ? 0 : SPCooldown - 1;
 		}
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Catch.GetHashCode ()) {
+			Destroy (Ball);
+			_gameManager.GetComponent<GameManagerBehavior> ().NewLaunch ();
+			return;
+		}
 		HasTheDisc = true;
 		_throwAngle = 0.0f;
 		LiftDirection = Direction.Standby;

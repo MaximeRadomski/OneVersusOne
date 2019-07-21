@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class TargetBehaviour : MonoBehaviour
 {
-	void Start ()
-	{
-		
-	}
-
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		if (col.gameObject.tag == "Disc")

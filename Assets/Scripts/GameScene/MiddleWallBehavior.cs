@@ -33,6 +33,8 @@ public class MiddleWallBehavior : MonoBehaviour
 		GameObject.Find ("MiddleWall03").GetComponent<MiddleWallBehavior> ().Disable ();
 		//var newWallId = Random.Range (1, 4);
 		_order++;
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () && _order == 3)
+			_order = 1;
 		if (_order > 3)
 			_order = 1;
 		if (_order == 1)
