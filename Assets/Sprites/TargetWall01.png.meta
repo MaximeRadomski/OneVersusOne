@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b68cd4339047a2444a0285bf9b8cd1d7
-timeCreated: 1563191980
+timeCreated: 1563779021
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -11,6 +11,8 @@ TextureImporter:
     21300008: TargetWall01_4
     21300010: TargetWall01_5
     21300012: TargetWall01_6
+    21300014: TargetWall01_7
+    21300016: TargetWall01_8
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -101,7 +103,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
+        y: 64
         width: 32
         height: 16
       alignment: 0
@@ -115,7 +117,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 48
+        y: 64
         width: 32
         height: 16
       alignment: 0
@@ -129,7 +131,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 48
         width: 32
         height: 16
       alignment: 0
@@ -143,7 +145,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 32
+        y: 48
         width: 32
         height: 16
       alignment: 0
@@ -157,7 +159,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
+        y: 32
         width: 32
         height: 16
       alignment: 0
@@ -171,7 +173,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 16
+        y: 32
         width: 32
         height: 16
       alignment: 0
@@ -182,6 +184,34 @@ TextureImporter:
       tessellationDetail: 0
     - serializedVersion: 2
       name: TargetWall01_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: TargetWall01_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: TargetWall01_8
       rect:
         serializedVersion: 2
         x: 0

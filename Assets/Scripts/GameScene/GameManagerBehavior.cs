@@ -168,7 +168,7 @@ public class GameManagerBehavior : MonoBehaviour
 		bool rotation = player == CurrentPlayer.PlayerOne ? false : true;
 
 		var tmpPlayerInstance = Resources.Load<GameObject> ("Prefabs/Player"+characterNb.ToString("D2"));
-		var tmpPlayer = Instantiate (tmpPlayerInstance, new Vector3(0.0f, 1.805f * multiplier, 0.0f), tmpPlayerInstance.transform.rotation);
+		var tmpPlayer = Instantiate (tmpPlayerInstance, new Vector3(0.075f * multiplier, 1.805f * multiplier, 0.0f), tmpPlayerInstance.transform.rotation);
 		if (rotation)
 			tmpPlayer.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
 		tmpPlayer.transform.name = player.ToString ();
@@ -327,6 +327,8 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void ChallengeEnd(bool victory)
 	{
+		if (_gameEnd)
+			return;
 		_gameEnd = true;
 		_playerOne.GetComponent<PlayerBehavior> ().IsControlledByAI = true;
 		_playerOne.GetComponent<PlayerBehavior> ().ControlledAction = ControlledAction.None;

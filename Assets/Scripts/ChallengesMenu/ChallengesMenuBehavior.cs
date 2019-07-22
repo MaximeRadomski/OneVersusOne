@@ -42,7 +42,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("GameMode", GameMode.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 1);
 		PlayerPrefs.SetInt ("P1Character", 2);
-		PlayerPrefs.SetInt ("MaxScore", 10);
+		PlayerPrefs.SetInt ("MaxScore", 20);
 		LoadGameScene ();
 	}
 

@@ -8,6 +8,7 @@ public class LauncherBehavior : MonoBehaviour
 
 	private GameObject _gameManager;
 	private GameObject _currentBall;
+	private GameObject _ballModel;
 	private float _throwAngle;
 	private float _power;
 
@@ -26,9 +27,21 @@ public class LauncherBehavior : MonoBehaviour
 
 	public void Launch(GameObject ball)
 	{
-		_throwAngle = 0.0f;
+		_ballModel = ball;
 		this.gameObject.GetComponent<Animator> ().Play ("Launch");
-		_currentBall = Instantiate(ball, new Vector3(3.0f, 0.0f, 0.0f), ball.transform.rotation);
+		Invoke ("ResetAnimation", 0.5f);
+		Invoke ("LaunchAfterDelay", 0.25f);
+	}
+
+	private void ResetAnimation()
+	{
+		this.gameObject.GetComponent<Animator> ().Play ("Idle State");
+	}
+
+	private void LaunchAfterDelay()
+	{
+		_throwAngle = 0.0f;
+		_currentBall = Instantiate(_ballModel, new Vector3(3.0f, 0.0f, 0.0f), _ballModel.transform.rotation);
 		_currentBall.transform.name = "Ball";
 		_currentBall.GetComponent<BallBehavior> ().CatchCount = 1;
 		_currentBall.GetComponent<BallBehavior> ().CurrentPlayer = CurrentPlayer.None;
