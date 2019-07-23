@@ -31,6 +31,10 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		GameObject.Find ("Catch02ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Catch02;
 		GameObject.Find ("Catch03ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Catch03;
 
+		GameObject.Find ("Breakout01ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Breakout01;
+		GameObject.Find ("Breakout02ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Breakout02;
+		GameObject.Find ("Breakout03ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Breakout03;
+
 		SetButtons ();
 		StartCoroutine (InitiateLeft());
 	}
@@ -98,6 +102,39 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("SelectedMap", 2);
 		PlayerPrefs.SetInt ("P1Character", 6);
 		PlayerPrefs.SetInt ("MaxScore", 20);
+		LoadGameScene ();
+	}
+
+	private void Breakout01()
+	{
+		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
+		PlayerPrefs.SetInt ("Opponent", Opponent.Breakout.GetHashCode ());
+		PlayerPrefs.SetInt ("GameMode", GameMode.Breakout.GetHashCode ());
+		PlayerPrefs.SetInt ("SelectedMap", 3);
+		PlayerPrefs.SetInt ("P1Character", 2);
+		PlayerPrefs.SetInt ("MaxScore", 1);
+		LoadGameScene ();
+	}
+
+	private void Breakout02()
+	{
+		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
+		PlayerPrefs.SetInt ("Opponent", Opponent.Breakout.GetHashCode ());
+		PlayerPrefs.SetInt ("GameMode", GameMode.Breakout.GetHashCode ());
+		PlayerPrefs.SetInt ("SelectedMap", 6);
+		PlayerPrefs.SetInt ("P1Character", 4);
+		PlayerPrefs.SetInt ("MaxScore", 2);
+		LoadGameScene ();
+	}
+
+	private void Breakout03()
+	{
+		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
+		PlayerPrefs.SetInt ("Opponent", Opponent.Breakout.GetHashCode ());
+		PlayerPrefs.SetInt ("GameMode", GameMode.Breakout.GetHashCode ());
+		PlayerPrefs.SetInt ("SelectedMap", 4);
+		PlayerPrefs.SetInt ("P1Character", 5);
+		PlayerPrefs.SetInt ("MaxScore", 3);
 		LoadGameScene ();
 	}
 

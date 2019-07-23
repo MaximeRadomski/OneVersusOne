@@ -15,6 +15,7 @@ public class BallBehavior : MonoBehaviour
 	public Animator Animator;
 	public bool IsNextBall;
 	public bool HasHitPlayer;
+	public bool QuickDisk;
 
 	public GameObject LiftEffect;
 	public GameObject QuickEffect;
@@ -41,6 +42,7 @@ public class BallBehavior : MonoBehaviour
 	private bool _isQuickThrow;
 	private bool _hasHitGoal;
 	private int _currentMap;
+	private float _originalSpeed;
 
 	void Start ()
 	{
@@ -61,9 +63,11 @@ public class BallBehavior : MonoBehaviour
 		_quickEffectDelay = 0.05f;
 		_isQuickThrow = false;
 		_hasHitGoal = false;
+		_originalSpeed = Speed;
 		HasHitPlayer = false;
 		onWallCollisionDelegate = null;
 		onPlayerCollisionDelegate = null;
+		QuickDisk = false;
 		_currentMap = PlayerPrefs.GetInt ("SelectedMap");
 	}
 
@@ -154,6 +158,7 @@ public class BallBehavior : MonoBehaviour
 			Physics2D.gravity = new Vector2 (0.0f,0.0f);
 			_gravityIsSet = false;
 			_isQuickThrow = true;
+			QuickDisk = false;
 			Invoke ("DisableQuickThrow", 0.3f);
 			Invoke ("PlayerGetBallLastCheck", 0.3f);
         }
@@ -201,6 +206,8 @@ public class BallBehavior : MonoBehaviour
 		}
 		else if (col.gameObject.tag == "MiddleWall")
 		{
+			if (PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode ())
+				NbCol = 0;
 			Vector2 point;
 			if (col.contacts.Length > 0)
 				point = col.contacts [0].point;
@@ -313,6 +320,7 @@ public class BallBehavior : MonoBehaviour
 
 	public void Throw(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, bool isLifted)
     {
+		QuickDisk = false;
 		SetGravityScaleFromPower (addedPower);
 		IsThrownBy = throwingPlayer;
 
@@ -321,6 +329,7 @@ public class BallBehavior : MonoBehaviour
 		float customSpeed = (Speed + addedPower) - (Mathf.Abs(direction.x) * speedQuarter);
 		if (isLifted)
 		{
+			QuickDisk = false;
 			_isQuickThrow = false;
 			if (PlayerPrefs.GetInt ("Opponent") == Opponent.Catch.GetHashCode ())
 				_liftDirection = GameObject.Find("Launcher").GetComponent<LauncherBehavior> ().LiftDirection;
@@ -333,6 +342,7 @@ public class BallBehavior : MonoBehaviour
 		}
 		if (_isQuickThrow)
 		{
+			QuickDisk = true;
 			customSpeed = customSpeed * 1.2f;
 			Invoke ("InstantiateQuickEffect", _quickEffectDelay);
 		}
@@ -369,5 +379,10 @@ public class BallBehavior : MonoBehaviour
 		var tmpQuickEffect = Instantiate (QuickEffect, transform.position, transform.rotation);
 		tmpQuickEffect.GetComponent<SpriteRenderer> ().sprite = gameObject.GetComponent<SpriteRenderer> ().sprite;
 		Invoke ("InstantiateQuickEffect", _quickEffectDelay);
+	}
+
+	public void ResetSpeed()
+	{
+		Speed = _originalSpeed;
 	}
 }
