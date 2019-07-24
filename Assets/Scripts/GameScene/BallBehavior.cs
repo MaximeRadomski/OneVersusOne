@@ -206,7 +206,7 @@ public class BallBehavior : MonoBehaviour
 		}
 		else if (col.gameObject.tag == "MiddleWall")
 		{
-			if (PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode ())
+			if (PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode () && col.gameObject.name.Contains("Brick"))
 				NbCol = 0;
 			Vector2 point;
 			if (col.contacts.Length > 0)

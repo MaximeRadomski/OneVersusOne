@@ -1522,7 +1522,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61091805190193538
 BoxCollider2D:
@@ -1547,7 +1547,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61180109967042030
 BoxCollider2D:
@@ -1572,7 +1572,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61231569428191302
 BoxCollider2D:
@@ -1597,7 +1597,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61276002530311788
 BoxCollider2D:
@@ -1622,7 +1622,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61384156318816550
 BoxCollider2D:
@@ -1647,7 +1647,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61394958855416958
 BoxCollider2D:
@@ -1672,7 +1672,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61501983704543504
 BoxCollider2D:
@@ -1697,7 +1697,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61528662465265776
 BoxCollider2D:
@@ -1722,7 +1722,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61545452755270446
 BoxCollider2D:
@@ -1747,7 +1747,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61561268796484450
 BoxCollider2D:
@@ -1772,7 +1772,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61569302486811814
 BoxCollider2D:
@@ -1797,7 +1797,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61706636446925846
 BoxCollider2D:
@@ -1822,7 +1822,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61760185897805044
 BoxCollider2D:
@@ -1847,7 +1847,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61825357304611672
 BoxCollider2D:
@@ -1872,7 +1872,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61825547807777146
 BoxCollider2D:
@@ -1897,7 +1897,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61938371800927014
 BoxCollider2D:
@@ -1922,7 +1922,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61946730822625042
 BoxCollider2D:
@@ -1947,7 +1947,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61972521011703394
 BoxCollider2D:
@@ -1972,7 +1972,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!61 &61977525132598090
 BoxCollider2D:
@@ -1997,7 +1997,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.333, y: 0.333}
+  m_Size: {x: 0.39, y: 0.39}
   m_EdgeRadius: 0
 --- !u!95 &95010928941005596
 Animator:

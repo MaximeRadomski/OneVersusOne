@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CharSelScene.unity
     guid: cf3f5963c44876143885e454fe87ea36
   - enabled: 1
+    path: Assets/Scenes/TournamentMatch.unity
+    guid: 308869c538f912746a8fe5e249a85581
+  - enabled: 1
     path: Assets/Scenes/MapSelScene.unity
     guid: bca629b9cb27a0443aed0c223fc352d7
   - enabled: 1

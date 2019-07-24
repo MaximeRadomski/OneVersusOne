@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CharSelManagerBehavior : MonoBehaviour
 {
 	public Sprite[] CharactersSprites;
+	public Sprite[] GameModeSprites;
 
 	private GameObject _p1BannerPlayerName, _p1LightCharacters, _p1MediumCharacters, _p1HeavyCharacters;
 	private GameObject _p1CharacterImage, _p1BannerCharacterName, _p1Skill, _p1ConfirmButton;
@@ -25,7 +26,7 @@ public class CharSelManagerBehavior : MonoBehaviour
 	void Start ()
 	{
 		//Change "PLAYERTWO" Orientation if Opponent is an AI
-		if (PlayerPrefs.GetInt ("Opponent") == Opponent.AI.GetHashCode ())
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.AI.GetHashCode () && PlayerPrefs.GetInt ("GameMode") != GameMode.Tournament.GetHashCode ())
 		{
 			_isAgainstAI = true;
 			var tmpPlayerTwo = GameObject.Find ("PLAYER TWO");
@@ -38,14 +39,19 @@ public class CharSelManagerBehavior : MonoBehaviour
 			GameObject.Find ("MenuSeparator").transform.position = new Vector2(0.0f, -0.05f);
 		}
 		//Remove "PLAYERTWO" if Opponent is a WALL
-		else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode ())
+		else if (PlayerPrefs.GetInt ("Opponent") == Opponent.Wall.GetHashCode () ||
+			     PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ())
 		{
 			var playerTwoContainer = GameObject.Find ("PLAYER TWO");
 			var childCountLessOne = playerTwoContainer.transform.childCount - 1;
 			for (int i = 0; i < childCountLessOne; ++i)
 				playerTwoContainer.transform.GetChild (i).gameObject.SetActive (false);
-			//Up lines replace this
-			//GameObject.Find ("PLAYER TWO").SetActive(false);
+
+			if (PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ()) {
+				GameObject.Find ("P2WallSprite").GetComponent<SpriteRenderer>().sprite = GameModeSprites[1];
+				_isAgainstAI = true;
+			}
+
 			GameObject.Find ("P2Wall").GetComponent<Animator> ().Play ("MapSelDescLeftToRight");
 		}
 
@@ -67,7 +73,8 @@ public class CharSelManagerBehavior : MonoBehaviour
 		_p1Confirm = false;
 		ChangeSelectedCharacter(1, PlayerPrefs.GetInt ("P1Character", 1));
 
-		if (PlayerPrefs.GetInt ("Opponent") != Opponent.Wall.GetHashCode ())
+		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Player.GetHashCode () ||
+			(PlayerPrefs.GetInt ("Opponent") == Opponent.AI.GetHashCode () && PlayerPrefs.GetInt ("GameMode") != GameMode.Tournament.GetHashCode ()))
 		{
 			_p2BannerPlayerName = GameObject.Find ("P2BannerPlayerName");
 			_p2LightCharacters = GameObject.Find ("P2LightCharacters");
@@ -193,20 +200,25 @@ public class CharSelManagerBehavior : MonoBehaviour
 	{
 		var introModel = Resources.Load<GameObject> ("Prefabs/Punchline");
 		var parentObject = GameObject.Find ("P" + player + "CharacterName");
-		var introInstance = Instantiate (introModel, parentObject.transform.position, parentObject.transform.rotation);
-		introInstance.transform.SetParent (GameObject.Find("Canvas").transform);
-		var mult = player == 1 || (_isAgainstAI && player == 2) ? -1 : 1;
-		introInstance.transform.position = parentObject.transform.position + new Vector3(
-			Random.Range(0.5f * mult, 1.0f * mult),
-			Random.Range(0.0f, 1.0f * -mult),
-			0.0f);
-		var currentCharacter = PlayerPrefs.GetInt ("P" + player.ToString() + "Character");
-		var introsCount = PunchlinesData.Intros [currentCharacter].Count;
-		introInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = PunchlinesData.Intros[currentCharacter][Random.Range(0, introsCount)];
+		if (parentObject != null) {
+			var introInstance = Instantiate (introModel, parentObject.transform.position, parentObject.transform.rotation);
+			introInstance.transform.SetParent (GameObject.Find("Canvas").transform);
+			var mult = player == 1 || (_isAgainstAI && player == 2) ? -1 : 1;
+			introInstance.transform.position = parentObject.transform.position + new Vector3(
+				Random.Range(0.5f * mult, 1.0f * mult),
+				Random.Range(0.0f, 1.0f * -mult),
+				0.0f);
+			var currentCharacter = PlayerPrefs.GetInt ("P" + player.ToString() + "Character");
+			var introsCount = PunchlinesData.Intros [currentCharacter].Count;
+			introInstance.transform.GetChild(0).GetComponent<PunchlineBehavior> ().Text = PunchlinesData.Intros[currentCharacter][Random.Range(0, introsCount)];
+		}
 	}
 
 	private void LoadGameScene()
 	{
-		SceneManager.LoadScene("MapSelScene");
+		if (PlayerPrefs.GetInt ("GameMode") != GameMode.Tournament.GetHashCode ())
+			SceneManager.LoadScene("MapSelScene");
+		else
+			SceneManager.LoadScene("TournamentMatch");
 	}
 }

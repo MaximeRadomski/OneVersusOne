@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GenericMenuManagerBehavior : MonoBehaviour
 {
 	public string BackSceneName;
+	public bool NoBackScene;
 
 	// ---- AUDIOS ---- //
 	public int MenuBipDefaultAudioFileID;
@@ -71,7 +72,7 @@ public class GenericMenuManagerBehavior : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyUp(KeyCode.Escape))
+		if (Input.GetKeyUp(KeyCode.Escape) && !NoBackScene)
 		{
 			OnBackButtonPressed ();
 		}
