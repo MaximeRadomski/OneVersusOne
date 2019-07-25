@@ -114,6 +114,8 @@ public class CharSelManagerBehavior : MonoBehaviour
 		C.GetComponent<Animator> ().Play ("Empty");
 		D.GetComponent<Animator> ().Play ("Empty");
 		yield return new WaitForSeconds(0.1f);
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ())
+			GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().BackSceneName = "ChallengesMenu";
 	}
 
 	private IEnumerator ChangeCharacterInfo(CurrentPlayer player, int character)

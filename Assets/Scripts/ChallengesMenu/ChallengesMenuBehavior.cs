@@ -46,6 +46,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
 		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
+		PlayerPrefs.SetInt ("TournamentOpponent", 1);
 		SceneManager.LoadScene("CharSelScene");
 	}
 

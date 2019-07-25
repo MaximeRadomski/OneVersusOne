@@ -132,7 +132,8 @@ public class GameManagerBehavior : MonoBehaviour
 			CreateWall ();
 		IsPaused = false;
 
-		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Duel.GetHashCode ())
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Duel.GetHashCode () ||
+			PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ())
 		{
 			if (!IsHowToPlay)
 				PlaceBall();
@@ -257,6 +258,31 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void EndGame()
 	{
+		UpdateChallengeProgression ();
+
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ()) {
+			int nbOpponents = 3;
+			if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") == 2)
+				nbOpponents = 4;
+			else if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") >= 3)
+				nbOpponents = 5;
+			var tournamentOpponent = PlayerPrefs.GetInt ("TournamentOpponent", 1);
+			tournamentOpponent++;
+			if (tournamentOpponent <= nbOpponents) {
+				PlayerPrefs.SetInt ("TournamentOpponent", tournamentOpponent);
+				SceneManager.LoadScene("TournamentMatch");
+				return;
+			}
+		}			
+
+		if (PlayerPrefs.GetInt ("Ads", 1) == 1)
+			SceneManager.LoadScene("AdScene");
+		else
+			SceneManager.LoadScene("CharSelScene");
+	}
+
+	private void UpdateChallengeProgression()
+	{
 		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode () && PlayerPrefs.GetInt("Targets", 1) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
 			PlayerPrefs.SetInt("Targets", PlayerPrefs.GetInt("Targets", 1) + 1);
 		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () && PlayerPrefs.GetInt("Catch", 1) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
@@ -264,11 +290,6 @@ public class GameManagerBehavior : MonoBehaviour
 		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode () && PlayerPrefs.GetInt("Breakout", 1) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
 			PlayerPrefs.SetInt("Breakout", PlayerPrefs.GetInt("Breakout", 1) + 1);
 		}
-
-		if (PlayerPrefs.GetInt ("Ads", 1) == 1)
-			SceneManager.LoadScene("AdScene");
-		else
-			SceneManager.LoadScene("CharSelScene");
 	}
 
 	private void ResetScene()
@@ -470,8 +491,10 @@ public class GameManagerBehavior : MonoBehaviour
 			ChallengeEnd (false);
 			return;
 		}
+
 		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ()) {
 			++_challengeScoreCount;
+			UpdateChallengeProgression ();
 			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text> ().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString ();
 			PopChallengeScore ();
 			Invoke ("PlaceBall", 0.1f);
@@ -527,6 +550,7 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		++_challengeScoreCount;
 		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
+		UpdateChallengeProgression ();
 		PopChallengeScore ();
 		if (_targetPosBag == null || _targetPosBag.Count == 0) {
 			_targetPosBag = new List<float>{ -1.1f, -0.6f, 0.05f, 0.7f, 1.2f };
@@ -548,6 +572,7 @@ public class GameManagerBehavior : MonoBehaviour
 		if (oldBreakout != null)
 			Destroy (oldBreakout);
 		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
+		UpdateChallengeProgression ();
 		var currentBreakout = PlayerPrefs.GetInt ("CurrentBreakout", 1);
 		var tmpBreakoutModel = Resources.Load<GameObject> ("Prefabs/Breakout" + PlayerPrefs.GetInt ("CurrentChallengeDifficulty").ToString("D2") + currentBreakout.ToString("D2"));
 		PlayerPrefs.SetInt ("CurrentBreakout", currentBreakout + 1 > 3 ? 1 : currentBreakout + 1);
