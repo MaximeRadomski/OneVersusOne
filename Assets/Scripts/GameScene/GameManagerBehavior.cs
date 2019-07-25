@@ -28,6 +28,7 @@ public class GameManagerBehavior : MonoBehaviour
 	private GameObject _tmpPopup;
 	private GameObject _launcher;
 	private bool _gameEnd;
+	private bool _isWinner;
 
 	private int _maxScore;
 	private int _maxSets;
@@ -260,18 +261,16 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		UpdateChallengeProgression ();
 
-		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ()) {
-			int nbOpponents = 3;
-			if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") == 2)
-				nbOpponents = 4;
-			else if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") >= 3)
-				nbOpponents = 5;
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode () && _isWinner) {
+			int nbOpponents = PlayerPrefs.GetInt ("NbOpponents");
 			var tournamentOpponent = PlayerPrefs.GetInt ("TournamentOpponent", 1);
 			tournamentOpponent++;
 			if (tournamentOpponent <= nbOpponents) {
 				PlayerPrefs.SetInt ("TournamentOpponent", tournamentOpponent);
-				SceneManager.LoadScene("TournamentMatch");
+				SceneManager.LoadScene ("TournamentMatch");
 				return;
+			} else if (PlayerPrefs.GetInt("Tournament", 0) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
+				PlayerPrefs.SetInt("Tournament", PlayerPrefs.GetInt("CurrentChallengeDifficulty") + 1);
 			}
 		}			
 
@@ -310,6 +309,7 @@ public class GameManagerBehavior : MonoBehaviour
 			_playerOne.GetComponent<Animator> ().Play ("Victory");
 			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
 			matchEndMusic = "MatchEndWin";
+			_isWinner = true;
 			_gameEnd = true;
 		} else if (SetPlayerTwo >= _maxSets && SetPlayerTwo > SetPlayerOne) {
 			_winner.transform.eulerAngles = new Vector3(0.0f, 0.0f, 180.0f);
@@ -319,6 +319,7 @@ public class GameManagerBehavior : MonoBehaviour
 			_playerOne.GetComponent<Animator> ().Play ("Defeat");
 			_playerTwo.GetComponent<Animator> ().Play ("Victory");
 			matchEndMusic = "MatchEndLoose";
+			_isWinner = false;
 			_gameEnd = true;
 		}
 		else if (SetPlayerOne >= _maxSets && SetPlayerTwo >= _maxSets && SetPlayerOne == SetPlayerTwo)

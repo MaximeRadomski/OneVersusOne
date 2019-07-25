@@ -18,7 +18,8 @@ public class TournamentMatchBehavior : MonoBehaviour
 		var tournamentOpponent = PlayerPrefs.GetInt ("TournamentOpponent", 1);
 		if (tournamentOpponent == 1)
 			SetTournament (tournamentOpponent);
-		Invoke ("ContinueTournament", 4.0f);
+		DisplayTournament (tournamentOpponent);
+		Invoke ("ContinueTournament", 3.0f);
 	}
 
 	private void SetTournament (int tournamentOpponent)
@@ -27,11 +28,7 @@ public class TournamentMatchBehavior : MonoBehaviour
 		_mapsBag = new List<int> (){ 1, 2, 3, 4, 5, 6 };
 		_charactersBag = new List<int> (){ 1, 2, 3, 4, 5, 6 };
 		_charactersBag.RemoveAt (playerCharacterId - 1);
-		int nbOpponents = 3;
-		if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") == 2)
-			nbOpponents = 4;
-		else if (PlayerPrefs.GetInt ("CurrentChallengeDifficulty") >= 3)
-			nbOpponents = 5;
+		int nbOpponents = PlayerPrefs.GetInt ("NbOpponents");
 		_opponents = new List<int> ();
 		for (int i = 0; i < nbOpponents; ++i) {
 			var randomId = Random.Range (0, _charactersBag.Count);
@@ -44,22 +41,6 @@ public class TournamentMatchBehavior : MonoBehaviour
 			_maps.Add (_mapsBag[randomId]);
 			_mapsBag.RemoveAt (randomId);
 		}
-		GameObject.Find ("P1CharacterSprite").GetComponent<SpriteRenderer>().sprite = Characters[playerCharacterId];
-		GameObject.Find ("P1Character").GetComponent<Animator> ().Play ("CharSelLeftToRight");
-		var versusListItemModel = Resources.Load<GameObject> ("Prefabs/VersusListItem");
-		for (int i = 0; i < nbOpponents; ++i) {
-			var versusListItemInstance = Instantiate (versusListItemModel, new Vector3(0.0f, 1.5f - i * 0.5f, 0.0f), versusListItemModel.transform.rotation);
-			if (i == tournamentOpponent - 1) {
-				versusListItemInstance.transform.GetChild (1).GetComponent<SpriteRenderer> ().sprite = FLags [playerCharacterId - 1];
-				GameObject.Find ("P2CharacterSprite").GetComponent<SpriteRenderer> ().sprite = Characters [_opponents [i]];
-				GameObject.Find ("P2Character").GetComponent<Animator> ().Play ("CharSelRightToLeft");
-			} else {
-				versusListItemInstance.transform.GetChild (0).gameObject.SetActive (false);
-				versusListItemInstance.transform.GetChild (1).gameObject.SetActive (false);
-			}
-			versusListItemInstance.transform.GetChild (2).GetComponent<SpriteRenderer>().sprite = FLags[_opponents[i] - 1];
-			versusListItemInstance.transform.SetParent (GameObject.Find ("Canvas").transform);
-		}
 		var opponentsString = "";
 		foreach (int id in _opponents) {
 			opponentsString += id;
@@ -70,6 +51,32 @@ public class TournamentMatchBehavior : MonoBehaviour
 		}
 		PlayerPrefs.SetString ("TournamentOpponents", opponentsString);
 		PlayerPrefs.SetString ("TournamentMaps", mapsString);
+
+		Debug.Log ("OPPONENTS : " + opponentsString);
+		Debug.Log ("MAPS : " + mapsString);
+	}
+
+	private void DisplayTournament (int tournamentOpponent)
+	{
+		var playerCharacterId = PlayerPrefs.GetInt ("P1Character");
+		int nbOpponents = PlayerPrefs.GetInt ("NbOpponents");
+		var opponents = PlayerPrefs.GetString ("TournamentOpponents");
+		GameObject.Find ("P1CharacterSprite").GetComponent<SpriteRenderer>().sprite = Characters[playerCharacterId];
+		GameObject.Find ("P1Character").GetComponent<Animator> ().Play ("CharSelLeftToRight");
+		var versusListItemModel = Resources.Load<GameObject> ("Prefabs/VersusListItem");
+		for (int i = 0; i < nbOpponents; ++i) {
+			var versusListItemInstance = Instantiate (versusListItemModel, new Vector3(0.0f, 1.5f - i * 0.5f, 0.0f), versusListItemModel.transform.rotation);
+			if (i == tournamentOpponent - 1) {
+				versusListItemInstance.transform.GetChild (1).GetComponent<SpriteRenderer> ().sprite = FLags [playerCharacterId - 1];
+				GameObject.Find ("P2CharacterSprite").GetComponent<SpriteRenderer> ().sprite = Characters [int.Parse(opponents.Substring(i, 1))];
+				GameObject.Find ("P2Character").GetComponent<Animator> ().Play ("CharSelRightToLeft");
+			} else {
+				versusListItemInstance.transform.GetChild (0).gameObject.SetActive (false);
+				versusListItemInstance.transform.GetChild (1).gameObject.SetActive (false);
+			}
+			versusListItemInstance.transform.GetChild (2).GetComponent<SpriteRenderer>().sprite = FLags[int.Parse(opponents.Substring(i, 1)) - 1];
+			versusListItemInstance.transform.SetParent (GameObject.Find ("Canvas").transform);
+		}
 	}
 
 	private void ContinueTournament ()
@@ -77,11 +84,11 @@ public class TournamentMatchBehavior : MonoBehaviour
 		var opponent = PlayerPrefs.GetInt ("TournamentOpponent");
 		var opponents = PlayerPrefs.GetString ("TournamentOpponents");
 		var maps = PlayerPrefs.GetString ("TournamentMaps");
-
-		Debug.Log ("OPPONENTS : " + opponents);
-		Debug.Log ("MAPS : " + maps);
+		var difficulties = PlayerPrefs.GetString ("TournamentDifficulties");
 
 		PlayerPrefs.SetInt ("P2Character", int.Parse(opponents.Substring(opponent - 1, 1)));
-		SceneManager.LoadScene("Map"+int.Parse(maps.Substring(opponent - 1, 1)).ToString("D2"));
+		PlayerPrefs.SetInt ("SelectedMap", int.Parse(maps.Substring(opponent - 1, 1)));
+		PlayerPrefs.SetInt ("Difficulty", int.Parse(difficulties.Substring(opponent - 1, 1)));
+		SceneManager.LoadScene("GameLoadingScene");
 	}
 }

@@ -24,6 +24,9 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		_breakoutButtons = GameObject.Find ("BreakoutButtons");
 
 		GameObject.Find ("Tournament01ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Tournament01;
+		GameObject.Find ("Tournament02ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Tournament02;
+		GameObject.Find ("Tournament03ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Tournament03;
+		GameObject.Find ("Tournament04ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Tournament04;
 
 		GameObject.Find ("Targets01ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Target01;
 		GameObject.Find ("Targets02ButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = Target02;
@@ -44,9 +47,52 @@ public class ChallengesMenuBehavior : MonoBehaviour
 	private void Tournament01()
 	{
 		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
+		PlayerPrefs.SetInt ("NbOpponents", 3);
 		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
 		PlayerPrefs.SetInt ("TournamentOpponent", 1);
+		PlayerPrefs.SetInt ("MaxScore", 12);
+		PlayerPrefs.SetInt ("MaxSets", 2);
+		PlayerPrefs.SetString ("TournamentDifficulties", "001");
+		SceneManager.LoadScene("CharSelScene");
+	}
+
+	private void Tournament02()
+	{
+		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
+		PlayerPrefs.SetInt ("NbOpponents", 4);
+		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
+		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
+		PlayerPrefs.SetInt ("TournamentOpponent", 1);
+		PlayerPrefs.SetInt ("MaxScore", 12);
+		PlayerPrefs.SetInt ("MaxSets", 2);
+		PlayerPrefs.SetString ("TournamentDifficulties", "0112");
+		SceneManager.LoadScene("CharSelScene");
+	}
+
+	private void Tournament03()
+	{
+		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
+		PlayerPrefs.SetInt ("NbOpponents", 5);
+		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
+		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
+		PlayerPrefs.SetInt ("TournamentOpponent", 1);
+		PlayerPrefs.SetInt ("MaxScore", 12);
+		PlayerPrefs.SetInt ("MaxSets", 2);
+		PlayerPrefs.SetString ("TournamentDifficulties", "01122");
+		SceneManager.LoadScene("CharSelScene");
+	}
+
+	private void Tournament04()
+	{
+		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 4);
+		PlayerPrefs.SetInt ("NbOpponents", 5);
+		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
+		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
+		PlayerPrefs.SetInt ("TournamentOpponent", 1);
+		PlayerPrefs.SetInt ("MaxScore", 12);
+		PlayerPrefs.SetInt ("MaxSets", 2);
+		PlayerPrefs.SetString ("TournamentDifficulties", "22222");
 		SceneManager.LoadScene("CharSelScene");
 	}
 

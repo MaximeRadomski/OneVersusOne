@@ -141,7 +141,7 @@ public class TitleManagerBehavior : MonoBehaviour
 			PlayerPrefs.SetInt ("Targets", 4);
 			PlayerPrefs.SetInt ("Catch", 4);
 			PlayerPrefs.SetInt ("Breakout", 4);
-			PlayerPrefs.SetInt ("Tournament", 4);
+			PlayerPrefs.SetInt ("Tournament", 0);
 			DisplayPopupCheat ();
 		}
 	}
