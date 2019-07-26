@@ -52,8 +52,8 @@ public class TournamentMatchBehavior : MonoBehaviour
 		PlayerPrefs.SetString ("TournamentOpponents", opponentsString);
 		PlayerPrefs.SetString ("TournamentMaps", mapsString);
 
-		Debug.Log ("OPPONENTS : " + opponentsString);
-		Debug.Log ("MAPS : " + mapsString);
+		//Debug.Log ("OPPONENTS : " + opponentsString);
+		//Debug.Log ("MAPS : " + mapsString);
 	}
 
 	private void DisplayTournament (int tournamentOpponent)
@@ -65,7 +65,7 @@ public class TournamentMatchBehavior : MonoBehaviour
 		GameObject.Find ("P1Character").GetComponent<Animator> ().Play ("CharSelLeftToRight");
 		var versusListItemModel = Resources.Load<GameObject> ("Prefabs/VersusListItem");
 		for (int i = 0; i < nbOpponents; ++i) {
-			var versusListItemInstance = Instantiate (versusListItemModel, new Vector3(0.0f, 1.5f - i * 0.5f, 0.0f), versusListItemModel.transform.rotation);
+			var versusListItemInstance = Instantiate (versusListItemModel, new Vector3(0.0f, 0.3f * nbOpponents - i * 0.5f, 0.0f), versusListItemModel.transform.rotation);
 			if (i == tournamentOpponent - 1) {
 				versusListItemInstance.transform.GetChild (1).GetComponent<SpriteRenderer> ().sprite = FLags [playerCharacterId - 1];
 				GameObject.Find ("P2CharacterSprite").GetComponent<SpriteRenderer> ().sprite = Characters [int.Parse(opponents.Substring(i, 1))];
@@ -73,6 +73,8 @@ public class TournamentMatchBehavior : MonoBehaviour
 			} else {
 				versusListItemInstance.transform.GetChild (0).gameObject.SetActive (false);
 				versusListItemInstance.transform.GetChild (1).gameObject.SetActive (false);
+				if (tournamentOpponent - 1 > i)
+					versusListItemInstance.transform.GetChild (2).GetComponent<SpriteRenderer> ().color = new Color (0.6f, 0.6f, 0.6f, 1.0f);
 			}
 			versusListItemInstance.transform.GetChild (2).GetComponent<SpriteRenderer>().sprite = FLags[int.Parse(opponents.Substring(i, 1)) - 1];
 			versusListItemInstance.transform.SetParent (GameObject.Find ("Canvas").transform);
