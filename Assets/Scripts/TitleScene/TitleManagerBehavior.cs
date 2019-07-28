@@ -32,6 +32,7 @@ public class TitleManagerBehavior : MonoBehaviour
 		//_challengesButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupNotImplemented;
 		_howToPlayButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoToHowToPlay;
 		GameObject.Find("GameName").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = IncrementTitleClick;
+		GameObject.Find("VersionWatermark").GetComponent<UnityEngine.UI.Text>().text = Application.version;
 
 		StartCoroutine (InitiateLeft());
 	}

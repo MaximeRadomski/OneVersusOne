@@ -282,7 +282,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ALPHA 1.1.0
+  m_Text: 'Version #'
 --- !u!222 &53620468
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2406,6 +2406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackSceneName: 
+  NoBackScene: 0
   MenuBipDefaultAudioFileID: 0
   MenuBipGoToAudioFileID: 0
   MenuBipSelectAudioFileID: 0

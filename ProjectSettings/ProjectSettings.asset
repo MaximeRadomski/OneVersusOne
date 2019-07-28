@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: A.1.1.0
+  bundleVersion: Beta 1.0.1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -245,8 +245,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/Abject/Projects/OneVersusOne/KeyStore/backstabbers.keystore
+  AndroidKeyaliasName: backstabbers
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   AndroidEnableTango: 0
