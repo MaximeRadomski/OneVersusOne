@@ -124,7 +124,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("Opponent", Opponent.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 4);
-		PlayerPrefs.SetInt ("P1Character", 5);
+		PlayerPrefs.SetInt ("P1Character", 6);
 		PlayerPrefs.SetInt ("MaxScore", 30);
 		LoadGameScene ();
 	}
@@ -157,7 +157,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("Opponent", Opponent.Catch.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Catch.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 2);
-		PlayerPrefs.SetInt ("P1Character", 6);
+		PlayerPrefs.SetInt ("P1Character", 5);
 		PlayerPrefs.SetInt ("MaxScore", 20);
 		LoadGameScene ();
 	}

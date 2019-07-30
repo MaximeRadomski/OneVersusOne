@@ -141,10 +141,11 @@ MonoBehaviour:
   IsCastingSP: 0
   IsDoingSP: 0
   IsEngaging: 0
+  IsMoving: 0
   ControlledAction: 0
-  WalkDistance: 0.05
-  DashDistance: 0.8
-  Power: 0.5
+  WalkDistance: 0.045
+  DashDistance: 0.9
+  Power: 0.75
   SPMaxCooldown: 2
   SPCooldown: 2
   ConsecutiveHit: 0

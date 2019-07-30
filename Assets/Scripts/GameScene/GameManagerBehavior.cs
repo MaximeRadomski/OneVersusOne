@@ -234,7 +234,7 @@ public class GameManagerBehavior : MonoBehaviour
 			return;
         var currentPlayer = GameObject.Find(_playerName);
 		currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
-        var currentBall = Instantiate(Ball, new Vector3(3.0f, 0.0f, 0.0f), Ball.transform.rotation);
+        var currentBall = Instantiate(Ball, new Vector3(0.0f, -4.0f, 0.0f), Ball.transform.rotation);
         currentBall.transform.name = "Ball";
 		currentPlayer.GetComponent<PlayerBehavior> ().Ball = currentBall;
 		currentBall.GetComponent<BallBehavior> ().CurrentPlayer = currentPlayer.GetComponent<PlayerBehavior> ().Player;

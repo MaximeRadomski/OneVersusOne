@@ -157,9 +157,9 @@ MonoBehaviour:
   IsEngaging: 0
   IsMoving: 0
   ControlledAction: 0
-  WalkDistance: 0.04
-  DashDistance: 1
-  Power: 1
+  WalkDistance: 0.035
+  DashDistance: 1.1
+  Power: 1.25
   SPMaxCooldown: 3
   SPCooldown: 3
   ConsecutiveHit: 0
