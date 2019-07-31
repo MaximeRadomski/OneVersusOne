@@ -6,7 +6,7 @@ public class BackButtonBehavior : MonoBehaviour
 {
 	void Start ()
 	{
-		if (PlayerPrefs.GetInt ("ShowBack", 0) == 1) {
+		if (PlayerPrefs.GetInt ("ShowBack", 1) == 1) {
 			Enable ();
 		} else {
 			Disable ();
