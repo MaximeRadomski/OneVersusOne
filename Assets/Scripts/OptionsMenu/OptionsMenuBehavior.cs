@@ -35,7 +35,7 @@ public class OptionsMenuBehavior : MonoBehaviour
 		//_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 
 		_ads = PlayerPrefs.GetInt ("Ads", 1);
-		_showBack = PlayerPrefs.GetInt ("ShowBack", 0);
+		_showBack = PlayerPrefs.GetInt ("ShowBack", 1);
 		_scanlines = PlayerPrefs.GetInt ("ScanLines", 1);
 		_music = PlayerPrefs.GetInt ("Music", 1);
 		_effects = PlayerPrefs.GetInt ("Effects", 1);

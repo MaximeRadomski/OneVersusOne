@@ -351,9 +351,9 @@ public class BallBehavior : MonoBehaviour
 
 	public void SetGravityScaleFromPower(float power)
 	{
-		if (power <= 0.5f)
+		if (power <= 0.76f)
 			GetComponent<Rigidbody2D> ().gravityScale = 0.7f;
-		else if (power <= 1.0f)
+		else if (power <= 1.26f)
 			GetComponent<Rigidbody2D> ().gravityScale = 0.85f;
 		else
 			GetComponent<Rigidbody2D> ().gravityScale = 1f;
