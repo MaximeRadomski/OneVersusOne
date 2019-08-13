@@ -26,6 +26,7 @@ public class MimicShadow : MonoBehaviour
 	void Update ()
 	{
 		_currentSpriteRenderer.sprite = _linkedSpriteRenderer.sprite;
+		transform.localScale = LinkedGameObject.transform.localScale;
 		transform.position = LinkedGameObject.transform.position + new Vector3 (0.056f, -0.056f, 0.0f);
 		_oldDirection = _currentDirection;
 		_currentDirection = LinkedGameObject.GetComponent<PlayerBehavior>().Direction;

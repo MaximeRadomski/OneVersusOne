@@ -271,6 +271,8 @@ public class PlayerBehavior : MonoBehaviour
         if (_dashingEnd.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             _dashingEnd = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);
 
+		StretchOnDash ();
+
 		Animator.enabled = false;
 		CurrentSprite.sprite = DashSprite;
         Invoke("ResetDash", _dashCooldown);
@@ -318,6 +320,8 @@ public class PlayerBehavior : MonoBehaviour
 				tmpCatchEffect.transform.eulerAngles = new Vector3 (0.0f, 0.0f, 180.0f);
 			if (Ball.GetComponent<BallBehavior>().LastThrownBy != Player)
 				SPCooldown = SPCooldown - 1 <= 0 ? 0 : SPCooldown - 1;
+			StretchOnCatch ();
+			KnockBackOnCatch ();
 		}
 		if (PlayerPrefs.GetInt ("Opponent") == Opponent.Catch.GetHashCode ()) {
 			Destroy (Ball);
@@ -345,6 +349,43 @@ public class PlayerBehavior : MonoBehaviour
 			consecutiveHitEffect.transform.GetChild(0).GetComponent<ConsecutiveHitBehavior> ().Number = ConsecutiveHit;
 			++ConsecutiveHit;
 		}
+	}
+
+	private void StretchOnCatch()
+	{
+		transform.localScale = new Vector3 (1.2f, 0.8f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void StretchOnCastSP()
+	{
+		transform.localScale = new Vector3 (0.8f, 1.2f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void StretchOnDash()
+	{
+		transform.localScale = new Vector3 (1.1f, 0.9f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
+	}
+
+	private float _yPosBeforeCatch;
+
+	private void KnockBackOnCatch ()
+	{
+		_yPosBeforeCatch = transform.position.y;
+		transform.position = new Vector3 (transform.position.x, _yPosBeforeCatch + 0.05f * (Player == CurrentPlayer.PlayerOne ? -1.0f : 1.0f), 1.0f);
+		Invoke ("ResetKnockBack", 0.1f);
+	}
+
+	private void ResetKnockBack()
+	{
+		transform.position = new Vector3 (transform.position.x, _yPosBeforeCatch, 1.0f);
 	}
 
 	public void Super()
@@ -497,7 +538,7 @@ public class PlayerBehavior : MonoBehaviour
 			return;
 		IsCastingSP = true;
 		Invoke ("ResetCastSP", _castSPCooldown);
-
+		StretchOnCastSP ();
 		Direction = Direction.Standby;
 		SetOrientation ();
 		Animator.enabled = false;

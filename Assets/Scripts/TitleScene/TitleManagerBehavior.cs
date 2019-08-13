@@ -135,9 +135,9 @@ public class TitleManagerBehavior : MonoBehaviour
 	private void IncrementTitleClick()
 	{
 		++_titleClick;
-		if (_titleClick == 5)
+		if (_titleClick % 5 == 0)
 			DisplayPopupEraseData ();
-		else if (_titleClick == 10)
+		else if (_titleClick % 42 == 0)
 		{
 			PlayerPrefs.SetInt ("Targets", 4);
 			PlayerPrefs.SetInt ("Catch", 4);

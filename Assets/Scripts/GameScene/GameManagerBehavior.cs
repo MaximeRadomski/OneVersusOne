@@ -162,7 +162,7 @@ public class GameManagerBehavior : MonoBehaviour
 				if (hipoteticThirdWall != null)
 					hipoteticThirdWall.tag = "MiddleWall";
 			}
-			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + 0 + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
+			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + 0 + "/" + _maxScore.ToString();
 			NewBallChallenge ();
 		}
 			
@@ -282,6 +282,9 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private void UpdateChallengeProgression()
 	{
+		if (_challengeScoreCount < _maxScore)
+			return;
+		
 		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode () && PlayerPrefs.GetInt("Targets", 1) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
 			PlayerPrefs.SetInt("Targets", PlayerPrefs.GetInt("Targets", 1) + 1);
 		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () && PlayerPrefs.GetInt("Catch", 1) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
@@ -484,7 +487,7 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		if (isGoal)
 		{
-			if (_challengeScoreCount >= PlayerPrefs.GetInt ("MaxScore"))
+			if (_challengeScoreCount >= _maxScore)
 			{
 				ChallengeEnd (true);
 				return;
@@ -496,7 +499,7 @@ public class GameManagerBehavior : MonoBehaviour
 		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ()) {
 			++_challengeScoreCount;
 			UpdateChallengeProgression ();
-			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text> ().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString ();
+			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text> ().text = "Goal :\n" + _challengeScoreCount + "/" + _maxScore.ToString ();
 			PopChallengeScore ();
 			Invoke ("PlaceBall", 0.1f);
 		}
@@ -550,7 +553,7 @@ public class GameManagerBehavior : MonoBehaviour
 	public void NewLaunch()
 	{
 		++_challengeScoreCount;
-		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
+		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + _maxScore.ToString();
 		UpdateChallengeProgression ();
 		PopChallengeScore ();
 		if (_targetPosBag == null || _targetPosBag.Count == 0) {
@@ -572,7 +575,7 @@ public class GameManagerBehavior : MonoBehaviour
 		var oldBreakout = GameObject.Find ("Breakout");
 		if (oldBreakout != null)
 			Destroy (oldBreakout);
-		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + PlayerPrefs.GetInt ("MaxScore").ToString();
+		GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + _challengeScoreCount + "/" + _maxScore.ToString();
 		UpdateChallengeProgression ();
 		var currentBreakout = PlayerPrefs.GetInt ("CurrentBreakout", 1);
 		var tmpBreakoutModel = Resources.Load<GameObject> ("Prefabs/Breakout" + PlayerPrefs.GetInt ("CurrentChallengeDifficulty").ToString("D2") + currentBreakout.ToString("D2"));
