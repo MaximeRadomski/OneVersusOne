@@ -60,6 +60,7 @@ public class CharSelButtonBehavior : MonoBehaviour
 			_charSelManager.Confirm(_player);
 			break;
 		}
+		StretchOnPress ();
 		PlayButtonSound ();
 	}
 
@@ -76,6 +77,16 @@ public class CharSelButtonBehavior : MonoBehaviour
 		}
 	}
 
+	private void StretchOnPress()
+	{
+		transform.localScale = new Vector3 (1.05f, 0.9f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
+	}
 
 	public enum GenericTapAction
 	{

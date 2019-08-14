@@ -29,6 +29,7 @@ public class BrickBehavior : MonoBehaviour
 			else
 				--HP;
 			this.gameObject.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text> ().text = HP >= 0 ? HP.ToString () : "0";
+			StretchOnCollision ();
 			if (HP > 0) {
 				this.gameObject.GetComponent<SpriteRenderer> ().sprite = SpriteTouched;
 				Invoke ("ResetSprite", 0.25f);
@@ -36,6 +37,17 @@ public class BrickBehavior : MonoBehaviour
 				DestroyAfterCollision ();
 			}
 		}
+	}
+
+	private void StretchOnCollision()
+	{
+		transform.localScale = new Vector3 (1.1f, 0.9f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 	}
 
 	private void ResetSprite()

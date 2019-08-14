@@ -701,6 +701,7 @@ public class GameManagerBehavior : MonoBehaviour
 		GameObject.Find ("Button01Background").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = PopupPauseReturn;
 		if (IsHowToPlay) {
 			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior> ().PressSprite ();
+			GameObject.Find ("Button02Background").transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 			GameObject.Find ("Button02Background").GetComponent<BoxCollider2D> ().enabled = false;
 		} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Duel.GetHashCode ()) {
 			GameObject.Find ("Button02Background").GetComponent<GenericMenuButtonBehavior> ().buttonDelegate = GoBackVersusMenu;

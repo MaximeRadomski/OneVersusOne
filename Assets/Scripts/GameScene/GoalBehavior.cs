@@ -24,7 +24,19 @@ public class GoalBehavior : MonoBehaviour
 			Animator.Play ("GoalBot");
 		else
 			Animator.Play ("GoalTop");
+		StretchOnGoal ();
 		Invoke ("StopAnimation", 0.5f);
+	}
+
+	private void StretchOnGoal()
+	{
+		transform.localScale = new Vector3 (1.05f, 1.0f, 1.0f);
+		Invoke ("ResetStretch", 0.3f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 	}
 
 	public void StopAnimation()

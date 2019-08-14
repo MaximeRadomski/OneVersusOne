@@ -49,6 +49,7 @@ public class MapSelButtonBehavior : MonoBehaviour
 			_mapSelManager.Confirm(_player);
 			break;
 		}
+		StretchOnPress ();
 		PlayButtonSound ();
 	}
 
@@ -63,6 +64,17 @@ public class MapSelButtonBehavior : MonoBehaviour
 			CustomAudio.PlayEffect (_genericMenuManager.MenuBipConfirmAudioFileID);
 			break;
 		}
+	}
+
+	private void StretchOnPress()
+	{
+		transform.localScale = new Vector3 (1.05f, 0.9f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 	}
 
 	public enum GenericTapAction

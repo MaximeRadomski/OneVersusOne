@@ -53,11 +53,12 @@ public class TouchControlBehavior : MonoBehaviour
 				_player.GetComponent<PlayerBehavior>().Super();
 				break;
         }
+		StretchOnPress ();
     }
 
     public void EndAction()
     {
-		if (_player.GetComponent<PlayerBehavior> ().IsControlledByAI && Action != GenericTapAction.PlayerAI)
+		if (_player == null || _player.GetComponent<PlayerBehavior> ().IsControlledByAI && Action != GenericTapAction.PlayerAI)
 			return;
         switch (Action)
         {
@@ -95,6 +96,17 @@ public class TouchControlBehavior : MonoBehaviour
 	        GameObject.Find(GetFocusedPayerName()).GetComponent<AI>().enabled = false;
 	        gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
+	}
+
+	private void StretchOnPress()
+	{
+		transform.localScale = new Vector3 (1.1f, 0.9f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 	}
 
     public enum GenericTapAction

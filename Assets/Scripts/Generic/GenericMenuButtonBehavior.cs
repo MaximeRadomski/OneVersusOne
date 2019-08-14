@@ -40,6 +40,7 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 	{
 		if (SpriteRenderer == null)
 			return;
+		StretchOnPress ();
 		SpriteRenderer.color = new Color (0.8f, 0.8f, 0.8f);
 	}
 
@@ -87,6 +88,16 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 		}
 	}
 
+	private void StretchOnPress()
+	{
+		transform.localScale = new Vector3 (1.05f, 0.9f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
+	}
 
 	public enum GenericTapAction
 	{

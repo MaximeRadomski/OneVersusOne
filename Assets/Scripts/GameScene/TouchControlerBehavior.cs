@@ -90,9 +90,9 @@ public class TouchControlerBehavior : MonoBehaviour
 	            }
 				else if (hitInformation.collider == null && Input.GetTouch(i).phase != TouchPhase.Began && Input.GetTouch(i).phase != TouchPhase.Ended)
 				{
-					if (touchPosWorld2D.y < 0)
+					if (touchPosWorld2D.y < 0 && _leftP1 != null)
 						_leftP1.GetComponent<TouchControlBehavior>().EndAction();
-					else
+					else if (_leftP2 != null)
 						_leftP2.GetComponent<TouchControlBehavior>().EndAction();
 				}
 				if (Input.GetTouch(i).phase == TouchPhase.Ended && _currentButton != null && _currentButton.tag == "ButtonPopup")

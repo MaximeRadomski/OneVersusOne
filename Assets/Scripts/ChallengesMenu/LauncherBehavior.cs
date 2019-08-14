@@ -73,6 +73,18 @@ public class LauncherBehavior : MonoBehaviour
 			else
 				LiftDirection = Direction.Right;
 		}
+		StretchOnLaunch ();
+	}
+
+	private void StretchOnLaunch()
+	{
+		transform.localScale = new Vector3 (0.8f, 1.2f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 	}
 
 	public void IncrementAngle()

@@ -20,8 +20,20 @@ public class TargetWallBehaviour : MonoBehaviour
 		{
 			++_touchedCount;
 			this.gameObject.GetComponent<SpriteRenderer> ().sprite = SpriteTouched;
+			StretchOnCollision();
 			Invoke ("ResetSprite", 0.25f);
 		}
+	}
+
+	private void StretchOnCollision()
+	{
+		transform.localScale = new Vector3 (1.1f, 0.9f, 1.0f);
+		Invoke ("ResetStretch", 0.1f);
+	}
+
+	private void ResetStretch()
+	{
+		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 	}
 
 	private void ResetSprite()
