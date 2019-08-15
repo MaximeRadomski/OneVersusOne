@@ -83,6 +83,6 @@ public class EffectBehavior : MonoBehaviour
 		CastSP,
 		WallHit,
 		None,
-		Super01
+		Super01,
 	}
 }

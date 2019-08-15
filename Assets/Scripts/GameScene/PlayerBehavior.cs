@@ -339,8 +339,10 @@ public class PlayerBehavior : MonoBehaviour
 			resetYPos = -resetYPos;
 		transform.position = new Vector3 (transform.position.x, resetYPos, 0.0f);
 		SetOrientation ();
-		if (IsCastingSP)
+		if (IsCastingSP) {
+			GameObject.Find ("ScreenEffects").GetComponent<Animator> ().Play ("ScreenEffects01");;
 			IsDoingSP = true;
+		}			
 		if (_isAgainstWall)
 		{
 			var consecutiveHitEffect = Instantiate (ConsecutiveHitEffect, gameObject.transform.position, ConsecutiveHitEffect.transform.rotation);
@@ -496,6 +498,12 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void SuperAfterDelay()
 	{
+		var superEffectParticlesModel = Resources.Load<GameObject> ("Prefabs/SuperEffectParticles01");
+		var superEffectParticlesInstance = Instantiate (superEffectParticlesModel, superEffectParticlesModel.transform.position, superEffectParticlesModel.transform.rotation);
+		if (Player == CurrentPlayer.PlayerTwo) {
+			superEffectParticlesInstance.transform.position = new Vector3 (superEffectParticlesInstance.transform.position.x, -superEffectParticlesInstance.transform.position.y, 0.0f);
+			superEffectParticlesInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
+		}
 		CustomAudio.PlayEffect(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
 		//Ball = GetBall();
 		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)

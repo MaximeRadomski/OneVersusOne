@@ -30,7 +30,8 @@ public class GoalBehavior : MonoBehaviour
 
 	private void StretchOnGoal()
 	{
-		transform.localScale = new Vector3 (1.05f, 1.0f, 1.0f);
+		transform.localScale = new Vector3 (0.8f, 1.2f, 1.0f);
+
 		Invoke ("ResetStretch", 0.3f);
 	}
 

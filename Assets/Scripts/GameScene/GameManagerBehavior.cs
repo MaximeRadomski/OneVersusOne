@@ -351,9 +351,23 @@ public class GameManagerBehavior : MonoBehaviour
 			this.gameObject.GetComponent<AudioSource> ().clip = Resources.Load<AudioClip> ("Musics/" + matchEndMusic);
 			this.gameObject.GetComponent<AudioSource> ().Play ();
 			Invoke("EndGame", 5.0f);
+			StartCoroutine (DonutCelebration());
 		}
 		else
 			PlaceBall ();
+	}
+
+	private IEnumerator DonutCelebration()
+	{
+		for (int i = 1; i <= 7; ++i) {
+			var donutCelebrationModel = Resources.Load<GameObject> ("Prefabs/DonutCelebration" + i.ToString("D2"));
+			var donutCelebrationInstance = Instantiate (donutCelebrationModel, donutCelebrationModel.transform.position, donutCelebrationModel.transform.rotation);
+			if (!_isWinner) {
+				donutCelebrationInstance.transform.position = new Vector3 (donutCelebrationInstance.transform.position.x, -donutCelebrationInstance.transform.position.y, 0.0f);
+				donutCelebrationInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
+			}
+			yield return new WaitForSeconds(0.2f);
+		}
 	}
 
 	private void ChallengeEnd(bool victory)
@@ -370,6 +384,8 @@ public class GameManagerBehavior : MonoBehaviour
 			_winner.GetComponent<Animator> ().Play ("DisplayFromBottom");
 			_playerOne.GetComponent<Animator> ().Play ("Victory");
 			matchEndMusic = "MatchEndWin";
+			_isWinner = true;
+			StartCoroutine (DonutCelebration());
 			Invoke("EndGame", 5.0f);
 		} else {
 			_loser.transform.eulerAngles  = new Vector3(0.0f, 0.0f, 0.0f);
@@ -426,8 +442,11 @@ public class GameManagerBehavior : MonoBehaviour
 			PlaceBall ();
 	}
 
+	private CurrentPlayer _winnerOnNewBall;
+
 	public void NewBall(CurrentPlayer looser, int points, bool moreThanOneBall)
     {
+		_winnerOnNewBall = looser == CurrentPlayer.PlayerOne ? CurrentPlayer.PlayerTwo : CurrentPlayer.PlayerOne;
 		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode () ||
 			PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () ||
 			PlayerPrefs.GetInt ("GameMode") == GameMode.Breakout.GetHashCode ())
@@ -618,6 +637,14 @@ public class GameManagerBehavior : MonoBehaviour
 			_scoreP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20, _scoreP2_2.transform.position.y, _scoreP2_2.transform.position.z);
 		}
 
+		if (_winnerOnNewBall == CurrentPlayer.PlayerOne) {
+			_scoreP1_1.GetComponent<ScoreContainerBehavior> ().Stretch ();
+			_scoreP2_1.GetComponent<ScoreContainerBehavior> ().Stretch ();
+		} else {
+			_scoreP1_2.GetComponent<ScoreContainerBehavior> ().Stretch ();
+			_scoreP2_2.GetComponent<ScoreContainerBehavior> ().Stretch ();
+		}
+
 		ChangeScore (ScorePlayerOne, _scoreP1_1);
 		ChangeScore (ScorePlayerTwo, _scoreP1_2);
 		ChangeScore (ScorePlayerOne, _scoreP2_1);
@@ -638,6 +665,14 @@ public class GameManagerBehavior : MonoBehaviour
 		} else {
 			_setP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20, _setP1_2.transform.position.y, _setP1_2.transform.position.z);
 			_setP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20, _setP2_2.transform.position.y, _setP2_2.transform.position.z);
+		}
+
+		if (_winnerOnNewBall == CurrentPlayer.PlayerOne) {
+			_setP1_1.GetComponent<ScoreContainerBehavior> ().Stretch ();
+			_setP2_1.GetComponent<ScoreContainerBehavior> ().Stretch ();
+		} else {
+			_setP1_2.GetComponent<ScoreContainerBehavior> ().Stretch ();
+			_setP2_2.GetComponent<ScoreContainerBehavior> ().Stretch ();
 		}
 
 		ChangeScore (SetPlayerOne, _setP1_1);
