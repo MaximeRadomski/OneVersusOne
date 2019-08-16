@@ -9,7 +9,7 @@ public static class TutorialData
 		new Tutorial {
 			Title = "BASIC MOVEMENTS",
 			Content = "MOVE:\tARROWS\n" +
-					  "DASH:\tARROWS + DASH"
+					  "DASH:\tARROWS THEN DASH"
 		},
 		new Tutorial {
 			Title = "AFTER CATCHING",
@@ -36,7 +36,8 @@ public static class TutorialData
 		new Tutorial {
 			Title = "POWER THROW",
 			Content = "DO A BASIC THROW JUST AFTER\n" +
-					  "CATCHING THE DISC"
+					  "CATCHING THE DISC.\n" +
+					  "NOT POSSIBLE AFTER A DASH"
 		},
 		new Tutorial {
 			Title = "SUPER THROW",

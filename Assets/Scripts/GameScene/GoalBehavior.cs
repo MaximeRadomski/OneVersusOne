@@ -13,9 +13,16 @@ public class GoalBehavior : MonoBehaviour
 	public Sprite NormalStateSprite;
 	public Sprite FrozenStateSprite;
 
+	private SpriteRenderer _spriteRenderer;
+	private Shader _shaderGUItext;
+	private Shader _shaderSpritesDefault;
+
 	void Start()
 	{
 		IsFrozen = false;
+		_spriteRenderer = this.GetComponent<SpriteRenderer> ();
+		_shaderGUItext = Shader.Find("GUI/Text Shader");
+		_shaderSpritesDefault = Shader.Find("Sprites/Default");
 	}
 
 	public void GoalHit()
@@ -25,19 +32,32 @@ public class GoalBehavior : MonoBehaviour
 		else
 			Animator.Play ("GoalTop");
 		StretchOnGoal ();
+		TiltOnGoal ();
 		Invoke ("StopAnimation", 0.5f);
 	}
 
 	private void StretchOnGoal()
 	{
 		transform.localScale = new Vector3 (0.8f, 1.2f, 1.0f);
-
 		Invoke ("ResetStretch", 0.3f);
 	}
 
 	private void ResetStretch()
 	{
 		transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
+	}
+
+	private void TiltOnGoal()
+	{
+		_spriteRenderer.material.shader = _shaderGUItext;
+		_spriteRenderer.color = new Color (1.0f,1.0f,1.0f,0.5f);
+		Invoke ("ResetTilt", 0.05f);
+	}
+
+	private void ResetTilt()
+	{
+		_spriteRenderer.material.shader = _shaderSpritesDefault;
+		_spriteRenderer.color = Color.white;
 	}
 
 	public void StopAnimation()
@@ -49,21 +69,21 @@ public class GoalBehavior : MonoBehaviour
 	{
 		IsFrozen = true;
 		gameObject.tag = "FrozenWall";
-		this.GetComponent<SpriteRenderer> ().sprite = FrozenStateSprite;
+		_spriteRenderer.sprite = FrozenStateSprite;
 	}
 
 	public void Unfreeze()
 	{
 		IsFrozen = false;
 		gameObject.tag = "Goal";
-		this.GetComponent<SpriteRenderer> ().sprite = NormalStateSprite;
+		_spriteRenderer.sprite = NormalStateSprite;
 	}
 
 	public void Actualize()
 	{
 		if (IsFrozen)
-			this.GetComponent<SpriteRenderer> ().sprite = FrozenStateSprite;
+			_spriteRenderer.sprite = FrozenStateSprite;
 		else
-			this.GetComponent<SpriteRenderer> ().sprite = NormalStateSprite;
+			_spriteRenderer.sprite = NormalStateSprite;
 	}
 }

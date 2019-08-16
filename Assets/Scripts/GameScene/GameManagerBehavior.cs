@@ -359,6 +359,13 @@ public class GameManagerBehavior : MonoBehaviour
 
 	private IEnumerator DonutCelebration()
 	{
+		var VictoryEffectModel = Resources.Load<GameObject> ("Prefabs/VictoryEffectParticles01");
+		var VictoryEffectInstance = Instantiate (VictoryEffectModel, VictoryEffectModel.transform.position, VictoryEffectModel.transform.rotation);
+		if (!_isWinner) {
+			VictoryEffectInstance.transform.position = new Vector3 (VictoryEffectInstance.transform.position.x, -VictoryEffectInstance.transform.position.y, 0.0f);
+			VictoryEffectInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
+		}
+
 		for (int i = 1; i <= 7; ++i) {
 			var donutCelebrationModel = Resources.Load<GameObject> ("Prefabs/DonutCelebration" + i.ToString("D2"));
 			var donutCelebrationInstance = Instantiate (donutCelebrationModel, donutCelebrationModel.transform.position, donutCelebrationModel.transform.rotation);

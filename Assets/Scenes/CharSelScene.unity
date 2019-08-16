@@ -949,6 +949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackSceneName: DuelMenu
+  NoBackScene: 0
   MenuBipDefaultAudioFileID: 0
   MenuBipGoToAudioFileID: 0
   MenuBipSelectAudioFileID: 0

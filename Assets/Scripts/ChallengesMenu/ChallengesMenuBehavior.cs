@@ -52,7 +52,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
 		PlayerPrefs.SetInt ("TournamentOpponent", 1);
 		PlayerPrefs.SetInt ("MaxScore", 12);
-		PlayerPrefs.SetInt ("MaxSets", 1);
+		PlayerPrefs.SetInt ("MaxSets", 2);
 		PlayerPrefs.SetString ("TournamentDifficulties", "001");
 		SceneManager.LoadScene("CharSelScene");
 	}
@@ -79,7 +79,7 @@ public class ChallengesMenuBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("TournamentOpponent", 1);
 		PlayerPrefs.SetInt ("MaxScore", 12);
 		PlayerPrefs.SetInt ("MaxSets", 2);
-		PlayerPrefs.SetString ("TournamentDifficulties", "01122");
+		PlayerPrefs.SetString ("TournamentDifficulties", "11222");
 		SceneManager.LoadScene("CharSelScene");
 	}
 
