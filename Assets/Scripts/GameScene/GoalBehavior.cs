@@ -51,7 +51,7 @@ public class GoalBehavior : MonoBehaviour
 	{
 		_spriteRenderer.material.shader = _shaderGUItext;
 		_spriteRenderer.color = new Color (1.0f,1.0f,1.0f,0.5f);
-		Invoke ("ResetTilt", 0.05f);
+		Invoke ("ResetTilt", 0.1f);
 	}
 
 	private void ResetTilt()
