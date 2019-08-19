@@ -365,13 +365,17 @@ public class GameManagerBehavior : MonoBehaviour
 			VictoryEffectInstance.transform.position = new Vector3 (VictoryEffectInstance.transform.position.x, -VictoryEffectInstance.transform.position.y, 0.0f);
 			VictoryEffectInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
 		}
-
+			
 		for (int i = 1; i <= 7; ++i) {
 			var donutCelebrationModel = Resources.Load<GameObject> ("Prefabs/DonutCelebration" + i.ToString("D2"));
+			var donutShadowCelebrationModel = Resources.Load<GameObject> ("Prefabs/DonutShadowCelebration" + i.ToString("D2"));
 			var donutCelebrationInstance = Instantiate (donutCelebrationModel, donutCelebrationModel.transform.position, donutCelebrationModel.transform.rotation);
+			var donutShadowCelebrationInstance = Instantiate (donutShadowCelebrationModel, donutShadowCelebrationModel.transform.position, donutShadowCelebrationModel.transform.rotation);
 			if (!_isWinner) {
 				donutCelebrationInstance.transform.position = new Vector3 (donutCelebrationInstance.transform.position.x, -donutCelebrationInstance.transform.position.y, 0.0f);
 				donutCelebrationInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
+				donutShadowCelebrationInstance.transform.position = new Vector3 (donutShadowCelebrationInstance.transform.position.x, -donutShadowCelebrationInstance.transform.position.y - 0.2f, 0.0f);
+				donutShadowCelebrationInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
 			}
 			yield return new WaitForSeconds(0.2f);
 		}

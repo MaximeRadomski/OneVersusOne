@@ -21,6 +21,11 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
+		if (PlayerPrefs.GetInt ("FirstTime", 1) == 1) {
+			PlayerPrefs.DeleteAll ();
+			PlayerPrefs.SetInt ("FirstTime", 0);
+		}
+
 		AndroidNativeAudio.makePool();
 		_borderTop = GameObject.Find ("BorderTop");
 		_borderBot = GameObject.Find ("BorderBot");

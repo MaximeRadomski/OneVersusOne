@@ -8,6 +8,7 @@ public class GameLoadingManager : MonoBehaviour
 	public Sprite[] MapTemplates;
 	public Sprite[] CharactersSprites;
 	public Sprite[] GameModeSprites;
+	public AudioSource StageMusic;
 
 	private GameObject _p1BannerPlayerName, _p1PlayerInfo, _p1LoadingContainer, _p1CharacterSprite;
 	private GameObject _p2BannerPlayerName, _p2PlayerInfo, _p2LoadingContainer, _p2CharacterSprite;
@@ -18,6 +19,8 @@ public class GameLoadingManager : MonoBehaviour
 		var menuBackground = GameObject.FindGameObjectWithTag ("MenuBackground");
 		menuBackground.GetComponent<AudioSource> ().Stop ();
 		Destroy(GameObject.Find ("$GenericMenuManager"));
+		if (PlayerPrefs.GetInt ("Music", 1) == 0 && StageMusic != null)
+			StageMusic.volume = 0.0f;
 		_p1BannerPlayerName = GameObject.Find ("P1BannerPlayerName");
 		_p1PlayerInfo = GameObject.Find ("P1PlayerInfo");
 		_p1LoadingContainer = GameObject.Find ("P1LoadingContainer");

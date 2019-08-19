@@ -162,6 +162,7 @@ MonoBehaviour:
   - {fileID: 21300002, guid: 0ff3d5ef37866bc4e8ccdfffb0689d9c, type: 3}
   - {fileID: 21300004, guid: 0ff3d5ef37866bc4e8ccdfffb0689d9c, type: 3}
   - {fileID: 21300006, guid: 0ff3d5ef37866bc4e8ccdfffb0689d9c, type: 3}
+  StageMusic: {fileID: 26052753}
 --- !u!4 &26052752
 Transform:
   m_ObjectHideFlags: 0
