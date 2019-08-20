@@ -112,6 +112,7 @@ public class TitleManagerBehavior : MonoBehaviour
 	private void DeletePlayerPrefsAndPopupReturn()
 	{
 		PlayerPrefs.DeleteAll();
+		PlayerPrefs.SetInt ("FirstTime", 0);
 		Destroy (_tmpPopup);
 		_isDisplayingPopup = false;
 	}

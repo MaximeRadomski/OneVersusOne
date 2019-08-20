@@ -420,17 +420,23 @@ public class GameManagerBehavior : MonoBehaviour
 			++SetPlayerOne;
 			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose ();
+			_playerOne.GetComponent<Animator> ().Play ("Victory");
+			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
 			reset = true;
 		} else if (ScorePlayerTwo >= _maxScore && ScorePlayerTwo > ScorePlayerOne) {
 			++SetPlayerTwo;
 			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose ();
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
+			_playerTwo.GetComponent<Animator> ().Play ("Victory");
+			_playerOne.GetComponent<Animator> ().Play ("Defeat");
 			reset = true;
 		} else if (ScorePlayerOne >= _maxScore && ScorePlayerTwo >= _maxScore && ScorePlayerOne == ScorePlayerTwo) {
 			++SetPlayerOne;
 			++SetPlayerTwo;
 			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
+			_playerOne.GetComponent<Animator> ().Play ("Victory");
+			_playerTwo.GetComponent<Animator> ().Play ("Victory");
 			reset = true;
 		}
 		if (SetPlayerOne > 99)
@@ -447,10 +453,17 @@ public class GameManagerBehavior : MonoBehaviour
 			}
 			ChangeAllScores ();
 			DisplaySets();
+			Invoke ("ResetPlayersIdle", 2.0f);
 			Invoke("CheckIfGame", 3.0f);
 		}
 		else
 			PlaceBall ();
+	}
+
+	private void ResetPlayersIdle()
+	{
+		_playerOne.GetComponent<Animator> ().Play ("Idle");
+		_playerTwo.GetComponent<Animator> ().Play ("Idle");
 	}
 
 	private CurrentPlayer _winnerOnNewBall;
