@@ -33,5 +33,6 @@ sysinfo.txt
 
 # Builds
 *.apk
+*.aab
 *.unitypackage
 *.zip
