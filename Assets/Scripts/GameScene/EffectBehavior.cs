@@ -9,6 +9,7 @@ public class EffectBehavior : MonoBehaviour
 	public float DelayBeforeHide;
 	public float DelayBeforeDestroy;
 	public EffectType Effect;
+    public long VibrateDuration;
 
 	private GameManagerBehavior _gameManagerBehavior;
 
@@ -18,6 +19,8 @@ public class EffectBehavior : MonoBehaviour
 
 		if (Effect != EffectType.None)
 			PlayEffectSound ();
+        if (VibrateDuration != 0)
+            Vibration.Vibrate(VibrateDuration);
 		Invoke ("HideAfterDelay", DelayBeforeHide);
 		Invoke ("DestroyAfterDelay", DelayBeforeDestroy);
 	}

@@ -17,7 +17,12 @@ public class ChangingButtonBehavior : MonoBehaviour
 	void Start()
 	{
 		_hasTheDisc = true;
-	}
+        if (PlayerPrefs.GetInt("GameMode") == GameMode.Breakout.GetHashCode() && SpriteRenderer != null && IsThrowLift && EmptyButton != null)
+        {
+            transform.position = new Vector3(3.0f, 0.0f, 0.0f);
+            GameObject.Find("P1SPCoolDown").transform.position = new Vector3(3.0f, 0.0f, 0.0f);
+        }
+    }
 
 	private void GetPlayer()
 	{
