@@ -198,7 +198,8 @@ public class BallBehavior : MonoBehaviour
 		else if (col.gameObject.tag == "TrainingWall" && gameObject.tag != "DiscShadow")
 		{
 			NbCol = 0;
-			var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, col.transform.position.y - 0.39f, 0.0f), transform.rotation);
+            Physics2D.gravity = new Vector2(0.0f, 0.0f);
+            var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, col.transform.position.y - 0.39f, 0.0f), transform.rotation);
 			tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, 90.0f);
 			_camera.GetComponent<CameraBehavior>().WallHit();
 			IsThrownBy = CurrentPlayer.PlayerTwo;
@@ -223,9 +224,18 @@ public class BallBehavior : MonoBehaviour
 				onWallCollisionDelegate ();
 			}
 			++NbCol;
-			if (_liftDirection != Direction.Standby && NbCol <= 1)
-				AddGravity (1.5f);
-            _camera.GetComponent<CameraBehavior>().WallHit();
+            if (_liftDirection != Direction.Standby && NbCol <= 1)
+            {
+                AddGravity(2f);
+                if (_liftDirection == Direction.Left && col.transform.position.x < 0 ||
+                    _liftDirection == Direction.Right && col.transform.position.x > 0)
+                {
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,
+                                                                       GetComponent<Rigidbody2D>().velocity.y * 1.5f);
+                    Debug.Log("Accelerate");
+                }
+            }
+                _camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<WallBehavior>().WallHit();
 
 			var xWallEffect = MapsData.Maps[MapId].WallCollisionX;

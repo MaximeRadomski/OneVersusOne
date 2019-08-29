@@ -129,7 +129,7 @@ public class SuperBehavior : MonoBehaviour
 
 	private bool StraightOnCollision ()
 	{
-		_ball.GetComponent<Rigidbody2D>().velocity = _playerThrowDirection * (_customSpeed * 1.2f);
+		_ball.GetComponent<Rigidbody2D>().velocity = _playerThrowDirection * (_customSpeed * 1.3f);
 		_ball.GetComponent<BallBehavior> ().onWallCollisionDelegate = null;
 		return true;
 	}
