@@ -198,7 +198,14 @@ public class BallBehavior : MonoBehaviour
 		else if (col.gameObject.tag == "TrainingWall" && gameObject.tag != "DiscShadow")
 		{
 			NbCol = 0;
-            Physics2D.gravity = new Vector2(0.0f, 0.0f);
+            if (_liftDirection != Direction.Standby)
+            {
+                Physics2D.gravity = new Vector2(0.0f, 0.0f);
+                _liftDirection = Direction.Standby;
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,
+                                                                   GetComponent<Rigidbody2D>().velocity.y * 0.5f);
+
+            }            
             var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, col.transform.position.y - 0.39f, 0.0f), transform.rotation);
 			tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, 90.0f);
 			_camera.GetComponent<CameraBehavior>().WallHit();
