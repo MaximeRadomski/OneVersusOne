@@ -16,6 +16,7 @@ public class GoalBehavior : MonoBehaviour
 	private SpriteRenderer _spriteRenderer;
 	private Shader _shaderGUItext;
 	private Shader _shaderSpritesDefault;
+    private bool _isHowToPlay;
 
 	void Start()
 	{
@@ -23,6 +24,7 @@ public class GoalBehavior : MonoBehaviour
 		_spriteRenderer = this.GetComponent<SpriteRenderer> ();
 		_shaderGUItext = Shader.Find("GUI/Text Shader");
 		_shaderSpritesDefault = Shader.Find("Sprites/Default");
+        _isHowToPlay = GameObject.Find("$GameManager").GetComponent<GameManagerBehavior>().IsHowToPlay;
 	}
 
 	public void GoalHit()
@@ -32,7 +34,8 @@ public class GoalBehavior : MonoBehaviour
 		else
 			Animator.Play ("GoalTop");
 		StretchOnGoal ();
-		TiltOnGoal ();
+        if (!_isHowToPlay)
+		    TiltOnGoal ();
 		Invoke ("StopAnimation", 0.5f);
 	}
 

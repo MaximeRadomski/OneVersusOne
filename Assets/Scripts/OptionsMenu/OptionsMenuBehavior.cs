@@ -14,7 +14,7 @@ public class OptionsMenuBehavior : MonoBehaviour
 	//private GenericMenuManagerBehavior _genericMenuManagerBehavior;
 
 	private int _ads;
-	private int _showBack;
+	private int _vibrations;
 	private int _scanlines;
 	private int _music;
 	private int _effects;
@@ -35,21 +35,21 @@ public class OptionsMenuBehavior : MonoBehaviour
 		//_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 
 		_ads = PlayerPrefs.GetInt ("Ads", 1);
-		_showBack = PlayerPrefs.GetInt ("ShowBack", 1);
+		_vibrations = PlayerPrefs.GetInt ("Vibrations", 1);
 		_scanlines = PlayerPrefs.GetInt ("ScanLines", 1);
 		_music = PlayerPrefs.GetInt ("Music", 1);
 		_effects = PlayerPrefs.GetInt ("Effects", 1);
 
 		_init = true;
 		SetAds ();
-		SetShowBack ();
+        SetVibrations ();
 		SetScanlines ();
 		SetMusic ();
 		SetEffects ();
 		_init = false;
 
 		GameObject.Find ("AdsButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetAds;
-		GameObject.Find ("ShowBackButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetShowBack;
+		GameObject.Find ("VibrationsButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetVibrations;
 		GameObject.Find ("ScanlinesButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetScanlines;
 		GameObject.Find ("MusicButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetMusic;
 		GameObject.Find ("EffectsButtonBackground").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = SetEffects;
@@ -90,20 +90,18 @@ public class OptionsMenuBehavior : MonoBehaviour
 		PlayerPrefs.SetInt("Ads", _ads);
 	}
 
-	private void SetShowBack ()
+	private void SetVibrations()
 	{
 		if (!_init)
-			_showBack = _showBack == 1 ? 0 : 1;
-		if (_showBack == 1) {
-			GameObject.Find ("ShowBackButtonText").GetComponent<UnityEngine.UI.Text> ().text = "ON";
-			GameObject.Find ("ShowBackButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn ();
-			GameObject.Find ("BackButton").GetComponent<BackButtonBehavior> ().Enable ();
+			_vibrations = _vibrations == 1 ? 0 : 1;
+		if (_vibrations == 1) {
+			GameObject.Find ("VibrationsButtonText").GetComponent<UnityEngine.UI.Text> ().text = "ON";
+			GameObject.Find ("VibrationsButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOn ();
 		} else {
-			GameObject.Find ("ShowBackButtonText").GetComponent<UnityEngine.UI.Text> ().text = "OFF";
-			GameObject.Find ("ShowBackButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
-			GameObject.Find ("BackButton").GetComponent<BackButtonBehavior> ().Disable ();
+			GameObject.Find ("VibrationsButtonText").GetComponent<UnityEngine.UI.Text> ().text = "OFF";
+			GameObject.Find ("VibrationsButtonBackground").GetComponent<GenericMenuButtonBehavior> ().SetSpriteOff();
 		}
-		PlayerPrefs.SetInt("ShowBack", _showBack);
+		PlayerPrefs.SetInt("Vibrations", _vibrations);
 	}
 
 	private void SetScanlines ()

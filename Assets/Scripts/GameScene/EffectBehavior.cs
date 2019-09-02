@@ -19,7 +19,7 @@ public class EffectBehavior : MonoBehaviour
 
 		if (Effect != EffectType.None)
 			PlayEffectSound ();
-        if (VibrateDuration != 0)
+        if (VibrateDuration != 0 && PlayerPrefs.GetInt("Vibrations", 1) == 1)
             Vibration.Vibrate(VibrateDuration);
 		Invoke ("HideAfterDelay", DelayBeforeHide);
 		Invoke ("DestroyAfterDelay", DelayBeforeDestroy);
