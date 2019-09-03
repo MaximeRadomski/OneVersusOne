@@ -13,7 +13,7 @@ public class AdsData : MonoBehaviour
 			IsMobileGame = false},
 		new GameAd {
 			Name = "Teturss",
-			Description = "My Tetris fan-game.\nI made it in order to have an ad-free Tetris game that I can play everywhere, and with the rules I like the most in Tetris games.\nYou even have sexy Bolsheviks coming with it!",
+			Description = "My Tetris fan-game.\nI made it in order to have an ad-free Tetris game that I can play everywhere, and with the rules I like the most in Tetris games.",
 			UrlId = "https://abject.itch.io/teturss",
 			IsMobileGame = false},
 		new GameAd {

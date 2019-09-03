@@ -25,6 +25,11 @@ public class TournamentMatchBehavior : MonoBehaviour
 	private void SetTournament (int tournamentOpponent)
 	{
 		var playerCharacterId = PlayerPrefs.GetInt ("P1Character");
+        if (playerCharacterId == 0)
+        {
+            playerCharacterId = Random.Range(1,7);
+            PlayerPrefs.SetInt("P1Character", playerCharacterId);
+        }
 		_mapsBag = new List<int> (){ 1, 2, 3, 4, 5, 6 };
 		_charactersBag = new List<int> (){ 1, 2, 3, 4, 5, 6 };
 		_charactersBag.RemoveAt (playerCharacterId - 1);
