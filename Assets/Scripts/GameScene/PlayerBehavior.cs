@@ -487,7 +487,7 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void LiftBallAfterDelay()
 	{
-		CustomAudio.PlayEffect(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID);
+		CustomAudio.PlayEffect(_gameManager.GetComponent<GameManagerBehavior>().ThrowAudioFileID, 0.65f);
 		//Ball = GetBall();
 		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;

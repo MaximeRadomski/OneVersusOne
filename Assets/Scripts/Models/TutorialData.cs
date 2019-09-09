@@ -68,7 +68,12 @@ public static class TutorialData
 				"RED MEANS FIVE POINTS, ANY\n" +
 				"OTHER COLOR MEANS THREE"
 		},
-		new Tutorial {
+        new Tutorial {
+            Title = "PAUSE",
+            Content = "YOU CAN PAUSE THE GAME\n" +
+                "BY TOUCHING THE FIELD"
+        },
+        new Tutorial {
 			Title = "THAT'S ALL FOLKS",
 			Content = "GOOD LUCK"
 		}
