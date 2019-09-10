@@ -37,7 +37,9 @@ public class GoalBehavior : MonoBehaviour
         if (!_isHowToPlay)
 		    TiltOnGoal ();
 		Invoke ("StopAnimation", 0.5f);
-	}
+        if (PlayerPrefs.GetInt("SelectedMap") == 6)
+            Freeze();
+    }
 
 	private void StretchOnGoal()
 	{
@@ -73,7 +75,13 @@ public class GoalBehavior : MonoBehaviour
 		IsFrozen = true;
 		gameObject.tag = "FrozenWall";
 		_spriteRenderer.sprite = FrozenStateSprite;
-	}
+        var freezeEffectModel = Resources.Load<GameObject>("Prefabs/FreezeEffect01");
+        var freezeEffectInstance = Instantiate(freezeEffectModel, transform.position, freezeEffectModel.transform.rotation);
+        if (Player == CurrentPlayer.PlayerTwo)
+        {
+            freezeEffectInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
+        }
+    }
 
 	public void Unfreeze()
 	{

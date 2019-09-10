@@ -234,13 +234,12 @@ public class BallBehavior : MonoBehaviour
             if (_liftDirection != Direction.Standby && NbCol <= 1)
             {
                 AddGravity(2f);
-                if (_liftDirection == Direction.Left && col.transform.position.x < 0 ||
-                    _liftDirection == Direction.Right && col.transform.position.x > 0)
-                {
-                    GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,
-                                                                       GetComponent<Rigidbody2D>().velocity.y * 1.5f);
-                    Debug.Log("Accelerate");
-                }
+                //if (_liftDirection == Direction.Left && col.transform.position.x < 0 ||
+                //    _liftDirection == Direction.Right && col.transform.position.x > 0)
+                //{
+                //    GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,
+                //                                                       GetComponent<Rigidbody2D>().velocity.y * 1.5f);
+                //}
             }
                 _camera.GetComponent<CameraBehavior>().WallHit();
 			col.gameObject.GetComponent<WallBehavior>().WallHit();

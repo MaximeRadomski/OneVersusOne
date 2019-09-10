@@ -1099,6 +1099,7 @@ MonoBehaviour:
   EmptyButton: {fileID: 21300012, guid: f6780a43a016c6246b43104e7001453f, type: 3}
   Player: 0
   IsThrowLift: 1
+  IsLeftRight: 0
 --- !u!1 &123097483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1241,7 @@ MonoBehaviour:
   EmptyButton: {fileID: 0}
   Player: 0
   IsThrowLift: 1
+  IsLeftRight: 0
 --- !u!1 &136151098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,6 +1533,7 @@ MonoBehaviour:
   EmptyButton: {fileID: 21300012, guid: f6780a43a016c6246b43104e7001453f, type: 3}
   Player: 1
   IsThrowLift: 1
+  IsLeftRight: 0
 --- !u!1 &194133096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,6 +2840,7 @@ MonoBehaviour:
   EmptyButton: {fileID: 0}
   Player: 1
   IsThrowLift: 1
+  IsLeftRight: 0
 --- !u!1 &479147667
 GameObject:
   m_ObjectHideFlags: 0
@@ -3184,6 +3188,7 @@ GameObject:
   - component: {fileID: 527456359}
   - component: {fileID: 527456358}
   - component: {fileID: 527456357}
+  - component: {fileID: 527456360}
   m_Layer: 5
   m_Name: RightP2
   m_TagString: Button
@@ -3294,6 +3299,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &527456360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527456355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de6dd2b60b489542b2308048afd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 527456359}
+  HasTheDisc: {fileID: -1585999729973437293, guid: f6780a43a016c6246b43104e7001453f,
+    type: 3}
+  DoesntHaveTheDisc: {fileID: 21300002, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  EmptyButton: {fileID: 21300012, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  Player: 1
+  IsThrowLift: 0
+  IsLeftRight: 1
 --- !u!1 &534308440
 GameObject:
   m_ObjectHideFlags: 0
@@ -6840,6 +6865,7 @@ MonoBehaviour:
   EmptyButton: {fileID: 0}
   Player: 1
   IsThrowLift: 0
+  IsLeftRight: 0
 --- !u!114 &867344228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6941,6 +6967,7 @@ GameObject:
   - component: {fileID: 881600402}
   - component: {fileID: 881600405}
   - component: {fileID: 881600404}
+  - component: {fileID: 881600406}
   m_Layer: 5
   m_Name: RightP1
   m_TagString: Button
@@ -7051,6 +7078,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &881600406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881600401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de6dd2b60b489542b2308048afd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 881600402}
+  HasTheDisc: {fileID: -1585999729973437293, guid: f6780a43a016c6246b43104e7001453f,
+    type: 3}
+  DoesntHaveTheDisc: {fileID: 21300002, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  EmptyButton: {fileID: 21300012, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  Player: 0
+  IsThrowLift: 0
+  IsLeftRight: 1
 --- !u!1 &904458281
 GameObject:
   m_ObjectHideFlags: 0
@@ -11920,6 +11967,7 @@ GameObject:
   - component: {fileID: 1563586965}
   - component: {fileID: 1563586968}
   - component: {fileID: 1563586967}
+  - component: {fileID: 1563586969}
   m_Layer: 5
   m_Name: LeftP1
   m_TagString: Button
@@ -12030,6 +12078,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &1563586969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563586964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de6dd2b60b489542b2308048afd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 1563586965}
+  HasTheDisc: {fileID: -7349803269862139410, guid: f6780a43a016c6246b43104e7001453f,
+    type: 3}
+  DoesntHaveTheDisc: {fileID: 21300000, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  EmptyButton: {fileID: 21300012, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  Player: 0
+  IsThrowLift: 0
+  IsLeftRight: 1
 --- !u!1 &1565387593
 GameObject:
   m_ObjectHideFlags: 0
@@ -13509,6 +13577,7 @@ MonoBehaviour:
   EmptyButton: {fileID: 0}
   Player: 0
   IsThrowLift: 0
+  IsLeftRight: 0
 --- !u!114 &1794912408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14999,6 +15068,7 @@ GameObject:
   - component: {fileID: 2093748522}
   - component: {fileID: 2093748521}
   - component: {fileID: 2093748520}
+  - component: {fileID: 2093748523}
   m_Layer: 5
   m_Name: LeftP2
   m_TagString: Button
@@ -15109,6 +15179,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2093748523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093748518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de6dd2b60b489542b2308048afd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 2093748522}
+  HasTheDisc: {fileID: -7349803269862139410, guid: f6780a43a016c6246b43104e7001453f,
+    type: 3}
+  DoesntHaveTheDisc: {fileID: 21300000, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  EmptyButton: {fileID: 21300012, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  Player: 1
+  IsThrowLift: 0
+  IsLeftRight: 1
 --- !u!1 &2095496614
 GameObject:
   m_ObjectHideFlags: 0

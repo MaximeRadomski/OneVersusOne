@@ -9,6 +9,7 @@ public class ChangingButtonBehavior : MonoBehaviour
 	public CurrentPlayer Player;
 
 	public bool IsThrowLift;
+    public bool IsLeftRight;
 
 	private PlayerBehavior _playerbehavior;
 	private GameManagerBehavior _gameManagerBehavior;
@@ -34,7 +35,9 @@ public class ChangingButtonBehavior : MonoBehaviour
 	{
 		if (IsThrowLift)
 			ThrowLiftButton ();
-		else
+        else if (IsLeftRight)
+            LeftRightButton();
+        else
 			SuperButton ();
 	}
 
@@ -65,7 +68,26 @@ public class ChangingButtonBehavior : MonoBehaviour
 		}
 	}
 
-	private void SuperButton()
+    private void LeftRightButton()
+    {
+        if (_playerbehavior == null)
+            GetPlayer();
+        if (_playerbehavior == null)
+            return;
+
+        if (_playerbehavior.HasTheDisc && !_hasTheDisc)
+        {
+            _hasTheDisc = true;
+            SpriteRenderer.sprite = HasTheDisc;
+        }
+        else if (!_playerbehavior.HasTheDisc && _hasTheDisc)
+        {
+            _hasTheDisc = false;
+            SpriteRenderer.sprite = DoesntHaveTheDisc;
+        }
+    }
+
+    private void SuperButton()
 	{
 		if (_playerbehavior == null)
 			GetPlayer ();

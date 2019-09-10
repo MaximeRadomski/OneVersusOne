@@ -497,8 +497,6 @@ public class GameManagerBehavior : MonoBehaviour
 			Invoke("PlaceBall", 0.5f);
 			return;
 		}
-		if (PlayerPrefs.GetInt ("SelectedMap") == 6)
-			GameObject.Find (looser == CurrentPlayer.PlayerOne ? "PlayerOne" : "PlayerTwo").GetComponent<SuperBehavior> ().FreezeGoals ();
 		_playerName = looser.ToString ();
 		if (looser == CurrentPlayer.PlayerOne)
 		{
