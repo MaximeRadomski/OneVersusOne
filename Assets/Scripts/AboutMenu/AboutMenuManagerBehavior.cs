@@ -32,4 +32,15 @@ public class AboutMenuManagerBehavior : MonoBehaviour
 		yield return new WaitForSeconds(0.05f);
 		_whyContent.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
 	}
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            //We transform the touch position into word space from screen space and store it.
+            var touchPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (touchPosWorld.y > 2.3f)
+                Application.OpenURL("https://twitter.com/Abject_Sama");
+        }
+    }
 }

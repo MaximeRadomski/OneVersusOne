@@ -355,7 +355,7 @@ public class PlayerBehavior : MonoBehaviour
 
 	private void StretchOnCatch()
 	{
-		transform.localScale = new Vector3 (1.2f, 0.8f, 1.0f);
+		transform.localScale = new Vector3 (1.3f, 0.8f, 1.0f);
 		Invoke ("ResetStretch", 0.1f);
 	}
 
