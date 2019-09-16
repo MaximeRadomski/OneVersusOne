@@ -94,9 +94,9 @@ public class BallBehavior : MonoBehaviour
 	public void PlaceBallFromPlayer()
 	{
 		_linkedPlayer = GetLinkedPlayer ();
-		float spaceYFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
-			? -1.6385f
-			: 1.5269f;
+        float spaceYFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerOne
+            ? _linkedPlayer.transform.position.y + 0.1665f
+            : _linkedPlayer.transform.position.y - 0.2781f;
 		float spaceXFromPlayer = _linkedPlayer.GetComponent<PlayerBehavior> ().Player == CurrentPlayer.PlayerOne 
 			? 0.111f
 			: -0.083f;

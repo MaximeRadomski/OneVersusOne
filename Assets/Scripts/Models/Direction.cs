@@ -6,5 +6,6 @@ public enum Direction
 {
     Left,
     Right,
-    Standby
+    Standby,
+    BackDash
 }

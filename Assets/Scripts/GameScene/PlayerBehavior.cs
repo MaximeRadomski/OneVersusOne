@@ -44,6 +44,8 @@ public class PlayerBehavior : MonoBehaviour
 	private Vector3 _initialPosition;
     private Vector2 _directionalVector;
     private float _throwAngle;
+    private float _backCourtY;
+    private float _frontNetYDashDistance;
     private GameObject _gameManager;
 	private GameObject _mimicShadow;
     private Vector3 _dashingStart;
@@ -54,6 +56,7 @@ public class PlayerBehavior : MonoBehaviour
     private bool _canDash;
 	private bool _isAgainstWall;
 	private bool _isAgainstAI;
+    private bool _canMoveToNet;
 
     void Start ()
 	{
@@ -84,7 +87,12 @@ public class PlayerBehavior : MonoBehaviour
 		var mimicShadowInstance = Resources.Load<GameObject> ("Prefabs/MimicShadow");
 		_mimicShadow = Instantiate (mimicShadowInstance, transform.position, transform.rotation);
 		_mimicShadow.GetComponent<MimicShadow> ().LinkedGameObject = this.gameObject;
-	}
+        if (PlayerPrefs.GetInt("GameMode") == GameMode.Duel.GetHashCode() ||
+            PlayerPrefs.GetInt("GameMode") == GameMode.Catch.GetHashCode())
+            _canMoveToNet = true;
+        _backCourtY = -1.805f;
+        _frontNetYDashDistance = 1.0f;
+    }
 
     private void SetPlayerTwoAngleSprites()
     {
@@ -104,16 +112,37 @@ public class PlayerBehavior : MonoBehaviour
                 EndDash();
 
             float distance = WalkDistance;
-            if (_dashingDirection == Direction.Left)
+            if (_dashingDirection == Direction.Left ||
+                Player == CurrentPlayer.PlayerOne && _dashingDirection == Direction.BackDash ||
+                Player == CurrentPlayer.PlayerTwo && _dashingDirection == Direction.Standby)
                 distance = -distance;
 
-            if ((_dashingStart.x < _dashingEnd.x && transform.position.x < _dashingEnd.x - DashDistance / 3) ||
-                (_dashingStart.x > _dashingEnd.x && transform.position.x > _dashingEnd.x + DashDistance / 3))
-            {
+            if (Direction == Direction.Left || Direction == Direction.Right)
+                AlterDashSpeed(distance, _dashingStart.x, _dashingEnd.x, transform.position.x);
+            else
+                AlterDashSpeed(distance, _dashingStart.y, _dashingEnd.y, transform.position.y, vertical:true);
+        }
+
+		if (IsControlledByAI && ControlledAction == ControlledAction.Recenter)
+		{
+			Recenter ();
+		}
+    }
+
+    private void AlterDashSpeed(float distance, float start, float end, float currentPos, bool vertical = false)
+    {
+        if ((start < end && currentPos < end - DashDistance / 3) ||
+                (start > end && currentPos > end + DashDistance / 3))
+        {
+            if (!vertical)
                 transform.position += new Vector3(distance * 3, 0.0f, 0.0f); //Dash Speed
-            }
-            else if ((_dashingStart.x < _dashingEnd.x && transform.position.x < _dashingEnd.x) ||
-                     (_dashingStart.x > _dashingEnd.x && transform.position.x > _dashingEnd.x))
+            else
+                transform.position += new Vector3(0.0f, distance * 3, 0.0f); //Dash Speed
+        }
+        else if ((start < end && currentPos < end) ||
+                 (start > end && currentPos > end))
+        {
+            if (!vertical)
             {
                 if (Vector3.Distance(_dashingStart, _dashingEnd) <= DashDistance / 2)
                     transform.position += new Vector3(distance * 3, 0.0f, 0.0f); //Dash Speed
@@ -122,14 +151,16 @@ public class PlayerBehavior : MonoBehaviour
             }
             else
             {
-                EndDash();
-            }
+                if (Vector3.Distance(_dashingStart, _dashingEnd) <= DashDistance / 2)
+                    transform.position += new Vector3(0.0f, distance * 3, 0.0f); //Dash Speed
+                else
+                    transform.position += new Vector3(0.0f, distance / 2, 0.0f); //End Dash Speed
+            }            
         }
-
-		if (IsControlledByAI && ControlledAction == ControlledAction.Recenter)
-		{
-			Recenter ();
-		}
+        else
+        {
+            EndDash();
+        }
     }
 
     private GameObject GetBall()
@@ -171,6 +202,15 @@ public class PlayerBehavior : MonoBehaviour
             transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
         if (transform.position.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             transform.position = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
+
+        if (ControlledAction == ControlledAction.Recenter && IsControlledByAI == true)
+        {
+            if (Player == CurrentPlayer.PlayerOne == transform.position.y > _backCourtY)
+                transform.position += new Vector3(0.0f, -WalkDistance, 0.0f);
+            else if (Player == CurrentPlayer.PlayerTwo == transform.position.y < -_backCourtY)
+                transform.position += new Vector3(0.0f, WalkDistance, 0.0f);
+        }
+
 		IsMoving = true;
     }
 
@@ -183,7 +223,7 @@ public class PlayerBehavior : MonoBehaviour
 		SetOrientation ();
     }
 
-    private void SetOrientation ()
+    private void SetOrientation(bool isDash = false)
 	{
 		if (Direction == Direction.Left) {
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f); 
@@ -191,11 +231,17 @@ public class PlayerBehavior : MonoBehaviour
 		} else if (Direction == Direction.Right) {
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, -90.0f); 
 			Animator.SetBool ("IsMoving", true);
-		} else {
-			transform.rotation = _initialRotation;
-			Animator.SetBool ("IsMoving", false);
-		}
-	}
+		} else if (Direction == Direction.BackDash) {
+            transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+            Animator.SetBool ("IsMoving", true);
+		} else if (isDash) {
+            transform.rotation = _initialRotation;
+            Animator.SetBool ("IsMoving", true);
+        } else {
+            transform.rotation = _initialRotation;
+            Animator.SetBool ("IsMoving", false);
+        }
+    }
 
     public void IncrementAngle()
     {
@@ -253,19 +299,37 @@ public class PlayerBehavior : MonoBehaviour
 
     public void Dash()
     {
-		if (!_canDash || Direction == Direction.Standby || IsCastingSP)
+        bool dashNetOrBackCourt = false;
+        if (!_canDash || IsCastingSP)
             return;
+        else if (Direction == Direction.Standby && _canMoveToNet)
+        {
+            dashNetOrBackCourt = true;
+            if (Mathf.Abs(transform.position.y) < Mathf.Abs(_backCourtY) - 0.1 ||
+                Mathf.Abs(transform.position.y) > Mathf.Abs(_backCourtY) + 0.1)
+                Direction = Direction.BackDash;
+        }            
 
         _canDash = false;
         IsDashing = true;
         float distance = DashDistance;
-        if (Direction == Direction.Left)
+        if (dashNetOrBackCourt && Direction == Direction.Standby)
+            distance = _frontNetYDashDistance;
+        else if (dashNetOrBackCourt && Direction == Direction.BackDash)
+            distance = Mathf.Abs(_backCourtY) - Mathf.Abs(transform.position.y);
+        if (Direction == Direction.Left ||
+            Player == CurrentPlayer.PlayerOne && Direction == Direction.BackDash ||
+            Player == CurrentPlayer.PlayerTwo && Direction == Direction.Standby)
             distance = -distance;
 
-		SetOrientation ();
+		SetOrientation (isDash:true);
         _dashingDirection = Direction;
         _dashingStart = transform.position;
-        _dashingEnd = transform.position + new Vector3(distance, 0.0f, 0.0f);
+        if (!dashNetOrBackCourt)
+            _dashingEnd = transform.position + new Vector3(distance, 0.0f, 0.0f);
+        else
+            _dashingEnd = transform.position + new Vector3(0.0f, distance, 0.0f);
+
         if (_dashingEnd.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             _dashingEnd = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, _dashingEnd.y, 0.0f);
         if (_dashingEnd.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
@@ -280,6 +344,10 @@ public class PlayerBehavior : MonoBehaviour
 		tmpDashEffect.transform.eulerAngles += new Vector3 (0.0f, 0.0f, 180.0f);
         var tmpDashParticles = Instantiate(DashEffectParticles, transform.position, gameObject.transform.rotation);
         tmpDashParticles.GetComponent<EffectBehavior>().ObjectToFollow = gameObject;
+    }
+
+    private void DashToNetOrBackCourt()
+    {
     }
 
     private void ResetDash()
@@ -334,11 +402,14 @@ public class PlayerBehavior : MonoBehaviour
 		Animator.enabled = false;
 		CurrentSprite.sprite = AngleSprites [2];
 		Direction = Direction.Standby;
-		float resetYPos = 1.805f; //Player Y Position
-		if (Player == CurrentPlayer.PlayerOne)
-			resetYPos = -resetYPos;
-		transform.position = new Vector3 (transform.position.x, resetYPos, 0.0f);
-		SetOrientation ();
+        
+        //Reset Y position after catch
+        if (Player == CurrentPlayer.PlayerOne && transform.position.y < _backCourtY)
+            transform.position = new Vector3(transform.position.x, _backCourtY, 0.0f);
+        else if (Player == CurrentPlayer.PlayerTwo && transform.position.y > _backCourtY)
+            transform.position = new Vector3(transform.position.x, -_backCourtY, 0.0f);
+
+        SetOrientation ();
 		if (IsCastingSP) {
 			GameObject.Find ("ScreenEffects").GetComponent<Animator> ().Play ("ScreenEffects01");;
 			IsDoingSP = true;
@@ -530,10 +601,12 @@ public class PlayerBehavior : MonoBehaviour
 			Animator.Play("Idle");
 		}
 		ControlledAction = ControlledAction.Recenter;
-		if (transform.position.x + 0.1f < 0)
+		if ((transform.position.x + 0.1f < 0) ||
+            (transform.position.x > 0 && Mathf.Abs(transform.position.y) < Mathf.Abs(_backCourtY)))
 			Move (Direction.Right);
-		else if (transform.position.x - 0.1f > 0)
-			Move (Direction.Left);
+		else if ((transform.position.x - 0.1f > 0) ||
+                (transform.position.x < 0 && Mathf.Abs(transform.position.y) < Mathf.Abs(_backCourtY)))
+            Move (Direction.Left);
 		else
 		{
 			Standby();
