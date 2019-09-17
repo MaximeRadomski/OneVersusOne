@@ -51,12 +51,14 @@ public class PlayerBehavior : MonoBehaviour
     private Vector3 _dashingStart;
     private Vector3 _dashingEnd;
     private Direction _dashingDirection;
+    private Direction _diagonalDashingDirection;
     private float _dashCooldown;
 	private float _castSPCooldown;
     private bool _canDash;
 	private bool _isAgainstWall;
 	private bool _isAgainstAI;
     private bool _canMoveToNet;
+    private bool _isDiagonalDashing;
 
     void Start ()
 	{
@@ -75,7 +77,8 @@ public class PlayerBehavior : MonoBehaviour
         _gameManager = GameObject.Find("$GameManager");
 	    //Ball = GetBall();
         _dashingDirection = Direction.Standby;
-	    _dashCooldown = 0.75f;
+        _diagonalDashingDirection = Direction.Standby;
+	    _dashCooldown = 0.3f;
 		_castSPCooldown = 1.0f;
 	    _canDash = true;
 		SPCooldown = SPMaxCooldown;
@@ -121,6 +124,14 @@ public class PlayerBehavior : MonoBehaviour
                 AlterDashSpeed(distance, _dashingStart.x, _dashingEnd.x, transform.position.x);
             else
                 AlterDashSpeed(distance, _dashingStart.y, _dashingEnd.y, transform.position.y, vertical:true);
+
+            if (_diagonalDashingDirection == Direction.Left || _diagonalDashingDirection == Direction.Right)
+            {
+                distance = (WalkDistance / 3.0f) * 2.0f;
+                if (_diagonalDashingDirection == Direction.Left)
+                    distance = -distance;
+                transform.position += new Vector3(distance, 0.0f, 0.0f);
+            }
         }
 
 		if (IsControlledByAI && ControlledAction == ControlledAction.Recenter)
@@ -182,13 +193,20 @@ public class PlayerBehavior : MonoBehaviour
 
     public void Move(Direction direction)
     {
-		if (HasTheDisc || IsDashing)
-		{
-			LiftDirection = direction;
-			return;
-		}
+        if (IsDashing && (Direction == Direction.Standby || Direction == Direction.BackDash) && _isDiagonalDashing == false)
+        {
+            _isDiagonalDashing = true;
+            _diagonalDashingDirection = direction;
+            return;
+        }
 
-		if (IsCastingSP)
+        if (HasTheDisc)
+        {
+            LiftDirection = direction;
+            return;
+        }
+
+        if (IsCastingSP || IsDashing)
 			return;
 
         float distance = WalkDistance;
@@ -202,15 +220,6 @@ public class PlayerBehavior : MonoBehaviour
             transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
         if (transform.position.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             transform.position = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
-
-        if (ControlledAction == ControlledAction.Recenter && IsControlledByAI == true)
-        {
-            if (Player == CurrentPlayer.PlayerOne == transform.position.y > _backCourtY)
-                transform.position += new Vector3(0.0f, -WalkDistance, 0.0f);
-            else if (Player == CurrentPlayer.PlayerTwo == transform.position.y < -_backCourtY)
-                transform.position += new Vector3(0.0f, WalkDistance, 0.0f);
-        }
-
 		IsMoving = true;
     }
 
@@ -305,8 +314,7 @@ public class PlayerBehavior : MonoBehaviour
         else if (Direction == Direction.Standby && _canMoveToNet)
         {
             dashNetOrBackCourt = true;
-            if (Mathf.Abs(transform.position.y) < Mathf.Abs(_backCourtY) - 0.1 ||
-                Mathf.Abs(transform.position.y) > Mathf.Abs(_backCourtY) + 0.1)
+            if (!GenericHelpers.FloatEqualsPrecision(Mathf.Abs(transform.position.y), Mathf.Abs(_backCourtY), 0.1f))
                 Direction = Direction.BackDash;
         }            
 
@@ -355,9 +363,11 @@ public class PlayerBehavior : MonoBehaviour
         _canDash = true;
     }
 
-    private void EndDash()
+    public void EndDash()
     {
         IsDashing = false;
+        _isDiagonalDashing = false;
+        _diagonalDashingDirection = Direction.Standby;
         Direction = Direction.Standby;
         _dashingDirection = Direction.Standby;
 		SetOrientation ();
@@ -593,7 +603,9 @@ public class PlayerBehavior : MonoBehaviour
 
 	public void Recenter()
 	{
-		IsControlledByAI = true;
+        bool canStandbyHorizontal = false;
+        bool canStandbyVertical = false;
+        IsControlledByAI = true;
 		if (HasTheDisc)
 		{
 			HasTheDisc = false;
@@ -601,16 +613,28 @@ public class PlayerBehavior : MonoBehaviour
 			Animator.Play("Idle");
 		}
 		ControlledAction = ControlledAction.Recenter;
-		if ((transform.position.x + 0.1f < 0) ||
-            (transform.position.x > 0 && Mathf.Abs(transform.position.y) < Mathf.Abs(_backCourtY)))
-			Move (Direction.Right);
-		else if ((transform.position.x - 0.1f > 0) ||
-                (transform.position.x < 0 && Mathf.Abs(transform.position.y) < Mathf.Abs(_backCourtY)))
-            Move (Direction.Left);
-		else
-		{
+        if (transform.position.x + 0.1f < 0)
+            Move(Direction.Right);
+        else if (transform.position.x - 0.1f > 0)
+            Move(Direction.Left);
+        else
+            canStandbyHorizontal = true;
+
+        if (Player == CurrentPlayer.PlayerOne == transform.position.y > _backCourtY)
+            transform.position += new Vector3(0.0f, -WalkDistance, 0.0f);
+        else if (Player == CurrentPlayer.PlayerTwo == transform.position.y < -_backCourtY)
+            transform.position += new Vector3(0.0f, WalkDistance, 0.0f);
+        else
+            canStandbyVertical = true;
+
+        if (!canStandbyVertical && GenericHelpers.FloatEqualsPrecision(transform.position.x, 0.0f, 0.2f))
+        {
+            Direction = Direction.BackDash;
+            SetOrientation();
+        }
+
+        if (canStandbyHorizontal && canStandbyVertical)
 			Standby();
-		}
 	}
 
 	private void CastSP()

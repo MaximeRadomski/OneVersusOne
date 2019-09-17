@@ -630,9 +630,15 @@ public class GameManagerBehavior : MonoBehaviour
 	private void DisplayScores()
 	{
 		CustomAudio.PlayEffect(_slideAudioFileID);
-		_playerOne.GetComponent<PlayerBehavior> ().Recenter ();
-		if (_playerTwo != null)
-			_playerTwo.GetComponent<PlayerBehavior> ().Recenter ();
+        if (_playerOne.GetComponent<PlayerBehavior>().IsDashing)
+            _playerOne.GetComponent<PlayerBehavior>().EndDash();
+        _playerOne.GetComponent<PlayerBehavior> ().Recenter ();
+        if (_playerTwo != null)
+        {
+            if (_playerTwo.GetComponent<PlayerBehavior>().IsDashing)
+                _playerTwo.GetComponent<PlayerBehavior>().EndDash();
+            _playerTwo.GetComponent<PlayerBehavior>().Recenter();
+        }
 		_scoreP1.GetComponent<Animator> ().Play ("DisplayScore01");
 		_scoreP2.GetComponent<Animator> ().Play ("DisplayScore02");
 		Invoke ("ChangeAllScores", 0.75f);

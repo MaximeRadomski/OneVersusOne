@@ -158,7 +158,7 @@ public class BallBehavior : MonoBehaviour
 			Physics2D.gravity = new Vector2 (0.0f,0.0f);
 			_gravityIsSet = false;
 			_isQuickThrow = true;
-			var quickThrowDelay = _linkedPlayer.GetComponent<PlayerBehavior> ().IsDashing ? 0.1f : 0.3f;
+			var quickThrowDelay = _linkedPlayer.GetComponent<PlayerBehavior> ().IsDashing ? 0.1f : 0.45f;
 			QuickDisk = false;
 			Invoke ("DisableQuickThrow", CatchCount == 0 ? 0.0f : quickThrowDelay);
 			Invoke ("PlayerGetBallLastCheck", 0.3f);
