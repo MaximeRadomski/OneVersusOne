@@ -127,10 +127,11 @@ public class PlayerBehavior : MonoBehaviour
 
             if (_diagonalDashingDirection == Direction.Left || _diagonalDashingDirection == Direction.Right)
             {
-                distance = (WalkDistance / 3.0f) * 2.0f;
+                distance = ((WalkDistance * 100.0f) - (DashDistance / 2.5f)) / 100.0f;
                 if (_diagonalDashingDirection == Direction.Left)
                     distance = -distance;
                 transform.position += new Vector3(distance, 0.0f, 0.0f);
+                AvoidEnteringWall();
             }
         }
 
@@ -197,6 +198,7 @@ public class PlayerBehavior : MonoBehaviour
         {
             _isDiagonalDashing = true;
             _diagonalDashingDirection = direction;
+            SetDiagonalOrientation();
             return;
         }
 
@@ -216,11 +218,16 @@ public class PlayerBehavior : MonoBehaviour
         Direction = direction;
 		SetOrientation ();
         transform.position += new Vector3(distance, 0.0f, 0.0f);
+        AvoidEnteringWall();
+		IsMoving = true;
+    }
+
+    private void AvoidEnteringWall()
+    {
         if (transform.position.x < -_gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             transform.position = new Vector3(-_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
         if (transform.position.x > _gameManager.GetComponent<GameManagerBehavior>().DistanceWall)
             transform.position = new Vector3(_gameManager.GetComponent<GameManagerBehavior>().DistanceWall, transform.position.y, 0.0f);
-		IsMoving = true;
     }
 
     public void Standby()
@@ -249,6 +256,24 @@ public class PlayerBehavior : MonoBehaviour
         } else {
             transform.rotation = _initialRotation;
             Animator.SetBool ("IsMoving", false);
+        }
+    }
+
+    private void SetDiagonalOrientation()
+    {
+        if (_dashingDirection == Direction.Standby)
+        {
+            if (_diagonalDashingDirection == Direction.Left)
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 45.0f);
+            else
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, -45.0f);
+        }
+        else
+        {
+            if (_diagonalDashingDirection == Direction.Left)
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 135.0f);
+            else
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, -135.0f);
         }
     }
 
@@ -314,7 +339,7 @@ public class PlayerBehavior : MonoBehaviour
         else if (Direction == Direction.Standby && _canMoveToNet)
         {
             dashNetOrBackCourt = true;
-            if (!GenericHelpers.FloatEqualsPrecision(Mathf.Abs(transform.position.y), Mathf.Abs(_backCourtY), 0.1f))
+            if (!GenericHelpers.FloatEqualsPrecision(Mathf.Abs(transform.position.y), Mathf.Abs(_backCourtY), 0.25f))
                 Direction = Direction.BackDash;
         }            
 
@@ -375,6 +400,7 @@ public class PlayerBehavior : MonoBehaviour
 		{
 			Animator.enabled = true;
 			Animator.Play("Idle");
+            _mimicShadow.GetComponent<MimicShadow>().ForceSprite(null);
 		}
     }
 
@@ -416,7 +442,7 @@ public class PlayerBehavior : MonoBehaviour
         //Reset Y position after catch
         if (Player == CurrentPlayer.PlayerOne && transform.position.y < _backCourtY)
             transform.position = new Vector3(transform.position.x, _backCourtY, 0.0f);
-        else if (Player == CurrentPlayer.PlayerTwo && transform.position.y > _backCourtY)
+        else if (Player == CurrentPlayer.PlayerTwo && transform.position.y > -_backCourtY)
             transform.position = new Vector3(transform.position.x, -_backCourtY, 0.0f);
 
         SetOrientation ();

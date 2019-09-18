@@ -15,11 +15,16 @@ public class GenericPopupBehavior : MonoBehaviour
 
 	private void EnableDisableHitBoxes(bool state)
 	{
-		BoxCollider2D tmpHitBox;
+		BoxCollider2D[] tmpHitBoxes;
 		foreach (var button in _listButtons)
 		{
-			if ((tmpHitBox = button != null ? button.GetComponent<BoxCollider2D> () : null) != null)
-				tmpHitBox.enabled = state;
+            if ((tmpHitBoxes = button != null ? button.GetComponents<BoxCollider2D>() : null) != null)
+            {
+                foreach (var hitbox in tmpHitBoxes)
+                {
+                    hitbox.enabled = state;
+                }
+            }
 		}
 	}
 

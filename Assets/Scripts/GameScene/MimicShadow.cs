@@ -14,6 +14,7 @@ public class MimicShadow : MonoBehaviour
 	private Direction _oldDirection;
 	private Color _transparent;
 	private Color _fullColor;
+    private bool _isDisplayingOverridenSprite;
 
 	void Start ()
 	{
@@ -23,11 +24,15 @@ public class MimicShadow : MonoBehaviour
 		_currentDirection = Direction.Standby;
 		_transparent = new Color (0.0f, 0.0f, 0.0f, 0.0f);
 		_fullColor = new Color (0.0f, 0.0f, 0.0f, 0.35f);
+        _isDisplayingOverridenSprite = false;
 	}
 
 	void Update ()
 	{
-		_currentSpriteRenderer.sprite = _linkedSpriteRenderer.sprite;
+        if (_isDisplayingOverridenSprite)
+            _isDisplayingOverridenSprite = false;
+        else
+		    _currentSpriteRenderer.sprite = _linkedSpriteRenderer.sprite;
 		_currentSpriteRenderer.enabled = _linkedSpriteRenderer.enabled;
 		_currentSpriteRenderer.flipX = _linkedSpriteRenderer.flipX;
 		_currentSpriteRenderer.flipY = _linkedSpriteRenderer.flipY;
@@ -44,4 +49,10 @@ public class MimicShadow : MonoBehaviour
 		else
 			_currentSpriteRenderer.color = _fullColor;
 	}
+
+    public void ForceSprite(Sprite overrideSprite)
+    {
+        _isDisplayingOverridenSprite = true;
+        _currentSpriteRenderer.sprite = overrideSprite;
+    }
 }
