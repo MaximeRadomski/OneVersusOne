@@ -9,7 +9,8 @@ public class BallBehavior : MonoBehaviour
     public float Speed;
 	public int CatchCount;
 	public int NbCol;
-	public CurrentPlayer CurrentPlayer;
+    public int SuperId;
+    public CurrentPlayer CurrentPlayer;
 	public CurrentPlayer IsThrownBy;
 	public CurrentPlayer LastThrownBy;
 	public Animator Animator;
@@ -21,8 +22,9 @@ public class BallBehavior : MonoBehaviour
 	public GameObject QuickEffect;
     public GameObject WallHitEffect;
     public GameObject GoalExplosionEffect;
+    public GameObject LastSuperEffect;
 
-	public delegate bool OnWallCollisionDelegate();
+    public delegate bool OnWallCollisionDelegate();
 	public OnWallCollisionDelegate onWallCollisionDelegate;
 
 	public delegate bool OnPlayerCollisionDelegate();
@@ -39,7 +41,7 @@ public class BallBehavior : MonoBehaviour
 	private bool _isRandomBounce;
 	private float _liftEffectDelay;
 	private float _quickEffectDelay;
-	private bool _isQuickThrow;
+	private int _isQuickThrow;
 	private bool _hasHitGoal;
 	private int _currentMap;
 	private float _originalSpeed;
@@ -61,7 +63,7 @@ public class BallBehavior : MonoBehaviour
 		NbCol = 0;
 		_liftEffectDelay = 0.1f;
 		_quickEffectDelay = 0.05f;
-		_isQuickThrow = false;
+		_isQuickThrow = 0;
 		_hasHitGoal = false;
 		_originalSpeed = Speed;
 		HasHitPlayer = false;
@@ -69,6 +71,7 @@ public class BallBehavior : MonoBehaviour
 		onPlayerCollisionDelegate = null;
 		QuickDisk = false;
 		_currentMap = PlayerPrefs.GetInt ("SelectedMap");
+        SuperId = 0;
 	}
 
     void Update()
@@ -157,7 +160,7 @@ public class BallBehavior : MonoBehaviour
 			_liftDirection = Direction.Standby;
 			Physics2D.gravity = new Vector2 (0.0f,0.0f);
 			_gravityIsSet = false;
-			_isQuickThrow = true;
+			_isQuickThrow++;
 			var quickThrowDelay = _linkedPlayer.GetComponent<PlayerBehavior> ().IsDashing ? 0.1f : 0.45f;
 			QuickDisk = false;
 			Invoke ("DisableQuickThrow", CatchCount == 0 ? 0.0f : quickThrowDelay);
@@ -198,14 +201,7 @@ public class BallBehavior : MonoBehaviour
 		else if (col.gameObject.tag == "TrainingWall" && gameObject.tag != "DiscShadow")
 		{
 			NbCol = 0;
-            if (_liftDirection != Direction.Standby)
-            {
-                Physics2D.gravity = new Vector2(0.0f, 0.0f);
-                _liftDirection = Direction.Standby;
-                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,
-                                                                   GetComponent<Rigidbody2D>().velocity.y * 0.5f);
-
-            }            
+            DisableLift();
             var tmpWallHitEffect = Instantiate(WallHitEffect, new Vector3(gameObject.transform.position.x, col.transform.position.y - 0.39f, 0.0f), transform.rotation);
 			tmpWallHitEffect.transform.Rotate (0.0f, 0.0f, 90.0f);
 			_camera.GetComponent<CameraBehavior>().WallHit();
@@ -223,7 +219,9 @@ public class BallBehavior : MonoBehaviour
 			else
 				point = this.transform.position;
 			CollideElement (point);
-		}
+            if (col.gameObject.name.ToLower().Contains("goal"))
+                DisableLift();
+        }
 		else if (col.gameObject.tag == "Wall")
 		{
 			if (onWallCollisionDelegate != null)
@@ -274,11 +272,24 @@ public class BallBehavior : MonoBehaviour
 		if (NbCol >= 10)
 		{
 			_gameManager.GetComponent<GameManagerBehavior>().NewBall(IsThrownBy, 2, MoreThanOneBall());
-			Destroy(gameObject);
+            Physics2D.gravity = new Vector2(0.0f, 0.0f);
+            Destroy(gameObject);
 		}
     }
 
-	private void CollideElement(Vector2 point, bool goalExplosion = false)
+    private void DisableLift()
+    {
+        if (_liftDirection != Direction.Standby)
+        {
+            Physics2D.gravity = new Vector2(0.0f, 0.0f);
+            _liftDirection = Direction.Standby;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,
+                                                               GetComponent<Rigidbody2D>().velocity.y * 0.8f);
+
+        }
+    }
+
+    private void CollideElement(Vector2 point, bool goalExplosion = false)
 	{
 		float effectRotation = 0.0f;
 		float offset = 0.35f;
@@ -323,7 +334,10 @@ public class BallBehavior : MonoBehaviour
 
 	private void DisableQuickThrow()
 	{
-		_isQuickThrow = false;
+		_isQuickThrow--;
+        _isQuickThrow = _isQuickThrow < 0 ? 0 : _isQuickThrow;
+        if (IsThrownBy == CurrentPlayer.None)
+            SuperId = 0;
 	}
 
     private GameObject GetLinkedPlayer()
@@ -337,6 +351,15 @@ public class BallBehavior : MonoBehaviour
 
 	public void Throw(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, bool isLifted)
     {
+        if (_isQuickThrow > 0 && SuperId != 0) //Throw Super Back
+        {
+            var tmpThrowingPlayer = GameObject.Find(throwingPlayer.ToString());
+            Vector2 directionalVector = Vector2.up;
+            if (tmpThrowingPlayer.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerTwo)
+                directionalVector = Vector2.down;
+            tmpThrowingPlayer.GetComponent<SuperBehavior>().LaunchSuper(direction, throwingPlayer, addedPower, directionalVector, this.gameObject, SuperId, LastSuperEffect);
+            return;
+        }
 		QuickDisk = false;
 		SetGravityScaleFromPower (addedPower);
 		IsThrownBy = throwingPlayer;
@@ -347,7 +370,7 @@ public class BallBehavior : MonoBehaviour
 		if (isLifted)
 		{
 			QuickDisk = false;
-			_isQuickThrow = false;
+			_isQuickThrow = 0;
 			if (PlayerPrefs.GetInt ("Opponent") == Opponent.Catch.GetHashCode ())
 				_liftDirection = GameObject.Find("Launcher").GetComponent<LauncherBehavior> ().LiftDirection;
 			else
@@ -357,7 +380,7 @@ public class BallBehavior : MonoBehaviour
 			Invoke ("CanSetGravity", 0.15f);
 			Invoke ("InstantiateLiftEffect", _liftEffectDelay);
 		}
-		if (_isQuickThrow)
+		if (_isQuickThrow > 0)
 		{
 			QuickDisk = true;
 			customSpeed = customSpeed * 1.2f;

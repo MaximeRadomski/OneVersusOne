@@ -10,6 +10,7 @@ public class SuperBehavior : MonoBehaviour
 
 	private GameObject _ball;
 	private GameObject _shadow;
+    private GameObject _overridenEffect;
 	private float _superEffectDelay;
 	private float _baseSuperEffectDelay;
 	private float _zigzagDelay;
@@ -33,8 +34,9 @@ public class SuperBehavior : MonoBehaviour
 		_zigzag = 0.0f;
 		_bounceCount = 1;
 		_bounce = 0;
-		_bounceYPosition = 1.75f;
+		_bounceYPosition = 0.5f;
 		_gravity = 15.0f;
+        _overridenEffect = null;
 	}
 
 	private Vector2 ExtremeFromCurrentDirection()
@@ -100,8 +102,11 @@ public class SuperBehavior : MonoBehaviour
 	{
 		if (_ball == null || _ball.GetComponent<BallBehavior>().IsThrownBy == CurrentPlayer.None)
 			return;
-		Instantiate (Effect, _ball.transform.position, _ball.transform.rotation);
-		Invoke ("InstantiateSuperEffect", _superEffectDelay);
+        if (_overridenEffect == null)
+		    Instantiate (Effect, _ball.transform.position, _ball.transform.rotation);
+        else
+            Instantiate(_overridenEffect, _ball.transform.position, _ball.transform.rotation);
+        Invoke ("InstantiateSuperEffect", _superEffectDelay);
 	}
 
 	private void InstantiateZigzag()
@@ -141,8 +146,9 @@ public class SuperBehavior : MonoBehaviour
 			return true;
 		} else {
 			--_bounce;
+            var hitPlayer = _ball.transform.position.y < 0 ? GameObject.Find(CurrentPlayer.PlayerOne.ToString()) : GameObject.Find(CurrentPlayer.PlayerTwo.ToString());
 			Physics2D.gravity = new Vector2 (0.0f, _gravity * _playerThrowDirection.y);
-			_ball.transform.position = new Vector3 (_ball.transform.position.x, _bounceYPosition * _ball.transform.position.y > 0 ? 1.0f : -1.0f, 0.0f);
+			_ball.transform.position = new Vector3 (_ball.transform.position.x, hitPlayer.transform.position.y + _bounceYPosition * (_ball.transform.position.y < 0 ? 1.0f : -1.0f), 0.0f);
 			_ball.GetComponent<Rigidbody2D>().velocity = new Vector2(_ball.transform.position.x > 0 ? -1.0f : 1.0f, _playerThrowDirection.y * -1.0f) * (_customSpeed / 2);
 			return false;
 		}
@@ -194,13 +200,25 @@ public class SuperBehavior : MonoBehaviour
 		_superEffectDelay = _baseSuperEffectDelay;
 	}
 
-	public void LaunchSupper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection, GameObject ball)
+	public void LaunchSuper(Vector2 direction, CurrentPlayer throwingPlayer, float addedPower, Vector2 playerThrowDirection, GameObject ball, int overrideSuperId = 0, GameObject lastSuperEffect = null)
 	{
 		_ball = ball;
+        SuperType tmpSuper = Super;
+        if (overrideSuperId == 0) // Normal Super
+        {
+            _ball.GetComponent<BallBehavior>().SuperId = Super.GetHashCode();
+            _ball.GetComponent<BallBehavior>().LastSuperEffect = Effect;
+            _overridenEffect = null;
+        }
+        else // Thrown Back Super
+        {
+            tmpSuper = (SuperType)overrideSuperId;
+            _overridenEffect = lastSuperEffect;
+        }            
 		_currentThrowDirection = direction;
 		_playerThrowDirection = playerThrowDirection;
-		//_currentPlayer = GameObject.Find (throwingPlayer.ToString());
-		switch (Super)
+        //_currentPlayer = GameObject.Find (throwingPlayer.ToString());
+		switch (tmpSuper)
 		{
 		case SuperType.Super01:
 			direction = ExtremeFromCurrentDirection ();

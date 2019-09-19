@@ -91,7 +91,8 @@ public class PlayerBehavior : MonoBehaviour
 		_mimicShadow = Instantiate (mimicShadowInstance, transform.position, transform.rotation);
 		_mimicShadow.GetComponent<MimicShadow> ().LinkedGameObject = this.gameObject;
         if (PlayerPrefs.GetInt("GameMode") == GameMode.Duel.GetHashCode() ||
-            PlayerPrefs.GetInt("GameMode") == GameMode.Catch.GetHashCode())
+            PlayerPrefs.GetInt("GameMode") == GameMode.Catch.GetHashCode() ||
+            PlayerPrefs.GetInt("GameMode") == GameMode.Tournament.GetHashCode())
             _canMoveToNet = true;
         _backCourtY = -1.805f;
         _frontNetYDashDistance = 1.0f;
@@ -616,7 +617,7 @@ public class PlayerBehavior : MonoBehaviour
 		if (Ball != null && Ball.GetComponent<BallBehavior> ().IsThrownBy != CurrentPlayer.None)
 			return;
 		if (Ball != null)
-			this.GetComponent<SuperBehavior>().LaunchSupper(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, _directionalVector, Ball);
+			GetComponent<SuperBehavior>().LaunchSuper(_directionalVector + new Vector2(_throwAngle, 0.0f), Player, Power, _directionalVector, Ball);
 		_throwAngle = 0;
 		var tmpSpEffect = Instantiate(CastSPEffect, transform.position, transform.rotation);
 		tmpSpEffect.GetComponent<SpriteRenderer> ().color = SuperColor;
