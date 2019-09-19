@@ -272,12 +272,24 @@ public class GameManagerBehavior : MonoBehaviour
 			} else if (PlayerPrefs.GetInt("Tournament", 0) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {
 				PlayerPrefs.SetInt("Tournament", PlayerPrefs.GetInt("CurrentChallengeDifficulty") + 1);
 			}
-		}			
+		}
 
-		if (PlayerPrefs.GetInt ("Ads", 1) == 1)
-			SceneManager.LoadScene("AdScene");
-		else
-			SceneManager.LoadScene("CharSelScene");
+        if (PlayerPrefs.GetInt("Ads", 1) == 1)
+            SceneManager.LoadScene("AdScene");
+        else
+        {
+            if (PlayerPrefs.GetInt("GameMode") == GameMode.Target.GetHashCode() ||
+            PlayerPrefs.GetInt("GameMode") == GameMode.Catch.GetHashCode() ||
+            PlayerPrefs.GetInt("GameMode") == GameMode.Breakout.GetHashCode() ||
+            PlayerPrefs.GetInt("GameMode") == GameMode.Tournament.GetHashCode())
+            {
+                SceneManager.LoadScene("ChallengesMenu");
+            }
+            else
+            {
+                SceneManager.LoadScene("CharSelScene");
+            }
+        }
 	}
 
 	private void UpdateChallengeProgression()

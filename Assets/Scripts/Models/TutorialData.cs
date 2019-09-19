@@ -8,10 +8,24 @@ public static class TutorialData
 	{
 		new Tutorial {
 			Title = "BASIC MOVEMENTS",
-			Content = "MOVE:\tARROWS\n" +
-					  "DASH:\tARROWS THEN DASH"
+			Content = "MOVE WITH ARROWS"
 		},
-		new Tutorial {
+        new Tutorial {
+            Title = "DASHING",
+            Content = "VERTICAL DASH:\n" +
+                      "DASH BUTTON"
+        },
+        new Tutorial {
+            Title = "DASHING",
+            Content = "HORIZONTAL DASH:\n" +
+                      "HOLD ARROW + DASH BUTTON"
+        },
+        new Tutorial {
+            Title = "DASHING",
+            Content = "DIAGONAL DASH:\n" +
+                      "DASH BUTTON THEN ARROW"
+        },
+        new Tutorial {
 			Title = "AFTER CATCHING",
 			Content = "YOU CANNOT MOVE\n" +
 					  "AFTER CATCHING THE DISC"
@@ -29,12 +43,12 @@ public static class TutorialData
 		},
 		new Tutorial {
 			Title = "ADVANCED LIFT",
-			Content = "CHOOSE A DIRECTION," +
-					  "\nLIFT AND IMMEDIATELY\n" +
+			Content = "CHOOSE A DIRECTION,\n" +
+					  "LIFT AND IMMEDIATELY\n" +
 					  "CHOOSE THE COUNTER DIRECTION"
 		},
 		new Tutorial {
-			Title = "POWER THROW",
+			Title = "QUICK THROW",
 			Content = "DO A BASIC THROW JUST AFTER\n" +
 					  "CATCHING THE DISC.\n" +
 					  "NOT POSSIBLE AFTER A DASH"
@@ -62,11 +76,17 @@ public static class TutorialData
 					  "THIS PHASE TO DO YOUR\n" +
 					  "SUPER THROW"
 		},
-		new Tutorial {
+        new Tutorial {
+            Title = "SUPER THROW",
+            Content = "DO A QUICK THROW AFTER\n" +
+                      "CATCHING THE OPPONENT'S SUPER\n" +
+                      "TO THROW IT BACK TO HIM/HER"
+        },
+        new Tutorial {
 			Title = "GOALS",
 			Content = "SCORE POINTS HITTING GOALS,\n" +
-				"RED MEANS FIVE POINTS, ANY\n" +
-				"OTHER COLOR MEANS THREE"
+				      "RED MEANS FIVE POINTS, ANY\n" +
+				      "OTHER COLOR MEANS THREE"
 		},
         new Tutorial {
             Title = "PAUSE",

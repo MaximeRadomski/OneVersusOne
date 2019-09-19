@@ -64,7 +64,7 @@ public class HowToPlayMenuManager : MonoBehaviour
 		_tutorialContent.text = TutorialData.Tutorials [_tutorialIteration].Content;
 
 		var ball = GameObject.Find ("Ball");
-		if (_tutorialIteration >= 2 && _tutorialIteration <= TutorialData.Tutorials.Count - 1) {
+		if (_tutorialIteration >= 4 && _tutorialIteration <= TutorialData.Tutorials.Count - 1) {
 			if (ball == null)
 				GameObject.Find ("$GameManager").GetComponent<GameManagerBehavior> ().PlaceBall ();
 		}
