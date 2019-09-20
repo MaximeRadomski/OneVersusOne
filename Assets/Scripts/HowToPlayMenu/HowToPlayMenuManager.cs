@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class HowToPlayMenuManager : MonoBehaviour
 {
-	private GameObject _tutorialNext, _tutorialPrevious;
+	private GameObject _tutorialNext, _tutorialPrevious, _tutorialPreviousButton;
 	private UnityEngine.UI.Text _tutorialTitle, _tutorialContent;
 	private int _tutorialIteration;
 
@@ -21,7 +21,8 @@ public class HowToPlayMenuManager : MonoBehaviour
 		_tutorialContent = GameObject.Find ("TutorialContent").GetComponent<UnityEngine.UI.Text> ();
 		_tutorialNext = GameObject.Find ("TutorialNext");
 		_tutorialPrevious = GameObject.Find ("TutorialPrevious");
-		_tutorialIteration = 0;
+        _tutorialPreviousButton = GameObject.Find("TutorialPreviousButton");
+        _tutorialIteration = 0;
 		_transparentColor = new Color (1.0f, 1.0f, 1.0f, 0.0f);
 		_fullColor = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 		_tutorialNext.GetComponent<GenericMenuButtonBehavior>().buttonDelegate = NextTutorialIteration;
@@ -50,10 +51,16 @@ public class HowToPlayMenuManager : MonoBehaviour
 
 	private void ChangeTutorialIteration ()
 	{
-		if (_tutorialIteration == 0)
-			_tutorialPrevious.GetComponent<UnityEngine.UI.Text> ().color = _transparentColor;
-		else
-			_tutorialPrevious.GetComponent<UnityEngine.UI.Text> ().color = _fullColor;
+        if (_tutorialIteration == 0)
+        {
+            _tutorialPrevious.GetComponent<UnityEngine.UI.Text>().color = _transparentColor;
+            _tutorialPreviousButton.GetComponent<SpriteRenderer>().color = _transparentColor;
+        }
+        else
+        {
+            _tutorialPrevious.GetComponent<UnityEngine.UI.Text>().color = _fullColor;
+            _tutorialPreviousButton.GetComponent<SpriteRenderer>().color = _fullColor;
+        }
 
 		if (_tutorialIteration == TutorialData.Tutorials.Count - 1)
 			_tutorialNext.GetComponent<UnityEngine.UI.Text> ().text = "X";

@@ -128,7 +128,7 @@ public class PlayerBehavior : MonoBehaviour
 
             if (_diagonalDashingDirection == Direction.Left || _diagonalDashingDirection == Direction.Right)
             {
-                distance = ((WalkDistance * 100.0f) - (DashDistance / 2.5f)) / 100.0f;
+                distance = WalkDistance;
                 if (_diagonalDashingDirection == Direction.Left)
                     distance = -distance;
                 transform.position += new Vector3(distance, 0.0f, 0.0f);

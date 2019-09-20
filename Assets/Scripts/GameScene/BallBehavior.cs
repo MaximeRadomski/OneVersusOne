@@ -92,6 +92,14 @@ public class BallBehavior : MonoBehaviour
 		{
 			AddGravity (1.0f);
 		}
+
+        if (Mathf.Abs(transform.position.x) > 5.0f ||
+            Mathf.Abs(transform.position.y) > 5.0f)
+        {
+            _gameManager.GetComponent<GameManagerBehavior>().NewBall(IsThrownBy, 2, MoreThanOneBall());
+            Physics2D.gravity = new Vector2(0.0f, 0.0f);
+            Destroy(gameObject);
+        }
     }
 
 	public void PlaceBallFromPlayer()
