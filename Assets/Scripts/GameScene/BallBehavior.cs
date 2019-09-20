@@ -361,7 +361,17 @@ public class BallBehavior : MonoBehaviour
     {
         if (_isQuickThrow > 0 && SuperId != 0) //Throw Super Back
         {
+            GameObject.Find("ScreenEffects").GetComponent<Animator>().Play("ScreenEffects01");
             var tmpThrowingPlayer = GameObject.Find(throwingPlayer.ToString());
+
+            var superEffectParticlesModel = Resources.Load<GameObject>("Prefabs/SuperEffectParticles01");
+            var superEffectParticlesInstance = Instantiate(superEffectParticlesModel, superEffectParticlesModel.transform.position, superEffectParticlesModel.transform.rotation);
+            if (tmpThrowingPlayer.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerTwo)
+            {
+                superEffectParticlesInstance.transform.position = new Vector3(superEffectParticlesInstance.transform.position.x, -superEffectParticlesInstance.transform.position.y, 0.0f);
+                superEffectParticlesInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
+            }
+
             Vector2 directionalVector = Vector2.up;
             if (tmpThrowingPlayer.GetComponent<PlayerBehavior>().Player == CurrentPlayer.PlayerTwo)
                 directionalVector = Vector2.down;

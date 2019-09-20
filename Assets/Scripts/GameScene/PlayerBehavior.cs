@@ -448,7 +448,7 @@ public class PlayerBehavior : MonoBehaviour
 
         SetOrientation ();
 		if (IsCastingSP) {
-			GameObject.Find ("ScreenEffects").GetComponent<Animator> ().Play ("ScreenEffects01");;
+			GameObject.Find ("ScreenEffects").GetComponent<Animator> ().Play ("ScreenEffects01");
 			IsDoingSP = true;
 		}			
 		if (_isAgainstWall)
