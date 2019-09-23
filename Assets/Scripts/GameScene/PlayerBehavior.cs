@@ -262,19 +262,23 @@ public class PlayerBehavior : MonoBehaviour
 
     private void SetDiagonalOrientation()
     {
+        float multiplier = 1.0f;
+        if (Player == CurrentPlayer.PlayerTwo)
+            multiplier = 3.0f;
+
         if (_dashingDirection == Direction.Standby)
         {
             if (_diagonalDashingDirection == Direction.Left)
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 45.0f);
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 45.0f * multiplier);
             else
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f, -45.0f);
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, -45.0f * multiplier);
         }
         else
         {
             if (_diagonalDashingDirection == Direction.Left)
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 135.0f);
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, 135.0f * multiplier);
             else
-                transform.rotation = Quaternion.Euler(0.0f, 0.0f, -135.0f);
+                transform.rotation = Quaternion.Euler(0.0f, 0.0f, -135.0f * multiplier);
         }
     }
 
