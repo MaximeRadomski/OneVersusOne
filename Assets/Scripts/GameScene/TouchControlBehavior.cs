@@ -8,10 +8,16 @@ public class TouchControlBehavior : MonoBehaviour
     public GenericTapAction Action;
 
     private GameObject _player;
+    private int _directionKeptHolded;
+    private int _directionKeptHoldedStartValue;
+    private float _directionKeptHoldedDelay;
 
     void Start ()
     {
         _player = GameObject.Find(GetFocusedPayerName());
+        _directionKeptHolded = 0;
+        _directionKeptHoldedDelay = 0.25f;
+        _directionKeptHoldedStartValue = -10;
     }
 
     public void DoAction()
@@ -21,11 +27,13 @@ public class TouchControlBehavior : MonoBehaviour
         switch (Action)
         {
 		case GenericTapAction.Left:
-	        _player.GetComponent<PlayerBehavior>().Move(Direction.Left);
-            break;
+	            _player.GetComponent<PlayerBehavior>().Move(Direction.Left);
+                ++_directionKeptHolded;
+                break;
         case GenericTapAction.Right:
-            _player.GetComponent<PlayerBehavior>().Move(Direction.Right);
-            break;
+                _player.GetComponent<PlayerBehavior>().Move(Direction.Right);
+                ++_directionKeptHolded;
+                break;
         }
     }
 
@@ -39,9 +47,13 @@ public class TouchControlBehavior : MonoBehaviour
         {
             case GenericTapAction.Left:
                 _player.GetComponent<PlayerBehavior>().DecrementAngle();
+                _directionKeptHolded = _directionKeptHoldedStartValue;
+                Invoke("CheckIfDirectionKeptHolded", _directionKeptHoldedDelay);
                 break;
             case GenericTapAction.Right:
                 _player.GetComponent<PlayerBehavior>().IncrementAngle();
+                _directionKeptHolded = _directionKeptHoldedStartValue;
+                Invoke("CheckIfDirectionKeptHolded", _directionKeptHoldedDelay);
                 break;
             case GenericTapAction.Throw:
                 _player.GetComponent<PlayerBehavior>().Throw();
@@ -58,7 +70,8 @@ public class TouchControlBehavior : MonoBehaviour
 
     public void EndAction()
     {
-		if (_player == null || _player.GetComponent<PlayerBehavior> ().IsControlledByAI && Action != GenericTapAction.PlayerAI)
+        _directionKeptHolded = _directionKeptHoldedStartValue;
+        if (_player == null || _player.GetComponent<PlayerBehavior> ().IsControlledByAI && Action != GenericTapAction.PlayerAI)
 			return;
         switch (Action)
         {
@@ -84,7 +97,25 @@ public class TouchControlBehavior : MonoBehaviour
         return "PlayerTwo";
     }
 
-	private void ActivateAI()
+    private void CheckIfDirectionKeptHolded()
+    {
+        if (_directionKeptHolded > 0)
+        {
+            switch (Action)
+            {
+                case GenericTapAction.Left:
+                    _player.GetComponent<PlayerBehavior>().DecrementAngle();
+                    break;
+                case GenericTapAction.Right:
+                    _player.GetComponent<PlayerBehavior>().IncrementAngle();
+                    break;
+            }
+            Invoke("CheckIfDirectionKeptHolded", _directionKeptHoldedDelay);
+        }
+    }
+
+
+    private void ActivateAI()
 	{
 	    if (GameObject.Find(GetFocusedPayerName()).GetComponent<AI>().enabled == false)
 	    {
@@ -119,4 +150,5 @@ public class TouchControlBehavior : MonoBehaviour
 		Super,
 		Field
     }
+
 }
