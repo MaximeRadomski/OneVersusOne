@@ -282,40 +282,44 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    public void IncrementAngle()
+    public bool IncrementAngle()
     {
         if (!HasTheDisc)
-            return;
+            return false;
         var tmpThrowAngle = _throwAngle + 0.5f;
         if (tmpThrowAngle >= -1f && tmpThrowAngle <= 1f)
             _throwAngle = tmpThrowAngle;
-		SetSpriteFromAngle ();
+		return SetSpriteFromAngle (tmpThrowAngle);
     }
 
-    public void DecrementAngle()
+    public bool DecrementAngle()
     {
         if (!HasTheDisc)
-            return;
+            return false;
         var tmpThrowAngle = _throwAngle - 0.5f;
         if (tmpThrowAngle >= -1f && tmpThrowAngle <= 1f)
             _throwAngle = tmpThrowAngle;
-		SetSpriteFromAngle ();
+		return SetSpriteFromAngle (tmpThrowAngle);
     }
 
-	private void SetSpriteFromAngle ()
+	private bool SetSpriteFromAngle (float tmpThrowAngle)
 	{
 		if (Animator.enabled == true)
-			return;
-		if (_throwAngle <= -1.0f)
-			CurrentSprite.sprite = AngleSprites [0];
-		else if (_throwAngle == -0.5f)
-			CurrentSprite.sprite = AngleSprites [1];
-		else if (_throwAngle == 0.0f)
-			CurrentSprite.sprite = AngleSprites [2];
-		else if (_throwAngle == 0.5f)
-			CurrentSprite.sprite = AngleSprites [3];
-		else if (_throwAngle >= 1.0f)
-			CurrentSprite.sprite = AngleSprites [4];
+			return false;
+        if (tmpThrowAngle == -1.0f)
+            CurrentSprite.sprite = AngleSprites[0];
+        else if (tmpThrowAngle == -0.5f)
+            CurrentSprite.sprite = AngleSprites[1];
+        else if (tmpThrowAngle == 0.0f)
+            CurrentSprite.sprite = AngleSprites[2];
+        else if (tmpThrowAngle == 0.5f)
+            CurrentSprite.sprite = AngleSprites[3];
+        else if (tmpThrowAngle == 1.0f)
+            CurrentSprite.sprite = AngleSprites[4];
+        else
+            return false;
+        return true;
+
 	}
 
 	public void Eject(Vector2 ballPosition)

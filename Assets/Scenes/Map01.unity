@@ -1055,6 +1055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 3
+  DirectionKeptHolded: 0
 --- !u!61 &101016656
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1197,6 +1198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 2
+  DirectionKeptHolded: 0
 --- !u!61 &123097487
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1440,6 +1442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 3
+  DirectionKeptHolded: 0
 --- !u!61 &181168605
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2747,6 +2750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 2
+  DirectionKeptHolded: 0
 --- !u!61 &457511645
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3224,6 +3228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 1
+  DirectionKeptHolded: 0
 --- !u!61 &527456358
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3312,9 +3317,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 527456359}
-  HasTheDisc: {fileID: -1585999729973437293, guid: f6780a43a016c6246b43104e7001453f,
+  HasTheDisc: {fileID: -7349803269862139410, guid: f6780a43a016c6246b43104e7001453f,
     type: 3}
-  DoesntHaveTheDisc: {fileID: 21300002, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  DoesntHaveTheDisc: {fileID: 21300000, guid: f6780a43a016c6246b43104e7001453f, type: 3}
   EmptyButton: {fileID: 21300012, guid: f6780a43a016c6246b43104e7001453f, type: 3}
   Player: 1
   IsThrowLift: 0
@@ -5739,6 +5744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 6
+  DirectionKeptHolded: 0
 --- !u!61 &768802370
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6880,6 +6886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 5
+  DirectionKeptHolded: 0
 --- !u!61 &867344229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7052,6 +7059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 1
+  DirectionKeptHolded: 0
 --- !u!61 &881600405
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8012,6 +8020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 4
+  DirectionKeptHolded: 0
 --- !u!61 &1022345225
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11326,6 +11335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 4
+  DirectionKeptHolded: 0
 --- !u!61 &1446995560
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12052,6 +12062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 0
+  DirectionKeptHolded: 0
 --- !u!61 &1563586968
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13592,6 +13603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 5
+  DirectionKeptHolded: 0
 --- !u!61 &1794912409
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15104,6 +15116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 0
+  DirectionKeptHolded: 0
 --- !u!61 &2093748521
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15192,9 +15205,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 2093748522}
-  HasTheDisc: {fileID: -7349803269862139410, guid: f6780a43a016c6246b43104e7001453f,
+  HasTheDisc: {fileID: -1585999729973437293, guid: f6780a43a016c6246b43104e7001453f,
     type: 3}
-  DoesntHaveTheDisc: {fileID: 21300000, guid: f6780a43a016c6246b43104e7001453f, type: 3}
+  DoesntHaveTheDisc: {fileID: 21300002, guid: f6780a43a016c6246b43104e7001453f, type: 3}
   EmptyButton: {fileID: 21300012, guid: f6780a43a016c6246b43104e7001453f, type: 3}
   Player: 1
   IsThrowLift: 0
