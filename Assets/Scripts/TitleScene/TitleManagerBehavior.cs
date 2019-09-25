@@ -8,7 +8,7 @@ public class TitleManagerBehavior : MonoBehaviour
 	public GameObject PopupYesNo;
 	public GameObject PopupSingle;
 
-	private GameObject _duelButton, _challengesButton, _howToPlayButton, _dashesText, _optionsButton, _aboutButton;
+	private GameObject _duelButton, _challengesButton, _howToPlayButton, _dashesText, _optionsButton, _aboutButton, _loadButton;
 	private bool _isDisplayingPopup;
 	private GameObject _tmpPopup;
 
@@ -18,20 +18,22 @@ public class TitleManagerBehavior : MonoBehaviour
 
 	void Start ()
 	{
-		ResetPlayerPrefs ();
 		_duelButton = GameObject.Find ("DuelButton");
 		_challengesButton = GameObject.Find ("ChallengesButton");
 		_howToPlayButton = GameObject.Find ("HowToPlayButton");
 		_dashesText = GameObject.Find ("DashesText");
 		_optionsButton = GameObject.Find ("OptionsButton");
 		_aboutButton = GameObject.Find ("AboutButton");
-		_genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
+        _loadButton = GameObject.Find("LoadButton");
+        _genericMenuManagerBehavior = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
 		_isDisplayingPopup = false;
 		_titleClick = 0;
 
-		//_challengesButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupNotImplemented;
-		_howToPlayButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoToHowToPlay;
-		GameObject.Find("GameName").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = IncrementTitleClick;
+        //_challengesButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = DisplayPopupNotImplemented;
+        _duelButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoToDuel;
+        _howToPlayButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = GoToHowToPlay;
+        _loadButton.transform.GetChild(1).GetComponent<GenericMenuButtonBehavior>().buttonDelegate = LoadGameInProgress;
+        GameObject.Find("GameName").GetComponent<GenericMenuButtonBehavior>().buttonDelegate = IncrementTitleClick;
 		GameObject.Find("VersionWatermark").GetComponent<UnityEngine.UI.Text>().text = Application.version;
 
 		StartCoroutine (InitiateLeft());
@@ -39,7 +41,7 @@ public class TitleManagerBehavior : MonoBehaviour
 
 	private void ResetPlayerPrefs()
 	{
-		PlayerPrefs.SetInt ("IsPausedInOptions", 0);
+        PlayerPrefs.SetInt ("GameInProgress", 0);
 		PlayerPrefs.SetInt ("P1Character", 1);
 		PlayerPrefs.SetInt ("P2Character", 1);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Player.GetHashCode());
@@ -123,7 +125,13 @@ public class TitleManagerBehavior : MonoBehaviour
 		_isDisplayingPopup = false;
 	}
 
-	private void GoToHowToPlay ()
+    private void GoToDuel()
+    {
+        ResetPlayerPrefs();
+        SceneManager.LoadScene("DuelMenu");
+    }
+
+    private void GoToHowToPlay ()
 	{
 		PlayerPrefs.SetInt ("GameMode", GameMode.Duel.GetHashCode ());
 		PlayerPrefs.SetInt ("Opponent", Opponent.Wall.GetHashCode ());
@@ -132,6 +140,15 @@ public class TitleManagerBehavior : MonoBehaviour
 		PlayerPrefs.SetInt ("SelectedMap", -1);
 		SceneManager.LoadScene("GameLoadingScene");
 	}
+
+    private void LoadGameInProgress()
+    {
+        if (PlayerPrefs.GetInt("GameMode") == GameMode.Tournament.GetHashCode())
+            SceneManager.LoadScene("TournamentMatch");
+        else
+            SceneManager.LoadScene("GameLoadingScene");
+        
+    }
 
 	private void IncrementTitleClick()
 	{
@@ -161,5 +178,8 @@ public class TitleManagerBehavior : MonoBehaviour
 		_optionsButton.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
 		yield return new WaitForSeconds(0.05f);
 		_aboutButton.GetComponent<Animator> ().Play ("LeftOut-RightMiddle");
-	}
+        yield return new WaitForSeconds(0.05f);
+        if (PlayerPrefs.GetInt("GameInProgress", 0) == 1)
+            _loadButton.GetComponent<Animator>().Play("LeftOut-RightMiddle");
+    }
 }

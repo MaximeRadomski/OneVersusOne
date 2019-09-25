@@ -133,15 +133,22 @@ public class GameManagerBehavior : MonoBehaviour
 			CreateWall ();
 		IsPaused = false;
 
-		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Duel.GetHashCode () ||
+        if (PlayerPrefs.GetInt("GameInProgress", 0) == 1)
+            SetGameInProgressData();
+
+        if (PlayerPrefs.GetInt ("GameMode") == GameMode.Duel.GetHashCode () ||
 			PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ())
 		{
-			if (!IsHowToPlay)
-				PlaceBall();
+            if (!IsHowToPlay)
+            {
+                PlayerPrefs.SetInt("GameInProgress", 1);
+                PlaceBall();
+            }
 		}
 		else if (PlayerPrefs.GetInt ("GameMode") != GameMode.Tournament.GetHashCode ())
 		{
-			if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ()) {
+            PlayerPrefs.SetInt ("GameInProgress", 0);
+            if (PlayerPrefs.GetInt ("GameMode") == GameMode.Target.GetHashCode ()) {
 				NewTarget ();
 				_challengeScoreCount = -1;
 			} else if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode ()) {
@@ -165,10 +172,20 @@ public class GameManagerBehavior : MonoBehaviour
 			GameObject.Find ("NoPlayerBannerRules").GetComponent<UnityEngine.UI.Text>().text = "Goal :\n" + 0 + "/" + _maxScore.ToString();
 			NewBallChallenge ();
 		}
-			
 	}
 
-	private GameObject CreateCharacter(CurrentPlayer player, int playerNb)
+    private void SetGameInProgressData()
+    {
+        ScorePlayerOne = PlayerPrefs.GetInt("GameInProgressScoreP1", 0);
+        ScorePlayerTwo = PlayerPrefs.GetInt("GameInProgressScoreP2", 0);
+        SetPlayerOne = PlayerPrefs.GetInt("GameInProgressSetP1", 0);
+        SetPlayerTwo = PlayerPrefs.GetInt("GameInProgressSetP2", 0);
+        _playerName = PlayerPrefs.GetString("GameInProgressServingPlayerName", CurrentPlayer.PlayerOne.ToString());
+
+    }
+
+
+    private GameObject CreateCharacter(CurrentPlayer player, int playerNb)
 	{
 		int characterNb = PlayerPrefs.GetInt ("P" + playerNb + "Character");
 		GameObject.Find ("Player"+playerNb.ToString("D2")+"Image").GetComponent<SpriteRenderer>().sprite = CharactersSprites[characterNb];
@@ -233,7 +250,8 @@ public class GameManagerBehavior : MonoBehaviour
 		if (BallAlreadyExists() || _gameEnd)
 			return;
         var currentPlayer = GameObject.Find(_playerName);
-		currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
+        PlayerPrefs.SetString("GameInProgressServingPlayerName", _playerName);
+        currentPlayer.GetComponent<PlayerBehavior>().IsEngaging = true;
         var currentBall = Instantiate(Ball, new Vector3(0.0f, -4.0f, 0.0f), Ball.transform.rotation);
         currentBall.transform.name = "Ball";
 		currentPlayer.GetComponent<PlayerBehavior> ().Ball = currentBall;
@@ -274,6 +292,7 @@ public class GameManagerBehavior : MonoBehaviour
 			}
 		}
 
+        PlayerPrefs.SetInt("GameInProgress", 0);
         if (PlayerPrefs.GetInt("Ads", 1) == 1)
             SceneManager.LoadScene("AdScene");
         else
@@ -430,14 +449,16 @@ public class GameManagerBehavior : MonoBehaviour
 
 		if (ScorePlayerOne >= _maxScore && ScorePlayerOne > ScorePlayerTwo) {
 			++SetPlayerOne;
-			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
+            PlayerPrefs.SetInt("GameInProgressSetP1", SetPlayerOne);
+            _setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose ();
 			_playerOne.GetComponent<Animator> ().Play ("Victory");
 			_playerTwo.GetComponent<Animator> ().Play ("Defeat");
 			reset = true;
 		} else if (ScorePlayerTwo >= _maxScore && ScorePlayerTwo > ScorePlayerOne) {
 			++SetPlayerTwo;
-			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose ();
+            PlayerPrefs.SetInt("GameInProgressSetP2", SetPlayerTwo);
+            _setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Loose ();
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			_playerTwo.GetComponent<Animator> ().Play ("Victory");
 			_playerOne.GetComponent<Animator> ().Play ("Defeat");
@@ -445,7 +466,9 @@ public class GameManagerBehavior : MonoBehaviour
 		} else if (ScorePlayerOne >= _maxScore && ScorePlayerTwo >= _maxScore && ScorePlayerOne == ScorePlayerTwo) {
 			++SetPlayerOne;
 			++SetPlayerTwo;
-			_setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
+            PlayerPrefs.SetInt("GameInProgressSetP1", SetPlayerOne);
+            PlayerPrefs.SetInt("GameInProgressSetP2", SetPlayerTwo);
+            _setP1.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			_setP2.transform.GetChild (4).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			_playerOne.GetComponent<Animator> ().Play ("Victory");
 			_playerTwo.GetComponent<Animator> ().Play ("Victory");
@@ -458,8 +481,10 @@ public class GameManagerBehavior : MonoBehaviour
 
 		if (reset) {
 			ScorePlayerOne = 0;
-			ScorePlayerTwo = 0;
-			if (SetPlayerTwo == 0) {
+            PlayerPrefs.SetInt("GameInProgressScoreP1", ScorePlayerOne);
+            ScorePlayerTwo = 0;
+            PlayerPrefs.SetInt("GameInProgressScoreP2", ScorePlayerTwo);
+            if (SetPlayerTwo == 0) {
 				_scoreP1_2.transform.position = new Vector3 (_playerTwoXAxisUnder20 + 5.5f, _scoreP1_2.transform.position.y, _scoreP1_2.transform.position.z);
 				_scoreP2_2.transform.position = new Vector3 (-_playerTwoXAxisUnder20 - 5.5f, _scoreP2_2.transform.position.y, _scoreP2_2.transform.position.z);
 			}
@@ -515,7 +540,8 @@ public class GameManagerBehavior : MonoBehaviour
 			ScorePlayerTwo += points;
 			if (ScorePlayerTwo > 99)
 				ScorePlayerTwo = 99;
-			if (!moreThanOneBall) {
+            PlayerPrefs.SetInt("GameInProgressScoreP2", ScorePlayerTwo);
+            if (!moreThanOneBall) {
 				_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose();
 				_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win();
 			}
@@ -525,7 +551,8 @@ public class GameManagerBehavior : MonoBehaviour
 			ScorePlayerOne += points;
 			if (ScorePlayerOne > 99)
 				ScorePlayerOne = 99;
-			if (!moreThanOneBall) {
+            PlayerPrefs.SetInt("GameInProgressScoreP1", ScorePlayerOne);
+            if (!moreThanOneBall) {
 				_scoreP2.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Loose ();
 				_scoreP1.transform.GetChild (3).GetComponent<ScoreBackgroundBehavior> ().Win ();
 			}
