@@ -42,7 +42,19 @@ public class TitleManagerBehavior : MonoBehaviour
 	private void ResetPlayerPrefs()
 	{
         PlayerPrefs.SetInt ("GameInProgress", 0);
-		PlayerPrefs.SetInt ("P1Character", 1);
+        PlayerPrefs.SetInt ("GameInProgressScoreP1", 0);
+        PlayerPrefs.SetInt ("GameInProgressScoreP2", 0);
+        PlayerPrefs.SetInt ("GameInProgressSetP1", 0);
+        PlayerPrefs.SetInt ("GameInProgressSetP2", 0);
+        PlayerPrefs.SetInt("GameInProgressFrozenGoal1P1", 0);
+        PlayerPrefs.SetInt("GameInProgressFrozenGoal2P1", 0);
+        PlayerPrefs.SetInt("GameInProgressFrozenGoal3P1", 0);
+        PlayerPrefs.SetInt("GameInProgressFrozenGoal1P2", 0);
+        PlayerPrefs.SetInt("GameInProgressFrozenGoal2P2", 0);
+        PlayerPrefs.SetInt("GameInProgressFrozenGoal3P2", 0);
+        PlayerPrefs.SetString ("GameInProgressServingPlayerName", CurrentPlayer.PlayerOne.ToString());
+
+        PlayerPrefs.SetInt ("P1Character", 1);
 		PlayerPrefs.SetInt ("P2Character", 1);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Player.GetHashCode());
 		PlayerPrefs.SetInt ("Difficulty", Difficulty.Easy.GetHashCode());

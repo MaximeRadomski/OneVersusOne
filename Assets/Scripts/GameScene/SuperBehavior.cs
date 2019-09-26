@@ -92,7 +92,7 @@ public class SuperBehavior : MonoBehaviour
 		_shadow.GetComponent<BallBehavior>().CurrentPlayer = CurrentPlayer.None;
 		float speedQuarter = (_shadow.GetComponent<BallBehavior>().Speed + addedPower) / 4;
 		_customSpeed = (_shadow.GetComponent<BallBehavior>().Speed + addedPower) - (Mathf.Abs(direction.x) * speedQuarter);
-		_customSpeed = _customSpeed * 1.2f;
+		_customSpeed *= 1.2f;
 		if (fixedSpeed != 0)
 			_customSpeed = fixedSpeed;
 		_shadow.GetComponent<Rigidbody2D>().velocity = direction * _customSpeed;

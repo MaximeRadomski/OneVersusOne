@@ -17,6 +17,7 @@ public class GoalBehavior : MonoBehaviour
 	private Shader _shaderGUItext;
 	private Shader _shaderSpritesDefault;
     private bool _isHowToPlay;
+    private int _goalId;
 
 	void Start()
 	{
@@ -25,6 +26,7 @@ public class GoalBehavior : MonoBehaviour
 		_shaderGUItext = Shader.Find("GUI/Text Shader");
 		_shaderSpritesDefault = Shader.Find("Sprites/Default");
         _isHowToPlay = GameObject.Find("$GameManager").GetComponent<GameManagerBehavior>().IsHowToPlay;
+        _goalId = int.Parse(name.Substring(name.Length - 1, 1));
 	}
 
 	public void GoalHit()
@@ -81,6 +83,7 @@ public class GoalBehavior : MonoBehaviour
         {
             freezeEffectInstance.transform.Rotate(180.0f, 0.0f, 0.0f);
         }
+        PlayerPrefs.SetInt("GameInProgressFrozenGoal" + _goalId + "P" + (Player == CurrentPlayer.PlayerOne ? 1 : 2), 1);
     }
 
 	public void Unfreeze()
@@ -88,7 +91,8 @@ public class GoalBehavior : MonoBehaviour
 		IsFrozen = false;
 		gameObject.tag = "Goal";
 		_spriteRenderer.sprite = NormalStateSprite;
-	}
+        PlayerPrefs.SetInt("GameInProgressFrozenGoal" + _goalId + "P" + (Player == CurrentPlayer.PlayerOne ? 1 : 2), 0);
+    }
 
 	public void Actualize()
 	{

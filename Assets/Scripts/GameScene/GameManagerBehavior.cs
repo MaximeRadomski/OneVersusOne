@@ -139,7 +139,7 @@ public class GameManagerBehavior : MonoBehaviour
         if (PlayerPrefs.GetInt ("GameMode") == GameMode.Duel.GetHashCode () ||
 			PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode ())
 		{
-            if (!IsHowToPlay)
+            if (!IsHowToPlay && PlayerPrefs.GetInt("GameInProgress", 0) == 0)
             {
                 PlayerPrefs.SetInt("GameInProgress", 1);
                 PlaceBall();
@@ -181,7 +181,28 @@ public class GameManagerBehavior : MonoBehaviour
         SetPlayerOne = PlayerPrefs.GetInt("GameInProgressSetP1", 0);
         SetPlayerTwo = PlayerPrefs.GetInt("GameInProgressSetP2", 0);
         _playerName = PlayerPrefs.GetString("GameInProgressServingPlayerName", CurrentPlayer.PlayerOne.ToString());
+        StartCoroutine(InitiateGameInProgressGoals());
+        DisplaySets();
+        Invoke("DisplayScores", 1.75f);
+        Invoke("CheckIfGame", 4.0f);
+    }
 
+    private IEnumerator InitiateGameInProgressGoals()
+    {
+        yield return new WaitForSeconds(3.5f);
+        for (int i = 1; i <= 2; ++i)
+        {
+            for (int j = 1; j <= 3; ++j)
+            {
+                yield return new WaitForSeconds(0.05f);
+                if (PlayerPrefs.GetInt("GameInProgressFrozenGoal" + j + "P" + i, 0) == 1)
+                {
+                    var tmpGoal = GameObject.Find("Goal" + (i == 1 ? "Bot" : "Top") + "0" + j);
+                    if (tmpGoal != null)
+                        tmpGoal.GetComponent<GoalBehavior>().Freeze();
+                }
+            }
+        }
     }
 
 
