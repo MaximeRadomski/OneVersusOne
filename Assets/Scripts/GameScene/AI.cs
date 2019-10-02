@@ -20,14 +20,18 @@ public class AI : MonoBehaviour
 	private float _startCastDistance;
 
 	private bool _checkSelfGoal;
+    private bool _canRecenter;
+    private float _canRecenterDelay;
+    private bool _isBackCourt;
+    private float _backCourtY;
 
-	/// <summary>
-	/// Easy Difficulty:	Current Setting minus Recentering
-	/// Medium Difficulty:	Current Settings
-	/// Hard Difficulty:	_throwDelay = 0.05f and _startReactDistance = 0.5f
-	/// </summary>
+    /// <summary>
+    /// Easy Difficulty:	Current Setting minus Recentering
+    /// Medium Difficulty:	Current Settings
+    /// Hard Difficulty:	_throwDelay = 0.05f and _startReactDistance = 0.5f
+    /// </summary>
 
-	void Start ()
+    void Start ()
 	{
 		GetBall ();
 		GetPlayers ();
@@ -39,7 +43,10 @@ public class AI : MonoBehaviour
 			_rival = CurrentPlayer.PlayerTwo;
 		else if (Player == CurrentPlayer.PlayerTwo)
 			_rival = CurrentPlayer.PlayerOne;
-	}
+        _canRecenter = true;
+        _isBackCourt = true;
+        _backCourtY = -1.805f;
+    }
 
 	private void ResetRandomFactors()
 	{
@@ -49,7 +56,8 @@ public class AI : MonoBehaviour
 			_startCastDistance = 1.0f;
 			_repeatDashCooldown = 1.0f;
 			_yBallLimit = 2.0f;
-			var tmpCanDashEarly = Random.Range (0, 3);
+            _canRecenterDelay = 1.5f;
+            var tmpCanDashEarly = Random.Range (0, 3);
 			_canDahEarly = tmpCanDashEarly == 0 ? false : true;
 		} else if (PlayerPrefs.GetInt ("Difficulty", 0) == Difficulty.Normal.GetHashCode ()) {
 			_throwDelay = Random.Range (0.0f, 0.5f);
@@ -57,7 +65,8 @@ public class AI : MonoBehaviour
 			_startCastDistance = Random.Range (0.5f, 1.0f);
 			_repeatDashCooldown = 0.75f;
 			_yBallLimit = 1.75f;
-			var tmpCanDashEarly = Random.Range (0, 2);
+            _canRecenterDelay = 1.0f;
+            var tmpCanDashEarly = Random.Range (0, 2);
 			_canDahEarly = tmpCanDashEarly == 0 ? false : true;
 		} else {
 			_throwDelay = 0.0f;
@@ -65,7 +74,8 @@ public class AI : MonoBehaviour
 			_startCastDistance = 0.75f;
 			_repeatDashCooldown = 0.5f;
 			_yBallLimit = 1.5f;
-			_canDahEarly = false;
+            _canRecenterDelay = 0.75f;
+            _canDahEarly = false;
 		}
 		if (Player == CurrentPlayer.PlayerOne)
 			_yBallLimit = -_yBallLimit;
@@ -93,6 +103,12 @@ public class AI : MonoBehaviour
 		return ball;
 	}
 
+    private GameObject GetPredictionDisc()
+    {
+        var predictionDisc = GameObject.FindGameObjectWithTag("PredictionDisc");
+        return predictionDisc;
+    }
+
 	private void GetPlayers()
 	{
 		_linkedPlayer = GameObject.Find (GetFocusedPayerName());
@@ -110,8 +126,9 @@ public class AI : MonoBehaviour
 		if (_ball.GetComponent<BallBehavior> ().IsThrownBy == _rival ||
 			(_ball.GetComponent<BallBehavior> ().IsThrownBy == Player && _checkSelfGoal &&  Vector3.Distance(new Vector3(0.0f, _linkedPlayer.transform.position.y, 0.0f), new Vector3(0.0f, _ball.transform.position.y, 0.0f)) < 1.0f))
 		    ActFromBallPosition();
-		else if (_ball.GetComponent<BallBehavior>().IsThrownBy == Player ||
+		else if ((_ball.GetComponent<BallBehavior>().IsThrownBy == Player ||
 		         _ball.GetComponent<BallBehavior>().IsThrownBy == CurrentPlayer.None)
+                 && !_canRecenter)
             Recenter();
 		if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
 		{
@@ -123,6 +140,17 @@ public class AI : MonoBehaviour
 
     private void ActFromBallPosition()
     {
+        var predictionDisc = GetPredictionDisc();
+        if (predictionDisc != null && predictionDisc.transform.position.y < transform.position.y
+            && GenericHelpers.FloatEqualsPrecision(predictionDisc.transform.position.x, transform.position.x, 0.1f)
+            && _canDash
+            && _isBackCourt)
+        {
+            _linkedPlayer.GetComponent<PlayerBehavior>().Dash();
+            _canDash = false;
+            Invoke("ResetDashPossibility", _repeatDashCooldown);
+            return;
+        }
 		bool shouldDashLimit = false;
 		if (_ball.transform.position.y < _startReactDistance && Player == CurrentPlayer.PlayerTwo)
             return;
@@ -155,19 +183,52 @@ public class AI : MonoBehaviour
 		}
     }
 
-    private void Recenter()
+    //private void Recenter()
+    //{
+    //    if (transform.position.x + 0.1f < 0)
+    //        _linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
+    //    else if (transform.position.x - 0.1f > 0)
+    //        _linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
+    //    else
+    //        _linkedPlayer.GetComponent<PlayerBehavior>().Standby();
+    //}
+
+    public void Recenter()
     {
-        if (transform.position.x + 0.1f < 0)
-			_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
-        else if (transform.position.x - 0.1f > 0)
-			_linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
+        bool canStandbyHorizontal = false;
+        bool canStandbyVertical = false;
+        if (transform.position.x + 0.5f < 0)
+            _linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
+        else if (transform.position.x - 0.5f > 0)
+            _linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
         else
-			_linkedPlayer.GetComponent<PlayerBehavior>().Standby();
+            canStandbyHorizontal = true;
+
+        if (Player == CurrentPlayer.PlayerOne == transform.position.y > _backCourtY)
+            transform.position += new Vector3(0.0f, -_linkedPlayer.GetComponent<PlayerBehavior>().WalkDistance, 0.0f);
+        else if (Player == CurrentPlayer.PlayerTwo == transform.position.y < -_backCourtY)
+            transform.position += new Vector3(0.0f, _linkedPlayer.GetComponent<PlayerBehavior>().WalkDistance, 0.0f);
+        else
+            canStandbyVertical = true;
+
+        if (!canStandbyVertical && GenericHelpers.FloatEqualsPrecision(transform.position.x, 0.0f, 0.2f))
+        {
+            _linkedPlayer.GetComponent<PlayerBehavior>().Direction = Direction.BackDash;
+            _linkedPlayer.GetComponent<PlayerBehavior>().SetOrientation();
+        }
+
+        if (canStandbyHorizontal && canStandbyVertical)
+            _linkedPlayer.GetComponent<PlayerBehavior>().Standby();
+        _isBackCourt = true;
     }
 
     private void ResetDashPossibility()
     {
         _canDash = true;
+        if (GenericHelpers.FloatEqualsPrecision(Mathf.Abs(transform.position.y), Mathf.Abs(_backCourtY), 0.25f))
+            _isBackCourt = true;
+        else
+            _isBackCourt = false;
     }
 
     private void Throw()
@@ -208,7 +269,9 @@ public class AI : MonoBehaviour
 					_linkedPlayer.GetComponent<PlayerBehavior> ().Move (Direction.Right);
 			}
 		}
+        _canRecenter = false;
         Invoke("ResetThrowPossibility", 0.5f);
+        Invoke("ResetCanRecenter", _canRecenterDelay);
     }
 
     private void ResetThrowPossibility()
@@ -216,5 +279,10 @@ public class AI : MonoBehaviour
         _isThrowing = false;
 		_checkSelfGoal = true;
 		ResetRandomFactors ();
+    }
+
+    private void ResetCanRecenter()
+    {
+        _canRecenter = true;
     }
 }

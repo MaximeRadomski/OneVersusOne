@@ -240,7 +240,7 @@ public class PlayerBehavior : MonoBehaviour
 		SetOrientation ();
     }
 
-    private void SetOrientation(bool isDash = false)
+    public void SetOrientation(bool isDash = false)
 	{
 		if (Direction == Direction.Left) {
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f); 

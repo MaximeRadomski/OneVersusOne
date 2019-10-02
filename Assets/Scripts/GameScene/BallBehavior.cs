@@ -405,9 +405,17 @@ public class BallBehavior : MonoBehaviour
 			Invoke ("InstantiateQuickEffect", _quickEffectDelay);
 		}
         GetComponent<Rigidbody2D>().velocity = direction * customSpeed;
+        InstantiatePredictionDisc(direction, customSpeed);
     }
 
-	public void SetGravityScaleFromPower(float power)
+    public void InstantiatePredictionDisc(Vector2 direction, float customSpeed)
+    {
+        var predictionDiscModel = Resources.Load<GameObject>("Prefabs/PredictionDisc");
+        var predictionDiscInstance = Instantiate(predictionDiscModel, transform.position, predictionDiscModel.transform.rotation);
+        predictionDiscInstance.GetComponent<Rigidbody2D>().velocity = direction * (customSpeed + 2);
+    }
+
+    public void SetGravityScaleFromPower(float power)
 	{
 		if (power <= 0.76f)
 			GetComponent<Rigidbody2D> ().gravityScale = 0.7f;
