@@ -25,7 +25,12 @@ public class PredictionDiscBehavior : MonoBehaviour
             || col.gameObject.tag == "FrozenWall"
             || col.gameObject.tag == "Target")
         {
-            Debug.Log("Ouch!");
+            AI ai = null;
+            if (col.gameObject.tag == "Player" && (ai = col.gameObject.GetComponent<AI>()) != null &&
+                GenericHelpers.FloatEqualsPrecision(Physics2D.gravity.x, 0.0f, 0.1f))
+            {
+                ai.HasHitPredictionDisc = true;
+            }
             Destroy(gameObject);
         }
     }

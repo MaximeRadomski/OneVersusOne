@@ -856,7 +856,8 @@ public class GameManagerBehavior : MonoBehaviour
 	{
 		Time.timeScale = 1.0f;
 		CustomAudio.PlayEffect (MenuBipReturnAudioFileID);
-		SceneManager.LoadScene("CharSelScene");
+        GenericHelpers.ResetGameInProgress();
+        SceneManager.LoadScene("CharSelScene");
 	}
 
 	private void GoBackChallengesMenu()

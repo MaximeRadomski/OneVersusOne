@@ -5,6 +5,7 @@ using UnityEngine;
 public class AI : MonoBehaviour
 {
 	public CurrentPlayer Player;
+    public bool HasHitPredictionDisc;
 
 	private GameObject _ball;
 	private GameObject _linkedPlayer;
@@ -46,6 +47,7 @@ public class AI : MonoBehaviour
         _canRecenter = true;
         _isBackCourt = true;
         _backCourtY = -1.805f;
+        HasHitPredictionDisc = false;
     }
 
 	private void ResetRandomFactors()
@@ -56,7 +58,7 @@ public class AI : MonoBehaviour
 			_startCastDistance = 1.0f;
 			_repeatDashCooldown = 1.0f;
 			_yBallLimit = 2.0f;
-            _canRecenterDelay = 1.5f;
+            _canRecenterDelay = 0.75f;
             var tmpCanDashEarly = Random.Range (0, 3);
 			_canDahEarly = tmpCanDashEarly == 0 ? false : true;
 		} else if (PlayerPrefs.GetInt ("Difficulty", 0) == Difficulty.Normal.GetHashCode ()) {
@@ -65,7 +67,7 @@ public class AI : MonoBehaviour
 			_startCastDistance = Random.Range (0.5f, 1.0f);
 			_repeatDashCooldown = 0.75f;
 			_yBallLimit = 1.75f;
-            _canRecenterDelay = 1.0f;
+            _canRecenterDelay = 0.625f;
             var tmpCanDashEarly = Random.Range (0, 2);
 			_canDahEarly = tmpCanDashEarly == 0 ? false : true;
 		} else {
@@ -73,13 +75,14 @@ public class AI : MonoBehaviour
 			_startReactDistance = 0.35f;
 			_startCastDistance = 0.75f;
 			_repeatDashCooldown = 0.5f;
-			_yBallLimit = 1.5f;
-            _canRecenterDelay = 0.75f;
+			_yBallLimit = 1.0f;
+            _canRecenterDelay = 0.5f;
             _canDahEarly = false;
 		}
 		if (Player == CurrentPlayer.PlayerOne)
 			_yBallLimit = -_yBallLimit;
-	}
+        HasHitPredictionDisc = false;
+    }
 
 	private string GetFocusedPayerName()
 	{
@@ -128,7 +131,7 @@ public class AI : MonoBehaviour
 		    ActFromBallPosition();
 		else if ((_ball.GetComponent<BallBehavior>().IsThrownBy == Player ||
 		         _ball.GetComponent<BallBehavior>().IsThrownBy == CurrentPlayer.None)
-                 && !_canRecenter)
+                 && _canRecenter)
             Recenter();
 		if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
 		{
@@ -140,9 +143,16 @@ public class AI : MonoBehaviour
 
     private void ActFromBallPosition()
     {
+        if (HasHitPredictionDisc && _isBackCourt)
+        {
+            if (_linkedPlayer.GetComponent<PlayerBehavior>().SPCooldown <= 0)
+                _linkedPlayer.GetComponent<PlayerBehavior>().Lift(); //CastSP
+            return;
+        }
         var predictionDisc = GetPredictionDisc();
         if (predictionDisc != null && predictionDisc.transform.position.y < transform.position.y
             && GenericHelpers.FloatEqualsPrecision(predictionDisc.transform.position.x, transform.position.x, 0.1f)
+            && transform.position.y - predictionDisc.transform.position.y <= 1.5f
             && _canDash
             && _isBackCourt)
         {
@@ -195,11 +205,12 @@ public class AI : MonoBehaviour
 
     public void Recenter()
     {
+        HasHitPredictionDisc = false;
         bool canStandbyHorizontal = false;
         bool canStandbyVertical = false;
-        if (transform.position.x + 0.5f < 0)
+        if (transform.position.x + 0.1f < 0)
             _linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Right);
-        else if (transform.position.x - 0.5f > 0)
+        else if (transform.position.x - 0.1f > 0)
             _linkedPlayer.GetComponent<PlayerBehavior>().Move(Direction.Left);
         else
             canStandbyHorizontal = true;
