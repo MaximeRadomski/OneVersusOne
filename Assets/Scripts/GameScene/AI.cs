@@ -25,6 +25,7 @@ public class AI : MonoBehaviour
     private float _canRecenterDelay;
     private bool _isBackCourt;
     private float _backCourtY;
+    private MiddleWallBehavior _middleWallBehavior;
 
     /// <summary>
     /// Easy Difficulty:	Current Setting minus Recentering
@@ -48,6 +49,7 @@ public class AI : MonoBehaviour
         _isBackCourt = true;
         _backCourtY = -1.805f;
         HasHitPredictionDisc = false;
+        _middleWallBehavior = GameObject.Find("MiddleWall01")?.GetComponent<MiddleWallBehavior>();
     }
 
 	private void ResetRandomFactors()
@@ -133,7 +135,9 @@ public class AI : MonoBehaviour
 		         _ball.GetComponent<BallBehavior>().IsThrownBy == CurrentPlayer.None)
                  && _canRecenter)
             Recenter();
-		if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
+        else
+            _linkedPlayer.GetComponent<PlayerBehavior>().Standby();
+        if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
 		{
             _isThrowing = true;
 			Invoke ("Throw", _throwDelay);
@@ -156,10 +160,13 @@ public class AI : MonoBehaviour
             && _canDash
             && _isBackCourt)
         {
-            _linkedPlayer.GetComponent<PlayerBehavior>().Dash();
-            _canDash = false;
-            Invoke("ResetDashPossibility", _repeatDashCooldown);
-            return;
+            if (_middleWallBehavior == null || _middleWallBehavior.Order != 2)
+            {
+                _linkedPlayer.GetComponent<PlayerBehavior>().Dash();
+                _canDash = false;
+                Invoke("ResetDashPossibility", _repeatDashCooldown);
+                return;
+            }
         }
 		bool shouldDashLimit = false;
 		if (_ball.transform.position.y < _startReactDistance && Player == CurrentPlayer.PlayerTwo)
@@ -294,6 +301,12 @@ public class AI : MonoBehaviour
 
     private void ResetCanRecenter()
     {
-        _canRecenter = true;
+        if (!_isBackCourt)
+        {
+            var tmpCanRecenter = Random.Range(0, 3);
+            _canRecenter = tmpCanRecenter != 0 ? true : false;
+        }
+        else
+            _canRecenter = true;
     }
 }

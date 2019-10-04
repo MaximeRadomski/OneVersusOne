@@ -6,12 +6,12 @@ public class MiddleWallBehavior : MonoBehaviour
 {
 	public Sprite SpriteOn, SpriteOff;
 
-	private int _order;
+	public int Order;
 
 	void Start()
 	{
 		Disable ();
-		_order = 1;
+		Order = 1;
 	}
 
 	public void Enable()
@@ -32,14 +32,14 @@ public class MiddleWallBehavior : MonoBehaviour
 		GameObject.Find ("MiddleWall02").GetComponent<MiddleWallBehavior> ().Disable ();
 		GameObject.Find ("MiddleWall03").GetComponent<MiddleWallBehavior> ().Disable ();
 		//var newWallId = Random.Range (1, 4);
-		_order++;
-		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () && _order == 3)
-			_order = 1;
-		if (_order > 3)
-			_order = 1;
-		if (_order == 1)
+		Order++;
+		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Catch.GetHashCode () && Order == 3)
+			Order = 1;
+		if (Order > 3)
+			Order = 1;
+		if (Order == 1)
 			Enable ();
 		else
-			GameObject.Find ("MiddleWall" + _order.ToString("D2")).GetComponent<MiddleWallBehavior> ().Enable ();
+			GameObject.Find ("MiddleWall" + Order.ToString("D2")).GetComponent<MiddleWallBehavior> ().Enable ();
 	}
 }
