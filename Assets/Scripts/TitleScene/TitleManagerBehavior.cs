@@ -134,7 +134,8 @@ public class TitleManagerBehavior : MonoBehaviour
 
     private void GoToHowToPlay ()
 	{
-		PlayerPrefs.SetInt ("GameMode", GameMode.Duel.GetHashCode ());
+        ResetPlayerPrefs();
+        PlayerPrefs.SetInt ("GameMode", GameMode.Duel.GetHashCode ());
 		PlayerPrefs.SetInt ("Opponent", Opponent.Wall.GetHashCode ());
 		PlayerPrefs.SetInt ("Bounce", Bounce.Normal.GetHashCode ());
 		PlayerPrefs.SetInt ("P1Character", 2);

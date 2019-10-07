@@ -160,7 +160,8 @@ public class AI : MonoBehaviour
             && _canDash
             && _isBackCourt)
         {
-            if (_middleWallBehavior == null || _middleWallBehavior.Order != 2)
+            var rand = Random.Range(0, 3);
+            if (rand != 0 && (_middleWallBehavior == null || _middleWallBehavior.Order != 2))
             {
                 _linkedPlayer.GetComponent<PlayerBehavior>().Dash();
                 _canDash = false;
@@ -178,13 +179,13 @@ public class AI : MonoBehaviour
 		if (_ball.transform.position.y < _yBallLimit && Player == CurrentPlayer.PlayerOne)
 			shouldDashLimit = true;
 		if ((_canDahEarly && _ball.transform.position.x + _linkedPlayer.GetComponent<PlayerBehavior> ().DashDistance < transform.position.x && _canDash) ||
-			(shouldDashLimit == true && _ball.transform.position.x < transform.position.x && _canDash)) {
+			(shouldDashLimit == true && _ball.transform.position.x + 0.1f < transform.position.x && _canDash)) {
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Direction = Direction.Left;
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Dash ();
 			_canDash = false;
 			Invoke ("ResetDashPossibility", _repeatDashCooldown);
 		} else if ((shouldDashLimit == false && _ball.transform.position.x - _linkedPlayer.GetComponent<PlayerBehavior> ().DashDistance > transform.position.x && _canDash) ||
-			(shouldDashLimit == true && _ball.transform.position.x > transform.position.x && _canDash)) {
+			(shouldDashLimit == true && _ball.transform.position.x - 0.1f > transform.position.x && _canDash)) {
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Direction = Direction.Right;
 			_linkedPlayer.GetComponent<PlayerBehavior> ().Dash ();
 			_canDash = false;
@@ -259,7 +260,7 @@ public class AI : MonoBehaviour
 			for (int i = 0; i < angle; ++i)
 			{
 				_linkedPlayer.GetComponent<PlayerBehavior> ().DecrementAngle ();
-			}
+            }
 		}
 		else
 		{
@@ -267,7 +268,7 @@ public class AI : MonoBehaviour
 			for (int i = 0; i < angle; ++i)
 			{
 				_linkedPlayer.GetComponent<PlayerBehavior> ().IncrementAngle ();
-			}
+            }
 		}
 		if (_linkedPlayer.GetComponent<PlayerBehavior> ().IsCastingSP)
 		{
