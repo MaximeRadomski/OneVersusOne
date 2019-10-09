@@ -50,25 +50,27 @@ public class AI : MonoBehaviour
         _backCourtY = -1.805f;
         HasHitPredictionDisc = false;
         _middleWallBehavior = GameObject.Find("MiddleWall01")?.GetComponent<MiddleWallBehavior>();
+        if (_linkedPlayer.GetComponent<PlayerBehavior>().CharacterNumber >= 5)
+            _linkedPlayer.GetComponent<PlayerBehavior>().DashDistance = 1.1f;
     }
 
 	private void ResetRandomFactors()
 	{
 		if (PlayerPrefs.GetInt ("Difficulty", 0) == Difficulty.Easy.GetHashCode ()) {
 			_throwDelay = 0.5f;
-			_startReactDistance = -0.5f;
-			_startCastDistance = 1.0f;
+            _startReactDistance = Random.Range(0.25f, 0.45f);
+            _startCastDistance = 1.0f;
 			_repeatDashCooldown = 1.0f;
-			_yBallLimit = 2.0f;
+			_yBallLimit = 1.5f;
             _canRecenterDelay = 0.75f;
             var tmpCanDashEarly = Random.Range (0, 3);
 			_canDahEarly = tmpCanDashEarly == 0 ? false : true;
 		} else if (PlayerPrefs.GetInt ("Difficulty", 0) == Difficulty.Normal.GetHashCode ()) {
 			_throwDelay = Random.Range (0.0f, 0.5f);
-			_startReactDistance = Random.Range (-0.5f, 0.5f);
+			_startReactDistance = Random.Range (0.3f, 0.4f);
 			_startCastDistance = Random.Range (0.5f, 1.0f);
 			_repeatDashCooldown = 0.75f;
-			_yBallLimit = 1.75f;
+			_yBallLimit = 1.25f;
             _canRecenterDelay = 0.625f;
             var tmpCanDashEarly = Random.Range (0, 2);
 			_canDahEarly = tmpCanDashEarly == 0 ? false : true;
@@ -133,11 +135,11 @@ public class AI : MonoBehaviour
 		    ActFromBallPosition();
 		else if ((_ball.GetComponent<BallBehavior>().IsThrownBy == Player ||
 		         _ball.GetComponent<BallBehavior>().IsThrownBy == CurrentPlayer.None)
-                 && _canRecenter)
+                 && _canRecenter && !_isThrowing)
             Recenter();
         else
             _linkedPlayer.GetComponent<PlayerBehavior>().Standby();
-        if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc && _isThrowing == false)
+        if (_linkedPlayer.GetComponent<PlayerBehavior> ().HasTheDisc && !_isThrowing)
 		{
             _isThrowing = true;
 			Invoke ("Throw", _throwDelay);
@@ -156,7 +158,7 @@ public class AI : MonoBehaviour
         var predictionDisc = GetPredictionDisc();
         if (predictionDisc != null && predictionDisc.transform.position.y < transform.position.y
             && GenericHelpers.FloatEqualsPrecision(predictionDisc.transform.position.x, transform.position.x, 0.1f)
-            && transform.position.y - predictionDisc.transform.position.y <= 1.5f
+            && transform.position.y - predictionDisc.transform.position.y <= 1.25f
             && _canDash
             && _isBackCourt)
         {

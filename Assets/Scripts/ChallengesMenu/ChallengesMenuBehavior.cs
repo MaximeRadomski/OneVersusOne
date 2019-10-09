@@ -46,11 +46,12 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Tournament01()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
 		PlayerPrefs.SetInt ("NbOpponents", 3);
 		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
-		PlayerPrefs.SetInt ("TournamentOpponent", 1);
+		PlayerPrefs.SetInt ("TournamentOpponent", 0);
 		PlayerPrefs.SetInt ("MaxScore", 12);
 		PlayerPrefs.SetInt ("MaxSets", 2);
 		PlayerPrefs.SetString ("TournamentDifficulties", "001");
@@ -59,11 +60,12 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Tournament02()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
 		PlayerPrefs.SetInt ("NbOpponents", 4);
 		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
-		PlayerPrefs.SetInt ("TournamentOpponent", 1);
+		PlayerPrefs.SetInt ("TournamentOpponent", 0);
 		PlayerPrefs.SetInt ("MaxScore", 12);
 		PlayerPrefs.SetInt ("MaxSets", 2);
 		PlayerPrefs.SetString ("TournamentDifficulties", "0112");
@@ -72,11 +74,12 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Tournament03()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
 		PlayerPrefs.SetInt ("NbOpponents", 5);
 		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
-		PlayerPrefs.SetInt ("TournamentOpponent", 1);
+		PlayerPrefs.SetInt ("TournamentOpponent", 0);
 		PlayerPrefs.SetInt ("MaxScore", 12);
 		PlayerPrefs.SetInt ("MaxSets", 2);
 		PlayerPrefs.SetString ("TournamentDifficulties", "11222");
@@ -85,11 +88,12 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Tournament04()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 4);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 4);
 		PlayerPrefs.SetInt ("NbOpponents", 5);
 		PlayerPrefs.SetInt ("Opponent", Opponent.AI.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Tournament.GetHashCode ());
-		PlayerPrefs.SetInt ("TournamentOpponent", 1);
+		PlayerPrefs.SetInt ("TournamentOpponent", 0);
 		PlayerPrefs.SetInt ("MaxScore", 12);
 		PlayerPrefs.SetInt ("MaxSets", 2);
 		PlayerPrefs.SetString ("TournamentDifficulties", "22222");
@@ -98,7 +102,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Target01()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 1);
@@ -109,7 +114,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Target02()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 6);
@@ -120,7 +126,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Target03()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Target.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 4);
@@ -131,7 +138,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Catch01()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Catch.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Catch.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 3);
@@ -142,7 +150,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Catch02()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Catch.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Catch.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 5);
@@ -153,7 +162,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Catch03()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Catch.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Catch.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 2);
@@ -164,7 +174,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Breakout01()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 1);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Breakout.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Breakout.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 3);
@@ -175,7 +186,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Breakout02()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 2);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Breakout.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Breakout.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 6);
@@ -186,7 +198,8 @@ public class ChallengesMenuBehavior : MonoBehaviour
 
 	private void Breakout03()
 	{
-		PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
+        GenericHelpers.ResetGameInProgress();
+        PlayerPrefs.SetInt ("CurrentChallengeDifficulty", 3);
 		PlayerPrefs.SetInt ("Opponent", Opponent.Breakout.GetHashCode ());
 		PlayerPrefs.SetInt ("GameMode", GameMode.Breakout.GetHashCode ());
 		PlayerPrefs.SetInt ("SelectedMap", 4);

@@ -15,16 +15,20 @@ public class TournamentMatchBehavior : MonoBehaviour
 
 	void Start ()
 	{
-		var tournamentOpponent = PlayerPrefs.GetInt ("TournamentOpponent", 1);
-		if (tournamentOpponent == 1)
-			SetTournament (tournamentOpponent);
+		var tournamentOpponent = PlayerPrefs.GetInt ("TournamentOpponent", 0);
+        if (tournamentOpponent == 0)
+        {
+            ++tournamentOpponent;
+            SetTournament();
+        }
 		DisplayTournament (tournamentOpponent);
 		Invoke ("ContinueTournament", 3.0f);
 	}
 
-	private void SetTournament (int tournamentOpponent)
+	private void SetTournament ()
 	{
-		var playerCharacterId = PlayerPrefs.GetInt ("P1Character");
+        PlayerPrefs.SetInt("TournamentOpponent", 1);
+        var playerCharacterId = PlayerPrefs.GetInt ("P1Character");
         if (playerCharacterId == 0)
         {
             playerCharacterId = Random.Range(1,7);

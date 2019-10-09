@@ -302,10 +302,11 @@ public class GameManagerBehavior : MonoBehaviour
 
 		if (PlayerPrefs.GetInt ("GameMode") == GameMode.Tournament.GetHashCode () && _isWinner) {
 			int nbOpponents = PlayerPrefs.GetInt ("NbOpponents");
-			var tournamentOpponent = PlayerPrefs.GetInt ("TournamentOpponent", 1);
+			var tournamentOpponent = PlayerPrefs.GetInt ("TournamentOpponent", 0);
 			tournamentOpponent++;
 			if (tournamentOpponent <= nbOpponents) {
-				PlayerPrefs.SetInt ("TournamentOpponent", tournamentOpponent);
+                GenericHelpers.ResetGameInProgress();
+                PlayerPrefs.SetInt ("TournamentOpponent", tournamentOpponent);
 				SceneManager.LoadScene ("TournamentMatch");
 				return;
 			} else if (PlayerPrefs.GetInt("Tournament", 0) <= PlayerPrefs.GetInt ("CurrentChallengeDifficulty")) {

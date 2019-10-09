@@ -412,7 +412,7 @@ public class BallBehavior : MonoBehaviour
     {
         var predictionDiscModel = Resources.Load<GameObject>("Prefabs/PredictionDisc");
         var predictionDiscInstance = Instantiate(predictionDiscModel, transform.position, predictionDiscModel.transform.rotation);
-        predictionDiscInstance.GetComponent<Rigidbody2D>().velocity = direction * (customSpeed + 2);
+        predictionDiscInstance.GetComponent<Rigidbody2D>().velocity = direction * (customSpeed + 3);
     }
 
     public void SetGravityScaleFromPower(float power)
