@@ -36,10 +36,14 @@ public class PopupNumbersBehavior : MonoBehaviour
 		Invoke ("InputBar", _inputBarDelay);
 	}
 
-	private void InputBar()
+    private void InputBar()
 	{
 		_hasInputBar = !_hasInputBar;
-		AddRemoveInputBar ();
+        if (_hasInputBar)
+            _text.transform.position = new Vector3(0.0555f, _text.transform.position.y, 0.0f);
+        else
+            _text.transform.position = new Vector3(0.0f, _text.transform.position.y, 0.0f);
+        AddRemoveInputBar ();
 		Invoke ("InputBar", _inputBarDelay);
 	}
 
