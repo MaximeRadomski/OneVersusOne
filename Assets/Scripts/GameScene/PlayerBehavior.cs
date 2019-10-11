@@ -249,7 +249,8 @@ public class PlayerBehavior : MonoBehaviour
 			transform.rotation = Quaternion.Euler(0.0f, 0.0f, -90.0f); 
 			Animator.SetBool ("IsMoving", true);
 		} else if (Direction == Direction.BackDash) {
-            transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+            transform.rotation = _initialRotation;
+            transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f));
             Animator.SetBool ("IsMoving", true);
 		} else if (isDash) {
             transform.rotation = _initialRotation;

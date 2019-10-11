@@ -17,7 +17,7 @@ public class PopupNumbersBehavior : MonoBehaviour
 	{
 		_numberToString = "";
 		_hasInputBar = true;
-		_inputBarDelay = 0.8f;
+		_inputBarDelay = 0.4f;
 		_text = GameObject.Find ("PopupText").GetComponent<UnityEngine.UI.Text> ();
 		ActualizeNumber ();
 
