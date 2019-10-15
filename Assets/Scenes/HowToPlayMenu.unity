@@ -1166,6 +1166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 3
+  DirectionKeptHolded: 0
 --- !u!61 &116364046
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1367,6 +1368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 4
+  DirectionKeptHolded: 0
 --- !u!61 &119761255
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3356,6 +3358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 0
+  DirectionKeptHolded: 0
 --- !u!61 &370481756
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3984,6 +3987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 4
+  DirectionKeptHolded: 0
 --- !u!61 &509779400
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4637,6 +4641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 2
+  DirectionKeptHolded: 0
 --- !u!61 &549410740
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5195,6 +5200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 3
+  DirectionKeptHolded: 0
 --- !u!61 &708410075
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5338,6 +5344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 1
+  DirectionKeptHolded: 0
 --- !u!61 &715403801
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6386,7 +6393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300bca94537ce3479fa8d14c4cab5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Side: 1
+  VerticalSide: 2
+  HorizontalSide: 0
   Type: 0
 --- !u!212 &871695244
 SpriteRenderer:
@@ -6657,6 +6665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 1
+  DirectionKeptHolded: 0
 --- !u!61 &919424704
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7051,6 +7060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 5
+  DirectionKeptHolded: 0
 --- !u!61 &998616121
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10124,6 +10134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 2
+  DirectionKeptHolded: 0
 --- !u!61 &1510704724
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10626,7 +10637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300bca94537ce3479fa8d14c4cab5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Side: 0
+  VerticalSide: 1
+  HorizontalSide: 0
   Type: 0
 --- !u!212 &1552975203
 SpriteRenderer:
@@ -10817,6 +10829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 0
   Action: 6
+  DirectionKeptHolded: 0
 --- !u!61 &1591151342
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10995,6 +11008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 0
+  DirectionKeptHolded: 0
 --- !u!61 &1641903468
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12991,6 +13005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: 1
   Action: 5
+  DirectionKeptHolded: 0
 --- !u!61 &1901380219
 BoxCollider2D:
   m_ObjectHideFlags: 0

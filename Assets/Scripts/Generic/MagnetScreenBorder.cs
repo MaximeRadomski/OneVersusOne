@@ -4,35 +4,67 @@ using UnityEngine;
 
 public class MagnetScreenBorder : MonoBehaviour
 {
-	public CameraSide Side;
-	public GameObjectType Type;
+	public CameraVerticalSide VerticalSide;
+    public CameraHorizontalSide HorizontalSide;
+    public GameObjectType Type;
 
-	private float _mult;
+	private float _verticalMult;
+    private float _horizontalMult;
 
-	void Start ()
+    void Start ()
 	{
-		_mult = Side == CameraSide.TopBorder ? 1.0f : -1.0f;
-		Invoke ("AdjustPosition", 0.0f);
-	}
+        if (VerticalSide != CameraVerticalSide.None)
+        {
+            _verticalMult = VerticalSide == CameraVerticalSide.TopBorder ? 1.0f : -1.0f;
+            Invoke("AdjustVerticalPosition", 0.0f);
+        }
+        if (HorizontalSide != CameraHorizontalSide.None)
+        {
+            _horizontalMult = HorizontalSide == CameraHorizontalSide.RightBorder ? 1.0f : -1.0f;
+            Invoke("AdjustHorizontalPosition", 0.0f);
+        }
+    }
 
-	private void AdjustPosition()
+	private void AdjustVerticalPosition()
 	{
-		float WorldSize;
+		float WorldYSize;
 		if (Type == GameObjectType.Text)
-			WorldSize = this.GetComponent<RectTransform> ().rect.y * this.transform.lossyScale.y;
+			WorldYSize = this.GetComponent<RectTransform> ().rect.y * this.transform.lossyScale.y;
 		else {
 			//WorldSize = this.transform.lossyScale.y / -2f;
-			WorldSize = this.GetComponent<SpriteRenderer>().bounds.size.y / -2;
+			WorldYSize = this.GetComponent<SpriteRenderer>().bounds.size.y / -2.0f;
 		}
 			
-		transform.position = new Vector3(transform.position.x, (_mult * Camera.main.orthographicSize) + (_mult * WorldSize), 0.0f);
+		transform.position = new Vector3(transform.position.x, (_verticalMult * Camera.main.orthographicSize) + (_verticalMult * WorldYSize), 0.0f);
 	}
+
+    private void AdjustHorizontalPosition()
+    {
+        float WorldXSize;
+        if (Type == GameObjectType.Text)
+            WorldXSize = this.GetComponent<RectTransform>().rect.x * this.transform.lossyScale.x;
+        else
+        {
+            //WorldSize = this.transform.lossyScale.x / -2f;
+            WorldXSize = this.GetComponent<SpriteRenderer>().bounds.size.x / -2.0f;
+        }
+
+        transform.position = new Vector3((_horizontalMult * Camera.main.orthographicSize * Camera.main.aspect) + (_horizontalMult * (WorldXSize - 0.05f)), transform.position.y, 0.0f);
+    }
 }
 
-public enum CameraSide
+public enum CameraVerticalSide
 {
+    None,
 	TopBorder,
 	BotBorder
+}
+
+public enum CameraHorizontalSide
+{
+    None,
+    LeftBorder,
+    RightBorder
 }
 
 public enum GameObjectType

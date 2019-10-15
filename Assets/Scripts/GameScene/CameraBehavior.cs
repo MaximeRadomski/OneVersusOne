@@ -14,9 +14,11 @@ public class CameraBehavior : MonoBehaviour
 
     void Start()
     {
+        //if (Screen.currentResolution.)
 		float unitsPerPixel = sceneWidth / Screen.width;
 		float desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
-		Camera.orthographicSize = desiredHalfHeight;
+        if (desiredHalfHeight > 3.50f)
+		    Camera.orthographicSize = desiredHalfHeight;
 
 		_nbReset = 0;
 		_initialCameraSize = Camera.orthographicSize;

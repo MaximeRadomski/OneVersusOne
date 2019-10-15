@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300bca94537ce3479fa8d14c4cab5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Side: 1
+  VerticalSide: 2
+  HorizontalSide: 0
   Type: 0
 --- !u!212 &5230762
 SpriteRenderer:
@@ -12613,7 +12614,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300bca94537ce3479fa8d14c4cab5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Side: 0
+  VerticalSide: 1
+  HorizontalSide: 0
   Type: 0
 --- !u!212 &1856507913
 SpriteRenderer:

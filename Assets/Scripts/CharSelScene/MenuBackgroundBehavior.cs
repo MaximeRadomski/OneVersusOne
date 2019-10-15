@@ -9,8 +9,9 @@ public class MenuBackgroundBehavior : MonoBehaviour
 	public bool IsAdSceneBackground;
 
 	private float _originalHeight;
+    private float _originalWidth;
 
-	private void Awake()
+    private void Awake()
 	{
 		if (!IsAdSceneBackground)
 			DontDestroyOnLoad(transform.gameObject);
@@ -19,7 +20,8 @@ public class MenuBackgroundBehavior : MonoBehaviour
 	void Start()
 	{
 		_originalHeight = transform.lossyScale.y;
-		AdjustToCamera ();
+        _originalWidth = transform.lossyScale.x;
+        AdjustToCamera ();
 
 		var menuBackgroundList = GameObject.FindGameObjectsWithTag ("MenuBackground");
 		if (menuBackgroundList.Length > 1)
@@ -32,8 +34,9 @@ public class MenuBackgroundBehavior : MonoBehaviour
 	public void AdjustToCamera()
 	{
 		float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
-		transform.localScale = new Vector3(transform.localScale.x, worldScreenHeight, 1);
-		Renderer.material.mainTextureScale = new Vector2 (1.0f, transform.lossyScale.y / _originalHeight);
+        float worldScreenWidth = worldScreenHeight * Camera.main.aspect;
+        transform.localScale = new Vector3(worldScreenWidth, worldScreenHeight, 1);
+        Renderer.material.mainTextureScale = new Vector2 (transform.lossyScale.x / _originalWidth, transform.lossyScale.y / _originalHeight);
 	}
 
 	void Update ()

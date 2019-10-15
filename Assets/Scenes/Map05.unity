@@ -3289,6 +3289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteOn: {fileID: 21300002, guid: 18c861d4a1e086845b4b64bfe1155aba, type: 3}
   SpriteOff: {fileID: 21300008, guid: 18c861d4a1e086845b4b64bfe1155aba, type: 3}
+  Order: 0
 --- !u!212 &387530852
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4149,7 +4150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300bca94537ce3479fa8d14c4cab5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Side: 0
+  VerticalSide: 1
+  HorizontalSide: 0
   Type: 0
 --- !u!212 &491616103
 SpriteRenderer:
@@ -10147,6 +10149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteOn: {fileID: 21300004, guid: 18c861d4a1e086845b4b64bfe1155aba, type: 3}
   SpriteOff: {fileID: 21300010, guid: 18c861d4a1e086845b4b64bfe1155aba, type: 3}
+  Order: 0
 --- !u!212 &1347968466
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13413,6 +13416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteOn: {fileID: 21300000, guid: 18c861d4a1e086845b4b64bfe1155aba, type: 3}
   SpriteOff: {fileID: 21300006, guid: 18c861d4a1e086845b4b64bfe1155aba, type: 3}
+  Order: 0
 --- !u!212 &1873968281
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14011,7 +14015,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300bca94537ce3479fa8d14c4cab5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Side: 1
+  VerticalSide: 2
+  HorizontalSide: 0
   Type: 0
 --- !u!212 &1945893904
 SpriteRenderer:

@@ -319,7 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300bca94537ce3479fa8d14c4cab5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Side: 1
+  VerticalSide: 2
+  HorizontalSide: 2
   Type: 1
 --- !u!1 &82530974
 GameObject:
@@ -1388,7 +1389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300bca94537ce3479fa8d14c4cab5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Side: 1
+  VerticalSide: 2
+  HorizontalSide: 1
   Type: 1
 --- !u!1 &1027283488
 GameObject:
