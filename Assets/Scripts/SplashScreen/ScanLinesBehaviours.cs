@@ -20,5 +20,13 @@ public class ScanLinesBehaviours : MonoBehaviour
 		var opacityInt = PlayerPrefs.GetInt ("ScanLines", 1);
 		var newOpacity = (float)opacityInt * 0.10f;
 		SetOpacity (newOpacity);
-	}
+        AdjustHorizontalToCamera();
+
+    }
+    private void AdjustHorizontalToCamera()
+    {
+        float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
+        float worldScreenWidth = worldScreenHeight * Camera.main.aspect;
+        transform.localScale = new Vector3(worldScreenWidth, transform.localScale.y, 1);
+    }
 }

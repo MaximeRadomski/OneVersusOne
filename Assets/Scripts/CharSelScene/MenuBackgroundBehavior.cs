@@ -39,6 +39,14 @@ public class MenuBackgroundBehavior : MonoBehaviour
         Renderer.material.mainTextureScale = new Vector2 (transform.lossyScale.x / _originalWidth, transform.lossyScale.y / _originalHeight);
 	}
 
+    public void AdjustHorizontalToCamera()
+    {
+        float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
+        float worldScreenWidth = worldScreenHeight * Camera.main.aspect;
+        transform.localScale = new Vector3(worldScreenWidth, transform.localScale.y, 1);
+        Renderer.material.mainTextureScale = new Vector2(transform.lossyScale.x / _originalWidth, 1.0f);
+    }
+
 	void Update ()
 	{
 		float offset = Time.time * ScrollSpeed;

@@ -66,7 +66,8 @@ public class SplashScreenManagerBehavior : MonoBehaviour
 		CustomAudio.PlayEffect(GameObject.Find("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>().SwitchTVONFileID);
 		_blackBackground.SetActive (false);
 		_movingBackground.GetComponent<MeshRenderer> ().enabled = true;
-		_movingBackground.GetComponent<MenuBackgroundBehavior> ().ScrollSpeed = 0.05f;
+        _movingBackground.GetComponent<MenuBackgroundBehavior>().AdjustHorizontalToCamera();
+        _movingBackground.GetComponent<MenuBackgroundBehavior> ().ScrollSpeed = 0.05f;
 		Invoke ("DisplayAbject", 1.0f);
 	}
 
