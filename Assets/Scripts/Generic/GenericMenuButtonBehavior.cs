@@ -21,8 +21,9 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 
 	void Start()
 	{
-		if (ButtonSound != ButtonSoundType.NoSound)
-			_genericMenuManager = GameObject.Find ("$GenericMenuManager").GetComponent<GenericMenuManagerBehavior>();
+        GameObject tmpGenericMenuManager = null;
+        if (ButtonSound != ButtonSoundType.NoSound && (tmpGenericMenuManager = GameObject.Find("$GenericMenuManager")) != null)
+			_genericMenuManager = tmpGenericMenuManager.GetComponent<GenericMenuManagerBehavior>();
 	}
 
 	public void SwitchSprite()
@@ -81,7 +82,8 @@ public class GenericMenuButtonBehavior : MonoBehaviour
 		switch (ButtonSound)
 		{
 		case ButtonSoundType.MenuBipGoTo:
-			CustomAudio.PlayEffect(_genericMenuManager.MenuBipGoToAudioFileID);
+            if (_genericMenuManager != null)
+			    CustomAudio.PlayEffect(_genericMenuManager.MenuBipGoToAudioFileID);
 			break;
 		default:
 			break;
