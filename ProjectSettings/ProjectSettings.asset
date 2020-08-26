@@ -123,7 +123,7 @@ PlayerSettings:
     16:10: 0
     16:9: 0
     Others: 1
-  bundleVersion: 1.1.0
+  bundleVersion: 1.1.1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -170,7 +170,7 @@ PlayerSettings:
     Android: com.Abject.BackStabbers
     Standalone: com.Company.ProductName
   buildNumber: {}
-  AndroidBundleVersionCode: 110
+  AndroidBundleVersionCode: 111
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
